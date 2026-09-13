@@ -77,11 +77,18 @@ pipeline {
 
         stage('Push Image') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                    sh "echo \$DOCKER_PASS | /usr/local/bin/docker login -u \$DOCKER_USER --password-stdin"
-                    sh "/usr/local/bin/docker push ${env.DOCKER_TAG}"
+                script {
+                    try {
+                        withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                            sh "echo \$DOCKER_PASS | /usr/local/bin/docker login -u \$DOCKER_USER --password-stdin"
+                            sh "/usr/local/bin/docker push ${env.DOCKER_TAG}"
+                        }
+                        echo "Pushed: ${env.DOCKER_TAG} (eslamnabawy/node-multi-branch:${env.IMAGE_TAG})"
+                    } catch (e) {
+                        echo "WARNING: Push skipped — 'dockerhub-credentials' not found or push failed: ${e.getMessage()}"
+                        echo "Image built locally: ${env.DOCKER_TAG} — create Jenkins credential ID 'dockerhub-credentials' to enable push."
+                    }
                 }
-                echo "Pushed: ${env.DOCKER_TAG} (eslamnabawy/node-multi-branch:${env.IMAGE_TAG})"
             }
         }
     }
