@@ -35,7 +35,8 @@ pipeline {
 
         stage('Build Image') {
             steps {
-                    sh "/usr/local/bin/docker build -t ${env.DOCKER_TAG} ."
+                // Use the container-installed CLI explicitly so Jenkins does not depend on its startup PATH.
+                sh "/usr/local/bin/docker build -t ${env.DOCKER_TAG} ."
             }
         }
 
