@@ -2,9 +2,8 @@ pipeline {
     agent any
 
     environment {
-        // Multi-branch config: image tag and env derived from Git branch
         IMAGE_NAME = "eslamnabawy/node-multi-branch"
-        BRANCH_NAME = 'main'
+        // BRANCH_NAME comes from Jenkins Git branch (env.BRANCH_NAME / env.GIT_BRANCH) — no hardcode
     }
 
     stages {
@@ -18,24 +17,29 @@ pipeline {
         stage('Setup Env') {
             steps {
                 script {
-                    // Map branch to image tag and environment
+                    // Resolve branch: prefer BRANCH_NAME (multibranch), fallback to GIT_BRANCH or main
+                    def rawBranch = env.BRANCH_NAME ?: env.GIT_BRANCH ?: 'main'
+                    def branch = rawBranch.contains('/') ? rawBranch.tokenize('/').last() : rawBranch
                     def mapping = [
                         'main': [tag: 'main', env: 'production'],
                         'stg' : [tag: 'stg',  env: 'staging'],
                         'dev' : [tag: 'dev',  env: 'development']
                     ]
-                    def cfg = mapping[env.BRANCH_NAME] ?: [tag: 'dev', env: 'development']
+                    def cfg = mapping[branch] ?: [tag: 'dev', env: 'development']
+                    env.RESOLVED_BRANCH = branch
                     env.IMAGE_TAG = cfg.tag
                     env.DEPLOY_ENV = cfg.env
                     env.DOCKER_TAG = "${env.IMAGE_NAME}:${cfg.tag}"
+                    if (branch != env.BRANCH_NAME) {
+                        echo "Normalized branch '${env.BRANCH_NAME}' -> '${branch}'"
+                    }
                 }
-                echo "Branch=${env.BRANCH_NAME} → Image=${env.DOCKER_TAG} → Env=${env.DEPLOY_ENV}"
+                echo "Branch=${env.RESOLVED_BRANCH} → Image=${env.DOCKER_TAG} → Env=${env.DEPLOY_ENV}"
             }
         }
 
         stage('Build Image') {
             steps {
-                // Use the container-installed CLI explicitly so Jenkins does not depend on its startup PATH.
                 sh "/usr/local/bin/docker build -t ${env.DOCKER_TAG} ."
             }
         }
@@ -43,11 +47,30 @@ pipeline {
         stage('Test Image') {
             steps {
                 sh """
-                    /usr/local/bin/docker run -d --name test-${env.BRANCH_NAME} -p 3000:3000 -e BRANCH=${env.BRANCH_NAME} -e ENV=${env.DEPLOY_ENV} ${env.DOCKER_TAG}
-                    sleep 3
-                    curl -sf http://localhost:3000/health || exit 1
-                    /usr/local/bin/docker stop test-${env.BRANCH_NAME}
-                    /usr/local/bin/docker rm test-${env.BRANCH_NAME}
+                    set -e
+                    echo "Cleaning any prior test container..."
+                    /usr/local/bin/docker rm -f test-\${RESOLVED_BRANCH} 2>/dev/null || true
+                    echo "Starting test container..."
+                    /usr/local/bin/docker run -d --name test-\${RESOLVED_BRANCH} -p 3000:3000 -e BRANCH=\${RESOLVED_BRANCH} -e ENV=\${DEPLOY_ENV} \${DOCKER_TAG}
+                    echo "Waiting for app..."
+                    sleep 5
+                    echo "Health check via host.docker.internal:3000..."
+                    for i in 1 2 3 4 5 6; do
+                      if curl -sf http://host.docker.internal:3000/health; then
+                        echo "Health check PASSED (attempt \$i)"
+                        break
+                      fi
+                      echo "Health check retry \$i/6..."
+                      sleep 3
+                      if [ \$i -eq 6 ]; then
+                        echo "Health check FAILED after 6 attempts — dumping logs:"
+                        /usr/local/bin/docker logs test-\${RESOLVED_BRANCH} || true
+                        /usr/local/bin/docker rm -f test-\${RESOLVED_BRANCH} || true
+                        exit 1
+                      fi
+                    done
+                    echo "Stopping test container..."
+                    /usr/local/bin/docker rm -f test-\${RESOLVED_BRANCH}
                 """
             }
         }
@@ -65,7 +88,8 @@ pipeline {
 
     post {
         always {
-            echo "Pipeline finished for branch: ${env.BRANCH_NAME} with tag ${env.IMAGE_TAG}"
+            sh "/usr/local/bin/docker rm -f test-\${RESOLVED_BRANCH} 2>/dev/null || true"
+            echo "Pipeline finished for branch: \${RESOLVED_BRANCH} with tag \${IMAGE_TAG} — health: host.docker.internal:3000/health"
         }
     }
 }
