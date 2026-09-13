@@ -4,7 +4,7 @@ pipeline {
     environment {
         // Multi-branch config: image tag and env derived from Git branch
         IMAGE_NAME = "eslamnabawy/node-multi-branch"
-        BRANCH_NAME = env.BRANCH_NAME ?: 'dev'
+        BRANCH_NAME = 'main'
     }
 
     stages {
