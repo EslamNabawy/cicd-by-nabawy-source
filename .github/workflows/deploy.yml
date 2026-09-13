@@ -1,0 +1,68 @@
+name: Build & Deploy Library
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: deploy-library
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: QC gate
+        run: python scripts/qc-check.py
+
+      - name: Build site
+        run: python website/scripts/build.py
+
+      - name: Verify SEO artifacts
+        run: |
+          ls -lh website/dist/sitemap.xml website/dist/robots.txt
+          grep -q 'rel="canonical"' website/dist/index.html
+          grep -q 'application/ld+json' website/dist/index.html
+          echo "SEO artifacts OK — sitemap urls: $(grep -c '<url>' website/dist/sitemap.xml)"
+
+      - name: Upload dist artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: website/dist
+          if-no-files-found: error
+
+      - name: Deploy to gh-pages (site repo)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && secrets.GH_PAGES_PAT != ''
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          personal_token: ${{ secrets.GH_PAGES_PAT }}
+          external_repository: EslamNabawy/cicd-by-nabawy
+          publish_branch: gh-pages
+          publish_dir: website/dist
+          force_orphan: true
+          user_name: EslamNabawy
+          user_email: eslam@local
+          commit_message: 'deploy: ${{ github.event.head_commit.message }}'
+
+      - name: PAT missing hint
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && secrets.GH_PAGES_PAT == ''
+        run: |
+          echo "::warning::GH_PAGES_PAT not set — skipping cross-repo deploy. Build & QC passed, artifact uploaded."
+          echo "To enable auto-deploy: create a fine-grained PAT (Contents: Read & Write on EslamNabawy/cicd-by-nabawy) and add it as secret GH_PAGES_PAT in cicd-by-nabawy-source."
+          echo "Until then, deploy manually:"
+          echo '  DEP="$LOCALAPPDATA/Temp/cicd-deployN" && mkdir -p "$DEP" && cp -r website/dist/* "$DEP/" && touch "$DEP/.nojekyll" && cd "$DEP" && git init -q -b gh-pages && git add -A && git -c user.name=EslamNabawy -c user.email=eslam@local commit -qm "deploy" && git remote add origin https://github.com/EslamNabawy/cicd-by-nabawy.git && git push -f origin gh-pages'

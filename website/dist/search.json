@@ -1,0 +1,532 @@
+[
+ {
+  "id": "foundations",
+  "title": "CI/CD Foundations",
+  "desc": "The automated path from commit to production: CI, delivery, deployment, and the full lifecycle.",
+  "cat": "CI/CD",
+  "dif": "Beginner",
+  "tags": [
+   "lifecycle",
+   "ci",
+   "cd"
+  ],
+  "time": 25
+ },
+ {
+  "id": "git-branching",
+  "title": "Git, Branching & Pull Requests",
+  "desc": "The quality gate that feeds CI: branches, reviews, triggers, and branching models.",
+  "cat": "CI/CD",
+  "dif": "Beginner",
+  "tags": [
+   "git",
+   "branching",
+   "pr"
+  ],
+  "time": 25
+ },
+ {
+  "id": "pipelines",
+  "title": "CI/CD Pipelines",
+  "desc": "Stages, jobs, steps, runners, hermetic builds, BuildKit and Kaniko.",
+  "cat": "CI/CD",
+  "dif": "Beginner",
+  "tags": [
+   "pipeline",
+   "runners",
+   "hermetic"
+  ],
+  "time": 35
+ },
+ {
+  "id": "artifacts",
+  "title": "Artifact Management",
+  "desc": "Build once, promote the digest everywhere: registries, versioning, signing, SBOM.",
+  "cat": "CI/CD",
+  "dif": "Intermediate",
+  "tags": [
+   "registry",
+   "sbom",
+   "signing"
+  ],
+  "time": 35
+ },
+ {
+  "id": "delivery",
+  "title": "Continuous Delivery",
+  "desc": "Releasable always, deployed by decision: staging, approvals, promotion.",
+  "cat": "CI/CD",
+  "dif": "Intermediate",
+  "tags": [
+   "delivery",
+   "staging",
+   "approvals"
+  ],
+  "time": 30
+ },
+ {
+  "id": "strategies",
+  "title": "Deployment Strategies",
+  "desc": "Same artifact, different traffic shape: Rolling, Blue/Green, Canary, Recreate, Feature Flags.",
+  "cat": "CI/CD",
+  "dif": "Intermediate",
+  "tags": [
+   "canary",
+   "blue-green",
+   "flags"
+  ],
+  "time": 35
+ },
+ {
+  "id": "ci",
+  "title": "Continuous Integration",
+  "desc": "Merge discipline: gates, queues, trunk.",
+  "cat": "CI/CD",
+  "dif": "Beginner",
+  "tags": [
+   "ci",
+   "gates",
+   "trunk"
+  ],
+  "time": 25
+ },
+ {
+  "id": "build",
+  "title": "Build Systems",
+  "desc": "Hermetic builds, caching, multi-stage images.",
+  "cat": "Build",
+  "dif": "Intermediate",
+  "tags": [
+   "build",
+   "caching",
+   "docker"
+  ],
+  "time": 30
+ },
+ {
+  "id": "testing",
+  "title": "Testing Strategy",
+  "desc": "Pyramid, placement, flaky policy.",
+  "cat": "Testing",
+  "dif": "Intermediate",
+  "tags": [
+   "testing",
+   "pyramid",
+   "flaky"
+  ],
+  "time": 30
+ },
+ {
+  "id": "deployment-auto",
+  "title": "Continuous Deployment",
+  "desc": "Auto-to-prod prereqs and kill criteria.",
+  "cat": "CI/CD",
+  "dif": "Advanced",
+  "tags": [
+   "deployment",
+   "progressive",
+   "automation"
+  ],
+  "time": 30
+ },
+ {
+  "id": "envs",
+  "title": "Environments & Release",
+  "desc": "Topology, config vs code, release trains.",
+  "cat": "Delivery",
+  "dif": "Intermediate",
+  "tags": [
+   "environments",
+   "config",
+   "release"
+  ],
+  "time": 30
+ },
+ {
+  "id": "security",
+  "title": "CI/CD Security",
+  "desc": "Secrets, signing, SBOM, least privilege.",
+  "cat": "Security",
+  "dif": "Advanced",
+  "tags": [
+   "secrets",
+   "sbom",
+   "supply-chain"
+  ],
+  "time": 40
+ },
+ {
+  "id": "rollback",
+  "title": "Rollback & Recovery",
+  "desc": "Per-strategy moves, drills, postmortems.",
+  "cat": "Reliability",
+  "dif": "Intermediate",
+  "tags": [
+   "rollback",
+   "recovery",
+   "mttr"
+  ],
+  "time": 30
+ },
+ {
+  "id": "lab-01",
+  "title": "Lab 01: First Pipeline",
+  "desc": "Push to green check with branch protection.",
+  "cat": "Labs",
+  "dif": "Beginner",
+  "tags": [
+   "lab",
+   "pipeline"
+  ],
+  "time": 45
+ },
+ {
+  "id": "lab-02",
+  "title": "Lab 02: Build & Test",
+  "desc": "DAG jobs, caching, hermetic proof.",
+  "cat": "Labs",
+  "dif": "Beginner",
+  "tags": [
+   "lab",
+   "build"
+  ],
+  "time": 45
+ },
+ {
+  "id": "lab-03",
+  "title": "Lab 03: Artifacts",
+  "desc": "SHA tags, GHCR, SBOM.",
+  "cat": "Labs",
+  "dif": "Intermediate",
+  "tags": [
+   "lab",
+   "artifacts"
+  ],
+  "time": 45
+ },
+ {
+  "id": "lab-04",
+  "title": "Lab 04: Deployment",
+  "desc": "Staging auto, production approval.",
+  "cat": "Labs",
+  "dif": "Intermediate",
+  "tags": [
+   "lab",
+   "deployment"
+  ],
+  "time": 60
+ },
+ {
+  "id": "lab-05",
+  "title": "Lab 05: Rollback",
+  "desc": "Break prod, redeploy digest, postmortem.",
+  "cat": "Labs",
+  "dif": "Intermediate",
+  "tags": [
+   "lab",
+   "rollback"
+  ],
+  "time": 45
+ },
+ {
+  "id": "lab-06",
+  "title": "Lab 06: Jenkins Live",
+  "desc": "Compose controller plus agent, first pipeline.",
+  "cat": "Labs",
+  "dif": "Intermediate",
+  "tags": [
+   "lab",
+   "jenkins"
+  ],
+  "time": 60
+ },
+ {
+  "id": "lab-07",
+  "title": "Lab 07: Shared Library",
+  "desc": "Versioned pipeline reuse.",
+  "cat": "Labs",
+  "dif": "Advanced",
+  "tags": [
+   "lab",
+   "shared-library"
+  ],
+  "time": 60
+ },
+ {
+  "id": "lab-08",
+  "title": "Lab 08: Backup & Restore",
+  "desc": "DR drill: destroy, restore, replay.",
+  "cat": "Labs",
+  "dif": "Advanced",
+  "tags": [
+   "lab",
+   "backup",
+   "dr"
+  ],
+  "time": 60
+ },
+ {
+  "id": "cheatsheet",
+  "title": "Command Cheatsheet",
+  "desc": "Every lab command grouped by tool.",
+  "cat": "Reference",
+  "dif": "Beginner",
+  "tags": [
+   "reference",
+   "commands"
+  ],
+  "time": 15
+ },
+ {
+  "id": "gitlab",
+  "title": "GitLab CI",
+  "desc": "Stages, needs DAG, runners plus tags, review apps, merge trains.",
+  "cat": "Platforms",
+  "dif": "Intermediate",
+  "tags": [
+   "gitlab",
+   "runners"
+  ],
+  "time": 30
+ },
+ {
+  "id": "argocd",
+  "title": "ArgoCD and GitOps",
+  "desc": "Pull delivery, Application, sync waves, ApplicationSets.",
+  "cat": "Platforms",
+  "dif": "Advanced",
+  "tags": [
+   "gitops",
+   "argocd"
+  ],
+  "time": 40
+ },
+ {
+  "id": "iac",
+  "title": "IaC for Environments",
+  "desc": "Terraform envs, state per env, plan review, drift.",
+  "cat": "Platforms",
+  "dif": "Intermediate",
+  "tags": [
+   "terraform",
+   "iac"
+  ],
+  "time": 30
+ },
+ {
+  "id": "observability",
+  "title": "Observability & Feedback",
+  "desc": "Deploy, observe, learn, fix: golden signals, SLOs, DORA, postmortems.",
+  "cat": "CI/CD",
+  "dif": "Intermediate",
+  "tags": [
+   "slo",
+   "dora",
+   "metrics"
+  ],
+  "time": 30
+ },
+ {
+  "id": "jenkins-domain",
+  "title": "Jenkins Domain",
+  "desc": "The map: every generic concept becomes a controller, agent, or Jenkinsfile.",
+  "cat": "Jenkins",
+  "dif": "Beginner",
+  "tags": [
+   "jenkins",
+   "map"
+  ],
+  "time": 20
+ },
+ {
+  "id": "jenkins-architecture",
+  "title": "Jenkins Architecture",
+  "desc": "Controller schedules, agents execute: topology, state, remoting, Docker planes.",
+  "cat": "Jenkins",
+  "dif": "Beginner",
+  "tags": [
+   "jenkins",
+   "architecture"
+  ],
+  "time": 25
+ },
+ {
+  "id": "jenkins-setup",
+  "title": "Jenkins Setup",
+  "desc": "One container, one volume, one socket: install to first green build in seven steps.",
+  "cat": "Jenkins",
+  "dif": "Beginner",
+  "tags": [
+   "jenkins",
+   "setup",
+   "docker"
+  ],
+  "time": 30
+ },
+ {
+  "id": "jenkins-pipelines",
+  "title": "Jenkins Pipelines",
+  "desc": "Jenkinsfiles: Declarative vs Scripted, multibranch, Docker CI/CD, approval gates.",
+  "cat": "Jenkins",
+  "dif": "Intermediate",
+  "tags": [
+   "jenkinsfile",
+   "declarative"
+  ],
+  "time": 35
+ },
+ {
+  "id": "groovy",
+  "title": "Groovy Cheatsheet",
+  "desc": "Only the Groovy Jenkinsfiles need: strings, closures, idioms, sandbox rules.",
+  "cat": "Jenkins",
+  "dif": "Beginner",
+  "tags": [
+   "groovy",
+   "jenkinsfile"
+  ],
+  "time": 20
+ },
+ {
+  "id": "jenkins-agents",
+  "title": "Jenkins Agents",
+  "desc": "Labels select them, executors run on them: permanent, Docker, Kubernetes.",
+  "cat": "Jenkins",
+  "dif": "Intermediate",
+  "tags": [
+   "jenkins",
+   "agents"
+  ],
+  "time": 30
+ },
+ {
+  "id": "jenkins-credentials",
+  "title": "Jenkins Credentials",
+  "desc": "Typed secrets, scoped storage, masked bindings. Never hardcoded.",
+  "cat": "Jenkins",
+  "dif": "Intermediate",
+  "tags": [
+   "jenkins",
+   "secrets"
+  ],
+  "time": 25
+ },
+ {
+  "id": "jenkins-plugins",
+  "title": "Jenkins Plugins",
+  "desc": "How Jenkins grows: essential set, pinning, staging upgrades, pruning.",
+  "cat": "Jenkins",
+  "dif": "Beginner",
+  "tags": [
+   "jenkins",
+   "plugins"
+  ],
+  "time": 20
+ },
+ {
+  "id": "jenkins-webhooks",
+  "title": "Jenkins Webhooks",
+  "desc": "Pushes become builds in seconds: webhooks, multibranch, PR gates.",
+  "cat": "Jenkins",
+  "dif": "Intermediate",
+  "tags": [
+   "jenkins",
+   "webhooks"
+  ],
+  "time": 25
+ },
+ {
+  "id": "jenkins-security",
+  "title": "Jenkins Security",
+  "desc": "Auth matrix, agent distrust, secrets hygiene, patch cadence.",
+  "cat": "Jenkins",
+  "dif": "Advanced",
+  "tags": [
+   "jenkins",
+   "security"
+  ],
+  "time": 40
+ },
+ {
+  "id": "jenkins-advanced",
+  "title": "Jenkins Advanced",
+  "desc": "Shared libraries, matrix builds, JCasC, backup, Script Console, tuning.",
+  "cat": "Jenkins",
+  "dif": "Advanced",
+  "tags": [
+   "jenkins",
+   "jcasc",
+   "matrix"
+  ],
+  "time": 45
+ },
+ {
+  "id": "jenkins-troubleshooting",
+  "title": "Jenkins Troubleshooting",
+  "desc": "Queue to executor to workspace to log to config: triage table and recovery.",
+  "cat": "Jenkins",
+  "dif": "Intermediate",
+  "tags": [
+   "jenkins",
+   "troubleshooting"
+  ],
+  "time": 30
+ },
+ {
+  "id": "github-actions",
+  "title": "GitHub Actions",
+  "desc": "Zero infrastructure CI/CD: workflows, runners, environments as gates, cost.",
+  "cat": "GitHub",
+  "dif": "Beginner",
+  "tags": [
+   "github",
+   "actions",
+   "runners"
+  ],
+  "time": 25
+ },
+ {
+  "id": "jenkins-roadmap-2026",
+  "title": "Jenkins Roadmap 2026",
+  "desc": "Where Jenkins is headed: weekly/LTS cadence, Pipeline as YAML, Plugin Manager revamp, Tekton/JCasC, Puppet->Ansible infra, JDK 25 + Win2025.",
+  "cat": "Roadmap",
+  "dif": "Intermediate",
+  "tags": [
+   "jenkins",
+   "roadmap",
+   "2026",
+   "infrastructure"
+  ],
+  "time": 30
+ },
+ {
+  "id": "github-actions-roadmap-2026",
+  "title": "GitHub Actions Roadmap 2026",
+  "desc": "Securing the supply chain: dependency locking, scoped secrets, ruleset protections, S3/Event Hub data stream, L7 egress firewall, Arm64 & Immutable Releases.",
+  "cat": "Roadmap",
+  "dif": "Intermediate",
+  "tags": [
+   "github",
+   "actions",
+   "roadmap",
+   "supply-chain",
+   "2026"
+  ],
+  "time": 35
+ },
+ {
+  "id": "cicd-decision-guide",
+  "title": "CI/CD Decision Guide: Jenkins vs GitHub Actions",
+  "desc": "Choose (or combine) platforms: governance, cadence, extensibility, hosting, AI — with decision framework, gut-check table, and hybrid topology.",
+  "cat": "Roadmap",
+  "dif": "Intermediate",
+  "tags": [
+   "roadmap",
+   "decision",
+   "jenkins",
+   "github",
+   "platform-choice"
+  ],
+  "time": 30
+ }
+]
