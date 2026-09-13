@@ -35,18 +35,18 @@ pipeline {
 
         stage('Build Image') {
             steps {
-                sh "docker build -t ${env.DOCKER_TAG} ."
+                    sh "/usr/local/bin/docker build -t ${env.DOCKER_TAG} ."
             }
         }
 
         stage('Test Image') {
             steps {
                 sh """
-                    docker run -d --name test-${env.BRANCH_NAME} -p 3000:3000 -e BRANCH=${env.BRANCH_NAME} -e ENV=${env.DEPLOY_ENV} ${env.DOCKER_TAG}
+                    /usr/local/bin/docker run -d --name test-${env.BRANCH_NAME} -p 3000:3000 -e BRANCH=${env.BRANCH_NAME} -e ENV=${env.DEPLOY_ENV} ${env.DOCKER_TAG}
                     sleep 3
                     curl -sf http://localhost:3000/health || exit 1
-                    docker stop test-${env.BRANCH_NAME}
-                    docker rm test-${env.BRANCH_NAME}
+                    /usr/local/bin/docker stop test-${env.BRANCH_NAME}
+                    /usr/local/bin/docker rm test-${env.BRANCH_NAME}
                 """
             }
         }
@@ -54,8 +54,8 @@ pipeline {
         stage('Push Image') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                    sh "echo \$DOCKER_PASS | docker login -u \$DOCKER_USER --password-stdin"
-                    sh "docker push ${env.DOCKER_TAG}"
+                    sh "echo \$DOCKER_PASS | /usr/local/bin/docker login -u \$DOCKER_USER --password-stdin"
+                    sh "/usr/local/bin/docker push ${env.DOCKER_TAG}"
                 }
                 echo "Pushed: ${env.DOCKER_TAG} (eslamnabawy/node-multi-branch:${env.IMAGE_TAG})"
             }
