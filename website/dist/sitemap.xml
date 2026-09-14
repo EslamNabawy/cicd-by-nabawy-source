@@ -40,8 +40,6 @@
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/book/lab-04.html</loc><lastmod>2026-09-15</lastmod></url>
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/read/lab-05.html</loc><lastmod>2026-09-15</lastmod></url>
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/book/lab-05.html</loc><lastmod>2026-09-15</lastmod></url>
-  <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/read/lab-06.html</loc><lastmod>2026-09-15</lastmod></url>
-  <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/book/lab-06.html</loc><lastmod>2026-09-15</lastmod></url>
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/read/lab-07.html</loc><lastmod>2026-09-15</lastmod></url>
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/book/lab-07.html</loc><lastmod>2026-09-15</lastmod></url>
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/read/lab-08.html</loc><lastmod>2026-09-15</lastmod></url>
@@ -130,8 +128,7 @@
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/pdf/pdf-28-pipeline-labs.html</loc><lastmod>2026-09-15</lastmod></url>
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/pdf/pdf-30-lab-artifacts.html</loc><lastmod>2026-09-15</lastmod></url>
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/pdf/pdf-31-lab-deployment.html</loc><lastmod>2026-09-15</lastmod></url>
-  <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/pdf/pdf-32-lab-rollback.html</loc><lastmod>2026-09-15</lastmod></url>
-  <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/pdf/pdf-33-lab-jenkins-controller.html</loc><lastmod>2026-09-15</lastmod></url>
+  <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/pdf/pdf-32-rollback-jenkins.html</loc><lastmod>2026-09-15</lastmod></url>
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/pdf/pdf-34-lab-shared-library.html</loc><lastmod>2026-09-15</lastmod></url>
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/pdf/pdf-35-lab-backup-restore.html</loc><lastmod>2026-09-15</lastmod></url>
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/pdf/pdf-36-command-cheatsheet.html</loc><lastmod>2026-09-15</lastmod></url>

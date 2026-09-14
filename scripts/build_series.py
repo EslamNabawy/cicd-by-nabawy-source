@@ -47,7 +47,7 @@ SERIES = [
      "Eight labs: first pipeline to backup drill.",
      ["pdf-28-pipeline-labs.html",
       "pdf-30-lab-artifacts.html", "pdf-31-lab-deployment.html",
-      "pdf-32-lab-rollback.html", "pdf-33-lab-jenkins-controller.html",
+      "pdf-32-rollback-jenkins.html",
       "pdf-34-lab-shared-library.html", "pdf-35-lab-backup-restore.html",
       "pdf-36-command-cheatsheet.html"]),
     ("S09-github-actions.html", "GitHub Actions", "CI/CD SYSTEMS · SERIES EDITION · S09",

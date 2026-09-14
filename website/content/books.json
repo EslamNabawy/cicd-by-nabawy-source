@@ -409,55 +409,34 @@
   },
   {
     "id": "lab-05",
-    "title": "Lab 05 · Core: Rollback",
-    "file": "pdf-32-lab-rollback.html",
+    "title": "Lab 05-06 · Core: Rollback & Jenkins",
+    "file": "pdf-32-rollback-jenkins.html",
     "category": "Labs",
     "difficulty": "Intermediate",
-    "description": "Break prod, redeploy digest, postmortem.",
-    "time_minutes": 45,
+    "description": "Break prod, recover via rollback and postmortem, then run it live on Jenkins via Compose.",
+    "time_minutes": 105,
     "prereqs": [
       "lab-04",
-      "rollback"
+      "jenkins-setup"
     ],
     "outcomes": [
       "Break and recover prod",
       "Redeploy known digest",
-      "Run postmortem"
-    ],
-    "tags": [
-      "lab",
-      "rollback"
-    ],
-    "path": "labs",
-    "lab_env": "Staging + prod",
-    "updated": "2026-09-01",
-    "version": "2.0"
-  },
-  {
-    "id": "lab-06",
-    "title": "Lab 06 · Core: Jenkins Live",
-    "file": "pdf-33-lab-jenkins-controller.html",
-    "category": "Labs",
-    "difficulty": "Intermediate",
-    "description": "Compose controller plus agent, first pipeline.",
-    "time_minutes": 60,
-    "prereqs": [
-      "jenkins-setup"
-    ],
-    "outcomes": [
+      "Run postmortem",
       "Run controller+agent compose",
-      "Run first Jenkinsfile",
-      "Inspect workspace"
+      "Run first Jenkinsfile"
     ],
     "tags": [
       "lab",
+      "rollback",
       "jenkins"
     ],
     "path": "labs",
-    "lab_env": "Docker Compose",
+    "lab_env": "Staging + Docker Compose",
     "updated": "2026-09-01",
     "version": "2.0"
   },
+  
   {
     "id": "lab-07",
     "title": "Lab 07 · Core: Shared Library",
@@ -467,7 +446,7 @@
     "description": "Versioned pipeline reuse.",
     "time_minutes": 60,
     "prereqs": [
-      "lab-06",
+      "lab-05",
       "jenkins-pipelines"
     ],
     "outcomes": [
@@ -493,7 +472,7 @@
     "description": "DR drill: destroy, restore, replay.",
     "time_minutes": 60,
     "prereqs": [
-      "lab-06"
+      "lab-05"
     ],
     "outcomes": [
       "Back up JENKINS_HOME",
