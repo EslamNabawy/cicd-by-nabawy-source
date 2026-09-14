@@ -168,6 +168,12 @@ main.read{flex:1;min-width:0;padding:32px 32px 90px}
 .readbody .page.cover{align-items:flex-start !important}
 .readbody pre,.readbody .terminal{position:relative;overflow-x:auto;max-width:100%;scrollbar-width:thin}
 .readbody code,.readbody .mono{overflow-wrap:anywhere}
+.readbody .md-fallback{font-size:18px !important;line-height:1.75 !important}
+.readbody .md-fallback .body{font-size:18px !important;line-height:1.75 !important;margin:14px 0 !important}
+.readbody .md-fallback .sec{font-size:27px !important;line-height:1.25 !important;margin:30px 0 12px !important}
+.readbody .md-fallback .tight{font-size:17px !important;line-height:1.7 !important;margin:14px 0 14px 24px !important}
+.readbody .md-fallback .terminal{font-size:15px !important;line-height:1.6 !important;padding:16px !important}
+.readbody .md-fallback.cover h1{font-size:44px !important;line-height:1.1 !important}
 .copybar{display:flex;justify-content:flex-end;margin:0 0 8px}
 .copybtn{position:static;background:var(--bg);border:1px solid rgba(255,255,255,.14);color:var(--ink);border-radius:9999px;font-size:12px;font-weight:500;padding:4px 12px;cursor:pointer}
 [data-theme=light] .copybtn{border-color:rgba(0,0,0,.08)}
@@ -796,7 +802,7 @@ def markdown_pages(path, title):
     cover = (f'<div class="page cover"><div class="brand">CI/CD ENGINEERING · KNOWLEDGE BASE</div>'
              f'<h1>{html.escape(title)}</h1><p class="sub">CICD BY Nabawy</p>'
              f'<div class="cover foot"><span>Reader edition</span><span class="sig">Nabawy</span></div></div>')
-    return [cover] + [f'<div class="page">{p}<div class="pfoot"><span>CICD BY Nabawy</span><span>{i + 2}</span></div></div>' for i, p in enumerate(pages)]
+    return [cover.replace('class="page cover"', 'class="page cover md-fallback"')] + [f'<div class="page md-fallback">{p}<div class="pfoot"><span>CICD BY Nabawy</span><span>{i + 2}</span></div></div>' for i, p in enumerate(pages)]
 
 
 def parse_book(path):
