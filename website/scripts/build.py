@@ -97,7 +97,7 @@ header.top .wrap{display:flex;align-items:center;gap:16px;padding:12px 32px}
 .dif{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:var(--ink)}
 .dif i{font-style:normal;width:8px;height:8px;border-radius:50%;background:var(--cat,var(--brand));flex:none}
 .meta-line{font-size:12px;color:var(--mut)}
-.card a.read{margin-top:8px;align-self:flex-start;background:transparent;border:1px solid var(--cat,var(--brand));color:var(--cat,var(--brand));font-weight:500;font-size:14px;border-radius:9999px;padding:7px 22px}
+.card a.read{margin-top:8px;align-self:flex-start;background:transparent;border:1px solid var(--cat,var(--brand));color:var(--cat,var(--brand));font-weight:600;font-size:15px;border-radius:9999px;padding:10px 26px;min-height:42px;display:inline-flex;align-items:center}
 .card a.read:hover{background:var(--cat,var(--brand));color:#0B0D10;opacity:1}
 [data-theme=light] .card a.read:hover{color:#fff}
 .card a.read::after{content:" →"}
@@ -958,7 +958,7 @@ def build_map_page(books, output_dir, paths_html=""):
                 f'<h3><a href="read/{__import__("html").escape(b["id"])}.html">{__import__("html").escape(b["title"])}</a></h3>'
                 f'<p class="desc">{html.escape(desc_short)}</p>'
                 f'</div>'
-                f'<div class="map-card-footer"><span class="meta-line">PDF {idx+1:02d} · v{__import__("html").escape(b.get("version","2.0"))} · {html.escape(b.get("updated",""))}</span><a class="read" href="read/{__import__("html").escape(b["id"])}.html">Read</a></div>'
+                f'<div class="map-card-footer"><a class="read" href="read/{__import__("html").escape(b["id"])}.html">Read</a></div>'
                 f'</div>'
             )
         detail_html += (
@@ -1148,7 +1148,7 @@ def build_roadmap_page(books, output_dir):
 {jump}
 {body}
 </div>
-<footer><div class="wrap"><span>CICD BY Nabawy</span><span>Markdown source → static reader · v2.0 Sep 2026</span></div></footer>
+<footer><div class="wrap"><span>CICD BY Nabawy</span></div></footer>
 <script>
 const $=s=>document.querySelector(s);
 function getP(k,d){{try{{const v=JSON.parse(localStorage.getItem(k));return v??d}}catch(e){{return d}}}}
@@ -1483,9 +1483,8 @@ def build():
         return (
             f'<div class="card book" data-id="{b["id"]}" data-cat="{html.escape(b["category"])}" data-dif="{html.escape(b["difficulty"])}" data-time="{tmin}" data-tags="{html.escape(tags)}" data-title="{html.escape(b["title"])}" data-desc="{html.escape(b["description"])}">'
             f'<div class="coverart" aria-hidden="true"><b>{initials}</b></div>'
-            f'<span class="num">PDF {i+1:02d} · {tmin} min · Updated {html.escape(b.get("updated", ""))}</span><h3><a href="book/{b["id"]}.html">{html.escape(b["title"])}</a></h3><p>{html.escape(b["description"])}</p>'
+            f'<h3><a href="book/{b["id"]}.html">{html.escape(b["title"])}</a></h3><p>{html.escape(b["description"])}</p>'
             f'<div class="dif"><i></i>{b["difficulty"]} · {html.escape(b.get("path", ""))}</div>'
-            f'<div class="meta-line">{stats[i][1]} pages · {stats[i][2]} sections · v{b.get("version", "2.0")}</div>'
             f'<div class="prog"><b style="width:0%"></b></div>'
             f'<span><a class="read" href="{reader_url(b)}">Read</a> <a href="book/{b["id"]}.html" style="font-size:13px;color:var(--mut)">Overview</a></span></div>'
         )
