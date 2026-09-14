@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lab 01: GitHub Webhook Trigger for Jenkins — CICD BY Nabawy</title>
+<link rel="icon" type="image/svg+xml" href="https://eslamnabawy.github.io/cicd-by-nabawy/favicon.svg">
+<meta name="description" content="Wire GitHub webhook delivery into a Jenkins pipeline and verify the trigger chain end to end.">
+<meta name="theme-color" content="#0B0D10">
+<link rel="canonical" href="https://eslamnabawy.github.io/cicd-by-nabawy/read/jenkins-lab-webhook.html">
+<meta property="og:title" content="Lab 01: GitHub Webhook Trigger for Jenkins — CICD BY Nabawy">
+<meta property="og:description" content="Wire GitHub webhook delivery into a Jenkins pipeline and verify the trigger chain end to end.">
+<meta property="og:url" content="https://eslamnabawy.github.io/cicd-by-nabawy/read/jenkins-lab-webhook.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="CICD BY Nabawy">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lab 01: GitHub Webhook Trigger for Jenkins — CICD BY Nabawy">
+<meta name="twitter:description" content="Wire GitHub webhook delivery into a Jenkins pipeline and verify the trigger chain end to end.">
+<meta property="og:image" content="https://eslamnabawy.github.io/cicd-by-nabawy/og/jenkins-lab-webhook.svg">
+<link rel="prefetch" href="jenkins-lab-docker.html">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap');
+:root{--bg:#0B0D10;--bg2:#12151a;--card:#12151a;--ink:#ededed;--mut:#a0a0a0;--line:rgba(255,255,255,.1);--line-soft:rgba(255,255,255,.07);--acc:#18E299;--acc-soft:rgba(24,226,153,.12);--brand:#18E299;--warn:#c37d0d;--red:#d45656;--shadow:rgba(0,0,0,.4) 0px 2px 4px;--shadow-btn:rgba(0,0,0,.4) 0px 1px 2px;--shadow-lift:rgba(0,0,0,.5) 0px 12px 28px -8px;--radius:12px;--mono:'Geist Mono',ui-monospace,SFMono-Regular,Menlo,monospace}
+[data-theme=light]{--bg:#ffffff;--bg2:#fafafa;--card:#ffffff;--ink:#0d0d0d;--mut:#666666;--line:rgba(0,0,0,.07);--line-soft:rgba(0,0,0,.05);--acc:#0b9b68;--acc-soft:#d4fae8;--brand:#18E299;--warn:#c37d0d;--red:#d45656;--shadow:rgba(0,0,0,.03) 0px 2px 4px;--shadow-btn:rgba(0,0,0,.06) 0px 1px 2px;--shadow-lift:rgba(0,0,0,.1) 0px 12px 28px -8px;--radius:12px;--mono:'Geist Mono',ui-monospace,SFMono-Regular,Menlo,monospace}
+/* category accents */
+[data-cat="CI/CD"]{--cat:#5B8DEF}[data-cat="Build"]{--cat:#F5A524}[data-cat="Testing"]{--cat:#2ECC71}[data-cat="Security"]{--cat:#E5484D}[data-cat="Reliability"]{--cat:#9B7BF0}[data-cat="Jenkins"]{--cat:#22B8CF}[data-cat="Delivery"]{--cat:#F472B6}[data-cat="GitHub"]{--cat:#94A3B8}[data-cat="Platforms"]{--cat:#F97316}[data-cat="Labs"]{--cat:#EAB308}[data-cat="Reference"]{--cat:#64748B}[data-cat="Series"]{--cat:#18E299}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:var(--ink);text-decoration:none}
+a:hover{color:var(--acc)}
+.wrap{max-width:1200px;margin:0 auto;padding:24px 32px}
+header.top{position:sticky;top:0;background:var(--bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line-soft);z-index:20}
+header.top .wrap{display:flex;align-items:center;gap:16px;padding:12px 32px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:600;letter-spacing:-.01em;font-size:16px;white-space:nowrap}
+.logo svg{flex:none}
+.logo span{color:var(--ink)}
+.search{flex:1;display:flex;max-width:480px;margin:0 auto}
+.search input{flex:1;background:var(--bg);border:1px solid rgba(255,255,255,.12);color:var(--ink);border-radius:9999px;padding:8px 16px;font-size:14px;outline:none}
+[data-theme=light] .search input{border-color:rgba(0,0,0,.08)}
+.search input:focus{border-color:var(--brand);box-shadow:0 0 0 1px var(--brand)}
+.search input::placeholder{color:var(--mut)}
+.search kbd{font-family:var(--mono);font-size:11px;color:var(--mut);border:1px solid var(--line);border-radius:6px;padding:1px 7px;margin-left:-44px;align-self:center;pointer-events:none}
+.btn{background:var(--bg);border:1px solid rgba(255,255,255,.14);color:var(--ink);border-radius:9999px;padding:6px 14px;font-size:14px;font-weight:500;cursor:pointer;white-space:nowrap}
+[data-theme=light] .btn{border-color:rgba(0,0,0,.08)}
+.btn:hover{opacity:.75}
+:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.hero{padding:64px 24px 44px;text-align:center;position:relative;background:radial-gradient(ellipse 70% 60% at 50% 0%,rgba(24,226,153,.16),transparent 70%)}
+.hero .eyebrow{display:inline-block;font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--brand);background:rgba(24,226,153,.14);border-radius:9999px;padding:5px 14px;margin-bottom:20px}
+[data-theme=light] .hero .eyebrow{color:#0fa76e;background:#d4fae8}
+.hero h1{font-size:clamp(38px,5vw,60px);font-weight:600;letter-spacing:-1px;line-height:1.15;max-width:800px;margin:0 auto}
+.hero h1 span{color:var(--ink)}
+.hero p{color:var(--mut);font-size:18px;line-height:1.5;max-width:640px;margin:16px auto 0}
+.hero .stats{display:flex;gap:10px;margin-top:28px;flex-wrap:wrap;justify-content:center}
+.hero .stats span{font-size:13px;font-weight:500;color:var(--mut);background:var(--card);border:1px solid var(--line-soft);border-radius:9999px;padding:5px 14px}
+.hero .stats b{color:var(--ink);font-weight:600;font-family:var(--mono);font-size:12px}
+#resume{position:fixed;right:20px;bottom:20px;z-index:40;background:var(--ink);color:var(--bg);border-radius:9999px;padding:10px 22px;font-size:14px;font-weight:500;box-shadow:var(--shadow-lift);max-width:min(420px,80vw);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#resume:hover{opacity:.85;color:var(--bg)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.card{position:relative;background:var(--card);border:1px solid var(--line-soft);border-radius:var(--radius);padding:22px 24px 24px;display:flex;flex-direction:column;gap:9px;box-shadow:var(--shadow);overflow:hidden;transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease}
+.card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--cat,var(--brand))}
+.card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lift);border-color:var(--line)}
+.card .num{font-family:var(--mono);color:var(--mut);font-size:10px;font-weight:500;letter-spacing:.6px;text-transform:uppercase}
+.card h3{font-size:19px;font-weight:600;letter-spacing:-.2px;line-height:1.3}
+.card h3 a{color:var(--ink)}
+.card p{font-size:13.5px;color:var(--mut);flex:1;line-height:1.55}
+.dif{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:var(--ink)}
+.dif i{font-style:normal;width:8px;height:8px;border-radius:50%;background:var(--cat,var(--brand));flex:none}
+.meta-line{font-size:12px;color:var(--mut)}
+.card a.read{margin-top:8px;align-self:flex-start;background:transparent;border:1px solid var(--cat,var(--brand));color:var(--cat,var(--brand));font-weight:500;font-size:14px;border-radius:9999px;padding:7px 22px}
+.card a.read:hover{background:var(--cat,var(--brand));color:#0B0D10;opacity:1}
+[data-theme=light] .card a.read:hover{color:#fff}
+.card a.read::after{content:" →"}
+.prog{height:5px;background:var(--bg2);border-radius:4px;overflow:hidden}
+.prog b{display:block;height:100%;background:var(--brand)}
+h2.sec{font-size:24px;font-weight:500;letter-spacing:-.24px;margin:64px 0 4px;color:var(--ink)}
+.sub{color:var(--mut);font-size:16px;margin-bottom:24px}
+footer{border-top:1px solid var(--line-soft);margin-top:64px;color:var(--mut);font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.empty{background:var(--card);border:1px dashed var(--line);border-radius:var(--radius);padding:30px;text-align:center;color:var(--mut)}
+/* collection: shelf rows */
+.collectlabel{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--mut);margin:56px 0 20px}
+.jumpnav{display:flex;gap:8px;flex-wrap:wrap;margin:-6px 0 30px}
+.jumpnav a{font-size:13px;font-weight:500;background:var(--card);border:1px solid var(--line-soft);border-radius:9999px;padding:5px 14px;color:var(--mut)}
+.jumpnav a:hover{border-color:var(--line);color:var(--ink)}
+.morewrap{text-align:center;margin:8px 0 40px}
+.shelf{margin:0 0 28px}
+.shelf-head{margin-bottom:10px}
+.shelf-head h2{font-size:18px}
+.jumpnav{margin:-2px 0 18px;gap:6px}
+.jumpnav a{font-size:12px;padding:4px 11px}
+.hero{padding:48px 24px 20px}
+.hero h1{font-size:clamp(32px,4.5vw,52px)}
+.hero p{font-size:16px;margin:10px auto 0}
+.shelf-head{display:flex;align-items:baseline;gap:14px;margin-bottom:16px}
+.shelf-head h2{font-size:20px;font-weight:700;letter-spacing:-.2px;padding-bottom:8px;border-bottom:2px solid var(--cat,var(--brand))}
+.shelf-head span{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.6px;text-transform:uppercase;color:var(--mut)}
+.shelf-head .arrows{margin-left:auto;display:flex;gap:8px}
+.shelf-head .arrows button{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:15px;cursor:pointer;line-height:1}
+.shelf-head .arrows button:hover{border-color:var(--brand);color:var(--brand)}
+.rail{display:flex;gap:20px;overflow-x:auto;padding:4px 24px 16px 2px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+.rail .card{flex:0 0 272px;scroll-snap-align:start}
+.rail .card p{-webkit-line-clamp:3}
+/* roadmap — dense left-aligned editorial timeline */
+.route{list-style:none;position:relative;margin:0;padding:6px 0 10px 36px;display:flex;flex-direction:column;gap:8px}
+.route::before{content:"";position:absolute;top:4px;bottom:4px;left:18px;width:2px;background:var(--line);opacity:.5;border-radius:2px}
+.stop{position:relative;width:auto;margin:0}
+.stop::before{content:attr(data-mile);position:absolute;left:-30px;top:12px;width:24px;height:24px;border-radius:50%;background:var(--card);border:1.5px solid var(--cat,var(--brand));color:var(--ink);font-family:var(--mono);font-size:9px;font-weight:600;display:flex;align-items:center;justify-content:center;z-index:2;box-shadow:0 1px 4px rgba(0,0,0,.1)}
+.stop .card{margin:0;padding:13px 14px;gap:5px;border-radius:10px;display:grid;grid-template-columns:1fr auto;align-items:center}
+.stop .card .num{grid-column:1 / -1}
+.stop .card h3{grid-column:1;font-size:14.5px;line-height:1.25}
+.stop .card p{grid-column:1;font-size:12px;line-height:1.45;-webkit-line-clamp:2;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
+.stop .card .dif{grid-column:1}
+.stop .card a.read{grid-column:2;grid-row:2 / 5;align-self:center;margin:0}
+.trip{position:relative;text-align:left;margin:4px 0 6px;padding-left:36px}
+.trip span{font-size:9px;padding:4px 10px}
+@media(max-width:700px){
+.route::before{left:22px}
+.stop{width:auto;margin:0 0 14px 52px}
+.stop:nth-child(even of .stop){margin-left:52px}
+.stop:nth-child(odd of .stop)::before,.stop:nth-child(even of .stop)::before{left:-44px;right:auto}
+.trip{text-align:left;padding-left:8px}
+}
+.cores-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+@media(max-width:1024px){.cores-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.cores-grid{grid-template-columns:1fr}}
+/* reader */
+.rlayout{display:flex;max-width:1320px;margin:0 auto;min-height:100vh}
+aside.toc{width:300px;flex:none;border-right:1px solid var(--line-soft);padding:24px 16px;position:sticky;top:57px;height:calc(100vh - 57px);overflow:auto}
+aside.toc h4{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--mut);margin-bottom:12px}
+aside.toc a{display:block;font-size:14px;font-weight:500;color:var(--mut);text-decoration:none;padding:7px 12px;border-radius:8px;border-left:2px solid transparent;line-height:1.45}
+aside.toc a:hover{color:var(--ink);background:var(--bg2)}
+aside.toc a.cur{background:var(--acc-soft);color:var(--brand);font-weight:600;border-left-color:var(--brand)}
+[data-theme=light] aside.toc a.cur{color:#0fa76e}
+main.read{flex:1;min-width:0;padding:32px 32px 90px}
+.readbody{margin:0 auto;max-width:820px}
+.readbody .page{width:auto !important;min-height:0 !important;margin:0 auto 22px !important;padding:26px !important;border-radius:14px;scroll-margin-top:80px}
+.readbody .page.cover{align-items:flex-start !important}
+.readbody pre,.readbody .terminal{position:relative;overflow-x:auto;max-width:100%;scrollbar-width:thin}
+.readbody code,.readbody .mono{overflow-wrap:anywhere}
+.copybar{display:flex;justify-content:flex-end;margin:0 0 8px}
+.copybtn{position:static;background:var(--bg);border:1px solid rgba(255,255,255,.14);color:var(--ink);border-radius:9999px;font-size:12px;font-weight:500;padding:4px 12px;cursor:pointer}
+[data-theme=light] .copybtn{border-color:rgba(0,0,0,.08)}
+.copybtn:hover{opacity:.7}
+mark{background:var(--acc-soft);color:var(--ink);border-radius:3px;padding:0 2px}
+.chapnav{display:flex;justify-content:space-between;gap:12px;margin-top:32px}
+.chapnav a{flex:1;background:var(--card);border:1px solid var(--line-soft);border-radius:16px;padding:16px 24px;text-decoration:none;color:var(--ink);font-size:14px;font-weight:500;box-shadow:var(--shadow)}
+.chapnav a:hover{border-color:var(--line)}
+.chapnav a small{display:block;font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.6px;text-transform:uppercase;color:var(--mut);margin-bottom:4px}
+.chapnav a.r{text-align:right}
+.drawer{display:none;position:fixed;inset:0;z-index:70}
+.drawer.open{display:block}
+.drawer .scrim{position:absolute;inset:0;background:rgba(0,0,0,.5)}
+.drawer .panel{position:absolute;right:0;top:0;bottom:0;width:320px;background:var(--card);border-left:1px solid var(--line-soft);padding:24px 32px;overflow:auto;box-shadow:var(--shadow)}
+.drawer .panel h3{font-size:20px;font-weight:600;letter-spacing:-.2px;margin-bottom:4px}
+.setrow{margin:20px 0}
+.setrow h5{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--mut);margin-bottom:10px}
+.setrow .opts{display:flex;gap:8px;flex-wrap:wrap}
+.setrow .opts .btn.on{border-color:var(--ink);background:var(--ink);color:var(--bg)}
+.tocbtn{display:none}
+.pdflink{display:inline-block;margin-top:12px;background:var(--ink);color:var(--bg);border-radius:9999px;padding:8px 24px;text-decoration:none;font-size:14px;font-weight:500;box-shadow:var(--shadow-btn)}
+.pdflink:hover{opacity:.85;color:var(--bg)}
+.crumbs{display:flex;align-items:center;gap:8px;font-size:13.5px;min-width:0}
+.crumbs .here{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:280px}
+.crumbs .sep{color:var(--mut)}
+@media(max-width:900px){aside.toc{position:fixed;left:0;top:0;bottom:0;background:var(--card);z-index:60;transform:translateX(-105%);transition:transform .2s;height:100vh}
+aside.toc.open{transform:none}
+.tocbtn{display:inline-block}
+main.read{padding:20px 14px 90px}
+.crumbs .here{max-width:140px}
+header.top .wrap{flex-wrap:wrap}
+.search{max-width:none;flex-basis:100%;order:5}
+.hero{padding:36px 0 6px}
+.chapnav{flex-direction:column}
+.readbody table,.readbody .terminal,table.gloss{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.drawer .panel{width:min(320px,88vw)}}
+@media(max-width:600px){
+.wrap{padding:16px 14px}
+.grid{grid-template-columns:1fr}
+.hero .stats{gap:6px}
+main.read{padding:16px 10px 90px}
+.readbody .page{padding:18px !important}
+.btn{min-height:40px}
+.readbody pre,.readbody .terminal{font-size:11px}}
+
+
+/* icon: dark glyphs (github #181717 + currentColor line icons) invert ONLY on dark surfaces; light/sepia keep native dark svg */
+:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .readbody .page.cover img[src*="github"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .coverart img[src*="github"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .readbody .page.cover img[src*="workflow"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .readbody .page.cover img[src*="hammer"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .readbody .page.cover img[src*="package"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .readbody .page.cover img[src*="database"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .readbody .page.cover img[src*="puzzle"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .readbody .page.cover img[src*="server"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .readbody .page.cover img[src*="terminal"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .readbody .page.cover img[src*="shield"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .readbody .page.cover img[src*="activity"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .readbody .page.cover img[src*="webhook"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .readbody .page.cover img[src*="wrench"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .readbody .page.cover img[src*="flask"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .readbody .page.cover img[src*="rocket"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .coverart img[src*="workflow"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .coverart img[src*="hammer"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .coverart img[src*="package"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .coverart img[src*="database"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .coverart img[src*="puzzle"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .coverart img[src*="server"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .coverart img[src*="terminal"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .coverart img[src*="shield"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .coverart img[src*="activity"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .coverart img[src*="webhook"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .coverart img[src*="wrench"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .coverart img[src*="flask"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .coverart img[src*="rocket"]{filter:invert(1) brightness(1.05);}
+/* icon: currentColor line glyphs resolve via OS CanvasText (unreliable) — force black strokes on light surfaces */
+:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="github"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="github"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="workflow"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="hammer"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="package"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="database"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="puzzle"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="server"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="terminal"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="shield"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="activity"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="webhook"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="wrench"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="flask"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="rocket"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="workflow"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="hammer"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="package"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="database"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="puzzle"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="server"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="terminal"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="shield"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="activity"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="webhook"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="wrench"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="flask"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="rocket"]{filter:brightness(0);}
+
+
+@media print{header.top,aside.toc,.drawer,.chapnav,.copybtn,.settingsbar{display:none !important}
+main.read{padding:0}.readbody{max-width:none}}
+table.gloss{width:100%;border-collapse:collapse;font-size:14px;margin:16px 0}
+table.gloss td,table.gloss th{border:1px solid var(--line);padding:9px 11px;text-align:left}
+table.gloss th{background:var(--bg2)}
+/* P0: sepia theme + light leak guards + covers + filters + a11y */
+[data-theme=sepia]{--bg:#F6F1E7;--bg2:#EDE3CC;--card:#FFFBF0;--ink:#3B2F1E;--mut:#6F665A;--line:rgba(59,47,30,.16);--line-soft:rgba(59,47,30,.09);--acc:#0B9B68;--acc-soft:rgba(11,155,104,.11);--brand:#0B9B68;--shadow:rgba(59,47,30,.08) 0px 2px 8px;--shadow-btn:rgba(59,47,30,.10) 0px 1px 3px;--shadow-lift:rgba(59,47,30,.16) 0px 16px 32px -10px}
+[data-theme=sepia] .readbody{--paper:#FFFBF0;--white:#FFFBF0;--ink:#3B2F1E;--muted:#6F665A;--line:rgba(59,47,30,.14);--panel:#EDE3CC;--text-light:#3B2F1E}
+[data-theme=light] .readbody{--paper:#ffffff;--white:#ffffff;--ink:#0d0d0d;--muted:#555;--line:rgba(0,0,0,.1);--panel:#f4f4f4;--text-light:#0d0d0d}
+[data-theme=light] .readbody .page,[data-theme=sepia] .readbody .page{background:var(--card) !important;color:var(--ink)}
+[data-theme=light] .readbody pre,[data-theme=light] .readbody .terminal,[data-theme=sepia] .readbody pre,[data-theme=sepia] .readbody .terminal{background:var(--bg2) !important;color:var(--ink);border:1px solid var(--line)}
+.coverart{height:96px;border-radius:10px 10px 0 0;margin:-22px -24px 12px;background:linear-gradient(135deg,var(--cat,#18E299),transparent 140%),repeating-linear-gradient(90deg,rgba(255,255,255,.08) 0 2px,transparent 2px 10px),var(--card);border-bottom:1px solid var(--line-soft);display:flex;align-items:flex-end;padding:10px 14px;overflow:hidden}
+.coverart b{font-family:var(--mono);font-size:28px;font-weight:600;letter-spacing:-1px;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+[data-theme=light] .coverart b,[data-theme=sepia] .coverart b{color:#fff}
+.filterbar{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 6px;align-items:center}
+.filterbar select,.filterbar input[type=search]{background:var(--card);border:1px solid var(--line);color:var(--ink);border-radius:9999px;padding:7px 14px;font-size:13px;outline:none}
+.filterbar .count{margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--mut)}
+.toc-l2{padding-left:14px !important}.toc-l3{padding-left:28px !important}.toc-num{font-family:var(--mono);font-size:11px;color:var(--mut);margin-right:6px}
+.codehead{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:var(--mut);margin:12px 0 0;background:var(--bg2);border:1px solid var(--line);border-bottom:none;border-radius:8px 8px 0 0;padding:6px 12px}
+.codehead .dot{width:8px;height:8px;border-radius:50%;background:var(--brand)}
+.codehead button{margin-left:auto;background:transparent;border:1px solid var(--line);color:var(--ink);border-radius:9999px;font-size:11px;padding:2px 10px;cursor:pointer}
+.readbody img{max-width:100%;height:auto;border-radius:8px}
+.readbody img[data-broken]{display:none}
+.imgfallback{display:none;background:var(--bg2);border:1px dashed var(--line);border-radius:8px;padding:12px;font-size:13px;color:var(--mut)}
+@media(max-width:900px){header.top .wrap{gap:10px}.crumbs .here{max-width:110px} .search kbd{display:none}}
+
+
+/* icon: dark glyphs (github #181717 + currentColor line icons) invert ONLY on dark surfaces; light/sepia keep native dark svg */
+:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .readbody .page.cover img[src*="github"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .coverart img[src*="github"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .readbody .page.cover img[src*="workflow"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .readbody .page.cover img[src*="hammer"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .readbody .page.cover img[src*="package"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .readbody .page.cover img[src*="database"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .readbody .page.cover img[src*="puzzle"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .readbody .page.cover img[src*="server"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .readbody .page.cover img[src*="terminal"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .readbody .page.cover img[src*="shield"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .readbody .page.cover img[src*="activity"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .readbody .page.cover img[src*="webhook"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .readbody .page.cover img[src*="wrench"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .readbody .page.cover img[src*="flask"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .readbody .page.cover img[src*="rocket"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .coverart img[src*="workflow"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .coverart img[src*="hammer"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .coverart img[src*="package"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .coverart img[src*="database"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .coverart img[src*="puzzle"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .coverart img[src*="server"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .coverart img[src*="terminal"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .coverart img[src*="shield"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .coverart img[src*="activity"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .coverart img[src*="webhook"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .coverart img[src*="wrench"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .coverart img[src*="flask"],:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"]) .coverart img[src*="rocket"]{filter:invert(1) brightness(1.05);}
+/* icon: currentColor line glyphs resolve via OS CanvasText (unreliable) — force black strokes on light surfaces */
+:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="github"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="github"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="workflow"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="hammer"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="package"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="database"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="puzzle"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="server"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="terminal"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="shield"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="activity"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="webhook"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="wrench"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="flask"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="rocket"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="workflow"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="hammer"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="package"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="database"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="puzzle"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="server"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="terminal"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="shield"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="activity"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="webhook"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="wrench"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="flask"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="rocket"]{filter:brightness(0);}
+
+
+@media print{header.top,aside.toc,.drawer,.chapnav,.copybtn,.copybar,.codehead,.filterbar,#resume,.jumpnav,.shelf-head .arrows{display:none !important} body{background:#fff !important;color:#000 !important} .card,.readbody .page{break-inside:avoid;border:1px solid #ccc !important;background:#fff !important;color:#000 !important} main.read{padding:0}.readbody{max-width:none;font-size:12pt}}
+@media(prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important;scroll-behavior:auto !important}.rail{scroll-snap-type:none}}
+/* P1: paths + rubric + search dropdown + bookmarks + related + labs + lightbox */
+/* Learning Paths — journey cards reusing the map card system (same gradient/border/shadow tokens, --cat accent, currentColor icons) */
+.pathgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;margin:16px 0 8px}
+.pathcard{position:relative;background:linear-gradient(135deg,color-mix(in srgb,var(--cat) 7%,var(--card)) 0%,var(--card) 55%);border:1.5px solid color-mix(in srgb,var(--cat) 28%,var(--line-soft));border-radius:16px;padding:0;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06),0 8px 24px -8px color-mix(in srgb,var(--cat) 18%,transparent),0 2px 10px rgba(0,0,0,.06);display:flex;flex-direction:column}
+.pathcard::before{content:"";position:absolute;top:0;left:0;right:0;height:5px;background:var(--cat,var(--brand));z-index:2}
+.pathcard-head{display:flex;gap:12px;align-items:flex-start;padding:22px 20px 0}
+.pathcard-head .map-icon{width:42px;height:42px;border-radius:11px;flex:none}
+.pathcard-head .map-icon svg{width:22px;height:22px}
+.pathcard-titles h3{font-size:16px;font-weight:700;letter-spacing:-.2px;line-height:1.25}
+.pathcount{font-family:var(--mono);font-size:11px;color:var(--mut);font-weight:500}
+.pathdesc{font-size:13px;color:var(--mut);line-height:1.55;padding:8px 20px 0}
+.pathsteps{list-style:none;margin:12px 0 0;padding:2px 20px 0;position:relative;display:flex;flex-direction:column}
+.pathstep{position:relative;padding:2px 0 16px 36px;min-height:44px}
+.pathstep::before{content:attr(data-n);position:absolute;left:0;top:0;width:26px;height:26px;border-radius:50%;background:var(--card);border:1.5px solid var(--cat,var(--brand));color:var(--ink);font-family:var(--mono);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;z-index:1}
+.pathstep::after{content:"";position:absolute;left:12px;top:28px;bottom:0;width:2px;background:color-mix(in srgb,var(--cat) 32%,var(--line-soft));border-radius:2px}
+.pathstep:last-child::after{display:none}
+.pathstep.finish::before{background:var(--cat,var(--brand));border-color:var(--cat,var(--brand));color:#0B0D10}
+[data-theme=light] .pathstep.finish::before{color:#fff}
+.pathsteps.long .pathstep{padding-bottom:9px;min-height:38px}
+.steptitle{display:block;font-size:14.5px;font-weight:600;line-height:1.35;color:var(--ink)}
+.steptitle:hover{color:var(--cat,var(--brand))}
+.stepmeta{display:block;font-family:var(--mono);font-size:11px;color:var(--mut);margin-top:3px}
+.finpill{display:inline-block;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.4px;background:color-mix(in srgb,var(--cat) 12%,transparent);border:1px solid color-mix(in srgb,var(--cat) 35%,transparent);color:var(--cat);border-radius:9999px;padding:1px 8px;margin-left:6px;white-space:nowrap}
+.difbadge{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:3px 9px;border-radius:9999px;border:1px solid;color:var(--cat);background:color-mix(in srgb,var(--cat) 10%,var(--bg2));border-color:color-mix(in srgb,var(--cat) 22%,var(--line-soft));white-space:nowrap}
+.difbadge.beg{--cat:#2ECC71}
+.difbadge.int{--cat:#F5A524}
+.difbadge.adv{--cat:#E5484D}
+.pathfoot{display:flex;gap:6px;flex-wrap:wrap;padding:14px 20px 18px;margin-top:auto}
+@media(max-width:600px){.pathgrid{grid-template-columns:1fr}.pathstep{padding-bottom:14px}.pathsteps.long .pathstep{padding-bottom:8px}}
+.rubric{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
+.rubric div{flex:1;min-width:200px;background:var(--card);border:1px solid var(--line-soft);border-radius:10px;padding:12px 16px;font-size:13px;color:var(--mut)}
+.rubric b{display:block;color:var(--ink);margin-bottom:4px}
+.searchwrap{position:relative}
+.searchdrop{position:absolute;top:110%;left:0;right:0;background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow-lift);overflow:hidden;z-index:50;display:none;max-height:320px;overflow:auto}
+.searchdrop.open{display:block}
+.searchdrop a{display:block;padding:9px 16px;font-size:14px;border-bottom:1px solid var(--line-soft)}
+.searchdrop a small{display:block;font-size:11px;color:var(--mut)}
+.searchdrop a:hover{background:var(--bg2)}
+.markbtn{background:transparent;border:1px solid var(--line);color:var(--ink);border-radius:9999px;font-size:12px;padding:4px 12px;cursor:pointer}
+.markbtn.on{background:var(--acc-soft);border-color:var(--brand);color:var(--brand)}
+.relatedbox{background:var(--card);border:1px solid var(--line-soft);border-radius:14px;padding:18px 22px;margin-top:28px}
+.relatedbox h4{font-family:var(--mono);font-size:11px;letter-spacing:.6px;text-transform:uppercase;color:var(--mut);margin-bottom:12px}
+.relgrid{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin:0;padding:0}
+.relcard{position:relative;display:flex;gap:10px;align-items:flex-start;background:var(--bg2);border:1px solid var(--line-soft);border-left:3px solid var(--cat,var(--brand));border-radius:10px;padding:10px 12px}
+.rel-icon{width:30px;height:30px;border-radius:8px;flex:none;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--cat) 12%,var(--bg2));border:1px solid color-mix(in srgb,var(--cat) 18%,var(--line-soft));color:var(--cat)}
+.rel-icon svg{width:16px;height:16px;display:block}
+.rel-main{display:flex;flex-direction:column;gap:4px;min-width:0;flex:1}
+.rel-main>a{font-size:13.5px;font-weight:600;line-height:1.35;color:var(--ink)}
+.rel-main>a:hover{color:var(--cat,var(--brand))}
+.rel-meta{font-family:var(--mono);font-size:11px;color:var(--mut);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.rel-why{font-family:var(--mono);font-size:10px;font-weight:600;color:var(--cat)}
+@media(max-width:600px){.relgrid{grid-template-columns:1fr}}
+.upnext{display:flex;justify-content:space-between;gap:10px;background:var(--acc-soft);border:1px solid var(--brand);border-radius:14px;padding:14px 20px;margin-top:20px;font-size:14px}
+.labcheck{list-style:none;margin:12px 0}
+.labcheck li{display:flex;gap:10px;align-items:flex-start;background:var(--card);border:1px solid var(--line-soft);border-radius:10px;padding:10px 14px;margin-bottom:8px;font-size:14px}
+.labcheck li.done{opacity:.6;text-decoration:line-through}
+.labcheck input{margin-top:4px;accent-color:var(--brand)}
+.labbanner{background:var(--acc-soft);border:1px solid var(--brand);border-radius:12px;padding:12px 18px;margin:0 auto 20px;max-width:820px;font-size:14px}
+#lightbox{display:none;position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.85);align-items:center;justify-content:center;padding:24px}
+#lightbox.open{display:flex}
+#lightbox img{max-width:94vw;max-height:90vh;border-radius:10px}
+.readbody table{border-collapse:collapse}
+.readbody thead th{position:sticky;top:57px;background:var(--bg2);z-index:2}
+.bookhero{display:flex;gap:26px;flex-wrap:wrap;margin:30px 0}
+.bookhero .coverart{height:190px;flex:0 0 220px;margin:0;border-radius:14px;align-items:center;justify-content:center}
+.bookhero .coverart b{font-size:54px}
+.chiprow{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.chiprow a,.chiprow span{font-size:12px;border:1px solid var(--line);border-radius:9999px;padding:4px 12px;color:var(--mut)}
+.chiprow a:hover{color:var(--ink);border-color:var(--brand)}
+.outcomes{background:var(--card);border:1px solid var(--line-soft);border-radius:12px;padding:14px 20px;margin:16px 0}
+.outcomes li{margin:4px 0 4px 18px;font-size:14px}
+/* P2.1: recommended-path strip — single cold-start path, distinct from shelves */
+.recstrip{background:var(--card);border:1px solid var(--brand);border-radius:16px;padding:20px 22px;margin:28px 0 8px;box-shadow:var(--shadow)}
+.rec-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.rec-head .eyebrow{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--brand);background:var(--acc-soft);border-radius:9999px;padding:5px 14px}
+.rec-meta{font-family:var(--mono);font-size:11px;color:var(--mut)}
+.rec-steps{list-style:none;display:flex;gap:10px;margin:0 0 14px;padding:0;flex-wrap:wrap}
+.rec-steps li{flex:1;min-width:160px;background:var(--bg2);border:1px solid var(--line-soft);border-radius:12px;padding:10px 14px;font-size:13px;color:var(--mut)}
+.rec-steps li b{display:block;color:var(--ink);font-size:14px;font-weight:600;margin:2px 0}
+.rec-steps li .n{font-family:var(--mono);font-size:11px;color:var(--brand)}
+.rec-steps li a{color:var(--ink)}
+.rec-cta{display:inline-block;background:var(--brand);color:#0B0D10;font-weight:600;font-size:14px;border-radius:9999px;padding:10px 22px}
+[data-theme=light] .rec-cta{color:#fff}
+.rec-cta:hover{opacity:.85;color:#0B0D10}
+[data-theme=light] .rec-cta:hover{color:#fff}
+@media(max-width:700px){.rec-steps{flex-direction:column}.rec-steps li{min-width:0}}
+/* P2.2: reader orientation — breadcrumb + prereq + path position (existing vars only) */
+.readcontext{background:var(--card);border-bottom:1px solid var(--line-soft);padding:10px 32px;font-size:13px;color:var(--mut)}
+.readcontext .wrap{max-width:1320px;margin:0 auto;padding:0;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.readcontext a{color:var(--mut)}
+.readcontext a:hover{color:var(--brand)}
+.readcontext .here{color:var(--ink);font-weight:600}
+.readcontext .pathpos{font-family:var(--mono);font-size:11px;background:var(--acc-soft);color:var(--brand);border-radius:9999px;padding:3px 12px;white-space:nowrap}
+.readcontext .prereq{font-size:12px}
+.readcontext .prereq a{border:1px solid var(--line);border-radius:9999px;padding:2px 10px;margin-left:6px;white-space:nowrap}
+@media(max-width:700px){.readcontext{padding:8px 14px;font-size:12px}}
+/* P2.4: mobile icon-chain reflow (≤480px only, desktop untouched) */
+@media(max-width:480px){
+.readbody .life{flex-direction:column;gap:0}
+.readbody .life .lconn{transform:rotate(90deg);padding:3px 0;align-self:center}
+.readbody .life .lnode{display:flex;align-items:center;gap:10px;text-align:left;padding:8px 12px}
+.readbody .life .lnode img{margin:0;flex:none}
+.readbody .life .lnode b{font-size:11px}
+.readbody .two{grid-template-columns:1fr}
+.readbody .fnode{font-size:13px}
+.readbody .vflow{margin:8px 0}
+}
+/* P2: dim + contrast themes, font + line-height prefs, rating */
+[data-theme=dim]{--bg:#000000;--bg2:#0a0a0a;--card:#0d0d0f;--ink:#e8e8e8;--mut:#9a9a9a;--line:rgba(255,255,255,.12);--line-soft:rgba(255,255,255,.08);--acc:#18E299;--acc-soft:rgba(24,226,153,.14);--brand:#18E299}
+[data-theme=contrast]{--bg:#000000;--bg2:#0a0a0a;--card:#000000;--ink:#ffffff;--mut:#e0e0e0;--line:#ffffff;--line-soft:#8a8a8a;--acc:#ffe600;--acc-soft:#3a3600;--brand:#ffe600}
+[data-theme=contrast] a{color:var(--acc)}
+[data-theme=contrast] .card,[data-theme=contrast] .pathcard{border-width:2px}
+body[data-font=serif] .readbody{font-family:Georgia,'Times New Roman',serif}
+body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[data-font=serif] .readbody .terminal{font-family:var(--mono)}
+.readbody{line-height:var(--lh,1.7)}
+.ratebox{display:flex;gap:8px;align-items:center;background:var(--card);border:1px solid var(--line-soft);border-radius:12px;padding:12px 18px;margin-top:22px;font-size:14px}
+.ratebox button{background:transparent;border:1px solid var(--line);border-radius:9999px;font-size:14px;padding:4px 14px;cursor:pointer;color:var(--ink)}
+.ratebox button.on{background:var(--acc-soft);border-color:var(--brand)}
+.popsearch{font-size:12px;color:var(--mut);margin-top:6px}
+.popsearch a{color:var(--mut);text-decoration:underline;cursor:pointer}
+/* Structure Map — pseudo-3D isometric (B1.2/B2/B3) */
+.map-hero{padding:52px 24px 16px;text-align:center;position:relative}
+.map-hero .eyebrow{display:inline-block;font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--brand);background:var(--acc-soft);border-radius:9999px;padding:5px 14px;margin-bottom:16px}
+.map-hero h1{font-size:clamp(28px,4.4vw,46px);font-weight:700;letter-spacing:-.9px;line-height:1.08}
+.map-hero p{color:var(--mut);font-size:16px;max-width:640px;margin:12px auto 0;line-height:1.55}
+.map-hero p strong{color:var(--ink);font-weight:600}
+/* — MAP GRID: exterior blocks as distinct objects — */
+.map-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;margin:32px 0 28px;perspective:1200px}
+.map-block{position:relative;background:linear-gradient(135deg,color-mix(in srgb,var(--cat) 7%,var(--card)) 0%,var(--card) 55%);border:1.5px solid color-mix(in srgb,var(--cat) 28%,var(--line-soft));border-radius:16px;padding:0;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06),0 8px 24px -8px color-mix(in srgb,var(--cat) 18%,transparent),0 2px 10px rgba(0,0,0,.06);transition:transform .24s cubic-bezier(.2,.8,.2,1),box-shadow .24s ease,border-color .24s ease;text-align:left;cursor:pointer;color:var(--ink);text-decoration:none;transform-style:preserve-3d}
+.map-block::before{content:"";position:absolute;top:0;left:0;right:0;height:5px;background:var(--cat,var(--brand));z-index:2}
+.map-block::after{content:"";position:absolute;top:5px;left:0;right:0;height:1px;background:linear-gradient(90deg,rgba(255,255,255,.55),transparent 60%);pointer-events:none;z-index:2}
+[data-theme=dark] .map-block::after,[data-theme=dim] .map-block::after{background:linear-gradient(90deg,rgba(255,255,255,.12),transparent 60%)}
+.map-block:hover{transform:perspective(700px) rotateX(3deg) rotateY(-5deg) translateY(-6px) scale(1.015);box-shadow:0 4px 12px rgba(0,0,0,.1),0 20px 40px -12px color-mix(in srgb,var(--cat) 22%,transparent),0 8px 20px rgba(0,0,0,.08);border-color:color-mix(in srgb,var(--cat) 42%,var(--line))}
+.map-block:focus-visible{outline:2px solid var(--cat,var(--brand));outline-offset:3px}
+.map-block:active{transform:perspective(700px) rotateX(2deg) rotateY(-3deg) translateY(-2px) scale(.995)}
+/* block interior layout */
+.map-block-inner{padding:22px 20px 18px;display:flex;flex-direction:column;gap:10px;flex:1}
+.map-block-top{display:flex;align-items:flex-start;gap:14px}
+.map-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--cat) 12%,var(--bg2));border:1px solid color-mix(in srgb,var(--cat) 18%,var(--line-soft));color:var(--cat);flex:none;box-shadow:inset 0 1px 0 rgba(255,255,255,.6)}
+[data-theme=dark] .map-icon,[data-theme=dim] .map-icon{box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
+.map-icon svg{width:28px;height:28px;display:block}
+.map-cat{font-size:18px;font-weight:800;letter-spacing:-.3px;line-height:1.2;flex:1;min-width:0}
+.map-count{font-family:var(--mono);font-size:12.5px;color:var(--mut);font-weight:600;display:flex;align-items:center;gap:6px}
+.map-count::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--cat);flex:none;opacity:.9}
+.map-difficulty{display:flex;align-items:center;gap:8px;margin-top:2px}
+.map-diff-label{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--mut)}
+.map-diff-bar{display:flex;gap:3px;align-items:center;flex:1}
+.map-diff-seg{height:6px;border-radius:9999px;min-width:8px;transition:width .2s}
+.map-diff-seg.beg{background:#2ECC71}
+.map-diff-seg.int{background:#F5A524}
+.map-diff-seg.adv{background:#E5484D}
+.map-diff-dots{display:flex;gap:4px;align-items:center}
+.map-diff-dots i{width:8px;height:8px;border-radius:50%;display:inline-block}
+.map-diff-dots i.beg{background:#2ECC71}
+.map-diff-dots i.int{background:#F5A524}
+.map-diff-dots i.adv{background:#E5484D}
+.map-diff-count{font-family:var(--mono);font-size:11px;color:var(--mut);font-weight:600}
+.map-pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:2px}
+.map-pill{font-family:var(--mono);font-size:11px;font-weight:600;padding:3px 9px;border-radius:9999px;background:color-mix(in srgb,var(--cat) 8%,var(--bg2));border:1px solid color-mix(in srgb,var(--cat) 14%,var(--line-soft));color:var(--mut)}
+.map-pill b{color:var(--ink)}
+/* hover/focus preview popover — 2-3 titles */
+.map-preview{position:absolute;left:12px;right:12px;bottom:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;box-shadow:var(--shadow-lift);opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity .2s ease,transform .2s ease;z-index:5;max-height:120px;overflow:hidden}
+.map-block:hover .map-preview,.map-block:focus-within .map-preview,.map-block.preview-open .map-preview{opacity:1;transform:translateY(0);pointer-events:auto}
+.map-preview-title{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--cat);margin-bottom:6px}
+.map-preview ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px}
+.map-preview li{font-size:12.5px;font-weight:500;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.35}
+.map-preview li::before{content:"→ ";color:var(--cat);font-weight:600}
+.map-preview-more{font-family:var(--mono);font-size:11px;color:var(--mut);margin-top:6px}
+/* touch affordance — preview button on mobile */
+.map-preview-btn{display:none;position:absolute;top:10px;right:10px;z-index:3;width:32px;height:32px;border-radius:50%;background:var(--card);border:1px solid var(--line);color:var(--mut);font-size:16px;cursor:pointer;align-items:center;justify-content:center;box-shadow:var(--shadow)}
+.map-preview-btn:hover{border-color:var(--cat);color:var(--cat)}
+/* — MAP DETAIL: interior as distinct themed space — */
+.map-detail{display:none}
+.map-detail.active{display:block;animation:mapZoomIn .32s cubic-bezier(.2,.8,.2,1)}
+.map-detail.exiting{animation:mapZoomOut .24s ease forwards}
+@keyframes mapZoomIn{from{opacity:0;transform:scale(.96) translateY(12px)}to{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes mapZoomOut{from{opacity:1;transform:scale(1) translateY(0)}to{opacity:0;transform:scale(.98) translateY(8px)}}
+.map-detail-hero{position:relative;background:linear-gradient(135deg,color-mix(in srgb,var(--cat) 7%,var(--card)) 0%,var(--card) 55%);border:1.5px solid color-mix(in srgb,var(--cat) 28%,var(--line-soft));border-radius:16px;padding:22px 22px 18px;margin:16px 0 20px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06),0 8px 24px -8px color-mix(in srgb,var(--cat) 18%,transparent),0 2px 10px rgba(0,0,0,.06)}
+.map-detail-hero::before{content:"";position:absolute;top:0;left:0;right:0;height:5px;background:var(--cat);z-index:2}
+.map-detail-hero::after{content:"";position:absolute;top:5px;left:0;right:0;height:1px;background:linear-gradient(90deg,rgba(255,255,255,.55),transparent 60%);pointer-events:none;z-index:2}
+[data-theme=dark] .map-detail-hero::after,[data-theme=dim] .map-detail-hero::after{background:linear-gradient(90deg,rgba(255,255,255,.12),transparent 60%)}
+.map-detail-hero-top{display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap}
+.map-detail-hero .map-icon{width:52px;height:52px;border-radius:14px;flex:none;background:color-mix(in srgb,var(--cat) 12%,var(--bg2));border:1px solid color-mix(in srgb,var(--cat) 18%,var(--line-soft));color:var(--cat);box-shadow:inset 0 1px 0 rgba(255,255,255,.6);display:flex;align-items:center;justify-content:center}
+[data-theme=dark] .map-detail-hero .map-icon,[data-theme=dim] .map-detail-hero .map-icon{box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
+.map-detail-hero .map-icon svg{width:28px;height:28px;display:block}
+.map-detail-hero h2{font-size:22px;font-weight:800;letter-spacing:-.3px;line-height:1.2;flex:1;min-width:160px}
+.map-detail-hero .count{font-family:var(--mono);font-size:12.5px;color:var(--mut);font-weight:600;display:flex;align-items:center;gap:6px}
+.map-detail-hero .count::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--cat);flex:none;opacity:.9}
+.map-detail-hero .desc{color:var(--mut);font-size:13.5px;line-height:1.55;max-width:680px;margin-top:10px}
+.map-detail-hero .map-pills{margin-top:10px}
+.map-detail-hero .map-difficulty{margin-top:8px}
+.map-back{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;background:var(--card);border:1.5px solid var(--line);border-radius:9999px;padding:10px 18px;margin:0 0 4px;cursor:pointer;color:var(--ink);transition:border-color .15s,background .15s,transform .15s;box-shadow:var(--shadow)}
+.map-back:hover{border-color:var(--cat);color:var(--cat);transform:translateX(-2px)}
+.map-back:active{transform:translateX(-1px) scale(.98)}
+/* interior cards — reuse map card chrome: slim top bar + chip, same tokens as .map-block */
+.map-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+.map-cards .card{position:relative;background:linear-gradient(135deg,color-mix(in srgb,var(--cat) 7%,var(--card)) 0%,var(--card) 55%);border:1.5px solid color-mix(in srgb,var(--cat) 28%,var(--line-soft));border-radius:16px;padding:0;overflow:hidden;display:flex;flex-direction:column;gap:0;box-shadow:0 1px 3px rgba(0,0,0,.06),0 8px 24px -8px color-mix(in srgb,var(--cat) 18%,transparent),0 2px 10px rgba(0,0,0,.06);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.map-cards .card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--cat,var(--brand));z-index:2}
+.map-cards .card::after{content:"";position:absolute;top:3px;left:0;right:0;height:1px;background:linear-gradient(90deg,rgba(255,255,255,.55),transparent 60%);pointer-events:none;z-index:2}
+[data-theme=dark] .map-cards .card::after,[data-theme=dim] .map-cards .card::after{background:linear-gradient(90deg,rgba(255,255,255,.12),transparent 60%)}
+.map-cards .card:hover{transform:translateY(-3px);box-shadow:0 4px 12px rgba(0,0,0,.1),0 20px 40px -12px color-mix(in srgb,var(--cat) 22%,transparent),0 8px 20px rgba(0,0,0,.08);border-color:color-mix(in srgb,var(--cat) 42%,var(--line))}
+.map-card-top{padding:22px 22px 14px;display:flex;flex-direction:column;gap:10px;flex:1}
+.map-card-head{display:flex;align-items:flex-start;gap:12px}
+.map-cards .card .map-icon{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--cat) 12%,var(--bg2));border:1px solid color-mix(in srgb,var(--cat) 18%,var(--line-soft));color:var(--cat);flex:none;box-shadow:inset 0 1px 0 rgba(255,255,255,.6)}
+[data-theme=dark] .map-cards .card .map-icon,[data-theme=dim] .map-cards .card .map-icon{box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
+.map-cards .card .map-icon svg{width:22px;height:22px;display:block}
+.map-card-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.map-card-badge{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:4px 10px;border-radius:9999px;border:1px solid;color:var(--cat);background:color-mix(in srgb,var(--cat) 10%,var(--bg2));border-color:color-mix(in srgb,var(--cat) 22%,var(--line-soft))}
+.map-card-badge.beg{--cat:#2ECC71}
+.map-card-badge.int{--cat:#F5A524}
+.map-card-badge.adv{--cat:#E5484D}
+.map-card-time{font-family:var(--mono);font-size:11px;color:var(--mut);font-weight:500}
+.map-cards .card h3{font-size:17px;font-weight:700;letter-spacing:-.2px;line-height:1.3;margin:0}
+.map-cards .card h3 a{color:var(--ink)}
+.map-cards .card h3 a:hover{color:var(--cat,var(--brand))}
+.map-cards .card .desc{font-size:13.5px;color:var(--mut);line-height:1.55;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;flex:1}
+.map-card-footer{padding:12px 22px 16px;border-top:1px solid var(--line-soft);display:flex;align-items:center;gap:10px;background:color-mix(in srgb,var(--cat, transparent) 3%,var(--bg2))}
+.map-card-footer .meta-line{font-size:12px;color:var(--mut);flex:1}
+.map-card-footer a.read{margin:0}
+@media(max-width:600px){
+  .map-grid{grid-template-columns:1fr;gap:16px;perspective:none}
+  .map-block{transform:none !important}
+  .map-block:hover{transform:translateY(-2px) !important;box-shadow:var(--shadow-lift)}
+  .map-preview{position:static;opacity:1;transform:none;pointer-events:auto;margin:0 12px 12px;max-height:none;box-shadow:none;border:1px dashed color-mix(in srgb,var(--cat) 22%,var(--line-soft));background:color-mix(in srgb,var(--cat) 4%,var(--card))}
+  .map-preview-btn{display:flex}
+  .map-block:not(.preview-open) .map-preview{display:none}
+  .map-block.preview-open .map-preview{display:block}
+  .map-cards{grid-template-columns:1fr}
+  .map-hero{padding:28px 16px 8px}
+  .map-detail-hero{padding:20px 18px 18px;border-radius:16px}
+  .map-detail-hero h2{font-size:22px}
+}
+@media(prefers-reduced-motion:reduce){
+  .map-block,.map-detail,.map-grid{transition:none !important;animation:none !important;transform:none !important}
+  .map-detail.active{animation:none}
+  .map-detail.exiting{animation:none;display:none}
+  .map-preview{transition:none !important}
+}
+</style><script>try{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}catch(e){document.documentElement.dataset.theme='sepia'}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Lab 01: GitHub Webhook Trigger for Jenkins", "description": "Wire GitHub webhook delivery into a Jenkins pipeline and verify the trigger chain end to end.", "url": "https://eslamnabawy.github.io/cicd-by-nabawy/read/jenkins-lab-webhook.html", "author": {"@type": "Person", "name": "Nabawy"}, "isPartOf": {"@type": "CollectionPage", "name": "CICD BY Nabawy", "url": "https://eslamnabawy.github.io/cicd-by-nabawy"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Library", "item": "https://eslamnabawy.github.io/cicd-by-nabawy/"}, {"@type": "ListItem", "position": 2, "name": "Lab 01: GitHub Webhook Trigger for Jenkins", "item": "https://eslamnabawy.github.io/cicd-by-nabawy/read/jenkins-lab-webhook.html"}]}</script>
+<style>
+.readbody{--paper:#f5f6f4;--white:#fff;--ink:#161a19;--muted:#68706d;--line:#d5dad7;--panel:#111614;--panel-2:#1a201d;--text-light:#e8eeeb;--text-muted:#9ca8a3;--accent:#00b87c;--accent-dark:#008f61;--blue:#4387ff;--amber:#d99a24;--red:#d94b4b;--artifact:#8b6cff}
+*{box-sizing:border-box;margin:0;padding:0}
+.readbody{font-family:Inter,"Segoe UI",Arial,sans-serif;color:var(--ink);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+@page{size:A4;margin:0}
+.page{width:210mm;min-height:297mm;padding:14mm 15mm 17mm;margin:7mm auto;position:relative;background:var(--paper);page-break-after:always;overflow:hidden;display:flex;flex-direction:column}
+.page:last-child{page-break-after:auto}
+@media print{.readbody{}.page{margin:0;box-shadow:none}h3.sec,.phead h2{break-after:avoid}.terminal,.step,.callout,.kv,.pipeline,.lanes,.arch,.cmp,.whatwhy,.grid2{break-inside:avoid}}
+.phead{font-size:8.5px;letter-spacing:2.2px;color:var(--muted);text-transform:uppercase;line-height:1.2}
+.phead .ch{color:var(--accent-dark);font-weight:800}
+.phead h2{font-size:20px;letter-spacing:1px;color:var(--ink);margin:3px 0 6px;text-transform:uppercase;line-height:1.1}
+.phead hr{border:none;border-top:1.5px solid var(--ink);margin-bottom:9px}
+.phead .subh{font-size:9px;letter-spacing:1.4px;color:var(--muted);text-transform:uppercase;margin-top:-2px}
+.pfoot{margin-top:auto;padding-top:8px;font-size:8.5px;color:var(--muted);display:flex;justify-content:space-between;border-top:1px solid var(--line);letter-spacing:1px}
+h3.sec{font-size:16.5px;margin:13px 0 7px;text-transform:uppercase;letter-spacing:.4px;break-after:avoid;line-height:1.2}
+h3.sec .n{color:var(--accent-dark);font-family:"Cascadia Code",Consolas,monospace;font-size:12px;margin-right:8px;font-weight:700}
+p.body{font-size:11.2px;line-height:1.65;margin:7px 0;color:#222}
+p.body b{color:var(--ink)}
+code,.mono{font-family:"SFMono-Regular","Cascadia Code",Consolas,monospace;font-size:10px}
+.cover{background:var(--panel);color:var(--text-light);justify-content:center;padding:18mm 16mm 14mm}
+.cover .brand{font-size:8px;letter-spacing:4px;color:var(--text-muted);text-transform:uppercase}
+.cover .labid{font-size:9px;letter-spacing:4px;color:var(--accent);font-weight:800;margin-top:14px}
+.cover h1{font-size:44px;line-height:.95;margin:6px 0 6px;letter-spacing:1px;font-weight:800}
+.cover h1 span{color:var(--accent)}
+.cover .sub{font-size:12px;color:#9ca8a3;line-height:1.65;max-width:150mm;margin-bottom:10px}
+.cover .tri{font-size:8.5px;letter-spacing:2.3px;color:var(--accent);margin-bottom:16px;line-height:1.9}
+.cover .foot{font-size:8.5px;color:var(--text-muted);letter-spacing:2px;margin-top:auto;padding-top:18px;display:flex;align-items:baseline;justify-content:space-between;gap:12px;border-top:1px solid #1f2a26}
+.cover .sig{font-family:"Brush Script MT","Segoe Script","Snell Roundhand",cursive;font-size:26px;color:var(--accent);transform:rotate(-4deg);text-shadow:0 0 14px rgba(0,184,124,.45);white-space:nowrap}
+.vpipe{display:flex;flex-direction:column;margin:8px 0 10px;gap:0}
+.vnode{display:flex;align-items:center;gap:10px}
+.vnode .dot{width:11px;height:11px;border-radius:50%;border:2px solid var(--accent);box-shadow:0 0 10px rgba(0,184,124,.45);flex:none;background:transparent}
+.vnode .dot.amber{border-color:var(--amber);box-shadow:0 0 10px rgba(217,154,36,.4)}
+.vnode .dot.blue{border-color:var(--blue);box-shadow:0 0 10px rgba(67,135,255,.4)}
+.vnode .dot.red{border-color:var(--red);box-shadow:none}
+
+.cover .vnode img{filter:drop-shadow(0 0 0.9px #18E299) drop-shadow(0 0 4px rgba(24,226,153,.22));}
+.cover .vnode img[src*="github"]{background:none;border-radius:0;padding:0;box-shadow:none;filter:drop-shadow(0 0 0.9px #18E299) drop-shadow(0 0 5px rgba(24,226,153,.28));}
+.cover .vnode img[src*="github"]{background:none;border-radius:0;padding:0;box-shadow:none;filter:drop-shadow(1px 0 0 white) drop-shadow(-1px 0 0 white) drop-shadow(0 1px 0 white) drop-shadow(0 -1px 0 white) drop-shadow(0.7px 0.7px 0 white) drop-shadow(-0.7px -0.7px 0 white) drop-shadow(-0.7px 0.7px 0 white) drop-shadow(0.7px -0.7px 0 white);}
+/* icon: github white on dark, black on light — no halo */
+.cover .vnode img[src*="github"]{filter:invert(1) brightness(1.05);background:none;box-shadow:none;border-radius:0;padding:0;}
+.cover .vnode img:not([src*="github"]){filter:none;}
+/* icon: outline/black icons white on dark covers */
+.cover .vnode img[src*="github"], .cover .vnode img[src*="workflow"], .cover .vnode img[src*="hammer"], .cover .vnode img[src*="package"], .cover .vnode img[src*="database"], .cover .vnode img[src*="puzzle"], .cover .vnode img[src*="server"], .cover .vnode img[src*="terminal"], .cover .vnode img[src*="shield"], .cover .vnode img[src*="activity"], .cover .vnode img[src*="webhook"], .cover .vnode img[src*="wrench"], .cover .vnode img[src*="flask"], .cover .vnode img[src*="rocket"]{filter:invert(1) brightness(1.05);}
+.vnode img{width:22px;height:22px;flex:none;object-fit:contain}
+.vnode b{font-size:10.5px;letter-spacing:1.6px;line-height:1}
+.vnode small{font-size:8.5px;color:var(--text-muted);letter-spacing:.3px}
+.vline{width:2px;height:14px;background:#22302c;margin-left:4.5px}
+.opener .bignum{font-size:56px;font-weight:800;line-height:1;color:var(--ink)}
+.opener .ctitle{font-size:24px;letter-spacing:3px;margin:2px 0 8px;line-height:1.1}
+.opener .lede{font-size:12.2px;line-height:1.65;max-width:152mm;margin:6px 0;color:#2a2f2d}
+.opener .lede em{color:var(--accent-dark);font-style:normal;font-weight:700}
+.kv{background:var(--white);border:1px solid var(--line);padding:9px 11px;margin:7px 0;font-size:11px;line-height:1.6}
+.kv b{color:var(--accent-dark)}
+.callout{border-left:3px solid var(--accent);background:var(--white);padding:9px 11px;margin:8px 0}
+.callout h4{font-size:8.5px;letter-spacing:2px;color:var(--accent-dark);margin-bottom:4px}
+.callout p{font-size:11px;line-height:1.6;color:#222}
+.callout.amber{border-left-color:var(--amber)} .callout.amber h4{color:var(--amber)}
+.callout.red{border-left-color:var(--red)} .callout.red h4{color:var(--red)}
+.callout.blue{border-left-color:var(--blue)} .callout.blue h4{color:var(--blue)}
+.callout.purple{border-left-color:var(--artifact)} .callout.purple h4{color:var(--artifact)}
+.terminal{background:#101413;color:#d6e2dc;border-radius:8px;padding:10px 12px;font-family:"SFMono-Regular","Cascadia Code",Consolas,monospace;font-size:9.2px;line-height:1.65;margin:7px 0;overflow-x:auto;white-space:pre;border:1px solid #1f2a26}
+.terminal .c{color:#8b9a94} .terminal .g{color:var(--accent)} .terminal .a{color:var(--amber)} .terminal .r{color:var(--red)} .terminal .b{color:var(--blue)}
+.terminal .dim{color:#6b7a75}
+.step{background:var(--white);border:1px solid var(--line);padding:9px 11px;margin:6px 0;font-size:11px;line-height:1.6}
+.step h4{font-size:10px;letter-spacing:.8px;margin-bottom:2px;line-height:1.4}
+.step h4 .tag{color:var(--accent-dark);font-family:"Cascadia Code",Consolas,monospace}
+table.cmp{width:100%;border-collapse:collapse;font-size:10.5px;margin:8px 0}
+table.cmp th{background:var(--panel);color:var(--text-light);font-size:8.5px;letter-spacing:1px;padding:6px 7px;text-align:left;font-weight:700}
+table.cmp td{border:1px solid var(--line);padding:6px 7px;background:var(--white);line-height:1.5;vertical-align:top}
+table.cmp td:first-child{font-weight:700;background:#eef0ee}
+.pipeline{display:flex;align-items:center;gap:5px;margin:9px 0;flex-wrap:wrap}
+.pipeline .stage{background:var(--white);border:1px solid var(--line);border-left:3px solid var(--accent);padding:7px 9px;min-width:78px;flex:1}
+.pipeline .stage.fail{border-left-color:var(--red)}
+.pipeline .stage.wait{border-left-color:var(--amber)}
+.pipeline .stage.info{border-left-color:var(--blue)}
+.pipeline .stage strong{font-size:9px;letter-spacing:1px;display:block;line-height:1.2}
+.pipeline .stage small{font-size:8.5px;color:var(--muted);line-height:1.3}
+.pipeline .stage .no{font-family:"Cascadia Code",Consolas,monospace;font-size:7.5px;color:var(--muted);letter-spacing:1px}
+.pipeline .conn{width:16px;height:2px;background:var(--line);position:relative;flex:none}
+.pipeline .conn:after{content:"›";position:absolute;right:-6px;top:-8px;color:var(--muted);font-size:12px}
+.lanes{margin:8px 0}
+.lanes .lane{display:flex;align-items:center;gap:8px;padding:7px 10px;border:1px solid var(--line);background:var(--white);margin-bottom:5px;font-size:10.5px}
+.lanes .lane .env{font-weight:800;font-size:8.5px;letter-spacing:1.4px;min-width:68px}
+.lanes .lane.dev{border-left:3px solid var(--blue)}
+.lanes .lane.stg{border-left:3px solid var(--amber)}
+.lanes .lane.prod{border-left:3px solid var(--accent)}
+.arch{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:6px;align-items:center;margin:8px 0}
+.arch .box{background:var(--white);border:1px solid var(--line);padding:8px 8px;text-align:center}
+.arch .box b{font-size:9.5px;letter-spacing:1px;display:block;line-height:1.2}
+.arch .box small{font-size:8.5px;color:var(--muted);line-height:1.4}
+.arch .arrow{color:var(--muted);font-size:16px;text-align:center}
+.status{display:inline-flex;align-items:center;gap:5px;font-size:9.5px;letter-spacing:.8px;font-weight:800}
+.status .dot{width:7px;height:7px;border-radius:50%}
+.status.pass{color:var(--accent-dark)} .status.pass .dot{background:var(--accent)}
+.status.fail{color:var(--red)} .status.fail .dot{background:var(--red)}
+.status.wait{color:var(--amber)} .status.wait .dot{background:var(--amber)}
+.status.run{color:var(--blue)} .status.run .dot{background:var(--blue)}
+.badge{font-size:7.5px;letter-spacing:1.1px;padding:3px 7px;border-radius:10px;border:1px solid var(--line);background:var(--white);font-weight:800;display:inline-flex;align-items:center;gap:4px}
+.badge.green{border-color:var(--accent);color:var(--accent-dark)} .badge.amber{border-color:var(--amber);color:#7a5a12} .badge.blue{border-color:var(--blue);color:var(--blue)} .badge.red{border-color:var(--red);color:var(--red)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0}
+.card{background:var(--white);border:1px solid var(--line);padding:9px 10px}
+.card h4{font-size:9px;letter-spacing:1.1px;margin-bottom:3px;color:var(--ink)}
+.card p{font-size:10.5px;line-height:1.6;color:var(--muted)}
+.whatwhy{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:8px 0}
+.whatwhy .ww{background:var(--white);border:1px solid var(--line);padding:9px 10px}
+.whatwhy .ww b{font-size:9px;letter-spacing:1.4px;display:block;margin-bottom:3px}
+.whatwhy .ww p{font-size:10.5px;line-height:1.55;color:#333}
+.whatwhy .ww:nth-child(1){border-left:3px solid var(--blue)}
+.whatwhy .ww:nth-child(2){border-left:3px solid var(--accent)}
+.whatwhy .ww:nth-child(3){border-left:3px solid var(--amber)}
+.obsgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:8px 0}
+.obsgrid .ob{background:var(--white);border:1px solid var(--line);padding:9px 10px;text-align:center}
+.obsgrid .ob b{font-size:9px;letter-spacing:1.3px;display:block;margin-bottom:2px}
+.obsgrid .ob small{font-size:9px;color:var(--muted);line-height:1.4}
+.obsgrid .ob.observe{border-top:3px solid var(--blue)} .obsgrid .ob.execute{border-top:3px solid var(--accent)} .obsgrid .ob.verify{border-top:3px solid var(--amber)}
+.printnote{font-size:8.5px;color:var(--muted);border:1px dashed var(--line);padding:7px 9px;margin-top:8px;line-height:1.6}
+/* m-reflow: screen-only mobile reflow; print unaffected */
+@media screen and (max-width:700px){.page{width:auto;min-height:0;margin:0 auto;padding:16px 14px 20px}h3.sec{font-size:14px}.opener .bignum{font-size:40px}.cover h1{font-size:30px}.grid2,.whatwhy,.obsgrid{grid-template-columns:1fr}.arch{grid-template-columns:1fr}.arch .arrow{transform:rotate(90deg)}}
+
+/* reader overrides */
+.readbody .page:not(.cover){width:auto !important;min-height:0 !important;margin:0 auto !important;padding:10px 26px !important;background:transparent !important;border-radius:0;page-break-after:auto !important;overflow:visible}
+.readbody .page.cover{align-items:flex-start !important;border-radius:16px;padding:48px 34px !important;margin:0 auto 30px !important}
+.readbody .page.opener .bignum{margin-top:30px}
+[data-theme=dark] .readbody{--paper:#10161d;--white:#151c25;--ink:#e6edf3;--muted:#8b949e;--line:#26303d;--panel:#0a0e14;--text-light:#e6edf3}
+[data-theme=dark] .readbody table.cmp td:first-child{background:var(--white)}
+[data-theme=dark] .readbody .fnode.gate{background:rgba(217,154,36,.12)}
+[data-theme=dark] .readbody .i-gr{background:var(--muted)}
+</style>
+</head>
+<body data-book="jenkins-lab-webhook">
+<header class="top"><div class="wrap">
+<button class="btn tocbtn" id="tocbtn">☰ Contents · 41</button>
+<nav class="crumbs"><a class="logo" href="../index.html" style="color:inherit"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="5" cy="12" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="6" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="18" r="2.6" stroke="#18E299" stroke-width="2"/><path d="M7.6 12h5.2m0 0-2.6-2.6m2.6 2.6-2.6 2.6M13.4 7.4l2.8-1M13.4 16.6l2.8 1" stroke="#18E299" stroke-width="2" stroke-linecap="round"/></svg>CICD<span> BY Nabawy</span></a>
+<span class="sep">/</span>
+<span class="here">Lab 01: GitHub Webhook Trigger for Jenkins</span></nav>
+<div class="search"><input id="q" type="search" placeholder="Find in this book…" aria-label="Find in this book"><kbd>⌘K</kbd></div>
+<span id="qcount" style="font-size:12px;color:var(--mut)"></span>
+<button class="markbtn" id="markbtn" aria-label="Bookmark this book">☆ Save</button>
+<a class="btn" href="../index.html" style="text-decoration:none">Map</a>
+<a class="btn" href="../shelf.html" style="text-decoration:none">Browse</a>
+<a class="btn" href="../book/jenkins-lab-webhook.html" style="text-decoration:none">Overview</a>
+<button class="btn" id="setbtn" aria-label="Reading settings">⚙ A⁺</button>
+</div>
+<div class="prog" style="height:3px;background:var(--line)"><b id="pbar" style="display:block;height:100%;width:0;background:var(--acc)"></b></div>
+</header>
+<div class="readcontext" data-testid="reader-context"><div class="wrap"><a href="../shelf.html">Browse</a><span>›</span><a href="../shelf.html#path-labs">Hands-on Labs</a><span>›</span><span class="here">Lab 01: GitHub Webhook Trigger for Jenkins</span><span class="pathpos">9 of 14 in Hands-on Labs</span><span class="prereq">Prereq:<a href="jenkins-setup.html">Jenkins Setup</a><a href="jenkins-pipelines.html">Jenkins Pipelines</a></span></div></div>
+<div class="rlayout">
+<aside class="toc"><h4>CONTENTS · 6 PAGES · 41 SECTIONS</h4><a href="#pp1" class="toc-l1" aria-label="Cover — WEBHOOKTRIGGER">Cover — WEBHOOKTRIGGER</a><a href="#pp2" class="toc-l1" aria-label="1 Lab 01">1 Lab 01</a><a href="#pp2" class="toc-l2" aria-label="1.1 01 / What / Why / When">1.1 01 / What / Why / When</a><a href="#pp2" class="toc-l3" aria-label="1.1.1 WHY THIS EXISTS">1.1.1 WHY THIS EXISTS</a><a href="#pp2" class="toc-l2" aria-label="1.2 02 / Architecture — The Three Hops">1.2 02 / Architecture — The Three Hops</a><a href="#pp2" class="toc-l2" aria-label="1.3 03 / Lab Loop — Observe · Execute · Verify">1.3 03 / Lab Loop — Observe · Execute · Verify</a><a href="#pp3" class="toc-l1" aria-label="2 Pre-Flight &amp; Reachability">2 Pre-Flight &amp; Reachability</a><a href="#pp3" class="toc-l2" aria-label="2.1 04 / Step 0 — Pre-Flight Check">2.1 04 / Step 0 — Pre-Flight Check</a><a href="#pp3" class="toc-l3" aria-label="2.1.1 ASK IN ONE BATCH — BEFORE STEP 1">2.1.1 ASK IN ONE BATCH — BEFORE STEP 1</a><a href="#pp3" class="toc-l3" aria-label="2.1.2 GOTCHA — WSL / LOCALHOST IS INVISIBLE TO GITHUB">2.1.2 GOTCHA — WSL / LOCALHOST IS INVISIBLE TO GITHUB</a><a href="#pp4" class="toc-l1" aria-label="3 Job · Credentials · Checkout">3 Job · Credentials · Checkout</a><a href="#pp4" class="toc-l2" aria-label="3.1 05 / Step 1 — Create or Reuse a Pipeline Job">3.1 05 / Step 1 — Create or Reuse a Pipeline Job</a><a href="#pp4" class="toc-l3" aria-label="3.1.1 OBSERVE — Browse Jenkins dashboard for an existing pipeline ">3.1.1 OBSERVE — Browse Jenkins dashboard for an existing pipeline </a><a href="#pp4" class="toc-l3" aria-label="3.1.2 EXECUTE — Otherwise New Item → Pipeline → name github-webhoo">3.1.2 EXECUTE — Otherwise New Item → Pipeline → name github-webhoo</a><a href="#pp4" class="toc-l3" aria-label="3.1.3 VERIFY — Save → Build Now → build is PASSED before any Git i">3.1.3 VERIFY — Save → Build Now → build is PASSED before any Git i</a><a href="#pp4" class="toc-l2" aria-label="3.2 06 / Step 2 — Repository URL">3.2 06 / Step 2 — Repository URL</a><a href="#pp4" class="toc-l3" aria-label="3.2.1 EXECUTE — In GitHub → repo → Code → HTTPS → copy clone URL:">3.2.1 EXECUTE — In GitHub → repo → Code → HTTPS → copy clone URL:</a><a href="#pp4" class="toc-l2" aria-label="3.3 07 / Steps 3–4 — PAT + Jenkins Credentials + Checkout">3.3 07 / Steps 3–4 — PAT + Jenkins Credentials + Checkout</a><a href="#pp4" class="toc-l3" aria-label="3.3.1 WHY CREDENTIALS LIVE IN JENKINS, NOT IN GIT">3.3.1 WHY CREDENTIALS LIVE IN JENKINS, NOT IN GIT</a><a href="#pp4" class="toc-l3" aria-label="3.3.2 OBSERVE — Step 0 already confirmed or collected the PAT. Nev">3.3.2 OBSERVE — Step 0 already confirmed or collected the PAT. Nev</a><a href="#pp4" class="toc-l3" aria-label="3.3.3 EXECUTE — Manage Jenkins → Credentials (or inside the job: P">3.3.3 EXECUTE — Manage Jenkins → Credentials (or inside the job: P</a><a href="#pp4" class="toc-l3" aria-label="3.3.4 VERIFY — Build Now → Console Output shows Cloning the remote">3.3.4 VERIFY — Build Now → Console Output shows Cloning the remote</a><a href="#pp5" class="toc-l1" aria-label="4 Wire Both Sides">4 Wire Both Sides</a><a href="#pp5" class="toc-l2" aria-label="4.1 08 / Step 5 — GitHub Webhook">4.1 08 / Step 5 — GitHub Webhook</a><a href="#pp5" class="toc-l3" aria-label="4.1.1 OBSERVE — Repo → Settings → Webhooks. If a webhook already p">4.1.1 OBSERVE — Repo → Settings → Webhooks. If a webhook already p</a><a href="#pp5" class="toc-l3" aria-label="4.1.2 EXECUTE — Add webhook:">4.1.2 EXECUTE — Add webhook:</a><a href="#pp5" class="toc-l3" aria-label="4.1.3 VERIFY — Webhook list shows a green checkmark on the initial">4.1.3 VERIFY — Webhook list shows a green checkmark on the initial</a><a href="#pp5" class="toc-l2" aria-label="4.2 09 / Step 6 — Jenkins Trigger">4.2 09 / Step 6 — Jenkins Trigger</a><a href="#pp5" class="toc-l3" aria-label="4.2.1 OBSERVE — Open the job → Configure → Build Triggers. Is GitH">4.2.1 OBSERVE — Open the job → Configure → Build Triggers. Is GitH</a><a href="#pp5" class="toc-l3" aria-label="4.2.2 EXECUTE — Check GitHub hook trigger for GITScm polling → Sav">4.2.2 EXECUTE — Check GitHub hook trigger for GITScm polling → Sav</a><a href="#pp5" class="toc-l3" aria-label="4.2.3 VERIFY — Job config now lists the trigger; no other trigger ">4.2.3 VERIFY — Job config now lists the trigger; no other trigger </a><a href="#pp5" class="toc-l3" aria-label="4.2.4 WHY TWO SIDES?">4.2.4 WHY TWO SIDES?</a><a href="#pp6" class="toc-l1" aria-label="5 Prove It">5 Prove It</a><a href="#pp6" class="toc-l2" aria-label="5.1 10 / Step 7 — End-to-End Automatic Trigger">5.1 10 / Step 7 — End-to-End Automatic Trigger</a><a href="#pp6" class="toc-l3" aria-label="5.1.1 EXECUTE — Make a small commit on the configured branch:">5.1.1 EXECUTE — Make a small commit on the configured branch:</a><a href="#pp6" class="toc-l3" aria-label="5.1.2 OBSERVE — Watch Jenkins Build History for ~5–15 s. A new bui">5.1.2 OBSERVE — Watch Jenkins Build History for ~5–15 s. A new bui</a><a href="#pp6" class="toc-l3" aria-label="5.1.3 VERIFY — Three signals, all must hold:">5.1.3 VERIFY — Three signals, all must hold:</a><a href="#pp6" class="toc-l2" aria-label="5.2 11 / Failure → Recovery Map">5.2 11 / Failure → Recovery Map</a><a href="#pp6" class="toc-l2" aria-label="5.3 12 / Proof — What This Lab Proved">5.3 12 / Proof — What This Lab Proved</a><a href="#pp6" class="toc-l3" aria-label="5.3.1 INTERVIEW CHECK">5.3.1 INTERVIEW CHECK</a><a href="#pp6" class="toc-l3" aria-label="5.3.2 CONSISTENCY RULE">5.3.2 CONSISTENCY RULE</a>
+<div style="margin-top:14px"><a href="../pdf/pdf-jenkins-lab-01-webhook.html">⭳ Open print HTML</a></div>
+</aside>
+<main class="read"><div class="readbody">
+<div class="upnext upnext-top">Up next in Hands-on Labs → <a href="jenkins-lab-docker.html"><b>Lab 02: Docker Build &amp; Push with Jenkins</b></a></div>
+<div class="labbanner">🧪 Hands-on lab · 45 min · Env: See book overview · <a href="../book/jenkins-lab-webhook.html">Overview &amp; prereqs</a> · <button class="markbtn" id="labreset" style="margin-left:8px">Reset checks</button></div>
+<div id="p1" class="page cover">
+  <div class="brand">CI/CD Systems &nbsp;·&nbsp; Pipeline Control Room &nbsp;·&nbsp; Jenkins Labs</div>
+  <div class="labid">LAB 01 — JENKINS LABS</div>
+  <h1>WEBHOOK<br><span>TRIGGER</span></h1>
+  <div class="sub">Push to build — with no human in between. Wire GitHub to Jenkins so every <span class="mono" style="color:var(--accent)">git push</span> delivers a webhook, matches a branch, and starts a build automatically.</div>
+  <div class="tri">GITHUB &nbsp;·&nbsp; WEBHOOK &nbsp;·&nbsp; JENKINS &nbsp;·&nbsp; GITSCM POLLING &nbsp;·&nbsp; VERIFY</div>
+  <div class="vpipe">
+    <div class="vnode"><span class="dot"></span><img src="../assets/icons/git/github.svg" alt="GitHub"><b>SOURCE — GITHUB PUSH</b><small>commit to branch · HTTPS clone URL</small></div><div class="vline"></div>
+    <div class="vnode"><span class="dot amber"></span><img src="../assets/icons/jenkins/webhook.svg" alt="Webhook"><b>WEBHOOK — /github-webhook/</b><small>POST · application/json · trailing slash matters</small></div><div class="vline"></div>
+    <div class="vnode"><span class="dot blue"></span><img src="../assets/icons/jenkins/jenkins.svg" alt="Jenkins"><b>TRIGGER — GITSCM POLLING</b><small>Build Triggers · GitHub hook trigger for GITScm polling</small></div><div class="vline"></div>
+    <div class="vnode"><span class="dot"></span><img src="../assets/icons/general/terminal.svg" alt="Terminal"><b>CHECKOUT — PAT + BRANCH</b><small>checkout scm · github-token · Branch to build</small></div><div class="vline"></div>
+    <div class="vnode"><span class="dot"></span><img src="../assets/icons/security/shield.svg" alt="Shield"><b>VERIFY — PROOF</b><small>Recent Deliveries 200 · Console SHA · auto build</small></div>
+  </div>
+  <div style="display:flex;gap:6px;margin-top:2px;flex-wrap:wrap">
+    <span class="badge green">● LAB 01</span><span class="badge blue">PUSH → BUILD</span><span class="badge amber">NO MANUAL BUILD NOW</span>
+  </div>
+  <div class="foot"><span>01 / 06 &nbsp;·&nbsp; COVER &nbsp;·&nbsp; LAB 01 WEBHOOK TRIGGER</span><span class="sig">Nabawy</span></div>
+</div><div id="p2" class="page opener">
+  </div>
+  <div class="bignum">01</div>
+  <div class="ctitle">GITHUB WEBHOOK TRIGGER</div>
+  <p class="lede">One commit should be enough. <em>Push once — Jenkins builds without anyone clicking Build Now.</em> This lab closes the loop <b>commit → webhook → trigger → checkout</b> and proves all three failure points are knowable.</p>
+
+  <h3 class="sec"><span class="n">01 /</span> What / Why / When</h3>
+  <div class="whatwhy">
+    <div class="ww"><b style="color:var(--blue)">WHAT</b><p>A GitHub webhook POSTs a push event to <span class="mono">/github-webhook/</span>. Jenkins matches repo + branch and starts the job that has <b>GitHub hook trigger for GITScm polling</b> enabled.</p></div>
+    <div class="ww"><b style="color:var(--accent-dark)">WHY</b><p>Without it, Jenkins only learns about pushes on poll or manual click — minutes late. Webhook moves discovery to <b>seconds</b> and removes the human gate.</p></div>
+    <div class="ww"><b style="color:var(--amber)">WHEN</b><p>Every push to the configured branch. The job must already have a valid checkout (PAT + branch match) or the triggered build will fail fast.</p></div>
+  </div>
+
+  <div class="callout blue"><h4>WHY THIS EXISTS</h4><p>Before this lab, delivery depends on a person remembering to click. A broken change can sit unbuilt for hours. The webhook turns <b>intent</b> (push) into <b>execution</b> (build) deterministically — CI starts where the developer already works: Git.</p></div>
+
+  <h3 class="sec"><span class="n">02 /</span> Architecture — The Three Hops</h3>
+  <div class="arch">
+    <div class="box" style="border-left:3px solid var(--ink)"><img src="../assets/icons/git/github.svg" alt="GitHub" style="width:22px;height:22px"><b>GITHUB</b><small>push to <span class="mono">main</span><br>Settings → Webhooks</small></div><div class="arrow">→</div>
+    <div class="box" style="border-left:3px solid var(--amber)"><img src="../assets/icons/jenkins/webhook.svg" alt="Webhook" style="width:22px;height:22px"><b>WEBHOOK</b><small><span class="mono">/github-webhook/</span><br>application/json</small></div><div class="arrow">→</div>
+    <div class="box" style="border-left:3px solid var(--accent)"><img src="../assets/icons/jenkins/jenkins.svg" alt="Jenkins" style="width:22px;height:22px"><b>JENKINS JOB</b><small>GitHub hook trigger<br>checkout with PAT</small></div>
+  </div>
+  <p class="body">GitHub is the <b>event source</b>, the webhook URL is the <b>delivery contract</b> (public reachability + trailing slash), Jenkins trigger is the <b>listener</b>, and the stored PAT is the <b>gate to the repo</b>. Failure in any hop has a distinct signal — see the Failure Map on the last page.</p>
+
+  <h3 class="sec"><span class="n">03 /</span> Lab Loop — Observe · Execute · Verify</h3>
+  <div class="obsgrid">
+    <div class="ob observe"><img src="../assets/icons/general/terminal.svg" alt="" style="width:18px;height:18px;opacity:.8"><b style="color:var(--blue)">OBSERVE</b><small>What is happening now?<br>Reachability, creds, branch, webhook status</small></div>
+    <div class="ob execute"><img src="../assets/icons/jenkins/jenkins.svg" alt="" style="width:18px;height:18px;opacity:.8"><b style="color:var(--accent-dark)">EXECUTE</b><small>Precise action<br>Create job · add creds · save webhook · push</small></div>
+    <div class="ob verify"><img src="../assets/icons/security/shield.svg" alt="" style="width:18px;height:18px;opacity:.8"><b style="color:var(--amber)">VERIFY</b><small>What proves it worked?<br>Green check · 200 · new build · SHA match</small></div>
+  </div>
+  <p class="body">Every step below is written as <b>OBSERVE → EXECUTE → VERIFY</b>. No step mutates the system before its pre-flight is understood. Each ends with <b>PROOF</b>.</p>
+
+  <div class="pipeline">
+    <div class="stage info"><span class="no">01</span><strong>SOURCE</strong><small>Git push</small></div><div class="conn"></div>
+    <div class="stage wait"><span class="no">02</span><strong>WEBHOOK</strong><small>POST event</small></div><div class="conn"></div>
+    <div class="stage"><span class="no">03</span><strong>TRIGGER</strong><small>GITScm hook</small></div><div class="conn"></div>
+    <div class="stage"><span class="no">04</span><strong>CHECKOUT</strong><small>PAT + branch</small></div><div class="conn"></div>
+    <div class="stage"><span class="no">05</span><strong>OBSERVE</strong><small>build log</small></div>
+  </div>
+
+  
+</div><div id="p3" class="page">
+  </div>
+
+  <h3 class="sec"><span class="n">04 /</span> Step 0 — Pre-Flight Check</h3>
+  <p class="body">This section runs <b>before Step 1</b>. Webhook reachability and token scope are painful to debug mid-flow — verify them now while nothing is half-configured.</p>
+
+  <table class="cmp">
+    <tr><th style="width:18%">Check</th><th>Command / Location</th><th>What Good Looks Like</th></tr>
+    <tr><td>Tools</td><td><span class="mono">curl -s -o /dev/null -w "%{http_code}" http://localhost:8080</span><br><span class="mono">gh --version</span> · <span class="mono">gh auth status</span><br><span class="mono">ngrok --version</span> (if localhost/WSL)</td><td><span class="mono">200</span> from Jenkins · <span class="mono">gh</span> optional — web UI works if absent</td></tr>
+    <tr><td>Credentials</td><td>GitHub → <b>Settings → Developer settings → Personal access tokens</b> (<span class="mono">repo</span> scope)<br>Jenkins → <b>Manage Jenkins → Credentials</b></td><td>Non-expired PAT exists; matching Jenkins credential re-usable — PAT creation is <b>browser-only</b>, never scriptable</td></tr>
+    <tr><td>Repo state</td><td>Jenkins dashboard — job exists?<br>Repo <b>Settings → Webhooks</b> — webhook exists + green?<br><span class="mono">git branch -r</span> / GitHub branch dropdown</td><td>Real default branch known (<span class="mono">main</span> vs <span class="mono">master</span>) — never assume</td></tr>
+    <tr><td>Reachability</td><td>Jenkins URL as GitHub will call it: <span class="mono">http(s)://&lt;host&gt;/github-webhook/</span></td><td>Public URL or tunnel already chosen — decision belongs <b>here</b>, not at Step 5</td></tr>
+  </table>
+
+  <div class="terminal"><span class="c"># 0.1 — is Jenkins listening?</span>
+curl -s -o /dev/null -w "%{http_code}" http://localhost:8080
+<span class="g">200</span>
+
+<span class="c"># 0.1 — public reachability requires a tunnel if Jenkins is on localhost/WSL</span>
+ngrok --version  <span class="c"># if missing → decide in Step 0 whether to install ngrok / localhost.run / reverse proxy</span>
+gh --version && gh auth status  <span class="c"># optional; web UI is the fallback</span></div>
+
+  <div class="callout amber"><h4>ASK IN ONE BATCH — BEFORE STEP 1</h4><p>Only ask for what checks proved missing. Typical batch: <b>(1)</b> target repo URL + branch, <b>(2)</b> valid PAT or browser generation, <b>(3)</b> Jenkins public URL / tunnel choice, <b>(4)</b> desired job name. Then run Steps 1–7 uninterrupted.</p></div>
+
+  <div class="callout red"><h4>GOTCHA — WSL / LOCALHOST IS INVISIBLE TO GITHUB</h4><p>GitHub delivers webhooks over the public internet. A Jenkins on <span class="mono">localhost</span> or inside WSL has no public address — GitHub's POST will time out with <span class="mono">—</span> or <span class="mono">5xx</span> in <b>Recent Deliveries</b>. Fix: expose Jenkins via <span class="mono">ngrok http 8080</span>, <span class="mono">localhost.run</span>, or a reverse proxy with a domain — and use <b>that</b> URL as the webhook Payload URL. Decide <b>now</b> in Step 0, or Step 5 will fail silently.</p></div>
+
+  <div class="kv"><b>OBSERVE in Step 0 →</b> All four rows green? Then <span class="badge green">● PRE-FLIGHT PASSED</span> — proceed. Any red row → resolve it before creating a job.</div>
+
+  
+</div><div id="p4" class="page">
+  </div>
+
+  <h3 class="sec"><span class="n">05 /</span> Step 1 — Create or Reuse a Pipeline Job</h3>
+  <div class="step"><h4><span class="tag">OBSERVE —</span> Browse Jenkins dashboard for an existing pipeline job that should own this trigger. Reuse it if it exists.</h4></div>
+  <div class="step"><h4><span class="tag">EXECUTE —</span> Otherwise <b>New Item → Pipeline</b> → name <span class="mono">github-webhook-pipeline</span> → <b>Pipeline → Pipeline script</b> → paste a minimal placeholder:</h4></div>
+  <div class="terminal">pipeline {
+  agent any
+  stages { stage('Hello') { steps { echo 'hello from webhook lab' } } }
+}</div>
+  <div class="step"><h4><span class="tag">VERIFY —</span> Save → <b>Build Now</b> → build is <span class="status pass"><span class="dot"></span>PASSED</span> before any Git integration. A red job here means the agent/label is wrong — fix before Step 4.</h4></div>
+
+  <h3 class="sec"><span class="n">06 /</span> Step 2 — Repository URL</h3>
+  <div class="step"><h4><span class="tag">EXECUTE —</span> In GitHub → repo → <b>Code → HTTPS</b> → copy clone URL:</h4></div>
+  <div class="terminal">https://github.com/&lt;username&gt;/&lt;repo&gt;.git</div>
+  <p class="body">Use HTTPS (PAT-based) — GitHub has deprecated password auth for Git operations.</p>
+
+  <h3 class="sec"><span class="n">07 /</span> Steps 3–4 — PAT + Jenkins Credentials + Checkout</h3>
+  <div class="callout blue"><h4>WHY CREDENTIALS LIVE IN JENKINS, NOT IN GIT</h4><p>The pipeline must not contain a raw token. Jenkins stores it as <b>Username with password</b> (username = GitHub user, password = PAT) and injects it at checkout time. The repo history never sees the secret.</p></div>
+  <div class="step"><h4><span class="tag">OBSERVE —</span> Step 0 already confirmed or collected the PAT. Never attempt to generate one programmatically — it requires the browser.</h4></div>
+  <div class="step"><h4><span class="tag">EXECUTE —</span> <b>Manage Jenkins → Credentials</b> (or inside the job: <b>Pipeline Syntax → checkout: Check out from version control → SCM: Git</b>):</h4>
+    <ol class="mono" style="margin:6px 0 0 18px;line-height:1.65;font-size:10px">
+      <li>Paste Repository URL.</li>
+      <li><b>Add → Jenkins → Username with password</b> — Username = GitHub user, Password = PAT, ID = <span class="mono">github-token</span> → Add.</li>
+      <li>Select <span class="mono">github-token</span> from the dropdown.</li>
+      <li><b>Branch to build</b> = the exact branch from Step 0 (e.g. <span class="mono">*/main</span>).</li>
+      <li><b>Generate Pipeline Script</b> → copy snippet → paste into job Pipeline → Save.</li>
+    </ol>
+  </div>
+  <div class="terminal"><span class="c"># generated snippet — use the one Jenkins generates for you</span>
+checkout([$class: 'GitSCM',
+  branches: [[name: '*/main']],
+  userRemoteConfigs: [[url: 'https://github.com/&lt;user&gt;/&lt;repo&gt;.git',
+                       credentialsId: 'github-token']]])</div>
+  <div class="step"><h4><span class="tag">VERIFY —</span> <b>Build Now</b> → Console Output shows <span class="mono">Cloning the remote Git repository</span> → <span class="mono">Checking out Revision &lt;sha&gt;</span> → <span class="status pass"><span class="dot"></span>PASSED</span>. If checkout fails, check PAT scope (<span class="mono">repo</span>), credential ID, and branch spelling first.</h4></div>
+
+  
+</div><div id="p5" class="page">
+  </div>
+
+  <h3 class="sec"><span class="n">08 /</span> Step 5 — GitHub Webhook</h3>
+  <div class="step"><h4><span class="tag">OBSERVE —</span> Repo → <b>Settings → Webhooks</b>. If a webhook already points at <span class="mono">…/github-webhook/</span> and shows a green checkmark → reuse it, skip to Step 6.</h4></div>
+  <div class="step"><h4><span class="tag">EXECUTE —</span> <b>Add webhook</b>:</h4>
+    <table class="cmp" style="margin:6px 0">
+      <tr><th style="width:28%">Field</th><th>Value</th></tr>
+      <tr><td>Payload URL</td><td><span class="mono">http://&lt;your-jenkins-url&gt;/github-webhook/</span> — <b>trailing slash required</b></td></tr>
+      <tr><td>Content type</td><td><span class="mono">application/json</span></td></tr>
+      <tr><td>Events</td><td><span class="mono">Just the push event</span> (default)</td></tr>
+      <tr><td>Active</td><td>checked</td></tr>
+    </table>
+    Save.
+  </div>
+  <div class="step"><h4><span class="tag">VERIFY —</span> Webhook list shows a green checkmark on the initial <span class="mono">ping</span> delivery. Click the webhook → <b>Recent Deliveries</b> → <span class="mono">200</span> and a JSON payload. A <span class="status fail"><span class="dot"></span>FAILED</span> delivery here is a <b>reachability</b> problem, not a Jenkins config bug — re-check the public URL chosen in Step 0.</h4></div>
+
+  <div class="terminal"><span class="c"># GitHub → webhook → Recent Deliveries (success)</span>
+Request URL: http://&lt;jenkins-url&gt;/github-webhook/
+Status: <span class="g">200 OK</span>   Event: ping
+<span class="c"># failure looks like:</span>
+Status: <span class="r">—  Could not connect / Timed out</span>  <span class="c">→ Jenkins not publicly reachable (WSL/tunnel)</span></div>
+
+  <h3 class="sec"><span class="n">09 /</span> Step 6 — Jenkins Trigger</h3>
+  <div class="step"><h4><span class="tag">OBSERVE —</span> Open the job → <b>Configure → Build Triggers</b>. Is <b>GitHub hook trigger for GITScm polling</b> already checked? If yes → nothing to do.</h4></div>
+  <div class="step"><h4><span class="tag">EXECUTE —</span> Check <b>GitHub hook trigger for GITScm polling</b> → Save.</h4></div>
+  <div class="step"><h4><span class="tag">VERIFY —</span> Job config now lists the trigger; no other trigger (e.g. Poll SCM) is needed. The webhook and the checkbox are the two halves of one contract — both must be present.</h4></div>
+
+  <div class="callout"><h4>WHY TWO SIDES?</h4><p>GitHub sends; Jenkins listens. Missing the Payload URL → no event arrives. Missing the trigger checkbox → the event arrives but Jenkins ignores it. <b>Recent Deliveries = 200</b> proves delivery; a new <b>auto build</b> proves the listener reacted.</p></div>
+
+  <div class="lanes">
+    <div class="lane dev"><span class="env">DELIVERED</span><span class="mono">Recent Deliveries → 200</span><span class="badge green" style="margin-left:auto">WEBHOOK OK</span></div>
+    <div class="lane prod" style="border-left-color:var(--accent)"><span class="env">TRIGGERED</span><span class="mono">Build history → new build without Build Now</span><span class="badge green" style="margin-left:auto">LISTENER OK</span></div>
+  </div>
+
+  
+</div><div id="p6" class="page">
+  </div>
+
+  <h3 class="sec"><span class="n">10 /</span> Step 7 — End-to-End Automatic Trigger</h3>
+  <div class="step"><h4><span class="tag">EXECUTE —</span> Make a small commit on the configured branch:</h4></div>
+  <div class="terminal">$ echo "&lt;!-- webhook trigger $(date -Iseconds) --&gt;" >> index.html
+$ git commit -am "trigger: verify webhook" && git push
+<span class="c"># then — do NOT click Build Now</span></div>
+  <div class="step"><h4><span class="tag">OBSERVE —</span> Watch Jenkins <b>Build History</b> for ~5–15 s. A new build should appear with cause <span class="mono">Started by GitHub push by &lt;user&gt;</span>.</h4></div>
+  <div class="step"><h4><span class="tag">VERIFY —</span> Three signals, all must hold:</h4>
+    <ul style="font-size:10.5px;line-height:1.6;margin:4px 0 0 18px">
+      <li>Build History shows an <b>automatic</b> build (not manual) — <span class="status pass"><span class="dot"></span>PASSED</span>.</li>
+      <li>Console Output → checkout SHA equals <span class="mono">git log -1 --oneline</span> of the pushed commit.</li>
+      <li>GitHub → <b>Settings → Webhooks → Recent Deliveries</b> for this push → <span class="mono">200</span>.</li>
+    </ul>
+  </div>
+  <div class="terminal"><span class="c"># Jenkins console — proof the new commit arrived</span>
+Started by GitHub push by eslamn
+Checking out Revision <span class="b">a3f9c1e</span> (refs/heads/main)
+ &gt; git rev-parse refs/remotes/origin/main^{commit}  <span class="g"># matches pushed SHA</span>
+Finished: <span class="g">SUCCESS</span></div>
+
+  <h3 class="sec"><span class="n">11 /</span> Failure → Recovery Map</h3>
+  <table class="cmp">
+    <tr><th style="width:26%">Failure</th><th style="width:30%">Where to Look</th><th>Fix</th></tr>
+    <tr><td><span class="status fail"><span class="dot"></span>Webhook — / timed out</span></td><td>GitHub → <b>Recent Deliveries</b> → no response</td><td>Jenkins not public — add <span class="mono">ngrok</span> / <span class="mono">localhost.run</span> / reverse proxy (Step 0 trap)</td></tr>
+    <tr><td><span class="status fail"><span class="dot"></span>Webhook 301 / 302</span></td><td>Recent Deliveries → redirect</td><td>Missing trailing slash on <span class="mono">/github-webhook/</span> — add the <span class="mono">/</span></td></tr>
+    <tr><td><span class="status fail"><span class="dot"></span>Checkout failed</span></td><td>Jenkins Console → <span class="mono">authentication failed</span></td><td>PAT scope <span class="mono">repo</span>; credential ID <span class="mono">github-token</span>; not the GitHub password</td></tr>
+    <tr><td><span class="status wait"><span class="dot"></span>Push didn't trigger</span></td><td>No auto build; Recent Deliveries = <span class="mono">200</span></td><td>Trigger checkbox off; branch pattern mismatch (<span class="mono">main</span> vs <span class="mono">master</span>); verify <span class="mono">Branch to build</span></td></tr>
+    <tr><td><span class="status wait"><span class="dot"></span>Build on wrong SHA</span></td><td>Console SHA ≠ <span class="mono">git log</span> HEAD</td><td>Pipeline still using placeholder script — replace with generated <span class="mono">checkout</span> snippet</td></tr>
+  </table>
+
+  <h3 class="sec"><span class="n">12 /</span> Proof — What This Lab Proved</h3>
+  <div class="kv"><b>PROOF —</b> A file edit + <span class="mono">git push</span> started a Jenkins build <b>without Build Now</b>. The loop <b>commit → webhook → trigger → checkout → build</b> is closed. Reachability + credentials + branch match are the only three invariants. <span class="badge green">● WEBHOOK PROVED</span></div>
+
+  <div class="grid2">
+    <div class="card"><h4>INTERVIEW CHECK</h4><p><b>Why does <span class="mono">/github-webhook/</span> need a trailing slash?</b><br>Jenkins registers that exact path. Without the slash GitHub follows a redirect that Jenkins does not treat as a delivery — Recent Deliveries shows a <span class="mono">3xx</span> not a <span class="mono">200</span>.</p></div>
+    <div class="card"><h4>CONSISTENCY RULE</h4><p>Every pipeline state uses <b>color + symbol + label</b> — it remains readable when printed in grayscale. Green = passed/deployed, blue = running/info, amber = waiting, red = failed/blocked.</p></div>
+  </div>
+
+  
+
+  
+</div>
+<div class="upnext">Up next in Hands-on Labs → <a href="jenkins-lab-docker.html"><b>Lab 02: Docker Build &amp; Push with Jenkins</b></a></div>
+<div class="relatedbox"><h4>Related books</h4><ul class="relgrid"><li class="relcard" data-cat="Labs" style="--cat:#EAB308"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6v6l3 5a3 3 0 01-3 4H9a3 3 0 01-3-4l3-5V3z"/><path d="M8 14h8" opacity=".6"/></svg></span><span class="rel-main"><a href="jenkins-lab-docker.html">Lab 02: Docker Build &amp; Push with Jenkins</a><span class="rel-meta">50 min · <span class="difbadge int">Int</span></span><span class="rel-why">→ Next in path</span></span></li><li class="relcard" data-cat="Labs" style="--cat:#EAB308"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6v6l3 5a3 3 0 01-3 4H9a3 3 0 01-3-4l3-5V3z"/><path d="M8 14h8" opacity=".6"/></svg></span><span class="rel-main"><a href="lab-08.html">Lab 08: Backup &amp; Restore</a><span class="rel-meta">60 min · <span class="difbadge adv">Adv</span></span><span class="rel-why">→ Previous in path</span></span></li><li class="relcard" data-cat="Labs" style="--cat:#EAB308"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6v6l3 5a3 3 0 01-3 4H9a3 3 0 01-3-4l3-5V3z"/><path d="M8 14h8" opacity=".6"/></svg></span><span class="rel-main"><a href="jenkins-labs.html">Jenkins Labs</a><span class="rel-meta">180 min · <span class="difbadge adv">Adv</span></span><span class="rel-why">→ Shared tags</span></span></li><li class="relcard" data-cat="Labs" style="--cat:#EAB308"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6v6l3 5a3 3 0 01-3 4H9a3 3 0 01-3-4l3-5V3z"/><path d="M8 14h8" opacity=".6"/></svg></span><span class="rel-main"><a href="jenkins-lab-multibranch.html">Lab 03: Jenkins Multibranch Pipeline with Git</a><span class="rel-meta">45 min · <span class="difbadge int">Int</span></span><span class="rel-why">→ Shared tags</span></span></li></ul></div>
+<div class="ratebox" id="ratebox"><span>Was this book useful?</span><button id="rateup" aria-label="Mark useful">👍 Yes</button><button id="ratedown" aria-label="Mark not useful">👎 No</button><span id="ratethanks" style="color:var(--mut)"></span></div>
+<div class="chapnav"><a id="prevbook" href="lab-08.html"><small>← Hands-on Labs</small>Lab 08: Backup &amp; Restore</a><a id="nextbook" class="r" href="jenkins-lab-docker.html"><small>Hands-on Labs →</small>Lab 02: Docker Build &amp; Push with Jenkins</a></div>
+</div></main>
+<div id="lightbox" role="dialog" aria-label="Diagram viewer"><img alt="Enlarged diagram"></div>
+</div>
+<div class="drawer" id="drawer"><div class="scrim"></div><div class="panel">
+<h3>Reading settings</h3>
+<div class="setrow"><h5>THEME</h5><div class="opts">
+<button class="btn" data-k="theme" data-set="dark" onclick="setOpt('theme','dark')">Dark</button>
+<button class="btn" data-k="theme" data-set="light" onclick="setOpt('theme','light')">Light</button>
+<button class="btn" data-k="theme" data-set="sepia" onclick="setOpt('theme','sepia')">Sepia</button>
+<button class="btn" data-k="theme" data-set="dim" onclick="setOpt('theme','dim')">Dim</button>
+<button class="btn" data-k="theme" data-set="contrast" onclick="setOpt('theme','contrast')">Contrast</button></div></div>
+<div class="setrow"><h5>FONT</h5><div class="opts">
+<button class="btn" data-k="font" data-set="sans" onclick="setOpt('font','sans')">Sans</button>
+<button class="btn" data-k="font" data-set="serif" onclick="setOpt('font','serif')">Serif</button></div></div>
+<div class="setrow"><h5>LINE HEIGHT</h5><div class="opts">
+<button class="btn" data-k="lh" data-set="1.6" onclick="setOpt('lh',1.6)">Tight</button>
+<button class="btn" data-k="lh" data-set="1.7" onclick="setOpt('lh',1.7)">Comfort</button>
+<button class="btn" data-k="lh" data-set="1.9" onclick="setOpt('lh',1.9)">Roomy</button></div></div>
+<div class="setrow"><h5>TEXT SIZE</h5><div class="opts">
+<button class="btn" data-k="fs" data-set="16" onclick="setOpt('fs',16)">A−</button>
+<button class="btn" data-k="fs" data-set="18" onclick="setOpt('fs',18)">A</button>
+<button class="btn" data-k="fs" data-set="20" onclick="setOpt('fs',20)">A+</button>
+<button class="btn" data-k="fs" data-set="22" onclick="setOpt('fs',22)">A++</button></div></div>
+<div class="setrow"><h5>READING WIDTH</h5><div class="opts">
+<button class="btn" data-k="width" data-set="680px" onclick="setOpt('width','680px')">Narrow</button>
+<button class="btn" data-k="width" data-set="820px" onclick="setOpt('width','820px')">Comfortable</button>
+<button class="btn" data-k="width" data-set="1020px" onclick="setOpt('width','1020px')">Wide</button></div></div>
+<div class="setrow"><h5>SHORTCUTS</h5><p style="font-size:12px;color:var(--mut)">Ctrl+K search · T contents · ←/→ prev/next book · Esc close</p></div>
+</div></div>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+function getP(k,d){try{const v=JSON.parse(localStorage.getItem(k));return v??d}catch(e){return d}}
+function setP(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+
+const BID=document.body.dataset.book,PREF='cicdlib:pref',PKEY='cicdlib:prog:'+BID;
+const pref=Object.assign({theme:'sepia',fs:18,width:'820px',font:'sans',lh:1.7},getP(PREF,{}));
+const RTHEMES=['sepia','dark','light','dim','contrast'];
+function applyPref(){document.documentElement.dataset.theme=RTHEMES.includes(pref.theme)?pref.theme:'sepia';
+  document.body.dataset.font=pref.font==='serif'?'serif':'sans';
+  const rb=document.querySelector('.readbody');if(rb){rb.style.fontSize=pref.fs+'px';rb.style.setProperty('max-width',pref.width);rb.style.setProperty('--lh',pref.lh);}
+  $$('.setrow .opts .btn').forEach(b=>b.classList.toggle('on',b.dataset.set===undefined?'':String(pref[b.dataset.k])===b.dataset.set));
+  setP(PREF,pref);}
+function setOpt(k,v){pref[k]=v;applyPref()}
+$$('.terminal').forEach(t=>{const bar=document.createElement('div');bar.className='copybar';const b=document.createElement('button');b.className='copybtn';b.textContent='Copy';b.onclick=()=>{let txt=t.innerText.split('\n').filter(l=>!l.match(/^\s*(NAME|nginx-|CONTAINER|NAME\s+READY)/)).join('\n');navigator.clipboard.writeText(txt||t.innerText).then(()=>{b.textContent='Copied!';setTimeout(()=>b.textContent='Copy',1200)})};bar.appendChild(b);t.before(bar)});
+$$('.readbody pre').forEach(p=>{if(p.closest('.terminal')||p.previousElementSibling?.classList?.contains('codehead'))return;const h=document.createElement('div');h.className='codehead';h.innerHTML='<span class=dot></span><span>code</span>';const b=document.createElement('button');b.textContent='Copy';b.onclick=()=>{navigator.clipboard.writeText(p.innerText).then(()=>{b.textContent='Copied!';setTimeout(()=>b.textContent='Copy',1200)})};const w=document.createElement('button');w.textContent='Wrap';w.style.marginLeft='6px';w.onclick=()=>{p.style.whiteSpace=p.style.whiteSpace==='pre-wrap'?'pre':'pre-wrap'};h.appendChild(b);h.appendChild(w);p.before(h)});
+$$('.readbody img').forEach(im=>{im.setAttribute('loading','lazy');if(!im.getAttribute('alt'))im.setAttribute('alt','Diagram from '+BID);im.style.cursor='zoom-in';im.addEventListener('click',()=>{const lb=$('#lightbox');if(lb){lb.querySelector('img').src=im.src;lb.classList.add('open');}});im.addEventListener('error',()=>{im.dataset.broken='1';const f=document.createElement('div');f.className='imgfallback';f.style.display='block';f.textContent='Image unavailable: '+(im.getAttribute('alt')||im.src);im.after(f);});});
+const _lb=$('#lightbox');if(_lb)_lb.addEventListener('click',()=>_lb.classList.remove('open'));
+const MARKS='cicdlib:marks';
+const _mb=$('#markbtn');function syncMark(){const m=getP(MARKS,{});const on=!!m[BID];if(_mb){_mb.textContent=on?'★ Saved':'☆ Save';_mb.classList.toggle('on',on);}}
+if(_mb)_mb.onclick=()=>{const m=getP(MARKS,{});if(m[BID])delete m[BID];else m[BID]=Date.now();setP(MARKS,m);syncMark();};syncMark();
+const LABKEY='cicdlib:lab:'+BID;
+function labChecks(){const done=getP(LABKEY,{});$$('.readbody .step').forEach((st,i)=>{if(st.querySelector('input[type=checkbox]'))return;const lab=document.createElement('input');lab.type='checkbox';lab.checked=!!done[i];lab.setAttribute('aria-label','Mark step done');lab.onchange=()=>{const d=getP(LABKEY,{});if(lab.checked)d[i]=1;else delete d[i];setP(LABKEY,d);st.classList.toggle('done',lab.checked);};st.classList.toggle('done',!!done[i]);st.prepend(lab);});const rst=$('#labreset');if(rst)rst.onclick=()=>{setP(LABKEY,{});$$('.readbody .step').forEach(st=>{st.classList.remove('done');const c=st.querySelector('input[type=checkbox]');if(c)c.checked=false;});};}
+labChecks();
+function tocUpdate(){const secs=$$('.readbody .page');let cur=secs[0]&&secs[0].id;
+  secs.forEach(s=>{if(s.getBoundingClientRect().top<160)cur=s.id});
+  window._cur=cur;
+  $$('aside.toc a').forEach(a=>a.classList.toggle('cur',a.getAttribute('href')==='#'+cur));}
+const RATEKEY='cicdlib:rate:'+BID;
+function syncRate(){const v=getP(RATEKEY,null);const u=$('#rateup'),d=$('#ratedown'),t=$('#ratethanks');if(u)u.classList.toggle('on',v==='up');if(d)d.classList.toggle('on',v==='down');if(t)t.textContent=v?'Thanks for the feedback!':'';}
+const _ru=$('#rateup'),_rd=$('#ratedown');
+if(_ru)_ru.onclick=()=>{setP(RATEKEY,getP(RATEKEY,null)==='up'?null:'up');syncRate();};
+if(_rd)_rd.onclick=()=>{setP(RATEKEY,getP(RATEKEY,null)==='down'?null:'down');syncRate();};
+syncRate();
+window.addEventListener('scroll',()=>{tocUpdate();
+  const h=document.documentElement,p=Math.min(100,Math.round(100*(h.scrollTop)/(h.scrollHeight-h.clientHeight||1)));
+  setP(PKEY,{pct:p,ts:Date.now()});const bar=$('#pbar');if(bar)bar.style.width=p+'%';},{passive:true});
+function findBook(q){$$('.readbody mark').forEach(m=>{m.replaceWith(document.createTextNode(m.textContent))});if(!q)return 0;
+  let n=0;const walker=document.createTreeWalker(document.querySelector('.readbody'),NodeFilter.SHOW_TEXT);
+  const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
+  nodes.forEach(nd=>{const i=nd.textContent.toLowerCase().indexOf(q.toLowerCase());if(i<0)return;
+    if(nd.parentElement.closest('.terminal,script,style'))return;
+    const r=document.createRange();r.setStart(nd,i);r.setEnd(nd,i+q.length);
+    const m=document.createElement('mark');r.surroundContents(m);n++;});
+  const f=document.querySelector('.readbody mark');if(f)f.scrollIntoView({block:'center'});return n;}
+$('#q').addEventListener('keydown',e=>{if(e.key==='Enter'){const n=findBook(e.target.value);$('#qcount').textContent=n?n+' match'+(n>1?'es':'')+' in this book':'no matches in this book'}});
+$('#q').addEventListener('input',e=>{if(!e.target.value)findBook('')});
+document.addEventListener('keydown',e=>{
+  if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();$('#q').focus()}
+  if(e.key==='Escape'){$('#drawer').classList.remove('open');$('aside.toc').classList.remove('open')}
+  if(e.key.toLowerCase()==='t'&&document.activeElement.tagName!=='INPUT'){$('aside.toc').classList.toggle('open')}
+  if(e.key==='ArrowRight'&&document.activeElement.tagName!=='INPUT'){const n=$('#nextbook');if(n)location.href=n.href}
+  if(e.key==='ArrowLeft'&&document.activeElement.tagName!=='INPUT'){const p=$('#prevbook');if(p)location.href=p.href}
+  if(e.key.toLowerCase()==='c'&&document.activeElement.tagName!=='INPUT'&&window._cur){try{navigator.clipboard.writeText(location.href.split('#')[0]+'#'+window._cur);const qc=$('#qcount');if(qc)qc.textContent='section link copied';}catch(err){}}});
+$('#setbtn').onclick=()=>$('#drawer').classList.add('open');
+$('#drawer .scrim').onclick=()=>$('#drawer').classList.remove('open');
+$('#tocbtn').onclick=()=>$('aside.toc').classList.toggle('open');
+$$('aside.toc a').forEach(a=>a.onclick=()=>{if(innerWidth<=900)$('aside.toc').classList.remove('open')});
+applyPref();tocUpdate();
+</script>
+</body>
+</html>

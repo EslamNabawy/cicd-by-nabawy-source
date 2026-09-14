@@ -898,5 +898,205 @@
    "4.1.1 THE TAKEAWAY"
   ],
   "body": "CI/CD Engineering — PDF 42: CI/CD Decision Guide 2026 CI/CD SYSTEMS  ·  ENGINEERING MANUAL  ·  PDF 42 CI/CD DECISION GUIDE Jenkins × GitHub Actions — side-by-side, then the choice TWO ROADMAPS · ONE FRAMEWORK GOVERNANCE · SECURITY · COST · HOSTING CHOOSE · COMBINE · MIGRATE JENKINS — MODERNIZE survival + debt paydown, 1,800 plugins ACTIONS — SECURE trust at scale, 20k marketplace actions SIDE-BY-SIDE governance · cadence · architecture DECISION FRAMEWORK when to choose, when to run both CONVERGENCE provenance · security-as-default · observability 03 / 06 · ROADMAPS & STRATEGY Nabawy CI/CD Systems   Chapter 42 Orientation What each roadmap optimizes for 42 THE CHOICE Neither roadmap is chasing a new pipeline paradigm. Both consolidate around what already works — but they optimize for different futures . Jenkins is paying down debt to keep an existing install base healthy; GitHub Actions is locking down trust because it already won the adoption battle. 01 / Optimization Vectors JENKINS Survival & modernization Close UX/infra gaps on a mature, volunteer-driven install base vs GITHUB ACTIONS Trust & safety at scale Make the simple YAML model secure by default at massive scale ONE SENTENCE — Jenkins reads like a deliberate open-source project managing technical debt (dark theme, Plugin Manager, Puppet→Ansible, JDK/Windows upgrades). Actions reads like a platform vendor responding to real attacks (dependency locking, scoped secrets, egress firewall). Neither is reinventing pipeline authoring — both are making the existing authoring safer and more observable. 02 / Governance Contrast Dimension Jenkins GitHub Actions Governance Community-driven, volunteer-dependent (CD Foundation); no committed dates Vendor-driven (Microsoft/GitHub); estimated windows, still no hard SLAs Headline 2026 Incremental UX + infra overhaul Supply-chain security hardening Cadence Weekly · LTS every 4 weeks · advisories as needed Continuous rollout (betas/GAs via Changelog) Architecture change None "
+ },
+ {
+  "id": "jenkins-lab-webhook",
+  "title": "Lab 01: GitHub Webhook Trigger for Jenkins",
+  "desc": "Wire GitHub webhook delivery into a Jenkins pipeline and verify the trigger chain end to end.",
+  "cat": "Labs",
+  "dif": "Intermediate",
+  "tags": [
+   "jenkins",
+   "github",
+   "webhook",
+   "lab"
+  ],
+  "time": 45,
+  "sections": [
+   "Cover — WEBHOOKTRIGGER",
+   "1 Lab 01",
+   "1.1 01 / What / Why / When",
+   "1.1.1 WHY THIS EXISTS",
+   "1.2 02 / Architecture — The Three Hops",
+   "1.3 03 / Lab Loop — Observe · Execute · Verify",
+   "2 Pre-Flight & Reachability",
+   "2.1 04 / Step 0 — Pre-Flight Check",
+   "2.1.1 ASK IN ONE BATCH — BEFORE STEP 1",
+   "2.1.2 GOTCHA — WSL / LOCALHOST IS INVISIBLE TO GITHUB",
+   "3 Job · Credentials · Checkout",
+   "3.1 05 / Step 1 — Create or Reuse a Pipeline Job",
+   "3.1.1 OBSERVE — Browse Jenkins dashboard for an existing pipeline ",
+   "3.1.2 EXECUTE — Otherwise New Item → Pipeline → name github-webhoo",
+   "3.1.3 VERIFY — Save → Build Now → build is PASSED before any Git i",
+   "3.2 06 / Step 2 — Repository URL"
+  ],
+  "body": "Lab 01 — GitHub Webhook Trigger for Jenkins — Pipeline Control Room CI/CD Systems  ·  Pipeline Control Room  ·  Jenkins Labs LAB 01 — JENKINS LABS WEBHOOK TRIGGER Push to build — with no human in between. Wire GitHub to Jenkins so every git push delivers a webhook, matches a branch, and starts a build automatically. GITHUB  ·  WEBHOOK  ·  JENKINS  ·  GITSCM POLLING  ·  VERIFY SOURCE — GITHUB PUSH commit to branch · HTTPS clone URL WEBHOOK — /github-webhook/ POST · application/json · trailing slash matters TRIGGER — GITSCM POLLING Build Triggers · GitHub hook trigger for GITScm polling CHECKOUT — PAT + BRANCH checkout scm · github-token · Branch to build VERIFY — PROOF Recent Deliveries 200 · Console SHA · auto build ● LAB 01 PUSH → BUILD NO MANUAL BUILD NOW 01 / 06  ·  COVER  ·  LAB 01 WEBHOOK TRIGGER Nabawy CI/CD Systems   Jenkins Labs Lab 01 GitHub Webhook Trigger — Concept & Control Loop 01 GITHUB WEBHOOK TRIGGER One commit should be enough. Push once — Jenkins builds without anyone clicking Build Now. This lab closes the loop commit → webhook → trigger → checkout and proves all three failure points are knowable. 01 / What / Why / When WHAT A GitHub webhook POSTs a push event to /github-webhook/ . Jenkins matches repo + branch and starts the job that has GitHub hook trigger for GITScm polling enabled. WHY Without it, Jenkins only learns about pushes on poll or manual click — minutes late. Webhook moves discovery to seconds and removes the human gate. WHEN Every push to the configured branch. The job must already have a valid checkout (PAT + branch match) or the triggered build will fail fast. WHY THIS EXISTS Before this lab, delivery depends on a person remembering to click. A broken change can sit unbuilt for hours. The webhook turns intent (push) into execution (build) deterministically — CI starts where the developer already works: Git. 02 / Architecture — The Three Hops GITHUB push to main Settings → Webhooks → WEBHOOK /github-webhook/ application/json → JENK"
+ },
+ {
+  "id": "jenkins-lab-docker",
+  "title": "Lab 02: Docker Build & Push with Jenkins",
+  "desc": "Build a Docker image in Jenkins, push it to Docker Hub, and deploy through the pipeline flow.",
+  "cat": "Labs",
+  "dif": "Intermediate",
+  "tags": [
+   "jenkins",
+   "docker",
+   "dockerhub",
+   "lab"
+  ],
+  "time": 50,
+  "sections": [
+   "Cover — DOCKERBUILD &amp; PUSH",
+   "1 Architecture",
+   "1.1 01 / Two Views of the Same Pipeline",
+   "1.1.1 Core Build-Push Flow (Image 2)",
+   "1.1.2 Extended 7-Stage Flow with FLOCI (Image 3)",
+   "1.2 02 / Stage Lane — Where Each Stage Runs",
+   "1.2.1 CONTINUITY",
+   "2 Pre-Flight & Setup",
+   "2.1 03 / Step 0 — Pre-Flight Check",
+   "2.1.1 ASK IN ONE BATCH — BEFORE STEP 1",
+   "2.2 04 / Steps 1–2 — Repository &amp; Credentials",
+   "2.2.1 01 — Prepare the Repository",
+   "2.2.2 02 — Add Docker Hub Credentials to Jenkins",
+   "2.2.3 NEVER — Hardcoded in Jenkinsfile",
+   "2.2.4 ALWAYS — withCredentials Binding",
+   "3 Pipeline as Code"
+  ],
+  "body": "Lab 02 — Docker Build & Push | Jenkins Labs CI/CD Systems  ·  Pipeline Control Room  ·  Jenkins Labs LAB 02 DOCKER BUILD & PUSH From repository to registry to runtime. Jenkins pulls source, builds an immutable image, authenticates with vaulted credentials, tags by build number, pushes to Docker Hub, and optionally runs the same artifact inside a FLOCI simulated AWS environment. IMAGE_NAME:LOCAL → TAG:BUILD-N → PUSH → FLOCI DEPLOY  ·  withCredentials · BUILD_NUMBER 01 — ENVIRONMENT SETUP Load config · env IMAGE_NAME / IMAGE_TAG 02 — CODE CHECKOUT checkout scm · hello.py + Dockerfile + Jenkinsfile 03 — DOCKER BUILD docker build -t app:local . 04 — AUTHENTICATION withCredentials · docker login --password-stdin 05 — IMAGE TAGGING docker tag app:local → myusername/app:build-N 06 — IMAGE PUSH docker push myusername/app:build-N → Docker Hub 07 — APPLICATION DEPLOYMENT when DEPLOY_TO_FLOCI → run hello.py in FLOCI simulation 7 Stages 1 Immutable Tag / Build 0 Hardcoded Secrets 2 Flows: Core + Extended LAB 02 · DOCKER BUILD · PUSH · FLOCI  ·  01 / 07 Nabawy CI/CD Systems   Lab 02 — Docker Build & Push Architecture Core build-push & extended 7-stage with FLOCI 01 / Two Views of the Same Pipeline The core flow is four operations (Build → Login & Tag → Push) fed by a Git source and the Jenkins credentials store. The extended flow is the seven numbered stages that Jenkins actually executes, ending with an optional deployment into FLOCI's simulated AWS — not real cloud. Core Build-Push Flow (Image 2) Git Source Repository hello.py · requirements.txt · Dockerfile · Jenkinsfile ↓ git clone Jenkins CI/CD Pipeline Orchestrator Pull Code — git clone [repo_url] Build Setup — tool configure (docker, build-env) Docker Build — docker build -t app:local Login & Tag — docker login + docker tag app:local → build-123 Docker Push — docker push myusername/app:build-123 ↓ upload Docker Hub Registry User Repositories · Image Tiers Jenkins Credentials Store — fetch dockerhub-creds → feeds Login & T"
+ },
+ {
+  "id": "jenkins-lab-multibranch",
+  "title": "Lab 03: Jenkins Multibranch Pipeline with Git",
+  "desc": "Create a Jenkins multibranch pipeline that discovers Git branches and applies branch-aware flow.",
+  "cat": "Labs",
+  "dif": "Intermediate",
+  "tags": [
+   "jenkins",
+   "git",
+   "multibranch",
+   "lab"
+  ],
+  "time": 45,
+  "sections": [
+   "0.1 MULTIBRANCH = FOLDER OF JOBS — DISCOVERY MODEL",
+   "0.2 KEY CONCEPT — FOLDER OF JOBS",
+   "1 Concept & Architecture",
+   "1.1 01 / Branch as Job",
+   "1.1.1 BRANCH SOURCE — GENERIC GIT",
+   "1.1.2 PARENT CONTROLS ALL",
+   "1.2 02 / Architecture — Scan → Filter → Jenkinsfile → Conditiona",
+   "1.3 03 / Step 0 — Pre-Flight (before Step 1)",
+   "1.3.1 ASK IN ONE BATCH — BEFORE STEP 1",
+   "2 Create, Wire & Scan",
+   "2.1 04 / Step 1 — Create the Multibranch Pipeline Job",
+   "2.1.1 ACTION — Jenkins → New Item",
+   "2.2 05 / Step 2 — Add a Git Branch Source",
+   "2.2.1 ACTION — Branch Sources → Add source → Git",
+   "2.2.2 WHY GENERIC GIT",
+   "2.3 06 / Step 3 — Configure Branch Filtering & Behaviors"
+  ],
+  "body": "Lab 03 — Jenkins Multibranch Pipeline with Git CI/CD SYSTEMS  ·  PIPELINE CONTROL ROOM  ·  JENKINS LABS LAB 03 — MULTIBRANCH PIPELINE MULTIBRANCH PIPELINE One job that becomes three. Jenkins discovers branches from a generic Git remote, builds each one from its own Jenkinsfile , and scopes behavior with when { BRANCH_NAME } . GENERIC GIT SOURCE  ·  FOLDER OF JOBS  ·  FILTER BY NAME  ·  WHEN BRANCH_NAME MULTIBRANCH = FOLDER OF JOBS — DISCOVERY MODEL MAIN Jenkinsfile found → build main DEV Jenkinsfile found → build dev STG Jenkinsfile + when(stg) runs stg ● SCAN ● FILTER main dev stg ● when BRANCH_NAME ● ORPHAN → REMOVE GIT SOURCE generic Git not GitHub KEY CONCEPT — FOLDER OF JOBS A Multibranch Pipeline is a folder of individual pipeline jobs — one per discovered branch. Jenkins scans the generic Git branch source , applies Filter by name ( main dev stg ), and for each match looks for a Jenkinsfile . No Jenkinsfile → skipped in scan log. Branch jobs are not directly configurable — only the parent controls behavior. Behaviors: Check out to matching local branch · Clean before checkout · Clean after checkout  |  Discovery: Scan log · Scan Multibranch Pipeline Now  |  Cleanup: orphaned item removed on next scan  |  Conditional: when { env.BRANCH_NAME == 'stg' } CI/CD ENGINEERING MANUAL  ·  LAB 03  ·  JENKINS MULTIBRANCH WITH GIT Nabawy CI/CD Systems   Jenkins Labs  ·  Lab 03 — Multibranch Concept & Architecture Why one job replaces three 01 / Branch as Job Without multibranch, each branch needs its own pipeline job — duplicated config, drift, manual creation. Multibranch inverts this: you configure once at the parent, Jenkins discovers branches that match the filter, and each branch runs the Jenkinsfile committed on that branch. One file, three behaviors — controlled by env.BRANCH_NAME . SCAN DISCOVER Git branches FILTER MATCH main dev stg CHECK JENKINSFILE? found / skip CREATE BRANCH JOB folder item RUN WHEN BRANCH_NAME CLEAN ORPHAN on rescan BRANCH SOURCE — GENERIC GI"
+ },
+ {
+  "id": "jenkins-lab-shared-library",
+  "title": "Lab 04: Jenkins Shared Library with GitHub",
+  "desc": "Extract reusable Jenkins pipeline logic into a shared library backed by GitHub.",
+  "cat": "Labs",
+  "dif": "Advanced",
+  "tags": [
+   "jenkins",
+   "groovy",
+   "shared-library",
+   "lab"
+  ],
+  "time": 55,
+  "sections": [
+   "Cover — LAB 04SHARED LIBRARY",
+   "1 Reuse as a Dependency",
+   "1.1 01 / What This Lab Proves",
+   "1.2 02 / Lifecycle — Library as an Artifact",
+   "1.3 03 / Architecture",
+   "1.3.1 WHY THIS EXISTS",
+   "2 Pre-Flight & Registration",
+   "2.1 04 / Step 0 — Pre-Flight Check (before Step 1)",
+   "2.1.1 ASK IN ONE BATCH — BEFORE STEP 1",
+   "2.2 05 / Step 1 — Create the Shared Library Repository on GitHub",
+   "2.2.1 01 — Create or reuse · jenkins-shared-library",
+   "2.3 06 / Step 2 — Register the Global Pipeline Library",
+   "2.3.1 02 — Manage Jenkins → Configure System → Global Pipeline Lib",
+   "2.3.2 VALIDATE — Click Validate",
+   "3 Consume — Scripted Pipeline",
+   "3.1 07 / Step 3 — Create the Test Pipeline Job"
+  ],
+  "body": "CI/CD Engineering — Lab 04 Shared Library with GitHub CI/CD SYSTEMS  ·  PIPELINE CONTROL ROOM  ·  LAB 04 LAB 04 SHARED LIBRARY Jenkins Shared Library linked to GitHub — one Groovy class, two pipelines, one approval gate. Reuse without copy-paste, versioned like any dependency. Global Pipeline Library · Modern SCM · GitHub · @Library · UatInput · when gate src / com / <you> / UatInput.groovy  —  shared-library repo layout (root) jenkins-shared-library └── src/ └── com/ └── <yourname>/ └── UatInput.groovy → class UatInput { boolean buildIsUatApproved() } checks workspace: tools/approved.txt → exists ? true : false consumed as: @Library('shared-library') _ + import com.<you>.UatInput also supports: vars/ (custom steps) · resources/ · version pin @master / @v1.2 Jenkins 8080 GitHub SCM Global Library Scripted + Declarative Sandbox: OFF LAB 04 · SHARED LIBRARY WITH GITHUB  ·  01 / 06 Nabawy CI/CD Systems   Lab 04 — Shared Library with GitHub Reuse as a Dependency Why a library exists 04 SHARED LIBRARY Copy-paste is not reuse. A pipeline library is a versioned dependency: reviewed, pinned, rolled back — one class serving every pipeline. This lab proves a single UatInput class can gate two pipeline styles by checking one workspace file. 01 / What This Lab Proves PROOF — A Global Pipeline Library hosted on GitHub ( src/com/<you>/UatInput.groovy ) exposes buildIsUatApproved() → checks tools/approved.txt → returns true / false . Both a scripted pipeline and a declarative when gate consume the same class via @Library('shared-library') . Break the library → all consumers break; revert → all fix. ● REUSE PROVED 02 / Lifecycle — Library as an Artifact 01 SOURCE GitHub repo jenkins-shared-library 02 LIBRARY src / vars UatInput.groovy 03 REGISTER Global Library Modern SCM 04 CONSUME @Library + import two pipelines 05 GATE approved.txt true / skipped 06 EVOLVE version pin PR + revert 03 / Architecture GitHub jenkins-shared-library src/com/<you>/UatInput.groovy → Global Library Moder"
+ },
+ {
+  "id": "jenkins-lab-terraform-floci",
+  "title": "Lab 05: Terraform on FLOCI with Jenkins",
+  "desc": "Run Terraform through a Jenkins CI/CD pipeline against the FLOCI environment.",
+  "cat": "Labs",
+  "dif": "Advanced",
+  "tags": [
+   "jenkins",
+   "terraform",
+   "floci",
+   "iac",
+   "lab"
+  ],
+  "time": 60,
+  "sections": [
+   "Cover — LAB 05TERRAFORMON FLOCI",
+   "1 Lab 05 — Terraform on FLOCI",
+   "1.1 01 / What This Lab Proves",
+   "1.2 02 / Architecture — GitHub → Jenkins → FLOCI Simulated AWS",
+   "1.3 03 / Full Flow in One Line",
+   "2 Pre-Flight & Pipeline",
+   "2.1 01 / Step 0 — Pre-Flight Check (do this before Step 1)",
+   "2.1.1 0.4 ASK IN ONE BATCH — BEFORE STEP 1",
+   "2.2 02 / Steps 1–2 — Prepare Repo + Jenkinsfile",
+   "2.2.1 STEP 01 — GitHub repository",
+   "2.2.2 ISOLATION RULE",
+   "2.2.3 STEP 02 — Jenkinsfile (declarative) — seven stages",
+   "3 Configure & Gate",
+   "3.1 03 / Steps 3–4 — Configure Job & Provider",
+   "3.1.1 STEP 03 — Pipeline job in Jenkins",
+   "3.1.2 STEP 04 — Provider.tf → FLOCI"
+  ],
+  "body": "LAB 05 — Terraform on FLOCI | CI/CD Pipeline Control Room CI/CD Systems  ·  Pipeline Control Room  ·  Lab 05 LAB 05 TERRAFORM ON FLOCI Jenkins drives Terraform — init → workspace → plan → human approve → apply — against FLOCI , a simulated AWS. Same CI/CD loop, infrastructure payload. Safe, auditable, cost-free. GITHUB WEBHOOK · TERRAFORM WORKSPACE · INPUT GATE · FLOCI SIMULATION · MAIL ON FAIL IaC source — three files, one intent VPC.tf VPC · Subnets EC2 · S3 Bucket + Variables.tf input variables types & defaults + Provider.tf provider → FLOCI simulated AWS API COMPOSE → TERRAFORM GRAPH Jenkinsfile Checkout → Init → Workspace → Plan → Approve → Apply → Post → FLOCI TARGET Simulated VPC / Subnets EC2 / S3 · no real AWS ● ENV tfvars → workspace isolated state ◆ AMBER GATE = human input() ■ PLAN ARTIFACT = tfplan PIPELINE CONTROL ROOM · INFRA AS PIPELINE CHAPTER 05  ·  JENKINS + TERRAFORM + FLOCI  ·  A4 · 06 PAGES Nabawy CI/CD Systems   Pipeline Control Room Lab 05 — Terraform on FLOCI Infrastructure as a gated pipeline 05 TERRAFORM ON FLOCI Infrastructure is not a ticket — it is a pipeline . Webhook triggers it, Terraform plans it, a human approves it, FLOCI receives it. No real AWS, no surprise bill, full audit trail. 01 / What This Lab Proves PROOF — The same CI/CD loop that builds apps can provision infrastructure: terraform init / workspace select / plan -var-file / apply tfplan behind a Jenkins input gate, with Provider.tf pointing at FLOCI instead of real AWS. Workspace + tfvars isolates dev / stg / prod state. 02 / Architecture — GitHub → Jenkins → FLOCI Simulated AWS GITHUB REPOSITORY VPC.tf · Variables.tf · Provider.tf dev / stg.tfvars / Prod · Jenkinsfile → JENKINS CI/CD Pipeline: Checkout → Init Workspace → Plan → Approve → Apply Post: Success / Fail → Mail → FLOCI Simulated AWS API Simulated VPC + Subnets Simulated EC2 + S3 Bucket Provider.tf → FLOCI endpoint passed / provisioned waiting / approval plan artifact blocked / failed Webhook (Lab 01 pattern) t"
+ },
+ {
+  "id": "jenkins-labs",
+  "title": "Jenkins Labs",
+  "desc": "Consolidated Jenkins lab sequence covering webhooks, Docker, multibranch, shared libraries, and Terraform on FLOCI.",
+  "cat": "Labs",
+  "dif": "Advanced",
+  "tags": [
+   "jenkins",
+   "labs",
+   "docker",
+   "terraform",
+   "github"
+  ],
+  "time": 180,
+  "sections": [
+   "Cover — JENKINSLABS",
+   "1 Contents & Control Room",
+   "1.1 01 / Contents",
+   "1.2 02 / Lab Format — Observe · Execute · Verify · Explain",
+   "1.2.1 PRE-FLIGHT RULE",
+   "1.2.2 PRINTING THIS BOOK",
+   "1.2.3 CONTINUITY",
+   "2 Lab 01",
+   "2.1 01 / What This Lab Proves",
+   "2.2 02 / Architecture",
+   "3 Pre-Flight & Setup",
+   "3.1 03 / Step 0 — Pre-Flight (before Step 1)",
+   "3.1.1 ASK IN ONE BATCH — BEFORE STEP 1",
+   "3.2 04 / Steps 1–4 — Job + Credentials + Checkout",
+   "3.2.1 01 — Pipeline job",
+   "3.2.2 02 — Repository URL"
+  ],
+  "body": "CI/CD Engineering — Jenkins Labs CI/CD SYSTEMS  ·  PIPELINE CONTROL ROOM  ·  JENKINS LABS JENKINS LABS Five hands-on labs — webhooks to multibranch to shared libraries to Docker & Terraform on FLOCI. Every push verified, every artifact tagged, every stage observable. WEBHOOK TRIGGER · DOCKER BUILD & PUSH · MULTIBRANCH · SHARED LIBRARY · TERRAFORM + FLOCI SOURCE → TRIGGER GitHub webhook · GITScm polling BUILD → REGISTRY docker build · tag · push to Docker Hub BRANCH → PIPELINE multibranch discovery · env.BRANCH_NAME REUSE → LIBRARY vars/ & src/ · @Library version pin PLAN → APPLY init · workspace · plan · approve · apply · FLOCI 05 LABS · 05 FLOWS · ONE CONTROL ROOM Nabawy CI/CD Systems   Jenkins Labs Contents & Control Room Lifecycle · How to use this book 01 SOURCE Git push 02 TRIGGER webhook / scan 03 BUILD agent + stages 04 ARTIFACT image · plan 05 DEPLOY registry · FLOCI 06 OBSERVE logs · checks 01 / Contents Lab 01 — GitHub Webhook Trigger p. 03 — push → webhook → Jenkins build Lab 02 — Docker Build, Tag & Push p. 06 — Jenkinsfile → Docker Hub → FLOCI deploy Lab 03 — Multibranch Pipeline p. 09 — main / dev / stg · one Jenkinsfile · when Lab 04 — Shared Library p. 12 — Global Library · UatInput · scripted + declarative Lab 05 — Terraform on FLOCI p. 15 — init → workspace → plan → approve → apply Appendix — Proofs & Troubleshooting p. 18 — what green proves · failure map 02 / Lab Format — Observe · Execute · Verify · Explain Every lab follows the control-room loop: OBSERVE what is currently happening, EXECUTE a precise action, VERIFY via logs/console/registry/scan log, EXPLAIN why. Each lab ends with PROOF — what the experiment demonstrates about the system. PRE-FLIGHT RULE Step 0 of every lab gathers tools, credentials, repo state, and user inputs before any mutation. No mid-flow surprises. PRINTING THIS BOOK Open in browser → Ctrl/Cmd+P → Save as PDF → Background graphics ON → A4 . Colors carry state and survive grayscale because every state pairs color + symbo"
  }
 ]

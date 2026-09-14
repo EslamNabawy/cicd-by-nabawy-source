@@ -544,11 +544,11 @@ function filter(){
   try{const h=new URLSearchParams();if($('#q').value)h.set('q',$('#q').value);if(cat)h.set('cat',cat);if(dif)h.set('dif',dif);history.replaceState(null,'','#'+h.toString());}catch(e){}
 }
 ['q','fcat','fdif','fsort'].forEach(id=>{const el=document.getElementById(id);if(el)el.addEventListener('input',()=>{filter();drop();});});
-function norm(s){return (s||'').toLowerCase().replace(/[-_\/]/g,' ');}
+function norm(s){return (s||'').toLowerCase().replace(/[-_/]/g,' ');}
 function drop(){const raw=($('#q').value||''),q=raw.toLowerCase(),box=$('#qdrop');if(!box)return;if(q.length<2){box.classList.remove('open');box.innerHTML='';return;}
 const STOP=new Set(['how','does','did','can','what','when','where','which','that','this','with','from','have','has','are','was','were','been','will','would','there','their','about','into','your','you','our','the','and','for','are','but','not','all','any','can','had','her','him','his','one','our','out','day','get','has','him','how','its','may','new','now','old','see','two','way','who','boy','did','she','use','her','now','do','i','an','a','to','in','of','or','is','it','my','me','on','as','at','by','we','if','up','so']);
-const qn=norm(raw);let toks=qn.split(/\s+/).filter(t=>t.length>=3&&!STOP.has(t));if(!toks.length)toks=[qn].filter(t=>t.length>=2);if(!toks.length){box.classList.remove('open');return;}
-const idx=window.SEARCH_IDX||[];const res=idx.map(b=>{const secs=(b.sections||[]).join(' ');const body=(b.body||'');const hay=norm(b.title+' '+b.desc+' '+(b.tags||[]).join(' ')+' '+secs+' '+body);if(!toks.every(t=>hay.includes(t)))return null;let s=1,hit='';const secHit=(b.sections||[]).find(t=>{const tn=norm(t);return toks.every(tk=>tn.includes(tk))||tn.includes(toks[0]);});const titleHit=toks.every(t=>norm(b.title).includes(t));if(titleHit)s=3;else if(secHit){s=2;hit=secHit;}else{const bi=norm(body).indexOf(toks[0]);if(bi>=0){hit='…'+body.slice(Math.max(0,bi-30),bi+50).replace(/\s+/g,' ')+'…';}else if(b.desc){hit=b.desc.slice(0,70);}}if((b.tags||[]).some(t=>toks.some(k=>norm(t).includes(k))))s+=0.5;return {b,s,hit};}).filter(Boolean).sort((a,b2)=>b2.s-a.s).slice(0,8);
+const qn=norm(raw);let toks=qn.split(/\\s+/).filter(t=>t.length>=3&&!STOP.has(t));if(!toks.length)toks=[qn].filter(t=>t.length>=2);if(!toks.length){box.classList.remove('open');return;}
+const idx=window.SEARCH_IDX||[];const res=idx.map(b=>{const secs=(b.sections||[]).join(' ');const body=(b.body||'');const hay=norm(b.title+' '+b.desc+' '+(b.tags||[]).join(' ')+' '+secs+' '+body);if(!toks.every(t=>hay.includes(t)))return null;let s=1,hit='';const secHit=(b.sections||[]).find(t=>{const tn=norm(t);return toks.every(tk=>tn.includes(tk))||tn.includes(toks[0]);});const titleHit=toks.every(t=>norm(b.title).includes(t));if(titleHit)s=3;else if(secHit){s=2;hit=secHit;}else{const bi=norm(body).indexOf(toks[0]);if(bi>=0){hit='…'+body.slice(Math.max(0,bi-30),bi+50).replace(/\\s+/g,' ')+'…';}else if(b.desc){hit=b.desc.slice(0,70);}}if((b.tags||[]).some(t=>toks.some(k=>norm(t).includes(k))))s+=0.5;return {b,s,hit};}).filter(Boolean).sort((a,b2)=>b2.s-a.s).slice(0,8);
 box.innerHTML=res.length?res.map(r=>`<a href="book/${r.b.id}.html"><b>${r.b.title}</b><small>${r.b.cat} · ${r.b.dif} · ${r.b.time} min${r.hit?' · § '+r.hit.slice(0,80):''}</small></a>`).join(''):'<a><b>Nothing found</b><small>Try “rollback” or “canary” — or start with Foundations</small></a>';box.classList.add('open');}
 document.addEventListener('click',e=>{const box=$('#qdrop');if(box&&!e.target.closest('.searchwrap'))box.classList.remove('open');});
 function logQ(q){q=(q||'').trim().toLowerCase();if(q.length<3)return;try{const L=getP('cicdlib:qlog',{});L[q]=(L[q]||0)+1;setP('cicdlib:qlog',L);}catch(e){}}
@@ -939,7 +939,7 @@ if(initial) showDetail(initial,false);
         "<script>location.replace('./'+location.hash)</script>"
         "</head><body><p>Structure Map moved home — <a href=\"./\">continue to the map</a>.</p></body></html>")
     pathlib.Path(output_dir, "map.html").write_text(redir, encoding="utf-8")
-    print(f"BUILT map landing: {len(books)} books in {len(cats_sorted)} categories → {output_dir}/index.html (+ map.html redirect)")
+    print(f"BUILT map landing: {len(books)} books in {len(cats_sorted)} categories -> {output_dir}/index.html (+ map.html redirect)")
 
 def build_roadmap_page(books, output_dir):
     """Static visual map of every manifest book, grouped by category.
@@ -1024,7 +1024,7 @@ $('#themebtn').onclick=()=>{{pref.theme=THS[(THS.indexOf(pref.theme)+1)%THS.leng
     out = os.path.join(output_dir, "roadmap")
     os.makedirs(out, exist_ok=True)
     open(os.path.join(out, "index.html"), "w", encoding="utf-8").write(page)
-    print(f"BUILT roadmap: {len(books)} books in {len(sections)} sections → {out}")
+    print(f"BUILT roadmap: {len(books)} books in {len(sections)} sections -> {out}")
 
 
 def build():
@@ -1487,7 +1487,7 @@ try{{const cats=[...new Set($$('.book[data-id]').map(c=>c.dataset.cat))].sort();
 </body>
 </html>"""
     open(os.path.join(DIST, "shelf.html"), "w", encoding="utf-8").write(index)
-    print(f"BUILT shelf: {len(books)} books + paths + shelves → {DIST}/shelf.html")
+    print(f"BUILT shelf: {len(books)} books + paths + shelves -> {DIST}/shelf.html")
 
     # glossary (dedupe by term, anchor links)
     rows = re.findall(r"^\| ([^|]+) \| ([^|]+) \| ([^|]+) \|", open(os.path.join(KB, "GLOSSARY.md"), encoding="utf-8").read(), re.M)
@@ -1570,7 +1570,7 @@ try{{const p=getP('cicdlib:prog:{b['id']}',null);if(p&&p.pct>0&&p.pct<100)$('#st
     search_idx = [{"id": b["id"], "title": b["title"], "desc": b.get("description", ""), "cat": b["category"], "dif": b["difficulty"], "tags": b.get("tags", []), "time": b.get("time_minutes", 30), "sections": all_sections.get(b["id"], []), "body": all_body.get(b["id"], "")[:2000]} for b in books]
     pathlib.Path(os.path.join(DIST, "search.json")).write_text(json.dumps(search_idx, ensure_ascii=False, indent=1), encoding="utf-8")
 
-    print(f"BUILT {len(books)} books + {len(books)} overviews + index + glossary + updates → {DIST}")
+    print(f"BUILT {len(books)} books + {len(books)} overviews + index + glossary + updates -> {DIST}")
 
 
 if __name__ == "__main__":
