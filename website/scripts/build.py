@@ -801,7 +801,7 @@ def markdown_pages(path, title):
     flush()
     cover = (f'<div class="page cover"><div class="brand">CI/CD ENGINEERING · KNOWLEDGE BASE</div>'
              f'<h1>{html.escape(title)}</h1><p class="sub">CICD BY Nabawy</p>'
-             f'<div class="cover foot"><span>Reader edition</span><span class="sig">Nabawy</span></div></div>')
+             f'<div class="cover foot" style="gap:18px"><span>Reader edition</span><span class="sig">Nabawy</span></div></div>')
     return [cover.replace('class="page cover"', 'class="page cover md-fallback"')] + [f'<div class="page md-fallback">{p}<div class="pfoot"><span>CICD BY Nabawy</span><span>{i + 2}</span></div></div>' for i, p in enumerate(pages)]
 
 
