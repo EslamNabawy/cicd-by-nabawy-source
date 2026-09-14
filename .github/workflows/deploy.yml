@@ -29,6 +29,10 @@ jobs:
       - name: QC gate
         run: python scripts/qc-check.py
 
+      - name: Install PNG deps (optional, OG social cards)
+        run: pip install pillow
+        continue-on-error: true
+
       - name: Build site
         run: python website/scripts/build.py
 
