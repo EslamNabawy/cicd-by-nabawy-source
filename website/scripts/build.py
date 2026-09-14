@@ -23,6 +23,7 @@ def seo_tags(title, desc, canonical, og_type="website", image=None):
     t = html.escape(title, quote=True)
     c = html.escape(canonical, quote=True)
     parts = [
+        f'<link rel="icon" type="image/svg+xml" href="{SITE_URL}/favicon.svg">',
         f'<meta name="description" content="{d}">',
         f'<meta name="theme-color" content="#0B0D10">',
         f'<link rel="canonical" href="{c}">',
@@ -40,6 +41,8 @@ def seo_tags(title, desc, canonical, og_type="website", image=None):
         parts.append(f'<meta property="og:image" content="{i}">')
     return "\n".join(parts)
 
+
+FAVICON_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#0B0D10"/><g fill="none" stroke="#18E299" stroke-width="5" stroke-linecap="round"><circle cx="17" cy="32" r="7"/><circle cx="47" cy="17" r="7"/><circle cx="47" cy="47" r="7"/><path d="M24 32h11m0 0-6-6m6 6-6 6M36 20l6-2M36 44l6 2"/></g></svg>'
 
 def og_svg(title, category, color):
     t = html.escape(title[:28])
@@ -1104,8 +1107,9 @@ try{{const p=getP('cicdlib:prog:{b['id']}',null);if(p&&p.pct>0&&p.pct<100)$('#st
     pathlib.Path(os.path.join(DIST, "robots.txt")).write_text(f"User-agent: *{chr(10)}Allow: /{chr(10)}Sitemap: {SITE_URL}/sitemap.xml{chr(10)}", encoding="utf-8")
 
     # --- P0: 404 + search index ---
-    notfound = f"""<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Not found — CICD BY Nabawy</title><meta name="theme-color" content="#0B0D10"><style>{BASE_CSS}</style></head><body><div class="wrap" style="text-align:center;padding:80px 20px"><h1>Page not found</h1><p class="sub">Try search or start with Foundations.</p><p><a class="btn" href="index.html">Library</a> <a class="btn" href="read/foundations.html">Foundations</a> <a class="btn" href="glossary.html">Glossary</a></p></div></body></html>"""
+    notfound = f"""<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Not found — CICD BY Nabawy</title><link rel="icon" type="image/svg+xml" href="https://eslamnabawy.github.io/cicd-by-nabawy/favicon.svg"><meta name="theme-color" content="#0B0D10"><style>{BASE_CSS}</style></head><body><div class="wrap" style="text-align:center;padding:80px 20px"><h1>Page not found</h1><p class="sub">Try search or start with Foundations.</p><p><a class="btn" href="index.html">Library</a> <a class="btn" href="read/foundations.html">Foundations</a> <a class="btn" href="glossary.html">Glossary</a></p></div></body></html>"""
     pathlib.Path(os.path.join(DIST, "404.html")).write_text(notfound, encoding="utf-8")
+    pathlib.Path(os.path.join(DIST, "favicon.svg")).write_text(FAVICON_SVG, encoding="utf-8")
     search_idx = [{"id": b["id"], "title": b["title"], "desc": b.get("description", ""), "cat": b["category"], "dif": b["difficulty"], "tags": b.get("tags", []), "time": b.get("time_minutes", 30), "sections": all_sections.get(b["id"], []), "body": all_body.get(b["id"], "")[:2000]} for b in books]
     pathlib.Path(os.path.join(DIST, "search.json")).write_text(json.dumps(search_idx, ensure_ascii=False, indent=1), encoding="utf-8")
 
