@@ -188,8 +188,9 @@ def reader_content():
         if not os.path.exists(path):
             continue
         h = open(path, encoding="utf-8").read()
-        m = re.search(r'<main class="readbody">(.*?)</main>', h, re.S)
-        body = m.group(1) if m else ""
+        start = h.find('<div class="readbody">')
+        end = h.rfind('</div></main>')
+        body = h[start + len('<div class="readbody">'):end] if start >= 0 and end > start else ""
         text = re.sub(r"<[^>]+>", " ", html.unescape(body))
         text = re.sub(r"\s+", " ", text).strip()
         if len(text) < 500 or not re.search(r"<h[234][ >]", body):
