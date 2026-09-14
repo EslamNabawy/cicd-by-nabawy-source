@@ -313,7 +313,7 @@ header.top .btn{padding:6px 11px;font-size:13px;flex:none}
 :is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="github"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="github"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="workflow"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="hammer"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="package"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="database"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="puzzle"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="server"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="terminal"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="shield"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="activity"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="webhook"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="wrench"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="flask"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="rocket"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="workflow"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="hammer"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="package"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="database"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="puzzle"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="server"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="terminal"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="shield"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="activity"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="webhook"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="wrench"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="flask"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="rocket"]{filter:brightness(0);}
 
 
-@media print{header.top,aside.toc,.drawer,.chapnav,.copybtn,.settingsbar{display:none !important}
+@media print{body{background:#fff !important;color:#000 !important}header.top,aside.toc,.drawer,.chapnav,.copybtn,.settingsbar,.copybar,.codehead,.topbtn,#resume{display:none !important}
 main.read{padding:0}.readbody{max-width:none}}
 table.gloss{width:100%;border-collapse:collapse;font-size:14px;margin:16px 0}
 table.gloss td,table.gloss th{border:1px solid var(--line);padding:9px 11px;text-align:left}
@@ -413,6 +413,8 @@ table.gloss .upd{color:var(--brand);font-weight:700;font-size:11px;white-space:n
 #lightbox.open{display:flex}
 #lightbox img{max-width:94vw;max-height:90vh;border-radius:10px}
 .readbody table{border-collapse:collapse}
+.readbody thead th{position:sticky;top:0;background:var(--bg2);z-index:1}
+.readbody tbody tr:nth-child(even){background:rgba(127,127,127,.07)}
 .readbody thead th{position:sticky;top:57px;background:var(--bg2);z-index:2}
 .bookhero{display:flex;gap:26px;flex-wrap:wrap;margin:30px 0}
 .bookhero .coverart{height:190px;flex:0 0 220px;margin:0;border-radius:14px;align-items:center;justify-content:center}
@@ -628,6 +630,7 @@ function renderContinue(){
 }
 function filter(){
   const q=($('#q').value||'').toLowerCase(),cat=$('#fcat')?.value||'',dif=$('#fdif')?.value||'',sort=$('#fsort')?.value||'';
+  const filtering=!!(q||cat||dif);
   let n=0;const visCards=[];
   $$('.book[data-id]').forEach(c=>{
     const okQ=(c.dataset.title+' '+c.dataset.desc+' '+(c.dataset.tags||'')).toLowerCase().includes(q);
@@ -643,11 +646,15 @@ function filter(){
     const vis=[...s.querySelectorAll('.book')].some(c=>c.style.display!=='none');
     s.style.display=vis?'':'none';
   });
+  $$('.railmore').forEach(m=>{m.style.display=(filtering||m.dataset.exp)?'':'none';});
+  $$('.railbtn').forEach(b=>b.style.display=filtering?'none':'');
   $('#empty').style.display=n?'none':'';
   const cc=$('#fcount');if(cc)cc.textContent=n+' shown';
   try{const h=new URLSearchParams();if($('#q').value)h.set('q',$('#q').value);if(cat)h.set('cat',cat);if(dif)h.set('dif',dif);history.replaceState(null,'','#'+h.toString());}catch(e){}
 }
 ['q','fcat','fdif','fsort'].forEach(id=>{const el=document.getElementById(id);if(el)el.addEventListener('input',()=>{filter();drop();});});
+$$('.railbtn').forEach(b=>b.onclick=()=>{const m=b.parentElement.previousElementSibling;const open=m.style.display!=='none';m.style.display=open?'none':'';m.dataset.exp=open?'':'1';b.textContent=open?('View all '+b.dataset.n+' \u2193'):'Show less \u2191';});
+try{if(location.protocol.indexOf('http')===0)fetch('search.json').then(r=>r.ok?r.json():null).then(j=>{if(j&&j.length)window.SEARCH_IDX=j;}).catch(()=>{});}catch(e){}
 function norm(s){return (s||'').toLowerCase().replace(/[-_/]/g,' ');}
 function drop(){const raw=($('#q').value||''),q=raw.toLowerCase(),box=$('#qdrop');if(!box)return;if(q.length<2){box.classList.remove('open');box.innerHTML='';return;}
 const STOP=new Set(['how','does','did','can','what','when','where','which','that','this','with','from','have','has','are','was','were','been','will','would','there','their','about','into','your','you','our','the','and','for','are','but','not','all','any','can','had','her','him','his','one','our','out','day','get','has','him','how','its','may','new','now','old','see','two','way','who','boy','did','she','use','her','now','do','i','an','a','to','in','of','or','is','it','my','me','on','as','at','by','we','if','up','so']);
@@ -704,17 +711,21 @@ function findBook(q){$$('.readbody mark').forEach(m=>{m.replaceWith(document.cre
     if(nd.parentElement.closest('.terminal,script,style'))return;
     const r=document.createRange();r.setStart(nd,i);r.setEnd(nd,i+q.length);
     const m=document.createElement('mark');r.surroundContents(m);n++;});
-  const f=document.querySelector('.readbody mark');if(f)f.scrollIntoView({block:'center'});return n;}
-$('#q').addEventListener('keydown',e=>{if(e.key==='Enter'){const n=findBook(e.target.value);$('#qcount').textContent=n?n+' match'+(n>1?'es':'')+' in this book':'no matches in this book'}});
+  const f=document.querySelector('.readbody mark');if(f)f.scrollIntoView({block:'center'});
+  window._marks=[...document.querySelectorAll('.readbody mark')];window._mi=0;window._lastQ=q;return n;}
+$('#q').addEventListener('keydown',e=>{if(e.key==='Enter'){const v=e.target.value;
+  if(v&&v===window._lastQ&&(window._marks||[]).length){window._mi=(window._mi+1)%window._marks.length;window._marks[window._mi].scrollIntoView({block:'center'});$('#qcount').textContent='match '+(window._mi+1)+' of '+window._marks.length;return;}
+  const n=findBook(v);$('#qcount').textContent=n?n+' match'+(n>1?'es':'')+' in this book — Enter for next':'no matches in this book'}});
 $('#q').addEventListener('input',e=>{if(!e.target.value)findBook('')});
 document.addEventListener('keydown',e=>{
   if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();$('#q').focus()}
-  if(e.key==='Escape'){$('#drawer').classList.remove('open');$('aside.toc').classList.remove('open')}
+  if(e.key==='Escape'){if(document.activeElement===$('#q')||document.activeElement===$('#mobileq')){document.activeElement.value='';findBook('');const qc=$('#qcount');if(qc)qc.textContent='';}$('#drawer').classList.remove('open');$('aside.toc').classList.remove('open')}
   if(e.key.toLowerCase()==='t'&&document.activeElement.tagName!=='INPUT'){$('aside.toc').classList.toggle('open')}
   if(e.key==='ArrowRight'&&document.activeElement.tagName!=='INPUT'){const n=$('#nextbook');if(n)location.href=n.href}
   if(e.key==='ArrowLeft'&&document.activeElement.tagName!=='INPUT'){const p=$('#prevbook');if(p)location.href=p.href}
   if(e.key.toLowerCase()==='c'&&document.activeElement.tagName!=='INPUT'&&window._cur){try{navigator.clipboard.writeText(location.href.split('#')[0]+'#'+window._cur);const qc=$('#qcount');if(qc)qc.textContent='section link copied';}catch(err){}}});
 $('#setbtn').onclick=()=>$('#drawer').classList.add('open');
+const _pr=$('#prefreset');if(_pr)_pr.onclick=()=>{setP(PREF,{theme:'sepia',fs:18,width:'820px',font:'sans',lh:1.7});location.reload();};
 $('#drawer .scrim').onclick=()=>$('#drawer').classList.remove('open');
 $('#tocbtn').onclick=()=>$('aside.toc').classList.toggle('open');
 $$('aside.toc a').forEach(a=>a.onclick=()=>{if(innerWidth<=900)$('aside.toc').classList.remove('open')});
@@ -1060,6 +1071,8 @@ def build_map_page(books, output_dir, paths_html=""):
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <title>CICD BY Nabawy</title>
 {seo_tags("CICD BY Nabawy", "Zoomed-out structure map of the CI/CD library — 12 categories derived from books.json — plus ordered learning paths.", f"{SITE_URL}/")}
 <style>{BASE_CSS}</style><script>try{{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}}catch(e){{document.documentElement.dataset.theme='sepia'}}</script>
@@ -1162,54 +1175,64 @@ if(initial) showDetail(initial,false);
     print(f"BUILT map landing: {len(books)} books in {len(cats_sorted)} categories -> {output_dir}/index.html (+ map.html redirect)")
 
 def build_roadmap_page(books, output_dir):
-    """Static visual map of every manifest book, grouped by category.
+    """Ordered learning roadmap: every manifest book as a milestone stop,
 
-    Same data (books), same tokens, same card language as the library.
-    Categories under 3 books merge into 'Quick topics' per homepage convention.
+    grouped by the ordered paths in content/paths.json (single taxonomy,
+    shared with map/shelf/reader). Same tokens, same card language.
     """
+    try:
+        _pd = json.load(open(os.path.join(ROOT, "content", "paths.json"), encoding="utf-8"))
+        _order, _pathmeta = _pd.get("order", []), _pd.get("paths", {})
+    except Exception:
+        _order, _pathmeta = [], {}
     def slug(name):
         return "rm-" + re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")
 
-    groups = {}
+    _bypath = {}
     for b in books:
-        groups.setdefault(b["category"], []).append(b)
-    for bs in groups.values():
-        bs.sort(key=lambda b: (DIFF_RANK.get(b["difficulty"], 9), b["title"].lower()))
-    big = sorted(((c, bs) for c, bs in groups.items() if len(bs) >= 3), key=lambda t: -len(t[1]))
-    small = sorted((b for c, bs in groups.items() if len(bs) < 3 for b in bs),
-                   key=lambda b: (DIFF_RANK.get(b["difficulty"], 9), b["title"].lower()))
-    sections = [(c, bs) for c, bs in big]
-    if small:
-        sections.append(("Quick topics", small))
+        _bypath.setdefault(b.get("path", ""), []).append(b)
+    if _order:
+        sections = [(_pathmeta.get(p, {}).get("label", p), _pathmeta.get(p, {}).get("desc", ""),
+                      [x for x in books if x.get("path") == p]) for p in _order]
+        sections = [(l, dd, bs) for l, dd, bs in sections if bs]
+    else:
+        groups = {}
+        for b in books:
+            groups.setdefault(b["category"], []).append(b)
+        sections = [(c, "", sorted(bs, key=lambda b: (DIFF_RANK.get(b["difficulty"], 9), b["title"].lower())))
+                    for c, bs in sorted(groups.items())]
 
     mile = [0]
 
     def rcard(b):
         mile[0] += 1
         return (
-            f'<li class="stop" data-mile="{mile[0]:02d}" data-cat="{b["category"]}">'
+            f'<li class="stop" data-mile="{mile[0]:02d}" data-cat="{b["category"]}" data-book="{b["id"]}">'
             f'<div class="card book" data-cat="{b["category"]}" data-title="{html.escape(b["title"])}">'
-            f'<span class="num">{html.escape(b["category"])}</span><h3>{html.escape(b["title"])}</h3>'
+            f'<span class="num">{html.escape(b["category"])} \u00b7 {b.get("time_minutes", 30)} min</span><h3>{html.escape(b["title"])}</h3>'
             f'<p>{html.escape(b.get("description", ""))}</p>'
             f'<div class="dif"><i></i>{b["difficulty"]}</div>'
             f'<a class="read" href="../{reader_url(b)}">Read</a></div></li>'
         )
 
     jump = ("<div class=\"jumpnav\">" + "".join(
-        f"<a href=\"#{slug(n)}\">{n} · {len(bs)}</a>" for n, bs in sections) + "</div>")
+        f"<a href=\"#{slug(n)}\">{n} · {len(bs)}</a>" for n, dd, bs in sections) + "</div>")
     body = '<div class="trip"><span>START · 01</span></div>' + "".join(
         f'<section class="shelf" id="{slug(n)}"><div class="shelf-head"><h2>{n}</h2>'
-        f"<span>{len(bs)} book" + ("s" if len(bs) != 1 else "") + "</span></div>"
+        f"<span>{len(bs)} book" + ("s" if len(bs) != 1 else "") + f" \u00b7 ~{sum(b.get('time_minutes', 30) for b in bs)} min</span>"
+        f"<p>{html.escape(dd)}</p></div>"
         f"<ol class=\"route\">" + "".join(rcard(b) for b in bs) + "</ol></section>"
-        for n, bs in sections) + '<div class="trip"><span>FINISH · SHIP IT</span></div>'
+        for n, dd, bs in sections) + '<div class="trip"><span>FINISH · SHIP IT</span></div>'
 
     page = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <title>Roadmap — CICD BY Nabawy</title>
-{seo_tags("Roadmap — CICD BY Nabawy", "Visual map of all 39 books grouped by category — the same source as the library.", f"{SITE_URL}/roadmap/")}
+{seo_tags("Roadmap — CICD BY Nabawy", "Visual roadmap of all " + str(len(books)) + " books in path order — the same source as the library.", f"{SITE_URL}/roadmap/")}
 <style>{BASE_CSS}</style><script>try{{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}}catch(e){{document.documentElement.dataset.theme='sepia'}}</script>
 </head>
 <body>
@@ -1223,8 +1246,8 @@ def build_roadmap_page(books, output_dir):
 <button class="btn" id="themebtn" aria-label="Toggle theme">☀</button>
 </div></header>
 <div class="wrap">
-<div class="hero" style="padding:36px 24px 16px"><span class="eyebrow">MAP</span><h1>Every book, <span>one map.</span></h1>
-<p>{len(books)} docs grouped by category — same source as the library, impossible to drift.</p></div>
+<div class="hero" style="padding:36px 24px 16px"><span class="eyebrow">ROADMAP</span><h1>Follow the path, <span>ship with confidence.</span></h1>
+<p>{len(books)} stops in path order · ~{sum(b.get("time_minutes", 30) for b in books) // 60} hours end to end — same source as the library, impossible to drift.</p></div>
 {jump}
 {body}
 </div>
@@ -1238,6 +1261,7 @@ const THS=['sepia','dark','light'],THI={{dark:'☀',light:'☾',sepia:'◐'}};
 function syncTheme(){{const th=THS.includes(pref.theme)?pref.theme:'sepia';document.documentElement.dataset.theme=th;const t=$('#themebtn');if(t)t.textContent=THI[th]||'☀'}}
 syncTheme();
 $('#themebtn').onclick=()=>{{pref.theme=THS[(THS.indexOf(pref.theme)+1)%THS.length];setP('cicdlib:pref',pref);syncTheme()}};
+try{{document.querySelectorAll('.stop[data-book]').forEach(s=>{{const p=getP('cicdlib:prog:'+s.dataset.book,null);if(p&&p.pct>=100){{const h=s.querySelector('h3');if(h&&!h.querySelector('.tick'))h.innerHTML+=' <span class="tick" style="color:var(--brand);font-weight:700">\u2713</span>';}}}});}}catch(e){{}}
 </script>
 </body>
 </html>"""
@@ -1482,6 +1506,8 @@ def build():
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <title>{html.escape(b['title'])} — CICD BY Nabawy</title>
 {seo_tags(f"{b['title']} — CICD BY Nabawy", b.get("description",""), f"{SITE_URL}/read/{b['id']}.html", og_type="article", image=f"{SITE_URL}/og/{b['id']}.{OG_EXT}")}
 {(f'<link rel="prefetch" href="{upnext["id"]}.html">' if upnext else '') + (f'<link rel="prefetch" href="{nextb["id"]}.html">' if nextb and (not upnext or nextb["id"] != upnext["id"]) else '')}
@@ -1558,6 +1584,7 @@ def build():
 <button class="btn" data-k="width" data-set="820px" onclick="setOpt('width','820px')">Comfortable</button>
 <button class="btn" data-k="width" data-set="1020px" onclick="setOpt('width','1020px')">Wide</button></div></div>
 <div class="setrow"><h5>SHORTCUTS</h5><p style="font-size:12px;color:var(--mut)">Ctrl+K search · T contents · ←/→ prev/next book · Esc close</p></div>
+<div class="setrow"><button class="btn" id="prefreset">Reset reading settings</button></div>
 </div></div>
 <script>{READER_JS}</script>
 </body>
@@ -1579,7 +1606,9 @@ def build():
         f'<span>{b.get("time_minutes", 45)} min · {html.escape(b.get("lab_env", "Hands-on environment"))}</span></li>'
         for b in lab_books
     )
-    lab_index = f'''<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Hands-on Labs — CICD BY Nabawy</title>{seo_tags("Hands-on Labs — CICD BY Nabawy", "Direct HTML manuals for every CI/CD lab.", f"{SITE_URL}/labs/")}<style>{BASE_CSS}.lab-index{{max-width:920px;margin:0 auto;padding:54px 24px 90px}}.lab-index h1{{font-size:42px;margin:12px 0}}.lab-index p{{color:var(--mut);font-size:17px;max-width:680px;line-height:1.6}}.lab-index ul{{list-style:none;padding:0;margin:34px 0;display:grid;gap:10px}}.lab-index li{{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:18px 20px;background:var(--card);border:1px solid var(--line-soft);border-radius:12px}}.lab-index li span{{color:var(--mut);font-size:13px}}@media(max-width:600px){{.lab-index{{padding:34px 14px}}.lab-index h1{{font-size:32px}}.lab-index li{{display:block}}.lab-index li span{{display:block;margin-top:6px}}}}</style></head><body><header class="top"><div class="wrap"><a class="logo" href="../index.html" style="color:inherit">CICD<span> BY Nabawy</span></a><a class="btn" href="../index.html">Map</a><a class="btn" href="../shelf.html">Browse</a></div></header><main class="lab-index"><span class="eyebrow">HANDS-ON LABS</span><h1>Practice the pipeline.</h1><p>Eight guided exercises from the first green check through Jenkins recovery. Each manual includes setup, execution, verification, failure scenarios, cleanup, and a downloadable PDF edition.</p><ul>{lab_links}</ul></main></body></html>'''
+    lab_index = f'''<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><title>Hands-on Labs — CICD BY Nabawy</title>{seo_tags("Hands-on Labs — CICD BY Nabawy", "Direct HTML manuals for every CI/CD lab.", f"{SITE_URL}/labs/")}<style>{BASE_CSS}.lab-index{{max-width:920px;margin:0 auto;padding:54px 24px 90px}}.lab-index h1{{font-size:42px;margin:12px 0}}.lab-index p{{color:var(--mut);font-size:17px;max-width:680px;line-height:1.6}}.lab-index ul{{list-style:none;padding:0;margin:34px 0;display:grid;gap:10px}}.lab-index li{{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:18px 20px;background:var(--card);border:1px solid var(--line-soft);border-radius:12px}}.lab-index li span{{color:var(--mut);font-size:13px}}@media(max-width:600px){{.lab-index{{padding:34px 14px}}.lab-index h1{{font-size:32px}}.lab-index li{{display:block}}.lab-index li span{{display:block;margin-top:6px}}}}</style></head><body><header class="top"><div class="wrap"><a class="logo" href="../index.html" style="color:inherit">CICD<span> BY Nabawy</span></a><a class="btn" href="../index.html">Map</a><a class="btn" href="../shelf.html">Browse</a></div></header><main class="lab-index"><span class="eyebrow">HANDS-ON LABS</span><h1>Practice the pipeline.</h1><p>Eight guided exercises from the first green check through Jenkins recovery. Each manual includes setup, execution, verification, failure scenarios, cleanup, and a downloadable PDF edition.</p><ul>{lab_links}</ul></main></body></html>'''
     open(os.path.join(lab_dir, "index.html"), "w", encoding="utf-8").write(lab_index)
 
     cats = sorted(set(b["category"] for b in books))
@@ -1622,14 +1651,22 @@ def build():
                   "Labs": "#EAB308", "Reference": "#64748B"}
     CORES = ["Build", "Testing", "Security", "Reliability"]
 
-    def shelf(name, count, color, inner, grid=False, sid=""):
+    RAIL_SHOW = 6
+    def rail_inner(cards):
+        """First RAIL_SHOW cards inline; rest behind a View-all toggle (outside .rail)."""
+        if len(cards) <= RAIL_SHOW:
+            return "".join(cards), ""
+        extra = ('<div class="railmore" style="display:none">' + "".join(cards[RAIL_SHOW:]) + '</div>'
+                   f'<div class="morewrap"><button class="btn railbtn" data-n="{len(cards)}">View all {len(cards)} \u2193</button></div>')
+        return "".join(cards[:RAIL_SHOW]), extra
+    def shelf(name, count, color, inner, grid=False, sid="", extra=""):
         arrows = ""
         if not grid:
             arrows = ('<span class="arrows"><button data-dir="-1" aria-label="Scroll left">←</button>'
                       '<button data-dir="1" aria-label="Scroll right">→</button></span>')
         wrap = f'<div class="cores-grid">{inner}</div>' if grid else f'<div class="rail">{inner}</div>'
         return (f'<section class="shelf" id="{sid}" style="--cat:{color}"><div class="shelf-head"><h2>{name}</h2>'
-                f"<span>{count}</span>{arrows}</div>{wrap}</section>")
+                f"<span>{count}</span>{arrows}</div>{wrap}{extra}</section>")
 
     def slug(name):
         return "shelf-" + re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")
@@ -1647,16 +1684,20 @@ def build():
 
     sections = []
     for c, bs in big:
+        _vis, _xtra = rail_inner([card(b, idx_of[b["id"]]) for b in bs])
         sections.append({"name": c, "n": len(bs), "grid": False, "color": CAT_COLORS.get(c, "#18E299"),
-                         "inner": "".join(card(b, idx_of[b["id"]]) for b in bs)})
+                         "inner": _vis, "extra": _xtra})
+    _svis, _sxtra = rail_inner([series_card(p) for p in series_files])
     sections.append({"name": "Series edition", "n": len(series_files), "grid": False, "color": "#18E299",
-                     "inner": "".join(series_card(p) for p in series_files)})
+                     "inner": _svis, "extra": _sxtra})
     if core_books:
+        _cvis, _cxtra = rail_inner([card(b, idx_of[b["id"]]) for b in core_books])
         sections.append({"name": "Core practices", "n": len(core_books), "grid": True, "color": "#18E299",
-                         "inner": "".join(card(b, idx_of[b["id"]]) for b in core_books)})
+                         "inner": _cvis, "extra": _cxtra})
     if small_books:
+        _qvis, _qxtra = rail_inner([card(b, idx_of[b["id"]]) for b in small_books])
         sections.append({"name": "Quick topics", "n": len(small_books), "grid": True, "color": "#18E299",
-                         "inner": "".join(card(b, idx_of[b["id"]]) for b in small_books)})
+                         "inner": _qvis, "extra": _qxtra})
     sections.sort(key=lambda s: (-s["n"], 0 if not s["grid"] else 1))
     series_sec = [s for s in sections if s["name"] == "Series edition"]
     sections = [s for s in sections if s["name"] != "Series edition"] + series_sec
@@ -1675,7 +1716,7 @@ def build():
         f"<a href=\"#{slug(s['name'])}\">{s['name']}</a>" for s in sections) + "</div>")
     rendered = "".join(
         shelf(s["name"], f"{s['n']} book" + ("s" if s["n"] != 1 else ""), s["color"], s["inner"],
-              grid=s["grid"], sid=slug(s["name"])) for s in sections)
+              grid=s["grid"], sid=slug(s["name"]), extra=s.get("extra", "")) for s in sections)
     SHOW_FIRST = 5
     if len(sections) > SHOW_FIRST:
         parts = rendered.split("</section>", SHOW_FIRST)
@@ -1685,7 +1726,9 @@ def build():
     else:
         shelves_html = rendered
 
-    search_idx = [{"id": b["id"], "title": b["title"], "desc": b.get("description", ""), "cat": b["category"], "dif": b["difficulty"], "tags": b.get("tags", []), "time": b.get("time_minutes", 30), "sections": all_sections.get(b["id"], []), "body": all_body.get(b["id"], "")[:2000]} for b in books]
+    search_idx = [{"id": b["id"], "title": b["title"], "desc": b.get("description", ""), "cat": b["category"], "dif": b["difficulty"], "tags": b.get("tags", []), "time": b.get("time_minutes", 30), "sections": all_sections.get(b["id"], [])} for b in books]
+    # (inline index is intentionally body-free for payload; search.json carries full body,
+    #  fetched over HTTP to upgrade window.SEARCH_IDX — file:// keeps this light index)
     # P2.1: single recommended cold-start path (Beginner, prereq-chain verified)
     RECOMMENDED = ["foundations", "git-branching", "pipelines", "ci", "lab-01"]
     rec_seq = [byid[i] for i in RECOMMENDED if i in byid]
@@ -1708,6 +1751,8 @@ def build():
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <title>CICD BY Nabawy — Browse all books</title>
 {seo_tags("CICD BY Nabawy — Browse", SITE_DESC, f"{SITE_URL}/shelf.html", image=f"{SITE_URL}/og/library.{OG_EXT}")}
 <style>{BASE_CSS}</style><script>try{{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}}catch(e){{document.documentElement.dataset.theme='sepia'}}</script>
@@ -1743,7 +1788,7 @@ def build():
 </div>
 <a id="resume" href="#" style="display:none">Resume</a>
 <footer><div class="wrap"><span>CICD BY Nabawy</span><span><a href="index.html">Map</a> · <a href="updates.html">Updates</a> · <a href="glossary.html">Glossary</a> · <a href="roadmap/">Roadmap</a> · v2.1 Sep 2026</span></div></footer>
-<script>window.SEARCH_IDX={json.dumps(search_idx, ensure_ascii=False)};</script>
+<script>window.SEARCH_IDX={json.dumps(search_idx, ensure_ascii=False, separators=(",", ":"))};</script>
 <script>{INDEX_JS}</script>
 <script>
 $$('.book').forEach(c=>{{const p=getP(PROG+c.dataset.id,null);if(p&&p.pct>0)c.querySelector('.prog b').style.width=p.pct+'%'}});
@@ -1776,6 +1821,8 @@ try{{const cats=[...new Set($$('.book[data-id]').map(c=>c.dataset.cat))].sort();
     gloss = f"""<!DOCTYPE html>
 <html lang="en">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <title>Glossary — CICD BY Nabawy</title>{seo_tags("Glossary — CICD BY Nabawy", "CI/CD glossary: terms shared by all books, reader and search.", f"{SITE_URL}/glossary.html")}<style>{BASE_CSS}</style><script>try{{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}}catch(e){{document.documentElement.dataset.theme='sepia'}}</script></head>
 <body>
 <header class="top"><div class="wrap"><a class="logo" href="index.html" style="text-decoration:none;color:inherit"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="5" cy="12" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="6" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="18" r="2.6" stroke="#18E299" stroke-width="2"/><path d="M7.6 12h5.2m0 0-2.6-2.6m2.6 2.6-2.6 2.6M13.4 7.4l2.8-1M13.4 16.6l2.8 1" stroke="#18E299" stroke-width="2" stroke-linecap="round"/></svg>CICD<span> BY Nabawy</span></a>
@@ -1803,7 +1850,9 @@ $('#themebtn').onclick=()=>{{const p=getP('cicdlib:pref',{{theme:'sepia'}});p.th
         preq = "".join(f'<a href="{p}.html">{html.escape(byid[p]["title"])}</a>' if p in byid else f'<span>{html.escape(p)}</span>' for p in b.get("prereqs", [])) or "<span>None — start here</span>"
         outs = "".join(f"<li>{html.escape(o)}</li>" for o in b.get("outcomes", [])) or "<li>Read the full book</li>"
         initials = "".join(w[0] for w in re.sub(r"[^A-Za-z0-9 ]", "", b["title"]).split()[:2]).upper()
-        bp = f"""<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>{html.escape(b['title'])} — Overview — CICD BY Nabawy</title>{seo_tags(b['title'] + " — Overview — CICD BY Nabawy", b.get("description", ""), f"{SITE_URL}/book/{b['id']}.html", image=f"{SITE_URL}/og/{b['id']}.{OG_EXT}")}<link rel="prefetch" href="../read/{b['id']}.html"><style>{BASE_CSS}</style><script>try{{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}}catch(e){{document.documentElement.dataset.theme='sepia'}}</script>
+        bp = f"""<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><title>{html.escape(b['title'])} — Overview — CICD BY Nabawy</title>{seo_tags(b['title'] + " — Overview — CICD BY Nabawy", b.get("description", ""), f"{SITE_URL}/book/{b['id']}.html", image=f"{SITE_URL}/og/{b['id']}.{OG_EXT}")}<link rel="prefetch" href="../read/{b['id']}.html"><style>{BASE_CSS}</style><script>try{{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}}catch(e){{document.documentElement.dataset.theme='sepia'}}</script>
 {f'<script type="application/ld+json">{json.dumps({"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":SITE_URL + "/"},{"@type":"ListItem","position":2,"name":b["title"],"item":SITE_URL + "/book/" + b["id"] + ".html"}]})}</script>'}></head>
 <body><header class="top"><div class="wrap"><a class="logo" href="../index.html" style="color:inherit">CICD<span> BY Nabawy</span></a><nav class="crumbs"><span class="sep">/</span><span class="here">{html.escape(b['title'])}</span></nav><div class="search"></div><a class="btn" href="../shelf.html">Browse</a><a class="btn" href="../index.html">Map</a><button class="btn" id="themebtn">☀</button></div></header>
 <div class="wrap"><div class="bookhero"><div class="coverart" data-cat="{html.escape(b['category'])}"><b>{initials}</b></div><div style="flex:1;min-width:260px"><span class="num">{html.escape(b['category'])} · {b['difficulty']} · {b.get('time_minutes', 30)} min · v{b.get('version', '2.0')} · Updated {html.escape(b.get('updated', ''))}</span><h1 style="font-size:34px;margin:6px 0">{html.escape(b['title'])}</h1><p class="sub">{html.escape(b.get('description', ''))}</p>
@@ -1848,7 +1897,9 @@ try{{const p=getP('cicdlib:prog:{b['id']}',null);if(p&&p.pct>0&&p.pct<100)$('#st
         _rib = ' <span class="upd">\u25cf Updated</span>' if _fresh(_ds) else ""
         return (f'<tr><td><a href="book/{b["id"]}.html">{html.escape(b["title"])}</a></td><td>{html.escape(b["category"])}</td><td>{b["difficulty"]}</td><td>v{html.escape(b.get("version", "2.0"))}</td><td>{html.escape(_ds)}{_rib}</td><td>{b.get("time_minutes", 30)} min</td></tr>')
     rows_u = "".join(_urow(b) for b in books)
-    upd = f"""<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Updates — CICD BY Nabawy</title>{seo_tags("Updates — CICD BY Nabawy", "What changed across the library.", f"{SITE_URL}/updates.html")}<style>{BASE_CSS}</style><script>try{{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}}catch(e){{document.documentElement.dataset.theme='sepia'}}</script></head><body><header class="top"><div class="wrap"><a class="logo" href="index.html" style="color:inherit">CICD<span> BY Nabawy</span></a><nav class="crumbs"><span class="sep">/</span><span class="here">Updates</span></nav></div></header><div class="wrap"><h2 class="sec">Updates</h2><p class="sub">{len(books)} books · P0+P1 shipped Sep 2026: metadata, filters, paths, bookmarks, related, lab checks</p><table class="gloss"><tr><th>Book</th><th>Category</th><th>Level</th><th>Ver</th><th>Updated</th><th>Time</th></tr>{rows_u}</table></div></body></html>"""
+    upd = f"""<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><title>Updates — CICD BY Nabawy</title>{seo_tags("Updates — CICD BY Nabawy", "What changed across the library.", f"{SITE_URL}/updates.html")}<style>{BASE_CSS}</style><script>try{{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}}catch(e){{document.documentElement.dataset.theme='sepia'}}</script></head><body><header class="top"><div class="wrap"><a class="logo" href="index.html" style="color:inherit">CICD<span> BY Nabawy</span></a><nav class="crumbs"><span class="sep">/</span><span class="here">Updates</span></nav></div></header><div class="wrap"><h2 class="sec">Updates</h2><p class="sub">{len(books)} books · P0+P1 shipped Sep 2026: metadata, filters, paths, bookmarks, related, lab checks</p><table class="gloss"><tr><th>Book</th><th>Category</th><th>Level</th><th>Ver</th><th>Updated</th><th>Time</th></tr>{rows_u}</table></div></body></html>"""
     open(os.path.join(DIST, "updates.html"), "w", encoding="utf-8").write(upd)
 
     # --- SEO: sitemap + robots ---
@@ -1866,7 +1917,9 @@ try{{const p=getP('cicdlib:prog:{b['id']}',null);if(p&&p.pct>0&&p.pct<100)$('#st
     pathlib.Path(os.path.join(DIST, "robots.txt")).write_text(f"User-agent: *{chr(10)}Allow: /{chr(10)}Sitemap: {SITE_URL}/sitemap.xml{chr(10)}", encoding="utf-8")
 
     # --- P0: 404 + search index ---
-    notfound = f"""<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Not found — CICD BY Nabawy</title><link rel="icon" type="image/svg+xml" href="https://eslamnabawy.github.io/cicd-by-nabawy/favicon.svg"><meta name="theme-color" content="#0B0D10"><style>{BASE_CSS}</style><script>try{{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}}catch(e){{document.documentElement.dataset.theme='sepia'}}</script></head><body><div class="wrap" style="text-align:center;padding:80px 20px"><h1>Page not found</h1><p class="sub">Try search or start with Foundations.</p><p><a class="btn" href="index.html">Map</a> <a class="btn" href="shelf.html">Browse</a> <a class="btn" href="read/foundations.html">Foundations</a> <a class="btn" href="glossary.html">Glossary</a></p></div></body></html>"""
+    notfound = f"""<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><title>Not found — CICD BY Nabawy</title><link rel="icon" type="image/svg+xml" href="https://eslamnabawy.github.io/cicd-by-nabawy/favicon.svg"><meta name="theme-color" content="#0B0D10"><style>{BASE_CSS}</style><script>try{{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}}catch(e){{document.documentElement.dataset.theme='sepia'}}</script></head><body><div class="wrap" style="text-align:center;padding:80px 20px"><h1>Page not found</h1><p class="sub">Try search or start with Foundations.</p><p><a class="btn" href="index.html">Map</a> <a class="btn" href="shelf.html">Browse</a> <a class="btn" href="read/foundations.html">Foundations</a> <a class="btn" href="glossary.html">Glossary</a></p></div></body></html>"""
     pathlib.Path(os.path.join(DIST, "404.html")).write_text(notfound, encoding="utf-8")
     pathlib.Path(os.path.join(DIST, "favicon.svg")).write_text(FAVICON_SVG, encoding="utf-8")
     search_idx = [{"id": b["id"], "title": b["title"], "desc": b.get("description", ""), "cat": b["category"], "dif": b["difficulty"], "tags": b.get("tags", []), "time": b.get("time_minutes", 30), "sections": all_sections.get(b["id"], []), "body": all_body.get(b["id"], "")[:2000]} for b in books]

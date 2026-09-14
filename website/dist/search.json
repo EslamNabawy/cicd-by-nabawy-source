@@ -341,7 +341,7 @@
  },
  {
   "id": "lab-01",
-  "title": "Lab 01: First Pipeline",
+  "title": "Lab 01 · Core: First Pipeline",
   "desc": "Push to green check with branch protection.",
   "cat": "Labs",
   "dif": "Beginner",
@@ -351,7 +351,7 @@
   ],
   "time": 45,
   "sections": [
-   "Cover — Lab 01: First Pipeline",
+   "Cover — Lab 01 · Core: First Pipeline",
    "1 Objective",
    "2 Prerequisites",
    "3 Architecture",
@@ -372,7 +372,7 @@
  },
  {
   "id": "lab-02",
-  "title": "Lab 02: Build & Test",
+  "title": "Lab 02 · Core: Build & Test",
   "desc": "DAG jobs, caching, hermetic proof.",
   "cat": "Labs",
   "dif": "Intermediate",
@@ -382,7 +382,7 @@
   ],
   "time": 45,
   "sections": [
-   "Cover — Lab 02: Build &amp; Test",
+   "Cover — Lab 02 · Core: Build &amp; Test",
    "1 Objective",
    "2 Prerequisites",
    "3 Architecture",
@@ -403,7 +403,7 @@
  },
  {
   "id": "lab-03",
-  "title": "Lab 03: Artifacts",
+  "title": "Lab 03 · Core: Artifacts",
   "desc": "SHA tags, GHCR, SBOM.",
   "cat": "Labs",
   "dif": "Intermediate",
@@ -413,7 +413,7 @@
   ],
   "time": 45,
   "sections": [
-   "Cover — Lab 03: Artifacts",
+   "Cover — Lab 03 · Core: Artifacts",
    "1 Objective",
    "2 Prerequisites",
    "3 Architecture",
@@ -434,7 +434,7 @@
  },
  {
   "id": "lab-04",
-  "title": "Lab 04: Deployment",
+  "title": "Lab 04 · Core: Deployment",
   "desc": "Staging auto, production approval.",
   "cat": "Labs",
   "dif": "Intermediate",
@@ -444,7 +444,7 @@
   ],
   "time": 60,
   "sections": [
-   "Cover — Lab 04: Deployment",
+   "Cover — Lab 04 · Core: Deployment",
    "1 Objective",
    "2 Prerequisites",
    "3 Architecture",
@@ -465,7 +465,7 @@
  },
  {
   "id": "lab-05",
-  "title": "Lab 05: Rollback",
+  "title": "Lab 05 · Core: Rollback",
   "desc": "Break prod, redeploy digest, postmortem.",
   "cat": "Labs",
   "dif": "Intermediate",
@@ -475,7 +475,7 @@
   ],
   "time": 45,
   "sections": [
-   "Cover — Lab 05: Rollback",
+   "Cover — Lab 05 · Core: Rollback",
    "1 Objective",
    "2 Prerequisites",
    "3 Architecture",
@@ -496,7 +496,7 @@
  },
  {
   "id": "lab-06",
-  "title": "Lab 06: Jenkins Live",
+  "title": "Lab 06 · Core: Jenkins Live",
   "desc": "Compose controller plus agent, first pipeline.",
   "cat": "Labs",
   "dif": "Intermediate",
@@ -506,7 +506,7 @@
   ],
   "time": 60,
   "sections": [
-   "Cover — Lab 06: Jenkins Live",
+   "Cover — Lab 06 · Core: Jenkins Live",
    "1 Objective",
    "2 Prerequisites",
    "3 Architecture",
@@ -527,7 +527,7 @@
  },
  {
   "id": "lab-07",
-  "title": "Lab 07: Shared Library",
+  "title": "Lab 07 · Core: Shared Library",
   "desc": "Versioned pipeline reuse.",
   "cat": "Labs",
   "dif": "Advanced",
@@ -537,7 +537,7 @@
   ],
   "time": 60,
   "sections": [
-   "Cover — Lab 07: Shared Library",
+   "Cover — Lab 07 · Core: Shared Library",
    "1 Objective",
    "2 Prerequisites",
    "3 Architecture",
@@ -558,7 +558,7 @@
  },
  {
   "id": "lab-08",
-  "title": "Lab 08: Backup & Restore",
+  "title": "Lab 08 · Core: Backup & Restore",
   "desc": "DR drill: destroy, restore, replay.",
   "cat": "Labs",
   "dif": "Advanced",
@@ -569,7 +569,7 @@
   ],
   "time": 60,
   "sections": [
-   "Cover — Lab 08: Backup &amp; Restore",
+   "Cover — Lab 08 · Core: Backup &amp; Restore",
    "1 Objective",
    "2 Prerequisites",
    "3 Architecture",
@@ -1130,7 +1130,7 @@
  },
  {
   "id": "jenkins-lab-webhook",
-  "title": "Lab 01: Automated Integration Foundations",
+  "title": "Lab J-01 · Jenkins: Automated Integration Foundations",
   "desc": "Build a reliable automated integration trigger from source change through Jenkins verification and feedback.",
   "cat": "Labs",
   "dif": "Intermediate",
@@ -1163,7 +1163,7 @@
  },
  {
   "id": "jenkins-lab-docker",
-  "title": "Lab 02: Container Delivery",
+  "title": "Lab J-02 · Jenkins: Container Delivery",
   "desc": "Design, secure, and verify container delivery from build architecture through authenticated registry release.",
   "cat": "Labs",
   "dif": "Intermediate",
@@ -1196,7 +1196,7 @@
  },
  {
   "id": "jenkins-lab-multibranch",
-  "title": "Lab 03: Multibranch Foundations",
+  "title": "Lab J-03 · Jenkins: Multibranch Foundations",
   "desc": "Create a branch-aware Jenkins flow that discovers branches, applies filters, and verifies isolated pipeline behavior.",
   "cat": "Labs",
   "dif": "Intermediate",
@@ -1229,7 +1229,7 @@
  },
  {
   "id": "jenkins-lab-shared-library",
-  "title": "Lab 04: Reusable Pipeline Logic",
+  "title": "Lab J-04 · Jenkins: Reusable Pipeline Logic",
   "desc": "Design, register, version, and consume reusable Jenkins pipeline logic as a shared library.",
   "cat": "Labs",
   "dif": "Advanced",
@@ -1262,7 +1262,7 @@
  },
  {
   "id": "jenkins-lab-terraform-floci",
-  "title": "Lab 05: The Infrastructure Pipeline",
+  "title": "Lab J-05 · Jenkins: The Infrastructure Pipeline",
   "desc": "Turn infrastructure changes into a gated pipeline with planning, approval, apply, and recovery evidence.",
   "cat": "Labs",
   "dif": "Advanced",
@@ -1296,7 +1296,7 @@
  },
  {
   "id": "jenkins-labs",
-  "title": "Jenkins Labs",
+  "title": "Jenkins Labs: Complete Sequence",
   "desc": "Consolidated Jenkins lab sequence covering webhooks, Docker, multibranch, shared libraries, and Terraform on FLOCI.",
   "cat": "Labs",
   "dif": "Advanced",

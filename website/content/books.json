@@ -329,7 +329,7 @@
   },
   {
     "id": "lab-01",
-    "title": "Lab 01: First Pipeline",
+    "title": "Lab 01 · Core: First Pipeline",
     "file": "pdf-28-lab-first-pipeline.html",
     "category": "Labs",
     "difficulty": "Beginner",
@@ -354,7 +354,7 @@
   },
   {
     "id": "lab-02",
-    "title": "Lab 02: Build & Test",
+    "title": "Lab 02 · Core: Build & Test",
     "file": "pdf-29-lab-build-test.html",
     "category": "Labs",
     "difficulty": "Intermediate",
@@ -380,7 +380,7 @@
   },
   {
     "id": "lab-03",
-    "title": "Lab 03: Artifacts",
+    "title": "Lab 03 · Core: Artifacts",
     "file": "pdf-30-lab-artifacts.html",
     "category": "Labs",
     "difficulty": "Intermediate",
@@ -406,7 +406,7 @@
   },
   {
     "id": "lab-04",
-    "title": "Lab 04: Deployment",
+    "title": "Lab 04 · Core: Deployment",
     "file": "pdf-31-lab-deployment.html",
     "category": "Labs",
     "difficulty": "Intermediate",
@@ -432,7 +432,7 @@
   },
   {
     "id": "lab-05",
-    "title": "Lab 05: Rollback",
+    "title": "Lab 05 · Core: Rollback",
     "file": "pdf-32-lab-rollback.html",
     "category": "Labs",
     "difficulty": "Intermediate",
@@ -458,7 +458,7 @@
   },
   {
     "id": "lab-06",
-    "title": "Lab 06: Jenkins Live",
+    "title": "Lab 06 · Core: Jenkins Live",
     "file": "pdf-33-lab-jenkins-controller.html",
     "category": "Labs",
     "difficulty": "Intermediate",
@@ -483,7 +483,7 @@
   },
   {
     "id": "lab-07",
-    "title": "Lab 07: Shared Library",
+    "title": "Lab 07 · Core: Shared Library",
     "file": "pdf-34-lab-shared-library.html",
     "category": "Labs",
     "difficulty": "Advanced",
@@ -509,7 +509,7 @@
   },
   {
     "id": "lab-08",
-    "title": "Lab 08: Backup & Restore",
+    "title": "Lab 08 · Core: Backup & Restore",
     "file": "pdf-35-lab-backup-restore.html",
     "category": "Labs",
     "difficulty": "Advanced",
@@ -1055,7 +1055,7 @@
   },
   {
     "id": "jenkins-lab-webhook",
-    "title": "Lab 01: Automated Integration Foundations",
+    "title": "Lab J-01 · Jenkins: Automated Integration Foundations",
     "file": "pdf-jenkins-lab-01-webhook.html",
     "category": "Labs",
     "difficulty": "Intermediate",
@@ -1070,7 +1070,7 @@
   },
   {
     "id": "jenkins-lab-docker",
-    "title": "Lab 02: Container Delivery",
+    "title": "Lab J-02 · Jenkins: Container Delivery",
     "file": "pdf-jenkins-lab-02-docker.html",
     "category": "Labs",
     "difficulty": "Intermediate",
@@ -1085,7 +1085,7 @@
   },
   {
     "id": "jenkins-lab-multibranch",
-    "title": "Lab 03: Multibranch Foundations",
+    "title": "Lab J-03 · Jenkins: Multibranch Foundations",
     "file": "pdf-jenkins-lab-03-multibranch.html",
     "category": "Labs",
     "difficulty": "Intermediate",
@@ -1100,7 +1100,7 @@
   },
   {
     "id": "jenkins-lab-shared-library",
-    "title": "Lab 04: Reusable Pipeline Logic",
+    "title": "Lab J-04 · Jenkins: Reusable Pipeline Logic",
     "file": "pdf-jenkins-lab-04-shared-library.html",
     "category": "Labs",
     "difficulty": "Advanced",
@@ -1115,7 +1115,7 @@
   },
   {
     "id": "jenkins-lab-terraform-floci",
-    "title": "Lab 05: The Infrastructure Pipeline",
+    "title": "Lab J-05 · Jenkins: The Infrastructure Pipeline",
     "file": "pdf-jenkins-lab-05-terraform-floci.html",
     "category": "Labs",
     "difficulty": "Advanced",
@@ -1130,7 +1130,7 @@
   },
   {
     "id": "jenkins-labs",
-    "title": "Jenkins Labs",
+    "title": "Jenkins Labs: Complete Sequence",
     "file": "pdf-jenkins-labs.html",
     "category": "Labs",
     "difficulty": "Advanced",

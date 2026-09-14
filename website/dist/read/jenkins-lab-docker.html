@@ -3,18 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lab 02: Container Delivery — CICD BY Nabawy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<title>Lab J-02 · Jenkins: Container Delivery — CICD BY Nabawy</title>
 <link rel="icon" type="image/svg+xml" href="https://eslamnabawy.github.io/cicd-by-nabawy/favicon.svg">
 <meta name="description" content="Design, secure, and verify container delivery from build architecture through authenticated registry release.">
 <meta name="theme-color" content="#0B0D10">
 <link rel="canonical" href="https://eslamnabawy.github.io/cicd-by-nabawy/read/jenkins-lab-docker.html">
-<meta property="og:title" content="Lab 02: Container Delivery — CICD BY Nabawy">
+<meta property="og:title" content="Lab J-02 · Jenkins: Container Delivery — CICD BY Nabawy">
 <meta property="og:description" content="Design, secure, and verify container delivery from build architecture through authenticated registry release.">
 <meta property="og:url" content="https://eslamnabawy.github.io/cicd-by-nabawy/read/jenkins-lab-docker.html">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="CICD BY Nabawy">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Lab 02: Container Delivery — CICD BY Nabawy">
+<meta name="twitter:title" content="Lab J-02 · Jenkins: Container Delivery — CICD BY Nabawy">
 <meta name="twitter:description" content="Design, secure, and verify container delivery from build architecture through authenticated registry release.">
 <meta property="og:image" content="https://eslamnabawy.github.io/cicd-by-nabawy/og/jenkins-lab-docker.png">
 <link rel="prefetch" href="jenkins-lab-multibranch.html">
@@ -236,7 +238,7 @@ header.top .btn{padding:6px 11px;font-size:13px;flex:none}
 :is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="github"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="github"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="workflow"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="hammer"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="package"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="database"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="puzzle"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="server"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="terminal"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="shield"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="activity"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="webhook"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="wrench"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="flask"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="rocket"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="workflow"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="hammer"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="package"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="database"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="puzzle"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="server"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="terminal"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="shield"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="activity"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="webhook"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="wrench"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="flask"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="rocket"]{filter:brightness(0);}
 
 
-@media print{header.top,aside.toc,.drawer,.chapnav,.copybtn,.settingsbar{display:none !important}
+@media print{body{background:#fff !important;color:#000 !important}header.top,aside.toc,.drawer,.chapnav,.copybtn,.settingsbar,.copybar,.codehead,.topbtn,#resume{display:none !important}
 main.read{padding:0}.readbody{max-width:none}}
 table.gloss{width:100%;border-collapse:collapse;font-size:14px;margin:16px 0}
 table.gloss td,table.gloss th{border:1px solid var(--line);padding:9px 11px;text-align:left}
@@ -336,6 +338,8 @@ table.gloss .upd{color:var(--brand);font-weight:700;font-size:11px;white-space:n
 #lightbox.open{display:flex}
 #lightbox img{max-width:94vw;max-height:90vh;border-radius:10px}
 .readbody table{border-collapse:collapse}
+.readbody thead th{position:sticky;top:0;background:var(--bg2);z-index:1}
+.readbody tbody tr:nth-child(even){background:rgba(127,127,127,.07)}
 .readbody thead th{position:sticky;top:57px;background:var(--bg2);z-index:2}
 .bookhero{display:flex;gap:26px;flex-wrap:wrap;margin:30px 0}
 .bookhero .coverart{height:190px;flex:0 0 220px;margin:0;border-radius:14px;align-items:center;justify-content:center}
@@ -521,8 +525,8 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
   .map-preview{transition:none !important}
 }
 </style><script>try{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}catch(e){document.documentElement.dataset.theme='sepia'}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Lab 02: Container Delivery", "description": "Design, secure, and verify container delivery from build architecture through authenticated registry release.", "url": "https://eslamnabawy.github.io/cicd-by-nabawy/read/jenkins-lab-docker.html", "author": {"@type": "Person", "name": "Nabawy"}, "isPartOf": {"@type": "CollectionPage", "name": "CICD BY Nabawy", "url": "https://eslamnabawy.github.io/cicd-by-nabawy"}}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Library", "item": "https://eslamnabawy.github.io/cicd-by-nabawy/"}, {"@type": "ListItem", "position": 2, "name": "Lab 02: Container Delivery", "item": "https://eslamnabawy.github.io/cicd-by-nabawy/read/jenkins-lab-docker.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Lab J-02 \u00b7 Jenkins: Container Delivery", "description": "Design, secure, and verify container delivery from build architecture through authenticated registry release.", "url": "https://eslamnabawy.github.io/cicd-by-nabawy/read/jenkins-lab-docker.html", "author": {"@type": "Person", "name": "Nabawy"}, "isPartOf": {"@type": "CollectionPage", "name": "CICD BY Nabawy", "url": "https://eslamnabawy.github.io/cicd-by-nabawy"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Library", "item": "https://eslamnabawy.github.io/cicd-by-nabawy/"}, {"@type": "ListItem", "position": 2, "name": "Lab J-02 \u00b7 Jenkins: Container Delivery", "item": "https://eslamnabawy.github.io/cicd-by-nabawy/read/jenkins-lab-docker.html"}]}</script>
 <style>
         .readbody {
             --paper: #f5f6f4;
@@ -1082,7 +1086,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
 <button class="btn tocbtn" id="tocbtn" aria-label="Open table of contents">☰ Contents · 28</button>
 <nav class="crumbs"><a class="logo" href="../index.html" style="color:inherit"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="5" cy="12" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="6" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="18" r="2.6" stroke="#18E299" stroke-width="2"/><path d="M7.6 12h5.2m0 0-2.6-2.6m2.6 2.6-2.6 2.6M13.4 7.4l2.8-1M13.4 16.6l2.8 1" stroke="#18E299" stroke-width="2" stroke-linecap="round"/></svg>CICD<span> BY Nabawy</span></a>
 <span class="sep">/</span>
-<span class="here">Lab 02: Container Delivery</span></nav>
+<span class="here">Lab J-02 · Jenkins: Container Delivery</span></nav>
 <div class="search"><input id="q" type="search" placeholder="Find in this book…" aria-label="Find in this book"><kbd>⌘K</kbd></div>
 <span id="qcount" style="font-size:12px;color:var(--mut)"></span>
 <button class="markbtn" id="markbtn" aria-label="Bookmark this book">☆ Save</button>
@@ -1095,12 +1099,12 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
 </div>
 <div class="prog" style="height:3px;background:var(--line)"><b id="pbar" style="display:block;height:100%;width:0;background:var(--acc)"></b></div>
 </header>
-<div class="readcontext" data-testid="reader-context"><div class="wrap"><a href="../shelf.html">Browse</a><span>›</span><a href="../shelf.html#path-labs">Hands-on Labs</a><span>›</span><span class="here">Lab 02: Container Delivery</span><span class="pathpos">10 of 14 in Hands-on Labs</span><span class="prereq">Prereq:<a href="jenkins-lab-webhook.html">Lab 01: Automated Integration Foundations</a><a href="artifacts.html">Artifact Management</a></span></div></div>
+<div class="readcontext" data-testid="reader-context"><div class="wrap"><a href="../shelf.html">Browse</a><span>›</span><a href="../shelf.html#path-labs">Hands-on Labs</a><span>›</span><span class="here">Lab J-02 · Jenkins: Container Delivery</span><span class="pathpos">10 of 14 in Hands-on Labs</span><span class="prereq">Prereq:<a href="jenkins-lab-webhook.html">Lab J-01 · Jenkins: Automated Integration Foundations</a><a href="artifacts.html">Artifact Management</a></span></div></div>
 <div class="rlayout">
 <aside class="toc"><h4>CONTENTS · 8 PAGES · 28 SECTIONS</h4><a href="#p1" class="toc-l1" aria-label="Cover — Page 1">Cover — Page 1</a><a href="#p2-h1" class="toc-l1" aria-label="1 01 / The Container Lifecycle">1 01 / The Container Lifecycle</a><a href="#p2-h2" class="toc-l3" aria-label="1.0.1 WHAT">1.0.1 WHAT</a><a href="#p2-h3" class="toc-l3" aria-label="1.0.2 WHY">1.0.2 WHY</a><a href="#p2-h4" class="toc-l3" aria-label="1.0.3 WHEN">1.0.3 WHEN</a><a href="#p2-h5" class="toc-l3" aria-label="1.0.4 WHAT CHANGES">1.0.4 WHAT CHANGES</a><a href="#p2-h6" class="toc-l3" aria-label="1.0.5 WHY THIS EXISTS">1.0.5 WHY THIS EXISTS</a><a href="#p3-h1" class="toc-l1" aria-label="2 02 / Build Architecture &amp; Pre-Flight">2 02 / Build Architecture &amp; Pre-Flight</a><a href="#p3-h2" class="toc-l2" aria-label="2.1 Execution Architecture">2.1 Execution Architecture</a><a href="#p3-h3" class="toc-l2" aria-label="2.2 Pre-Flight Verification">2.2 Pre-Flight Verification</a><a href="#p3-h4" class="toc-l3" aria-label="2.2.1 GOTCHA">2.2.1 GOTCHA</a><a href="#p4-h1" class="toc-l1" aria-label="3 03 / Registry Authentication">3 03 / Registry Authentication</a><a href="#p4-h2" class="toc-l2" aria-label="3.1 Credential Configuration">3.1 Credential Configuration</a><a href="#p4-h3" class="toc-l3" aria-label="3.1.1 PIPELINE SNIPPET">3.1.1 PIPELINE SNIPPET</a><a href="#p4-h4" class="toc-l3" aria-label="3.1.2 EXECUTION RESULT">3.1.2 EXECUTION RESULT</a><a href="#p4-h5" class="toc-l3" aria-label="3.1.3 GOTCHA">3.1.3 GOTCHA</a><a href="#p4-h6" class="toc-l3" aria-label="3.1.4 INTERVIEW CHECK">3.1.4 INTERVIEW CHECK</a><a href="#p5-h1" class="toc-l1" aria-label="4 04 / Jenkinsfile Construction">4 04 / Jenkinsfile Construction</a><a href="#p5-h2" class="toc-l3" aria-label="4.0.1 WHY IT MATTERS">4.0.1 WHY IT MATTERS</a><a href="#p6-h1" class="toc-l1" aria-label="5 05 / The Deployment Track">5 05 / The Deployment Track</a><a href="#p6-h2" class="toc-l2" aria-label="5.1 Environment Lanes">5.1 Environment Lanes</a><a href="#p6-h3" class="toc-l2" aria-label="5.2 Conditional Deployment Stage">5.2 Conditional Deployment Stage</a><a href="#p7-h1" class="toc-l1" aria-label="6 06 / Lab: End-to-End Delivery">6 06 / Lab: End-to-End Delivery</a><a href="#p7-h2" class="toc-l3" aria-label="6.0.1 COMMAND">6.0.1 COMMAND</a><a href="#p7-h3" class="toc-l3" aria-label="6.0.2 RESULT">6.0.2 RESULT</a><a href="#p8-h1" class="toc-l1" aria-label="7 07 / System Map &amp; Troubleshooting">7 07 / System Map &amp; Troubleshooting</a><a href="#p8-h2" class="toc-l2" aria-label="7.1 Troubleshooting Flow">7.1 Troubleshooting Flow</a><a href="#p8-h3" class="toc-l3" aria-label="7.1.1 INTERVIEW CHECK">7.1.1 INTERVIEW CHECK</a>
 </aside>
 <main class="read"><div class="readbody">
-<div class="upnext upnext-top">Up next in Hands-on Labs → <a href="jenkins-lab-multibranch.html"><b>Lab 03: Multibranch Foundations</b></a></div>
+<div class="upnext upnext-top">Up next in Hands-on Labs → <a href="jenkins-lab-multibranch.html"><b>Lab J-03 · Jenkins: Multibranch Foundations</b></a></div>
 <div class="labbanner">🧪 Hands-on lab · 50 min · Env: See book overview · <a href="../book/jenkins-lab-docker.html">Overview &amp; prereqs</a> · <a href="../downloads/labs/jenkins-lab-docker.pdf" download>Download PDF</a> · <button class="markbtn" id="labreset" style="margin-left:8px">Reset checks</button></div>
 <div id="p1" class="page cover">
         <div class="cover-left">
@@ -1609,9 +1613,9 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
             <span class="f-right">CH 02 &nbsp;|&nbsp; 08 / 08</span>
         </footer>
     </div>
-<div class="upnext">Up next in Hands-on Labs → <a href="jenkins-lab-multibranch.html"><b>Lab 03: Multibranch Foundations</b></a></div>
-<div class="relatedbox"><h4>Related books</h4><ul class="relgrid"><li class="relcard" data-cat="Labs" style="--cat:#EAB308"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6v6l3 5a3 3 0 01-3 4H9a3 3 0 01-3-4l3-5V3z"/><path d="M8 14h8" opacity=".6"/></svg></span><span class="rel-main"><a href="jenkins-lab-multibranch.html">Lab 03: Multibranch Foundations</a><span class="rel-meta">45 min · <span class="difbadge int">Int</span></span><span class="rel-why">→ Next in path</span></span></li><li class="relcard" data-cat="Labs" style="--cat:#EAB308"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6v6l3 5a3 3 0 01-3 4H9a3 3 0 01-3-4l3-5V3z"/><path d="M8 14h8" opacity=".6"/></svg></span><span class="rel-main"><a href="jenkins-lab-webhook.html">Lab 01: Automated Integration Foundations</a><span class="rel-meta">45 min · <span class="difbadge int">Int</span></span><span class="rel-why">→ Previous in path</span></span></li><li class="relcard" data-cat="Labs" style="--cat:#EAB308"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6v6l3 5a3 3 0 01-3 4H9a3 3 0 01-3-4l3-5V3z"/><path d="M8 14h8" opacity=".6"/></svg></span><span class="rel-main"><a href="jenkins-labs.html">Jenkins Labs</a><span class="rel-meta">180 min · <span class="difbadge adv">Adv</span></span><span class="rel-why">→ Shared tags</span></span></li><li class="relcard" data-cat="Labs" style="--cat:#EAB308"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6v6l3 5a3 3 0 01-3 4H9a3 3 0 01-3-4l3-5V3z"/><path d="M8 14h8" opacity=".6"/></svg></span><span class="rel-main"><a href="jenkins-lab-shared-library.html">Lab 04: Reusable Pipeline Logic</a><span class="rel-meta">55 min · <span class="difbadge adv">Adv</span></span><span class="rel-why">→ Shared tags</span></span></li></ul></div>
-<div class="chapnav"><a id="prevbook" href="jenkins-lab-webhook.html"><small>← Hands-on Labs</small>Lab 01: Automated Integration Foundations</a><a id="nextbook" class="r" href="jenkins-lab-multibranch.html"><small>Hands-on Labs →</small>Lab 03: Multibranch Foundations</a></div>
+<div class="upnext">Up next in Hands-on Labs → <a href="jenkins-lab-multibranch.html"><b>Lab J-03 · Jenkins: Multibranch Foundations</b></a></div>
+<div class="relatedbox"><h4>Related books</h4><ul class="relgrid"><li class="relcard" data-cat="Labs" style="--cat:#EAB308"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6v6l3 5a3 3 0 01-3 4H9a3 3 0 01-3-4l3-5V3z"/><path d="M8 14h8" opacity=".6"/></svg></span><span class="rel-main"><a href="jenkins-lab-multibranch.html">Lab J-03 · Jenkins: Multibranch Foundations</a><span class="rel-meta">45 min · <span class="difbadge int">Int</span></span><span class="rel-why">→ Next in path</span></span></li><li class="relcard" data-cat="Labs" style="--cat:#EAB308"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6v6l3 5a3 3 0 01-3 4H9a3 3 0 01-3-4l3-5V3z"/><path d="M8 14h8" opacity=".6"/></svg></span><span class="rel-main"><a href="jenkins-lab-webhook.html">Lab J-01 · Jenkins: Automated Integration Foundations</a><span class="rel-meta">45 min · <span class="difbadge int">Int</span></span><span class="rel-why">→ Previous in path</span></span></li><li class="relcard" data-cat="Labs" style="--cat:#EAB308"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6v6l3 5a3 3 0 01-3 4H9a3 3 0 01-3-4l3-5V3z"/><path d="M8 14h8" opacity=".6"/></svg></span><span class="rel-main"><a href="jenkins-labs.html">Jenkins Labs: Complete Sequence</a><span class="rel-meta">180 min · <span class="difbadge adv">Adv</span></span><span class="rel-why">→ Shared tags</span></span></li><li class="relcard" data-cat="Labs" style="--cat:#EAB308"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6v6l3 5a3 3 0 01-3 4H9a3 3 0 01-3-4l3-5V3z"/><path d="M8 14h8" opacity=".6"/></svg></span><span class="rel-main"><a href="lab-06.html">Lab 06 · Core: Jenkins Live</a><span class="rel-meta">60 min · <span class="difbadge int">Int</span></span><span class="rel-why">→ Shared tags</span></span></li></ul></div>
+<div class="chapnav"><a id="prevbook" href="jenkins-lab-webhook.html"><small>← Hands-on Labs</small>Lab J-01 · Jenkins: Automated Integration Foundations</a><a id="nextbook" class="r" href="jenkins-lab-multibranch.html"><small>Hands-on Labs →</small>Lab J-03 · Jenkins: Multibranch Foundations</a></div>
 </div></main>
 <div id="lightbox" role="dialog" aria-label="Diagram viewer"><img alt="Enlarged diagram"></div>
 </div>
@@ -1642,6 +1646,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
 <button class="btn" data-k="width" data-set="820px" onclick="setOpt('width','820px')">Comfortable</button>
 <button class="btn" data-k="width" data-set="1020px" onclick="setOpt('width','1020px')">Wide</button></div></div>
 <div class="setrow"><h5>SHORTCUTS</h5><p style="font-size:12px;color:var(--mut)">Ctrl+K search · T contents · ←/→ prev/next book · Esc close</p></div>
+<div class="setrow"><button class="btn" id="prefreset">Reset reading settings</button></div>
 </div></div>
 <script>
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
@@ -1683,17 +1688,21 @@ function findBook(q){$$('.readbody mark').forEach(m=>{m.replaceWith(document.cre
     if(nd.parentElement.closest('.terminal,script,style'))return;
     const r=document.createRange();r.setStart(nd,i);r.setEnd(nd,i+q.length);
     const m=document.createElement('mark');r.surroundContents(m);n++;});
-  const f=document.querySelector('.readbody mark');if(f)f.scrollIntoView({block:'center'});return n;}
-$('#q').addEventListener('keydown',e=>{if(e.key==='Enter'){const n=findBook(e.target.value);$('#qcount').textContent=n?n+' match'+(n>1?'es':'')+' in this book':'no matches in this book'}});
+  const f=document.querySelector('.readbody mark');if(f)f.scrollIntoView({block:'center'});
+  window._marks=[...document.querySelectorAll('.readbody mark')];window._mi=0;window._lastQ=q;return n;}
+$('#q').addEventListener('keydown',e=>{if(e.key==='Enter'){const v=e.target.value;
+  if(v&&v===window._lastQ&&(window._marks||[]).length){window._mi=(window._mi+1)%window._marks.length;window._marks[window._mi].scrollIntoView({block:'center'});$('#qcount').textContent='match '+(window._mi+1)+' of '+window._marks.length;return;}
+  const n=findBook(v);$('#qcount').textContent=n?n+' match'+(n>1?'es':'')+' in this book — Enter for next':'no matches in this book'}});
 $('#q').addEventListener('input',e=>{if(!e.target.value)findBook('')});
 document.addEventListener('keydown',e=>{
   if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();$('#q').focus()}
-  if(e.key==='Escape'){$('#drawer').classList.remove('open');$('aside.toc').classList.remove('open')}
+  if(e.key==='Escape'){if(document.activeElement===$('#q')||document.activeElement===$('#mobileq')){document.activeElement.value='';findBook('');const qc=$('#qcount');if(qc)qc.textContent='';}$('#drawer').classList.remove('open');$('aside.toc').classList.remove('open')}
   if(e.key.toLowerCase()==='t'&&document.activeElement.tagName!=='INPUT'){$('aside.toc').classList.toggle('open')}
   if(e.key==='ArrowRight'&&document.activeElement.tagName!=='INPUT'){const n=$('#nextbook');if(n)location.href=n.href}
   if(e.key==='ArrowLeft'&&document.activeElement.tagName!=='INPUT'){const p=$('#prevbook');if(p)location.href=p.href}
   if(e.key.toLowerCase()==='c'&&document.activeElement.tagName!=='INPUT'&&window._cur){try{navigator.clipboard.writeText(location.href.split('#')[0]+'#'+window._cur);const qc=$('#qcount');if(qc)qc.textContent='section link copied';}catch(err){}}});
 $('#setbtn').onclick=()=>$('#drawer').classList.add('open');
+const _pr=$('#prefreset');if(_pr)_pr.onclick=()=>{setP(PREF,{theme:'sepia',fs:18,width:'820px',font:'sans',lh:1.7});location.reload();};
 $('#drawer .scrim').onclick=()=>$('#drawer').classList.remove('open');
 $('#tocbtn').onclick=()=>$('aside.toc').classList.toggle('open');
 $$('aside.toc a').forEach(a=>a.onclick=()=>{if(innerWidth<=900)$('aside.toc').classList.remove('open')});
