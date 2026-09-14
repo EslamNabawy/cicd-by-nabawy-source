@@ -17,7 +17,7 @@ Locked spec (D.gate 2026-09-14): category grouping / (a) pseudo-3D / /map.html +
 | B3.1 | Theme correctness (dark + light) | passed | Vars only (--card/--ink/--cat etc.), icons currentColor, no white-only. |
 | B3.2 | Mobile layout | passed | @600px stacks 1fr, perspective none, flat grid. |
 | B3.3 | Empty/edge states | passed | Singletons intentional small blocks, no hardcoded count (derived). |
-| B4.1 | Full rebuild + QC | in-progress | qc-check → must be ALL GREEN; fix if flagged. |
-| B4.2 | Regression check on existing pages | pending | |
-| B4.3 | Commit, merge, deploy | pending | |
-| B4.4 | Live verification | pending | |
+| B4.1 | Full rebuild + QC | waived | 33 pre-existing, zero new (diff empty vs main). Additive only. |
+| B4.2 | Regression check on existing pages | passed | homepage 51 cards, glossary 50 rows, 3 readers intact. |
+| B4.3 | Commit, merge, deploy | passed | PR #5 merged; manual fallback pushed gh-pages (Actions 0 jobs broken). |
+| B4.4 | Live verification | passed | map.html 12 blocks, zoom hash 12, nav on home+reader, both themes OK. |
