@@ -1427,7 +1427,6 @@ def build():
 {contextbar}
 <div class="rlayout">
 <aside class="toc"><h4>CONTENTS · {len(pages)} PAGES · {len(toc)} SECTIONS</h4>{toc_html}
-<div style="margin-top:14px"><a href="../pdf/{b['file']}">⭳ Open print HTML</a></div>
 </aside>
 <main class="read"><div class="readbody">
 {top_upnext}
@@ -1681,7 +1680,7 @@ $$('table.gloss tr').forEach((r,i)=>{{if(!i)return;r.style.display=r.textContent
 {f'<script type="application/ld+json">{json.dumps({"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":SITE_URL + "/"},{"@type":"ListItem","position":2,"name":b["title"],"item":SITE_URL + "/book/" + b["id"] + ".html"}]})}</script>'}></head>
 <body><header class="top"><div class="wrap"><a class="logo" href="../index.html" style="color:inherit">CICD<span> BY Nabawy</span></a><nav class="crumbs"><span class="sep">/</span><span class="here">{html.escape(b['title'])}</span></nav><div class="search"></div><a class="btn" href="../shelf.html">Browse</a><a class="btn" href="../index.html">Map</a><button class="btn" id="themebtn">☀</button></div></header>
 <div class="wrap"><div class="bookhero"><div class="coverart" data-cat="{html.escape(b['category'])}"><b>{initials}</b></div><div style="flex:1;min-width:260px"><span class="num">{html.escape(b['category'])} · {b['difficulty']} · {b.get('time_minutes', 30)} min · v{b.get('version', '2.0')} · Updated {html.escape(b.get('updated', ''))}</span><h1 style="font-size:34px;margin:6px 0">{html.escape(b['title'])}</h1><p class="sub">{html.escape(b.get('description', ''))}</p>
-<div class="chiprow"><a id="startbtn" href="../read/{b['id']}.html">Start reading →</a><a href="../pdf/{b['file']}">Open print HTML</a><a href="../read/{b['id']}.html">Reader</a></div>
+<div class="chiprow"><a id="startbtn" href="../read/{b['id']}.html">Start reading →</a><a href="../read/{b['id']}.html">Reader</a></div>
 <div class="chiprow"><span>Prereqs:</span>{preq}</div></div></div>
 <div class="outcomes"><b>What you'll learn</b><ul>{outs}</ul></div>
 <h2 class="sec" style="margin-top:20px">Contents preview</h2><ul class="labcheck">{"".join(f"<li>{html.escape(t)}</li>" for t in toc)}</ul>
