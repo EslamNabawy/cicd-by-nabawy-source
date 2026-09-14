@@ -401,11 +401,7 @@ table.gloss th{background:var(--bg2)}
 .readbody .fnode{font-size:13px}
 .readbody .vflow{margin:8px 0}
 }
-/* P2: dim + contrast themes, font + line-height prefs, rating */
-[data-theme=dim]{--bg:#000000;--bg2:#0a0a0a;--card:#0d0d0f;--ink:#e8e8e8;--mut:#9a9a9a;--line:rgba(255,255,255,.12);--line-soft:rgba(255,255,255,.08);--acc:#18E299;--acc-soft:rgba(24,226,153,.14);--brand:#18E299}
-[data-theme=contrast]{--bg:#000000;--bg2:#0a0a0a;--card:#000000;--ink:#ffffff;--mut:#e0e0e0;--line:#ffffff;--line-soft:#8a8a8a;--acc:#ffe600;--acc-soft:#3a3600;--brand:#ffe600}
-[data-theme=contrast] a{color:var(--acc)}
-[data-theme=contrast] .card,[data-theme=contrast] .pathcard{border-width:2px}
+/* P2: typography, reading preferences, and ratings */
 body[data-font=serif] .readbody{font-family:Georgia,'Times New Roman',serif}
 body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[data-font=serif] .readbody .terminal{font-family:var(--mono)}
 .readbody{line-height:var(--lh,1.7)}
@@ -548,7 +544,7 @@ function setP(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
 INDEX_JS = BASE_JS + """
 const PREF='cicdlib:pref',PROG='cicdlib:prog:';
 const pref=getP(PREF,{theme:'sepia'});
-const THEMES=['sepia','dark','light','dim','contrast'],THICON={dark:'☀',light:'☾',sepia:'◐',dim:'◑',contrast:'◉'};
+const THEMES=['sepia','dark','light'],THICON={dark:'☀',light:'☾',sepia:'◐'};
 function syncTheme(){const th=THEMES.includes(pref.theme)?pref.theme:'sepia';document.documentElement.dataset.theme=th;const t=$('#themebtn');if(t)t.textContent=THICON[th]||'☀'}
 syncTheme();
 function cycleTheme(){pref.theme=THEMES[(THEMES.indexOf(pref.theme)+1)%THEMES.length]||'sepia';setP(PREF,pref);syncTheme();}
@@ -611,7 +607,7 @@ renderContinue();filter();
 READER_JS = BASE_JS + """
 const BID=document.body.dataset.book,PREF='cicdlib:pref',PKEY='cicdlib:prog:'+BID;
 const pref=Object.assign({theme:'sepia',fs:18,width:'820px',font:'sans',lh:1.7},getP(PREF,{}));
-const RTHEMES=['sepia','dark','light','dim','contrast'];
+const RTHEMES=['sepia','dark','light'];
 function applyPref(){document.documentElement.dataset.theme=RTHEMES.includes(pref.theme)?pref.theme:'sepia';
   document.body.dataset.font=pref.font==='serif'?'serif':'sans';
   const rb=document.querySelector('.readbody');if(rb){rb.style.fontSize=pref.fs+'px';rb.style.setProperty('max-width',pref.width);rb.style.setProperty('--lh',pref.lh);}
@@ -1012,7 +1008,7 @@ const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 function getP(k,d){{try{{const v=JSON.parse(localStorage.getItem(k));return v??d}}catch(e){{return d}}}}
 function setP(k,v){{try{{localStorage.setItem(k,JSON.stringify(v))}}catch(e){{}}}}
 const pref=getP('cicdlib:pref',{{theme:'sepia'}});
-const THS=['sepia','dark','light','dim','contrast'],THI={{dark:'☀',light:'☾',sepia:'◐',dim:'◑',contrast:'◉'}};
+const THS=['sepia','dark','light'],THI={{dark:'☀',light:'☾',sepia:'◐'}};
 function syncTheme(){{const th=THS.includes(pref.theme)?pref.theme:'sepia';document.documentElement.dataset.theme=th;const t=$('#themebtn');if(t)t.textContent=THI[th]||'☀'}}
 syncTheme();
 $('#themebtn').onclick=()=>{{pref.theme=THS[(THS.indexOf(pref.theme)+1)%THS.length];setP('cicdlib:pref',pref);syncTheme()}};
@@ -1158,7 +1154,7 @@ const $=s=>document.querySelector(s);
 function getP(k,d){{try{{const v=JSON.parse(localStorage.getItem(k));return v??d}}catch(e){{return d}}}}
 function setP(k,v){{try{{localStorage.setItem(k,JSON.stringify(v))}}catch(e){{}}}}
 const pref=getP('cicdlib:pref',{{theme:'sepia'}});
-const THS=['sepia','dark','light','dim','contrast'],THI={{dark:'☀',light:'☾',sepia:'◐',dim:'◑',contrast:'◉'}};
+const THS=['sepia','dark','light'],THI={{dark:'☀',light:'☾',sepia:'◐'}};
 function syncTheme(){{const th=THS.includes(pref.theme)?pref.theme:'sepia';document.documentElement.dataset.theme=th;const t=$('#themebtn');if(t)t.textContent=THI[th]||'☀'}}
 syncTheme();
 $('#themebtn').onclick=()=>{{pref.theme=THS[(THS.indexOf(pref.theme)+1)%THS.length];setP('cicdlib:pref',pref);syncTheme()}};
@@ -1452,8 +1448,7 @@ def build():
 <button class="btn" data-k="theme" data-set="dark" onclick="setOpt('theme','dark')">Dark</button>
 <button class="btn" data-k="theme" data-set="light" onclick="setOpt('theme','light')">Light</button>
 <button class="btn" data-k="theme" data-set="sepia" onclick="setOpt('theme','sepia')">Sepia</button>
-<button class="btn" data-k="theme" data-set="dim" onclick="setOpt('theme','dim')">Dim</button>
-<button class="btn" data-k="theme" data-set="contrast" onclick="setOpt('theme','contrast')">Contrast</button></div></div>
+</div></div>
 <div class="setrow"><h5>FONT</h5><div class="opts">
 <button class="btn" data-k="font" data-set="sans" onclick="setOpt('font','sans')">Sans</button>
 <button class="btn" data-k="font" data-set="serif" onclick="setOpt('font','serif')">Serif</button></div></div>
