@@ -1478,6 +1478,23 @@ def build():
         open(os.path.join(READ, b["id"] + ".html"), "w", encoding="utf-8").write(page)
         stats.append((b, len(pages), len(toc)))
 
+    # Dedicated lab manuals: same reader theme, direct lab-to-lab navigation,
+    # checklists, and downloadable PDFs without mixing labs into the shelf UI.
+    lab_dir = os.path.join(DIST, "labs")
+    os.makedirs(lab_dir, exist_ok=True)
+    lab_books = [b for b in books if b.get("category") == "Labs"]
+    for b in lab_books:
+        source = os.path.join(READ, b["id"] + ".html")
+        target = os.path.join(lab_dir, b["id"] + ".html")
+        shutil.copyfile(source, target)
+    lab_links = "".join(
+        f'<li><a href="{b["id"]}.html">{html.escape(b["title"])}</a>'
+        f'<span>{b.get("time_minutes", 45)} min · {html.escape(b.get("lab_env", "Hands-on environment"))}</span></li>'
+        for b in lab_books
+    )
+    lab_index = f'''<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Hands-on Labs — CICD BY Nabawy</title>{seo_tags("Hands-on Labs — CICD BY Nabawy", "Direct HTML manuals for every CI/CD lab.", f"{SITE_URL}/labs/")}<style>{BASE_CSS}.lab-index{{max-width:920px;margin:0 auto;padding:54px 24px 90px}}.lab-index h1{{font-size:42px;margin:12px 0}}.lab-index p{{color:var(--mut);font-size:17px;max-width:680px;line-height:1.6}}.lab-index ul{{list-style:none;padding:0;margin:34px 0;display:grid;gap:10px}}.lab-index li{{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:18px 20px;background:var(--card);border:1px solid var(--line-soft);border-radius:12px}}.lab-index li span{{color:var(--mut);font-size:13px}}@media(max-width:600px){{.lab-index{{padding:34px 14px}}.lab-index h1{{font-size:32px}}.lab-index li{{display:block}}.lab-index li span{{display:block;margin-top:6px}}}}</style></head><body><header class="top"><div class="wrap"><a class="logo" href="../index.html" style="color:inherit">CICD<span> BY Nabawy</span></a><a class="btn" href="../index.html">Map</a><a class="btn" href="../shelf.html">Browse</a></div></header><main class="lab-index"><span class="eyebrow">HANDS-ON LABS</span><h1>Practice the pipeline.</h1><p>Eight guided exercises from the first green check through Jenkins recovery. Each manual includes setup, execution, verification, failure scenarios, cleanup, and a downloadable PDF edition.</p><ul>{lab_links}</ul></main></body></html>'''
+    open(os.path.join(lab_dir, "index.html"), "w", encoding="utf-8").write(lab_index)
+
     cats = sorted(set(b["category"] for b in books))
     byid = {b["id"]: b for b in books}
     CAT_ORDER = ["CI/CD", "Delivery", "Build", "Testing", "Security", "Reliability", "Jenkins", "GitHub", "Platforms", "Labs", "Reference"]
