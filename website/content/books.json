@@ -357,56 +357,36 @@
   
   {
     "id": "lab-03",
-    "title": "Lab 03 · Core: Artifacts",
-    "file": "pdf-30-lab-artifacts.html",
+    "title": "Lab 03-04 · Core: Artifacts & Deployment",
+    "file": "pdf-30-artifacts-deployment.html",
     "category": "Labs",
     "difficulty": "Intermediate",
-    "description": "SHA tags, GHCR, SBOM.",
-    "time_minutes": 45,
+    "description": "Immutable artifacts, SBOMs, and promotion from staging to a gated production release.",
+    "time_minutes": 105,
     "prereqs": [
       "lab-01",
-      "artifacts"
+      "artifacts",
+      "delivery"
     ],
     "outcomes": [
       "Tag by SHA",
       "Push to GHCR",
-      "Generate SBOM"
-    ],
-    "tags": [
-      "lab",
-      "artifacts"
-    ],
-    "path": "labs",
-    "lab_env": "Docker + GHCR",
-    "updated": "2026-09-01",
-    "version": "2.0"
-  },
-  {
-    "id": "lab-04",
-    "title": "Lab 04 · Core: Deployment",
-    "file": "pdf-31-lab-deployment.html",
-    "category": "Labs",
-    "difficulty": "Intermediate",
-    "description": "Staging auto, production approval.",
-    "time_minutes": 60,
-    "prereqs": [
-      "lab-03",
-      "delivery"
-    ],
-    "outcomes": [
+      "Generate SBOM",
       "Deploy staging auto",
       "Gate prod approval",
       "Promote digest"
     ],
     "tags": [
       "lab",
+      "artifacts",
       "deployment"
     ],
     "path": "labs",
-    "lab_env": "Staging + prod",
+    "lab_env": "Docker + Staging",
     "updated": "2026-09-01",
     "version": "2.0"
   },
+  
   {
     "id": "lab-05",
     "title": "Lab 05-06 · Core: Rollback & Jenkins",
@@ -416,7 +396,7 @@
     "description": "Break prod, recover via rollback and postmortem, then run it live on Jenkins via Compose.",
     "time_minutes": 105,
     "prereqs": [
-      "lab-04",
+      "lab-03",
       "jenkins-setup"
     ],
     "outcomes": [
@@ -439,56 +419,35 @@
   
   {
     "id": "lab-07",
-    "title": "Lab 07 · Core: Shared Library",
-    "file": "pdf-34-lab-shared-library.html",
+    "title": "Lab 07-08 · Core: Governance & Recovery",
+    "file": "pdf-34-governance-recovery.html",
     "category": "Labs",
     "difficulty": "Advanced",
-    "description": "Versioned pipeline reuse.",
-    "time_minutes": 60,
-    "prereqs": [
+    "description": "Reusable pipeline libraries plus backup, destroy-restore, and replay drills.",
+    "time_minutes": 120,
+      "prereqs": [
       "lab-05",
       "jenkins-pipelines"
     ],
     "outcomes": [
       "Extract shared library",
       "Version pipeline reuse",
-      "Consume vars/ across repos"
-    ],
-    "tags": [
-      "lab",
-      "shared-library"
-    ],
-    "path": "labs",
-    "lab_env": "Jenkins + Git",
-    "updated": "2026-09-01",
-    "version": "2.0"
-  },
-  {
-    "id": "lab-08",
-    "title": "Lab 08 · Core: Backup & Restore",
-    "file": "pdf-35-lab-backup-restore.html",
-    "category": "Labs",
-    "difficulty": "Advanced",
-    "description": "DR drill: destroy, restore, replay.",
-    "time_minutes": 60,
-    "prereqs": [
-      "lab-05"
-    ],
-    "outcomes": [
+      "Consume vars/ across repos",
       "Back up JENKINS_HOME",
       "Destroy and restore",
       "Replay pipelines"
     ],
     "tags": [
       "lab",
-      "backup",
-      "dr"
+      "shared-library",
+      "backup"
     ],
     "path": "labs",
-    "lab_env": "Docker volumes",
+    "lab_env": "Jenkins + Docker",
     "updated": "2026-09-01",
     "version": "2.0"
   },
+  
   {
     "id": "cheatsheet",
     "title": "Command Cheatsheet",

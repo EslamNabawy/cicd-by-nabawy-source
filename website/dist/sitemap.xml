@@ -36,14 +36,10 @@
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/book/lab-01.html</loc><lastmod>2026-09-15</lastmod></url>
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/read/lab-03.html</loc><lastmod>2026-09-15</lastmod></url>
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/book/lab-03.html</loc><lastmod>2026-09-15</lastmod></url>
-  <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/read/lab-04.html</loc><lastmod>2026-09-15</lastmod></url>
-  <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/book/lab-04.html</loc><lastmod>2026-09-15</lastmod></url>
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/read/lab-05.html</loc><lastmod>2026-09-15</lastmod></url>
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/book/lab-05.html</loc><lastmod>2026-09-15</lastmod></url>
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/read/lab-07.html</loc><lastmod>2026-09-15</lastmod></url>
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/book/lab-07.html</loc><lastmod>2026-09-15</lastmod></url>
-  <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/read/lab-08.html</loc><lastmod>2026-09-15</lastmod></url>
-  <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/book/lab-08.html</loc><lastmod>2026-09-15</lastmod></url>
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/read/cheatsheet.html</loc><lastmod>2026-09-15</lastmod></url>
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/book/cheatsheet.html</loc><lastmod>2026-09-15</lastmod></url>
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/read/gitlab.html</loc><lastmod>2026-09-15</lastmod></url>
@@ -126,11 +122,9 @@
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/pdf/pdf-26-cicd-security.html</loc><lastmod>2026-09-15</lastmod></url>
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/pdf/pdf-27-rollback-recovery.html</loc><lastmod>2026-09-15</lastmod></url>
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/pdf/pdf-28-pipeline-labs.html</loc><lastmod>2026-09-15</lastmod></url>
-  <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/pdf/pdf-30-lab-artifacts.html</loc><lastmod>2026-09-15</lastmod></url>
-  <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/pdf/pdf-31-lab-deployment.html</loc><lastmod>2026-09-15</lastmod></url>
+  <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/pdf/pdf-30-artifacts-deployment.html</loc><lastmod>2026-09-15</lastmod></url>
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/pdf/pdf-32-rollback-jenkins.html</loc><lastmod>2026-09-15</lastmod></url>
-  <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/pdf/pdf-34-lab-shared-library.html</loc><lastmod>2026-09-15</lastmod></url>
-  <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/pdf/pdf-35-lab-backup-restore.html</loc><lastmod>2026-09-15</lastmod></url>
+  <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/pdf/pdf-34-governance-recovery.html</loc><lastmod>2026-09-15</lastmod></url>
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/pdf/pdf-36-command-cheatsheet.html</loc><lastmod>2026-09-15</lastmod></url>
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/pdf/pdf-37-gitlab-ci.html</loc><lastmod>2026-09-15</lastmod></url>
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/pdf/pdf-38-argocd-gitops.html</loc><lastmod>2026-09-15</lastmod></url>
