@@ -154,8 +154,30 @@ def dist():
                 flag(f"roadmap reader link broken: {bid}")
         anchors = set(re.findall(r'<section class="shelf" id="([^"]+)"', h))
         for a in set(re.findall(r'href="#([^"]+)"', h)):
-            if a.startswith("rm-") and a not in anchors:
-                flag(f"roadmap jump anchor broken: #{a}")
+                if a.startswith("rm-") and a not in anchors:
+                    flag(f"roadmap jump anchor broken: #{a}")
+
+
+def reader_chrome():
+    """Guard the reader controls that have regressed in prior deployments."""
+    read_dir = os.path.join(ROOT, "website/dist/read")
+    for f in glob.glob(os.path.join(read_dir, "*.html")):
+        name = os.path.basename(f)
+        h = open(f, encoding="utf-8").read()
+        if h.count('id="mobilemenubtn"') != 1:
+            flag(f"{name}: expected one mobile menu trigger")
+        if h.count('id="tocbtn"') != 1:
+            flag(f"{name}: expected one contents trigger")
+        if 'aria-label="Open table of contents"' not in h:
+            flag(f"{name}: contents trigger is not labeled")
+        if 'aria-label="Open reader menu"' not in h:
+            flag(f"{name}: mobile menu trigger is not labeled")
+        if h.count('id="backbtn"') != 1:
+            flag(f"{name}: expected one Back control")
+        for stale in ('id="ratebox"', 'id="rateup"', 'id="ratedown"',
+                      'feedback-widget', 'suggest-edit-widget'):
+            if stale in h:
+                flag(f"{name}: removed reader widget reintroduced: {stale}")
 
 
 if __name__ == "__main__":
@@ -166,5 +188,6 @@ if __name__ == "__main__":
     pdfs_qc()
     icons()
     dist()
+    reader_chrome()
     print("QC:", "FAIL" if fails else "ALL GREEN", f"({len(fails)} findings)")
     sys.exit(1 if fails else 0)
