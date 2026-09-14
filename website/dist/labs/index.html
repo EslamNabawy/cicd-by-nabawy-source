@@ -360,6 +360,13 @@ table.gloss th{background:var(--bg2)}
 .readcontext .prereq{font-size:12px}
 .readcontext .prereq a{border:1px solid var(--line);border-radius:9999px;padding:2px 10px;margin-left:6px;white-space:nowrap}
 @media(max-width:700px){.readcontext{padding:8px 14px;font-size:12px}.readcontext .wrap{gap:7px}.readback{order:-1}.readcontext .here{flex-basis:100%;overflow-wrap:anywhere}.readcontext .pathpos,.readcontext .prereq{max-width:100%;white-space:normal}.upnext{align-items:flex-start;flex-wrap:wrap;padding:12px 14px}.upnext a{overflow-wrap:anywhere}}
+.readcontext{background:var(--bg);border-bottom:1px solid var(--line-soft);padding:8px 32px}
+.readcontext .pathpos{background:transparent;border:0;border-left:2px solid var(--brand);border-radius:0;padding:2px 0 2px 10px}
+.readcontext .prereq a{border:0;border-bottom:1px solid var(--line);border-radius:0;padding:1px 0}
+.upnext{background:var(--card);border:0;border-left:3px solid var(--brand);border-radius:0;padding:14px 18px;margin-top:22px;box-shadow:0 1px 0 var(--line-soft)}
+.labbanner{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:var(--card);border:0;border-left:3px solid var(--brand);border-radius:0;padding:12px 16px;margin:0 auto 24px;max-width:820px;font-size:14px;box-shadow:0 1px 0 var(--line-soft)}
+.labbanner a{color:var(--brand);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.labbanner .markbtn{margin-left:auto !important;background:transparent;border:1px solid var(--line);color:var(--ink);border-radius:7px;padding:6px 10px}
 /* P2.4: mobile icon-chain reflow (≤480px only, desktop untouched) */
 @media(max-width:480px){
 .readbody .life{flex-direction:column;gap:0}
