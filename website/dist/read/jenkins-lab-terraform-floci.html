@@ -129,8 +129,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 @media(max-width:1024px){.cores-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.cores-grid{grid-template-columns:1fr}}
 /* reader */
-.rlayout{display:flex;max-width:1320px;margin:0 auto;min-height:100vh}
-aside.toc{width:300px;flex:none;border-right:1px solid var(--line-soft);padding:24px 16px;position:sticky;top:57px;height:calc(100vh - 57px);overflow:auto}
+.rlayout{display:flex;max-width:1320px;margin:0 auto;min-height:100vh;min-height:100dvh}
+aside.toc{width:300px;flex:none;border-right:1px solid var(--line-soft);padding:24px 16px;position:sticky;top:57px;height:calc(100vh - 57px);height:calc(100dvh - 57px);overflow:auto}
 aside.toc h4{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--mut);margin-bottom:12px}
 aside.toc a{display:block;font-size:14px;font-weight:500;color:var(--mut);text-decoration:none;padding:7px 12px;border-radius:8px;border-left:2px solid transparent;line-height:1.45}
 aside.toc a:hover{color:var(--ink);background:var(--bg2)}
@@ -173,8 +173,9 @@ mark{background:var(--acc-soft);color:var(--ink);border-radius:3px;padding:0 2px
 .crumbs{display:flex;align-items:center;gap:8px;font-size:13.5px;min-width:0}
 .crumbs .here{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:280px}
 .crumbs .sep{color:var(--mut)}
-@media(max-width:900px){aside.toc{position:fixed;left:0;top:0;bottom:0;background:var(--card);z-index:60;transform:translateX(-105%);transition:transform .2s;height:100vh}
+@media(max-width:900px){aside.toc{position:fixed;left:0;top:0;bottom:0;background:var(--card);z-index:60;transform:translateX(-105%);transition:transform .2s;height:100vh;height:100dvh}
 aside.toc.open{transform:none}
+aside.toc a{padding:11px 12px;font-size:15px}
 .tocbtn{display:inline-block}
 main.read{padding:20px 14px 90px}
 .crumbs .here{max-width:140px}
@@ -182,8 +183,22 @@ main.read{padding:20px 14px 90px}
 .chapnav{flex-direction:column}
 .readbody table,.readbody .terminal,table.gloss{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
 .drawer .panel{width:min(320px,88vw)}}
+aside.toc a{scroll-margin-top:0}
+body.lock{overflow:hidden}
+#fsbar{display:none;position:fixed;left:50%;transform:translateX(-50%);bottom:max(14px,env(safe-area-inset-bottom));z-index:80;background:var(--card);border:1px solid var(--line);border-radius:9999px;padding:6px 8px;gap:4px;box-shadow:var(--shadow-lift);align-items:center;max-width:96vw}
+body.fs #fsbar{display:flex}
+body.fs header.top,body.fs .readcontext{display:none !important}
+body.fs main.read{padding-top:24px}
+#fsbar .btn{min-height:44px;padding:6px 12px}
+#fs-prog{font-family:var(--mono);font-size:12px;color:var(--mut);padding:0 8px;white-space:nowrap}
+.drawerx{position:absolute;top:8px;right:8px;width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;background:transparent;border:1px solid var(--line);border-radius:10px;color:var(--mut);font-size:20px;cursor:pointer;z-index:2}
+.drawerx:hover{color:var(--ink);border-color:var(--brand)}
+.readbody li.step{list-style:none;display:flex;gap:10px;align-items:flex-start;margin:8px 0}
+.readbody li.step input[type=checkbox]{width:22px;height:22px;flex:none;margin-top:2px;accent-color:var(--brand)}
+.readbody pre,.readbody .terminal{background-image:linear-gradient(to left,rgba(127,127,127,.28),transparent 16px);background-position:right center;background-size:16px 100%;background-repeat:no-repeat;background-attachment:scroll}
 @media(max-width:600px){
 .wrap{padding:16px 14px}
+.search input,#mobileq{font-size:16px}
 .grid{grid-template-columns:1fr}
 .hero .stats{gap:6px}
 main.read{padding:16px 10px 90px}
@@ -238,7 +253,7 @@ header.top .btn{padding:6px 11px;font-size:13px;flex:none}
 :is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="github"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="github"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="workflow"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="hammer"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="package"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="database"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="puzzle"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="server"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="terminal"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="shield"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="activity"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="webhook"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="wrench"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="flask"],:is([data-theme="light"],[data-theme="sepia"]) .readbody .page.cover img[src*="rocket"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="workflow"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="hammer"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="package"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="database"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="puzzle"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="server"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="terminal"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="shield"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="activity"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="webhook"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="wrench"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="flask"],:is([data-theme="light"],[data-theme="sepia"]) .coverart img[src*="rocket"]{filter:brightness(0);}
 
 
-@media print{body{background:#fff !important;color:#000 !important}header.top,aside.toc,.drawer,.chapnav,.copybtn,.settingsbar,.copybar,.codehead,.topbtn,#resume{display:none !important}
+@media print{body{background:#fff !important;color:#000 !important}header.top,aside.toc,.drawer,.chapnav,.copybtn,.settingsbar,.copybar,.codehead,.topbtn,#resume,#fsbar,.drawerx{display:none !important}
 main.read{padding:0}.readbody{max-width:none}}
 table.gloss{width:100%;border-collapse:collapse;font-size:14px;margin:16px 0}
 table.gloss td,table.gloss th{border:1px solid var(--line);padding:9px 11px;text-align:left}
@@ -336,7 +351,7 @@ table.gloss .upd{color:var(--brand);font-weight:700;font-size:11px;white-space:n
 .labbanner{background:var(--acc-soft);border:1px solid var(--brand);border-radius:12px;padding:12px 18px;margin:0 auto 20px;max-width:820px;font-size:14px}
 #lightbox{display:none;position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.85);align-items:center;justify-content:center;padding:24px}
 #lightbox.open{display:flex}
-#lightbox img{max-width:94vw;max-height:90vh;border-radius:10px}
+#lightbox img{max-width:94vw;max-height:90vh;max-height:90dvh;border-radius:10px}
 .readbody table{border-collapse:collapse}
 .readbody thead th{position:sticky;top:0;background:var(--bg2);z-index:1}
 .readbody tbody tr:nth-child(even){background:rgba(127,127,127,.07)}
@@ -1131,6 +1146,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
 <nav class="reader-nav" aria-label="Reader navigation"><a class="btn" href="../index.html" style="text-decoration:none">Map</a>
 <a class="btn" href="../shelf.html" style="text-decoration:none">Browse</a>
 <a class="btn" href="../book/jenkins-lab-terraform-floci.html" style="text-decoration:none">Overview</a></nav>
+<button class="btn" id="fsbtn" aria-label="Toggle fullscreen">⛶</button>
 <button class="btn" id="setbtn" aria-label="Reading settings">⚙ A⁺</button>
 <button class="btn mobilemenu" id="mobilemenubtn" aria-label="Open reader menu" aria-expanded="false">☰</button>
 </div>
@@ -1138,7 +1154,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
 </header>
 <div class="readcontext" data-testid="reader-context"><div class="wrap"><a href="../shelf.html">Browse</a><span>›</span><a href="../shelf.html#path-labs">Hands-on Labs</a><span>›</span><span class="here">Lab J-05 · Jenkins: The Infrastructure Pipeline</span><span class="pathpos">13 of 14 in Hands-on Labs</span><span class="prereq">Prereq:<a href="jenkins-lab-shared-library.html">Lab J-04 · Jenkins: Reusable Pipeline Logic</a><a href="iac.html">IaC for Environments</a></span></div></div>
 <div class="rlayout">
-<aside class="toc"><h4>CONTENTS · 8 PAGES · 28 SECTIONS</h4><a href="#p1" class="toc-l1" aria-label="Cover — Page 1">Cover — Page 1</a><a href="#p2-h1" class="toc-l1" aria-label="1 01 / The Infrastructure Pipeline">1 01 / The Infrastructure Pipeline</a><a href="#p2-h2" class="toc-l3" aria-label="1.0.1 WHAT">1.0.1 WHAT</a><a href="#p2-h3" class="toc-l3" aria-label="1.0.2 WHY">1.0.2 WHY</a><a href="#p2-h4" class="toc-l3" aria-label="1.0.3 WHEN">1.0.3 WHEN</a><a href="#p2-h5" class="toc-l3" aria-label="1.0.4 WHAT CHANGES">1.0.4 WHAT CHANGES</a><a href="#p2-h6" class="toc-l3" aria-label="1.0.5 WHY THIS EXISTS">1.0.5 WHY THIS EXISTS</a><a href="#p3-h1" class="toc-l1" aria-label="2 02 / Architecture &amp; Pre-Flight">2 02 / Architecture &amp; Pre-Flight</a><a href="#p3-h2" class="toc-l2" aria-label="2.1 Execution Architecture">2.1 Execution Architecture</a><a href="#p3-h3" class="toc-l2" aria-label="2.2 Pre-Flight Verification">2.2 Pre-Flight Verification</a><a href="#p3-h4" class="toc-l3" aria-label="2.2.1 GOTCHA">2.2.1 GOTCHA</a><a href="#p4-h1" class="toc-l1" aria-label="3 03 / Workspace Isolation">3 03 / Workspace Isolation</a><a href="#p4-h2" class="toc-l2" aria-label="3.1 Environment Tracks">3.1 Environment Tracks</a><a href="#p4-h3" class="toc-l2" aria-label="3.2 Workspace Selection Logic">3.2 Workspace Selection Logic</a><a href="#p4-h4" class="toc-l3" aria-label="3.2.1 INTERVIEW CHECK">3.2.1 INTERVIEW CHECK</a><a href="#p5-h1" class="toc-l1" aria-label="4 04 / The Approval Gate">4 04 / The Approval Gate</a><a href="#p5-h2" class="toc-l2" aria-label="4.1 Jenkins Input Step">4.1 Jenkins Input Step</a><a href="#p5-h3" class="toc-l3" aria-label="4.1.1 GOTCHA">4.1.1 GOTCHA</a><a href="#p5-h4" class="toc-l3" aria-label="4.1.2 WHY IT MATTERS">4.1.2 WHY IT MATTERS</a><a href="#p6-h1" class="toc-l1" aria-label="5 05 / FLOCI Provider Configuration">5 05 / FLOCI Provider Configuration</a><a href="#p6-h2" class="toc-l3" aria-label="5.0.1 COMMAND">5.0.1 COMMAND</a><a href="#p6-h3" class="toc-l3" aria-label="5.0.2 RESULT">5.0.2 RESULT</a><a href="#p6-h4" class="toc-l3" aria-label="5.0.3 WHY IT MATTERS">5.0.3 WHY IT MATTERS</a><a href="#p7-h1" class="toc-l1" aria-label="6 06 / Lab: End-to-End Provisioning">6 06 / Lab: End-to-End Provisioning</a><a href="#p7-h2" class="toc-l2" aria-label="6.1 Failure &amp;amp; Recovery Flow">6.1 Failure &amp;amp; Recovery Flow</a><a href="#p8-h1" class="toc-l1" aria-label="7 07 / System Map &amp; Troubleshooting">7 07 / System Map &amp; Troubleshooting</a><a href="#p8-h2" class="toc-l2" aria-label="7.1 Troubleshooting Flow">7.1 Troubleshooting Flow</a><a href="#p8-h3" class="toc-l3" aria-label="7.1.1 INTERVIEW CHECK">7.1.1 INTERVIEW CHECK</a>
+<aside class="toc" role="dialog" aria-modal="false" aria-label="Table of contents"><button class="drawerx" id="tocx" aria-label="Close contents">×</button><h4>CONTENTS · 8 PAGES · 28 SECTIONS</h4><a href="#p1" class="toc-l1" aria-label="Cover — Page 1">Cover — Page 1</a><a href="#p2-h1" class="toc-l1" aria-label="1 01 / The Infrastructure Pipeline">1 01 / The Infrastructure Pipeline</a><a href="#p2-h2" class="toc-l3" aria-label="1.0.1 WHAT">1.0.1 WHAT</a><a href="#p2-h3" class="toc-l3" aria-label="1.0.2 WHY">1.0.2 WHY</a><a href="#p2-h4" class="toc-l3" aria-label="1.0.3 WHEN">1.0.3 WHEN</a><a href="#p2-h5" class="toc-l3" aria-label="1.0.4 WHAT CHANGES">1.0.4 WHAT CHANGES</a><a href="#p2-h6" class="toc-l3" aria-label="1.0.5 WHY THIS EXISTS">1.0.5 WHY THIS EXISTS</a><a href="#p3-h1" class="toc-l1" aria-label="2 02 / Architecture &amp; Pre-Flight">2 02 / Architecture &amp; Pre-Flight</a><a href="#p3-h2" class="toc-l2" aria-label="2.1 Execution Architecture">2.1 Execution Architecture</a><a href="#p3-h3" class="toc-l2" aria-label="2.2 Pre-Flight Verification">2.2 Pre-Flight Verification</a><a href="#p3-h4" class="toc-l3" aria-label="2.2.1 GOTCHA">2.2.1 GOTCHA</a><a href="#p4-h1" class="toc-l1" aria-label="3 03 / Workspace Isolation">3 03 / Workspace Isolation</a><a href="#p4-h2" class="toc-l2" aria-label="3.1 Environment Tracks">3.1 Environment Tracks</a><a href="#p4-h3" class="toc-l2" aria-label="3.2 Workspace Selection Logic">3.2 Workspace Selection Logic</a><a href="#p4-h4" class="toc-l3" aria-label="3.2.1 INTERVIEW CHECK">3.2.1 INTERVIEW CHECK</a><a href="#p5-h1" class="toc-l1" aria-label="4 04 / The Approval Gate">4 04 / The Approval Gate</a><a href="#p5-h2" class="toc-l2" aria-label="4.1 Jenkins Input Step">4.1 Jenkins Input Step</a><a href="#p5-h3" class="toc-l3" aria-label="4.1.1 GOTCHA">4.1.1 GOTCHA</a><a href="#p5-h4" class="toc-l3" aria-label="4.1.2 WHY IT MATTERS">4.1.2 WHY IT MATTERS</a><a href="#p6-h1" class="toc-l1" aria-label="5 05 / FLOCI Provider Configuration">5 05 / FLOCI Provider Configuration</a><a href="#p6-h2" class="toc-l3" aria-label="5.0.1 COMMAND">5.0.1 COMMAND</a><a href="#p6-h3" class="toc-l3" aria-label="5.0.2 RESULT">5.0.2 RESULT</a><a href="#p6-h4" class="toc-l3" aria-label="5.0.3 WHY IT MATTERS">5.0.3 WHY IT MATTERS</a><a href="#p7-h1" class="toc-l1" aria-label="6 06 / Lab: End-to-End Provisioning">6 06 / Lab: End-to-End Provisioning</a><a href="#p7-h2" class="toc-l2" aria-label="6.1 Failure &amp;amp; Recovery Flow">6.1 Failure &amp;amp; Recovery Flow</a><a href="#p8-h1" class="toc-l1" aria-label="7 07 / System Map &amp; Troubleshooting">7 07 / System Map &amp; Troubleshooting</a><a href="#p8-h2" class="toc-l2" aria-label="7.1 Troubleshooting Flow">7.1 Troubleshooting Flow</a><a href="#p8-h3" class="toc-l3" aria-label="7.1.1 INTERVIEW CHECK">7.1.1 INTERVIEW CHECK</a>
 </aside>
 <main class="read"><div class="readbody">
 <div class="upnext upnext-top">Up next in Hands-on Labs → <a href="jenkins-labs.html"><b>Jenkins Labs: Complete Sequence</b></a></div>
@@ -1634,9 +1650,9 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
 <div id="lightbox" role="dialog" aria-label="Diagram viewer"><img alt="Enlarged diagram"></div>
 </div>
 <button class="topbtn" id="topbtn" aria-label="Back to top" title="Back to top">↑</button>
-<div class="drawer" id="drawer"><div class="scrim"></div><div class="panel">
+<div class="drawer" id="drawer"><div class="scrim"></div><div class="panel" role="dialog" aria-modal="false" aria-label="Reading settings"><button class="drawerx" id="setx" aria-label="Close settings">×</button>
 <h3>Reading settings</h3>
-<div class="setrow mobile-controls"><a class="readback btn" href="../book/jenkins-lab-terraform-floci.html">← Back</a> <button class="btn" id="mobilemarkbtn">☆ Save</button><a class="btn" href="../index.html">Map</a><a class="btn" href="../shelf.html">Browse</a><a class="btn" href="../book/jenkins-lab-terraform-floci.html">Overview</a></div>
+<div class="setrow mobile-controls"><a class="readback btn" href="../book/jenkins-lab-terraform-floci.html">← Back</a> <button class="btn" id="mobilemarkbtn">☆ Save</button><button class="btn" id="fsbtnm" aria-label="Toggle fullscreen">⛶</button><a class="btn" href="../index.html">Map</a><a class="btn" href="../shelf.html">Browse</a><a class="btn" href="../book/jenkins-lab-terraform-floci.html">Overview</a></div>
 <div class="setrow mobile-search"><label for="mobileq">Find in this book</label><input id="mobileq" type="search" placeholder="Search this book…"></div>
 <div class="setrow"><h5>THEME</h5><div class="opts">
 <button class="btn" data-k="theme" data-set="dark" onclick="setOpt('theme','dark')">Dark</button>
@@ -1662,6 +1678,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
 <div class="setrow"><h5>SHORTCUTS</h5><p style="font-size:12px;color:var(--mut)">Ctrl+K search · T contents · ←/→ prev/next book · Esc close</p></div>
 <div class="setrow"><button class="btn" id="prefreset">Reset reading settings</button></div>
 </div></div>
+<div id="fsbar" hidden><button class="btn" id="fs-toc" aria-label="Open contents">☰</button><button class="btn" id="fs-theme" aria-label="Cycle theme">◐</button><button class="btn" id="fs-dec" aria-label="Smaller text">A−</button><button class="btn" id="fs-inc" aria-label="Larger text">A+</button><span id="fs-prog">0%</span><button class="btn" id="fs-exit">⛶ Exit</button></div>
 <script>
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 function getP(k,d){try{const v=JSON.parse(localStorage.getItem(k));return v??d}catch(e){return d}}
@@ -1694,7 +1711,7 @@ function tocUpdate(){const links=$$('aside.toc a');let cur=null;
   links.forEach(a=>a.classList.toggle('cur',a.getAttribute('href')===cur));}
 window.addEventListener('scroll',()=>{tocUpdate();
   const h=document.documentElement,p=Math.min(100,Math.round(100*(h.scrollTop)/(h.scrollHeight-h.clientHeight||1)));
-  setP(PKEY,{pct:p,ts:Date.now()});const bar=$('#pbar');if(bar)bar.style.width=p+'%';},{passive:true});
+  setP(PKEY,{pct:p,ts:Date.now()});const bar=$('#pbar');if(bar)bar.style.width=p+'%';const fp=$('#fs-prog');if(fp)fp.textContent=p+'%';},{passive:true});
 function findBook(q){$$('.readbody mark').forEach(m=>{m.replaceWith(document.createTextNode(m.textContent))});if(!q)return 0;
   let n=0;const walker=document.createTreeWalker(document.querySelector('.readbody'),NodeFilter.SHOW_TEXT);
   const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
@@ -1710,7 +1727,7 @@ $('#q').addEventListener('keydown',e=>{if(e.key==='Enter'){const v=e.target.valu
 $('#q').addEventListener('input',e=>{if(!e.target.value)findBook('')});
 document.addEventListener('keydown',e=>{
   if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();$('#q').focus()}
-  if(e.key==='Escape'){if(document.activeElement===$('#q')||document.activeElement===$('#mobileq')){document.activeElement.value='';findBook('');const qc=$('#qcount');if(qc)qc.textContent='';}$('#drawer').classList.remove('open');$('aside.toc').classList.remove('open')}
+  if(e.key==='Escape'){if(document.activeElement===$('#q')||document.activeElement===$('#mobileq')){document.activeElement.value='';findBook('');const qc=$('#qcount');if(qc)qc.textContent='';}const _do=$('#drawer').classList.contains('open'),_to=$('aside.toc').classList.contains('open');$('#drawer').classList.remove('open');$('aside.toc').classList.remove('open');if(!_do&&!_to&&document.body.classList.contains('fs'))setFS(false);lockScroll();}
   if(e.key.toLowerCase()==='t'&&document.activeElement.tagName!=='INPUT'){$('aside.toc').classList.toggle('open')}
   if(e.key==='ArrowRight'&&document.activeElement.tagName!=='INPUT'){const n=$('#nextbook');if(n)location.href=n.href}
   if(e.key==='ArrowLeft'&&document.activeElement.tagName!=='INPUT'){const p=$('#prevbook');if(p)location.href=p.href}
@@ -1738,7 +1755,23 @@ window.addEventListener('scroll',syncTop,{passive:true});
 if(topBtn)topBtn.onclick=()=>window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
 window.addEventListener('hashchange',tocUpdate);
 window.addEventListener('pageshow',tocUpdate);
-applyPref();tocUpdate();
+function lockScroll(){const any=$('#drawer').classList.contains('open')||document.querySelector('aside.toc').classList.contains('open');document.body.classList.toggle('lock',any);document.querySelector('aside.toc').setAttribute('aria-modal',document.querySelector('aside.toc').classList.contains('open')?'true':'false');document.querySelector('#drawer .panel').setAttribute('aria-modal',$('#drawer').classList.contains('open')?'true':'false');}
+new MutationObserver(lockScroll).observe(document.querySelector('aside.toc'),{attributes:true,attributeFilter:['class']});
+new MutationObserver(lockScroll).observe($('#drawer'),{attributes:true,attributeFilter:['class']});
+const _tocx=$('#tocx');if(_tocx)_tocx.onclick=()=>{document.querySelector('aside.toc').classList.remove('open');lockScroll();};
+const _setx=$('#setx');if(_setx)_setx.onclick=()=>{$('#drawer').classList.remove('open');lockScroll();};
+document.addEventListener('keydown',e=>{if(e.key!=='Tab')return;const open=document.querySelector('aside.toc.open')||document.querySelector('#drawer.open');if(!open)return;const f=[...open.querySelectorAll('button,a[href],input,[tabindex]')].filter(el=>el.offsetParent);if(!f.length)return;if(e.shiftKey&&document.activeElement===f[0]){e.preventDefault();f[f.length-1].focus();}else if(!e.shiftKey&&document.activeElement===f[f.length-1]){e.preventDefault();f[0].focus();}});
+// Fullscreen: Fullscreen API where available, CSS-immersive fallback otherwise. Per-session toggle (never auto-restored).
+function syncFS(){const on=document.body.classList.contains('fs');const bar=$('#fsbar');if(bar)bar.hidden=!on;const fb=$('#fsbtn');if(fb)fb.setAttribute('aria-pressed',on?'true':'false');}
+function setFS(on){if(on){document.body.classList.add('fs');try{const el=document.documentElement;const pr=el.requestFullscreen&&el.requestFullscreen();if(pr&&pr.catch)pr.catch(()=>{});}catch(err){}}else{document.body.classList.remove('fs');try{if(document.fullscreenElement&&document.exitFullscreen)document.exitFullscreen().catch(()=>{});}catch(err){}}syncFS();}
+document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement)document.body.classList.remove('fs');syncFS();});
+const _fsb=$('#fsbtn'),_fsm=$('#fsbtnm');if(_fsb)_fsb.onclick=()=>setFS(!document.body.classList.contains('fs'));if(_fsm)_fsm.onclick=()=>{$('#drawer').classList.remove('open');setFS(!document.body.classList.contains('fs'));};
+const _ft=$('#fs-toc');if(_ft)_ft.onclick=()=>{document.querySelector('aside.toc').classList.toggle('open');lockScroll();};
+const _fx=$('#fs-exit');if(_fx)_fx.onclick=()=>setFS(false);
+const _fth=$('#fs-theme');if(_fth)_fth.onclick=()=>{setOpt('theme',RTHEMES[(RTHEMES.indexOf(pref.theme)+1)%RTHEMES.length]);};
+function _fsStep(dd){const S=[16,18,20,22];let i=S.indexOf(pref.fs);if(i<0)i=1;setOpt('fs',S[Math.min(S.length-1,Math.max(0,i+dd))]);}
+const _fd=$('#fs-dec'),_fi=$('#fs-inc');if(_fd)_fd.onclick=()=>_fsStep(-1);if(_fi)_fi.onclick=()=>_fsStep(1);
+applyPref();tocUpdate();syncFS();
 </script>
 </body>
 </html>
