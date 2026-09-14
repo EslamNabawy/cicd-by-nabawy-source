@@ -1436,7 +1436,7 @@ def build():
 </aside>
 <main class="read"><div class="readbody">
 {top_upnext}
-{f'<div class="labbanner">🧪 Hands-on lab · {b.get("time_minutes", 45)} min · Env: {html.escape(b.get("lab_env", "See book overview"))} · <a href="../book/' + b["id"] + '.html">Overview &amp; prereqs</a> · <button class="markbtn" id="labreset" style="margin-left:8px">Reset checks</button></div>' if is_lab else ''}
+{f'<div class="labbanner">🧪 Hands-on lab · {b.get("time_minutes", 45)} min · Env: {html.escape(b.get("lab_env", "See book overview"))} · <a href="../book/' + b["id"] + '.html">Overview &amp; prereqs</a> · <a href="../downloads/labs/' + b["id"] + '.pdf" download>Download PDF</a> · <button class="markbtn" id="labreset" style="margin-left:8px">Reset checks</button></div>' if is_lab else ''}
 {''.join(body_pages)}
 {f'<div class="upnext">Up next in {html.escape(PATHS.get(b.get("path", ""), {}).get("label", b.get("path", "")))} → <a href="{upnext["id"]}.html"><b>{html.escape(upnext["title"])}</b></a></div>' if upnext else ''}
 {related_box_html(rels)}
