@@ -111,7 +111,14 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .jumpnav a{font-size:13px;font-weight:500;background:var(--card);border:1px solid var(--line-soft);border-radius:9999px;padding:5px 14px;color:var(--mut)}
 .jumpnav a:hover{border-color:var(--line);color:var(--ink)}
 .morewrap{text-align:center;margin:8px 0 40px}
-.shelf{margin:0 0 52px}
+.shelf{margin:0 0 28px}
+.shelf-head{margin-bottom:10px}
+.shelf-head h2{font-size:18px}
+.jumpnav{margin:-2px 0 18px;gap:6px}
+.jumpnav a{font-size:12px;padding:4px 11px}
+.hero{padding:48px 24px 20px}
+.hero h1{font-size:clamp(32px,4.5vw,52px)}
+.hero p{font-size:16px;margin:10px auto 0}
 .shelf-head{display:flex;align-items:baseline;gap:14px;margin-bottom:16px}
 .shelf-head h2{font-size:20px;font-weight:700;letter-spacing:-.2px;padding-bottom:8px;border-bottom:2px solid var(--cat,var(--brand))}
 .shelf-head span{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.6px;text-transform:uppercase;color:var(--mut)}
@@ -121,17 +128,19 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .rail{display:flex;gap:20px;overflow-x:auto;padding:4px 24px 16px 2px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
 .rail .card{flex:0 0 272px;scroll-snap-align:start}
 .rail .card p{-webkit-line-clamp:3}
-/* roadmap route: one road, mile markers, category zones */
-.route{list-style:none;position:relative;margin:0;padding:14px 0 34px}
-.route::before{content:"";position:absolute;top:0;bottom:0;left:50%;width:3px;margin-left:-1.5px;background:var(--line);border-radius:2px}
-.stop{position:relative;width:calc(50% - 30px);margin:0 0 16px}
-.stop:nth-child(even of .stop){margin-left:auto}
-.stop::before{content:attr(data-mile);position:absolute;top:22px;width:32px;height:32px;border-radius:50%;background:var(--bg);border:2px solid var(--cat,var(--brand));color:var(--ink);font-family:var(--mono);font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;z-index:2}
-.stop:nth-child(odd of .stop)::before{right:-14px}
-.stop:nth-child(even of .stop)::before{left:-14px}
-.stop .card{margin:0}
-.trip{position:relative;text-align:center;margin:0 0 6px}
-.trip span{display:inline-block;position:relative;z-index:2;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.6px;background:var(--ink);color:var(--bg);border-radius:9999px;padding:6px 18px}
+/* roadmap — dense left-aligned editorial timeline */
+.route{list-style:none;position:relative;margin:0;padding:6px 0 10px 36px;display:flex;flex-direction:column;gap:8px}
+.route::before{content:"";position:absolute;top:4px;bottom:4px;left:18px;width:2px;background:var(--line);opacity:.5;border-radius:2px}
+.stop{position:relative;width:auto;margin:0}
+.stop::before{content:attr(data-mile);position:absolute;left:-30px;top:12px;width:24px;height:24px;border-radius:50%;background:var(--card);border:1.5px solid var(--cat,var(--brand));color:var(--ink);font-family:var(--mono);font-size:9px;font-weight:600;display:flex;align-items:center;justify-content:center;z-index:2;box-shadow:0 1px 4px rgba(0,0,0,.1)}
+.stop .card{margin:0;padding:13px 14px;gap:5px;border-radius:10px;display:grid;grid-template-columns:1fr auto;align-items:center}
+.stop .card .num{grid-column:1 / -1}
+.stop .card h3{grid-column:1;font-size:14.5px;line-height:1.25}
+.stop .card p{grid-column:1;font-size:12px;line-height:1.45;-webkit-line-clamp:2;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
+.stop .card .dif{grid-column:1}
+.stop .card a.read{grid-column:2;grid-row:2 / 5;align-self:center;margin:0}
+.trip{position:relative;text-align:left;margin:4px 0 6px;padding-left:36px}
+.trip span{font-size:9px;padding:4px 10px}
 @media(max-width:700px){
 .route::before{left:22px}
 .stop{width:auto;margin:0 0 14px 52px}
@@ -285,6 +294,42 @@ table.gloss th{background:var(--bg2)}
 .chiprow a:hover{color:var(--ink);border-color:var(--brand)}
 .outcomes{background:var(--card);border:1px solid var(--line-soft);border-radius:12px;padding:14px 20px;margin:16px 0}
 .outcomes li{margin:4px 0 4px 18px;font-size:14px}
+/* P2.1: recommended-path strip — single cold-start path, distinct from shelves */
+.recstrip{background:var(--card);border:1px solid var(--brand);border-radius:16px;padding:20px 22px;margin:28px 0 8px;box-shadow:var(--shadow)}
+.rec-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.rec-head .eyebrow{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--brand);background:var(--acc-soft);border-radius:9999px;padding:5px 14px}
+.rec-meta{font-family:var(--mono);font-size:11px;color:var(--mut)}
+.rec-steps{list-style:none;display:flex;gap:10px;margin:0 0 14px;padding:0;flex-wrap:wrap}
+.rec-steps li{flex:1;min-width:160px;background:var(--bg2);border:1px solid var(--line-soft);border-radius:12px;padding:10px 14px;font-size:13px;color:var(--mut)}
+.rec-steps li b{display:block;color:var(--ink);font-size:14px;font-weight:600;margin:2px 0}
+.rec-steps li .n{font-family:var(--mono);font-size:11px;color:var(--brand)}
+.rec-steps li a{color:var(--ink)}
+.rec-cta{display:inline-block;background:var(--brand);color:#0B0D10;font-weight:600;font-size:14px;border-radius:9999px;padding:10px 22px}
+[data-theme=light] .rec-cta{color:#fff}
+.rec-cta:hover{opacity:.85;color:#0B0D10}
+[data-theme=light] .rec-cta:hover{color:#fff}
+@media(max-width:700px){.rec-steps{flex-direction:column}.rec-steps li{min-width:0}}
+/* P2.2: reader orientation — breadcrumb + prereq + path position (existing vars only) */
+.readcontext{background:var(--card);border-bottom:1px solid var(--line-soft);padding:10px 32px;font-size:13px;color:var(--mut)}
+.readcontext .wrap{max-width:1320px;margin:0 auto;padding:0;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.readcontext a{color:var(--mut)}
+.readcontext a:hover{color:var(--brand)}
+.readcontext .here{color:var(--ink);font-weight:600}
+.readcontext .pathpos{font-family:var(--mono);font-size:11px;background:var(--acc-soft);color:var(--brand);border-radius:9999px;padding:3px 12px;white-space:nowrap}
+.readcontext .prereq{font-size:12px}
+.readcontext .prereq a{border:1px solid var(--line);border-radius:9999px;padding:2px 10px;margin-left:6px;white-space:nowrap}
+@media(max-width:700px){.readcontext{padding:8px 14px;font-size:12px}}
+/* P2.4: mobile icon-chain reflow (≤480px only, desktop untouched) */
+@media(max-width:480px){
+.readbody .life{flex-direction:column;gap:0}
+.readbody .life .lconn{transform:rotate(90deg);padding:3px 0;align-self:center}
+.readbody .life .lnode{display:flex;align-items:center;gap:10px;text-align:left;padding:8px 12px}
+.readbody .life .lnode img{margin:0;flex:none}
+.readbody .life .lnode b{font-size:11px}
+.readbody .two{grid-template-columns:1fr}
+.readbody .fnode{font-size:13px}
+.readbody .vflow{margin:8px 0}
+}
 /* P2: dim + contrast themes, font + line-height prefs, rating */
 [data-theme=dim]{--bg:#000000;--bg2:#0a0a0a;--card:#0d0d0f;--ink:#e8e8e8;--mut:#9a9a9a;--line:rgba(255,255,255,.12);--line-soft:rgba(255,255,255,.08);--acc:#18E299;--acc-soft:rgba(24,226,153,.14);--brand:#18E299}
 [data-theme=contrast]{--bg:#000000;--bg2:#0a0a0a;--card:#000000;--ink:#ffffff;--mut:#e0e0e0;--line:#ffffff;--line-soft:#8a8a8a;--acc:#ffe600;--acc-soft:#3a3600;--brand:#ffe600}
@@ -349,9 +394,12 @@ function filter(){
   try{const h=new URLSearchParams();if($('#q').value)h.set('q',$('#q').value);if(cat)h.set('cat',cat);if(dif)h.set('dif',dif);history.replaceState(null,'','#'+h.toString());}catch(e){}
 }
 ['q','fcat','fdif','fsort'].forEach(id=>{const el=document.getElementById(id);if(el)el.addEventListener('input',()=>{filter();drop();});});
-function drop(){const q=($('#q').value||'').toLowerCase(),box=$('#qdrop');if(!box)return;if(q.length<2){box.classList.remove('open');box.innerHTML='';return;}
-const idx=window.SEARCH_IDX||[];const res=idx.map(b=>{const hay=(b.title+' '+b.desc+' '+(b.tags||[]).join(' ')).toLowerCase();let s=-1;if(b.title.toLowerCase().includes(q))s=3;else if(hay.includes(q))s=1;else return null;if((b.tags||[]).some(t=>t.includes(q)))s+=1;return {b,s};}).filter(Boolean).sort((a,b2)=>b2.s-a.s).slice(0,8);
-box.innerHTML=res.length?res.map(r=>`<a href="book/${r.b.id}.html"><b>${r.b.title}</b><small>${r.b.cat} · ${r.b.dif} · ${r.b.time} min</small></a>`).join(''):'<a><b>No matches</b><small>Try glossary terms</small></a>';box.classList.add('open');}
+function norm(s){return (s||'').toLowerCase().replace(/[-_\/]/g,' ');}
+function drop(){const raw=($('#q').value||''),q=raw.toLowerCase(),box=$('#qdrop');if(!box)return;if(q.length<2){box.classList.remove('open');box.innerHTML='';return;}
+const STOP=new Set(['how','does','did','can','what','when','where','which','that','this','with','from','have','has','are','was','were','been','will','would','there','their','about','into','your','you','our','the','and','for','are','but','not','all','any','can','had','her','him','his','one','our','out','day','get','has','him','how','its','may','new','now','old','see','two','way','who','boy','did','she','use','her','now','do','i','an','a','to','in','of','or','is','it','my','me','on','as','at','by','we','if','up','so']);
+const qn=norm(raw);let toks=qn.split(/\s+/).filter(t=>t.length>=3&&!STOP.has(t));if(!toks.length)toks=[qn].filter(t=>t.length>=2);if(!toks.length){box.classList.remove('open');return;}
+const idx=window.SEARCH_IDX||[];const res=idx.map(b=>{const secs=(b.sections||[]).join(' ');const body=(b.body||'');const hay=norm(b.title+' '+b.desc+' '+(b.tags||[]).join(' ')+' '+secs+' '+body);if(!toks.every(t=>hay.includes(t)))return null;let s=1,hit='';const secHit=(b.sections||[]).find(t=>{const tn=norm(t);return toks.every(tk=>tn.includes(tk))||tn.includes(toks[0]);});const titleHit=toks.every(t=>norm(b.title).includes(t));if(titleHit)s=3;else if(secHit){s=2;hit=secHit;}else{const bi=norm(body).indexOf(toks[0]);if(bi>=0){hit='…'+body.slice(Math.max(0,bi-30),bi+50).replace(/\s+/g,' ')+'…';}else if(b.desc){hit=b.desc.slice(0,70);}}if((b.tags||[]).some(t=>toks.some(k=>norm(t).includes(k))))s+=0.5;return {b,s,hit};}).filter(Boolean).sort((a,b2)=>b2.s-a.s).slice(0,8);
+box.innerHTML=res.length?res.map(r=>`<a href="book/${r.b.id}.html"><b>${r.b.title}</b><small>${r.b.cat} · ${r.b.dif} · ${r.b.time} min${r.hit?' · § '+r.hit.slice(0,80):''}</small></a>`).join(''):'<a><b>Nothing found</b><small>Try “rollback” or “canary” — or start with Foundations</small></a>';box.classList.add('open');}
 document.addEventListener('click',e=>{const box=$('#qdrop');if(box&&!e.target.closest('.searchwrap'))box.classList.remove('open');});
 function logQ(q){q=(q||'').trim().toLowerCase();if(q.length<3)return;try{const L=getP('cicdlib:qlog',{});L[q]=(L[q]||0)+1;setP('cicdlib:qlog',L);}catch(e){}}
 function renderPop(){try{const L=getP('cicdlib:qlog',{}),top=Object.entries(L).sort((a,b)=>b[1]-a[1]).slice(0,5);const el=$('#popsearch');if(el)el.innerHTML=top.length?('Popular: '+top.map(t=>`<a data-q="${t[0]}">${t[0]}</a>`).join(' · ')):'';$$('#popsearch a').forEach(a=>a.onclick=()=>{$('#q').value=a.dataset.q;filter();drop();});}catch(e){}}
@@ -407,7 +455,7 @@ function findBook(q){$$('.readbody mark').forEach(m=>{m.replaceWith(document.cre
     const r=document.createRange();r.setStart(nd,i);r.setEnd(nd,i+q.length);
     const m=document.createElement('mark');r.surroundContents(m);n++;});
   const f=document.querySelector('.readbody mark');if(f)f.scrollIntoView({block:'center'});return n;}
-$('#q').addEventListener('keydown',e=>{if(e.key==='Enter'){const n=findBook(e.target.value);$('#qcount').textContent=n?n+' match'+(n>1?'es':''):'no matches'}});
+$('#q').addEventListener('keydown',e=>{if(e.key==='Enter'){const n=findBook(e.target.value);$('#qcount').textContent=n?n+' match'+(n>1?'es':'')+' in this book':'no matches in this book'}});
 $('#q').addEventListener('input',e=>{if(!e.target.value)findBook('')});
 document.addEventListener('keydown',e=>{
   if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();$('#q').focus()}
@@ -577,7 +625,7 @@ def build_roadmap_page(books, output_dir):
 <button class="btn" id="themebtn" aria-label="Toggle theme">☀</button>
 </div></header>
 <div class="wrap">
-<div class="hero" style="padding:64px 24px 20px"><span class="eyebrow">MAP</span><h1>Every book, <span>one map.</span></h1>
+<div class="hero" style="padding:36px 24px 16px"><span class="eyebrow">MAP</span><h1>Every book, <span>one map.</span></h1>
 <p>{len(books)} docs grouped by category — same source as the library, impossible to drift.</p></div>
 {jump}
 {body}
@@ -648,14 +696,61 @@ def build():
             return byid[ids[ids.index(b["id"]) + 1]]
         return None
 
+    all_sections = {}
+    # P2.3: book id -> markdown source (from AUDIT_STRUCTURE mapping; 3 roadmaps are pdf-only)
+    MD_MAP = {"foundations": "00-foundations/cicd-overview.md", "git-branching": "01-source-control/git-branching-pull-requests.md", "pipelines": "06-ci-cd-pipelines/pipelines.md", "artifacts": "05-artifacts-and-packaging/artifact-management.md", "delivery": "07-continuous-delivery/continuous-delivery.md", "strategies": "10-deployment-strategies/deployment-strategies.md", "ci": "02-continuous-integration/continuous-integration.md", "build": "03-build-systems/build-systems.md", "testing": "04-testing/testing-strategy.md", "deployment-auto": "08-continuous-deployment/continuous-deployment.md", "envs": "09-environments-and-release/environments-release.md", "security": "11-security/cicd-security.md", "rollback": "14-reliability-and-recovery/rollback-recovery.md", "lab-01": "16-labs/01-first-pipeline.md", "lab-02": "16-labs/02-build-and-test.md", "lab-03": "16-labs/03-artifacts.md", "lab-04": "16-labs/04-deployment.md", "lab-05": "16-labs/05-rollback.md", "lab-06": "16-labs/06-jenkins-controller.md", "lab-07": "16-labs/07-jenkins-shared-library.md", "lab-08": "16-labs/08-jenkins-backup-restore.md", "cheatsheet": "17-reference/command-cheatsheet.md", "gitlab": "15-platforms-and-tools/gitlab-ci.md", "argocd": "15-platforms-and-tools/argocd-gitops.md", "iac": "12-infrastructure-and-configuration/iac-environments.md", "observability": "13-observability-and-feedback/observability-feedback.md", "jenkins-domain": "15-platforms-and-tools/jenkins/README.md", "jenkins-architecture": "15-platforms-and-tools/jenkins/jenkins-architecture.md", "jenkins-setup": "15-platforms-and-tools/jenkins/jenkins-setup.md", "jenkins-pipelines": "15-platforms-and-tools/jenkins/jenkins-pipelines.md", "groovy": "15-platforms-and-tools/jenkins/jenkins-groovy-cheatsheet.md", "jenkins-agents": "15-platforms-and-tools/jenkins/jenkins-agents.md", "jenkins-credentials": "15-platforms-and-tools/jenkins/jenkins-credentials.md", "jenkins-plugins": "15-platforms-and-tools/jenkins/jenkins-plugins.md", "jenkins-webhooks": "15-platforms-and-tools/jenkins/jenkins-webhooks.md", "jenkins-security": "15-platforms-and-tools/jenkins/jenkins-security.md", "jenkins-advanced": "15-platforms-and-tools/jenkins/jenkins-advanced.md", "jenkins-troubleshooting": "15-platforms-and-tools/jenkins/jenkins-troubleshooting.md", "github-actions": "15-platforms-and-tools/github-actions.md"}
+    all_body = {}
     for idx, b in enumerate(books):
         css, pages = parse_book(os.path.join(PDF, b["file"]))
         toc = toc_of(pages)
+        all_sections[b["id"]] = [t for _, t, _ in toc][:16]
+        # body text for section-level search: md source preferred (full), pdf fallback
+        body_txt = ""
+        try:
+            mp = MD_MAP.get(b["id"])
+            if mp and os.path.exists(os.path.join(KB, mp)):
+                raw = open(os.path.join(KB, mp), encoding="utf-8").read()
+                raw = re.sub(r"^---.*?---\s*", "", raw, flags=re.S)
+                raw = re.sub(r"<!--.*?-->", " ", raw, flags=re.S)
+                raw = re.sub(r"```.*?```", " ", raw, flags=re.S)
+                raw = re.sub(r"[`#>*|\[\]()!]", " ", raw)
+                raw = re.sub(r"\s+", " ", raw).strip()
+                body_txt = raw[:5000]
+            else:
+                praw = open(os.path.join(PDF, b["file"]), encoding="utf-8").read()
+                praw = re.sub(r"<style.*?</style>", " ", praw, flags=re.S | re.I)
+                praw = re.sub(r"<[^>]+>", " ", praw)
+                praw = html.unescape(re.sub(r"\s+", " ", praw)).strip()
+                body_txt = praw[:5000]
+        except Exception:
+            body_txt = ""
+        all_body[b["id"]] = body_txt
         prevb = books[idx - 1] if idx > 0 else None
         nextb = books[idx + 1] if idx + 1 < len(books) else None
         rels = related_books(b)
         upnext = path_next(b)
         is_lab = b.get("path") == "labs" or b["category"] == "Labs"
+        # P2.2: path position + prereq context (derived from books.json, no new fields needed)
+        pseq = bypath.get(b.get("path", ""), [])
+        pids = [x["id"] for x in pseq]
+        ppos = pids.index(b["id"]) + 1 if b["id"] in pids else 1
+        ptotal = len(pseq) if pseq else 1
+        plabel = PATHS.get(b.get("path", ""), {}).get("label", b.get("path", ""))
+        preqs = b.get("prereqs", [])
+        if preqs:
+            preq_links = "".join(
+                f'<a href="{p}.html">{html.escape(byid[p]["title"])}</a>' if p in byid else f'<span>{html.escape(p)}</span>'
+                for p in preqs)
+            prereq_html = f'<span class="prereq">Prereq:{preq_links}</span>'
+        else:
+            prereq_html = '<span class="prereq">Prereq: None — start here</span>'
+        contextbar = (
+            f'<div class="readcontext" data-testid="reader-context"><div class="wrap">'
+            f'<a href="../index.html">Library</a><span>›</span>'
+            f'<a href="../index.html#{html.escape(b.get("path", ""))}">{html.escape(plabel)}</a><span>›</span>'
+            f'<span class="here">{html.escape(b["title"])}</span>'
+            f'<span class="pathpos">{ppos} of {ptotal} in {html.escape(plabel)}</span>'
+            f'{prereq_html}</div></div>')
 
         # flow mode: strip print chrome (per-page headers/footers, print notes)
         # so the book reads as one document, not stacked A4 sheets
@@ -672,8 +767,13 @@ def build():
         for i, p in enumerate(pages):
             body_pages.append(re.sub(r'class="page', f'id="p{i+1}" class="page', p, count=1))
         toc_html = "".join(f'<a href="#p{i}" class="toc-l{lvl}" aria-label="{html.escape(t)}">{html.escape(t)}</a>' for i, t, lvl in toc)
-        prev_link = f'<a id="prevbook" href="{prevb["id"]}.html"><small>← PREVIOUS</small>{html.escape(prevb["title"])}</a>' if prevb else "<span></span>"
-        next_link = f'<a id="nextbook" class="r" href="{nextb["id"]}.html"><small>NEXT →</small>{html.escape(nextb["title"])}</a>' if nextb else "<span></span>"
+        # P2 Top-5 #4: chapnav follows path order, not manifest order
+        pprev = pseq[ppos - 2] if ppos > 1 else None
+        pnext = pseq[ppos] if ppos < ptotal else None
+        prev_link = f'<a id="prevbook" href="{pprev["id"]}.html"><small>← {html.escape(plabel)}</small>{html.escape(pprev["title"])}</a>' if pprev else "<span></span>"
+        next_link = f'<a id="nextbook" class="r" href="{pnext["id"]}.html"><small>{html.escape(plabel)} →</small>{html.escape(pnext["title"])}</a>' if pnext else "<span></span>"
+        tocbtn_label = f'☰ Contents · {len(toc)}'
+        top_upnext = f'<div class="upnext upnext-top">Up next in {html.escape(plabel)} → <a href="{upnext["id"]}.html"><b>{html.escape(upnext["title"])}</b></a></div>' if upnext else ""
 
         page = f"""<!DOCTYPE html>
 <html lang="en">
@@ -699,11 +799,11 @@ def build():
 </head>
 <body data-book="{b['id']}">
 <header class="top"><div class="wrap">
-<button class="btn tocbtn" id="tocbtn">☰ Contents</button>
+<button class="btn tocbtn" id="tocbtn">{tocbtn_label}</button>
 <nav class="crumbs"><a class="logo" href="../index.html" style="color:inherit"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="5" cy="12" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="6" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="18" r="2.6" stroke="#18E299" stroke-width="2"/><path d="M7.6 12h5.2m0 0-2.6-2.6m2.6 2.6-2.6 2.6M13.4 7.4l2.8-1M13.4 16.6l2.8 1" stroke="#18E299" stroke-width="2" stroke-linecap="round"/></svg>CICD<span> BY Nabawy</span></a>
 <span class="sep">/</span>
 <span class="here">{html.escape(b['title'])}</span></nav>
-<div class="search"><input id="q" type="search" placeholder="Search in book…"><kbd>⌘K</kbd></div>
+<div class="search"><input id="q" type="search" placeholder="Find in this book…" aria-label="Find in this book"><kbd>⌘K</kbd></div>
 <span id="qcount" style="font-size:12px;color:var(--mut)"></span>
 <button class="markbtn" id="markbtn" aria-label="Bookmark this book">☆ Save</button>
 <a class="btn" href="../book/{b['id']}.html" style="text-decoration:none">Overview</a>
@@ -711,11 +811,13 @@ def build():
 </div>
 <div class="prog" style="height:3px;background:var(--line)"><b id="pbar" style="display:block;height:100%;width:0;background:var(--acc)"></b></div>
 </header>
+{contextbar}
 <div class="rlayout">
 <aside class="toc"><h4>CONTENTS · {len(pages)} PAGES · {len(toc)} SECTIONS</h4>{toc_html}
 <div style="margin-top:14px"><a href="../pdf/{b['file']}">⭳ Open print HTML</a></div>
 </aside>
 <main class="read"><div class="readbody">
+{top_upnext}
 {f'<div class="labbanner">🧪 Hands-on lab · {b.get("time_minutes", 45)} min · Env: {html.escape(b.get("lab_env", "See book overview"))} · <a href="../book/' + b["id"] + '.html">Overview &amp; prereqs</a> · <button class="markbtn" id="labreset" style="margin-left:8px">Reset checks</button></div>' if is_lab else ''}
 {''.join(body_pages)}
 {f'<div class="upnext">Up next in {html.escape(PATHS.get(b.get("path", ""), {}).get("label", b.get("path", "")))} → <a href="{upnext["id"]}.html"><b>{html.escape(upnext["title"])}</b></a></div>' if upnext else ''}
@@ -855,7 +957,23 @@ def build():
     else:
         shelves_html = rendered
 
-    search_idx = [{"id": b["id"], "title": b["title"], "desc": b.get("description", ""), "cat": b["category"], "dif": b["difficulty"], "tags": b.get("tags", []), "time": b.get("time_minutes", 30)} for b in books]
+    search_idx = [{"id": b["id"], "title": b["title"], "desc": b.get("description", ""), "cat": b["category"], "dif": b["difficulty"], "tags": b.get("tags", []), "time": b.get("time_minutes", 30), "sections": all_sections.get(b["id"], []), "body": all_body.get(b["id"], "")[:2000]} for b in books]
+    # P2.1: single recommended cold-start path (Beginner, prereq-chain verified)
+    RECOMMENDED = ["foundations", "git-branching", "pipelines", "ci", "lab-01"]
+    rec_seq = [byid[i] for i in RECOMMENDED if i in byid]
+    rec_total = sum(b.get("time_minutes", 30) for b in rec_seq)
+    rec_steps = "".join(
+        f'<li><span class="n">STEP {n}</span><b><a href="read/{b["id"]}.html">{html.escape(b["title"])}</a></b>'
+        f'<span>{b.get("time_minutes", 30)} min · {b["difficulty"]}</span></li>'
+        for n, b in enumerate(rec_seq, 1))
+    first = rec_seq[0] if rec_seq else None
+    rec_html = (
+        f'<section class="recstrip" data-testid="recommended-path" aria-label="Recommended reading path for beginners">'
+        f'<div class="rec-head"><span class="eyebrow">★ Start here — new to CI/CD</span>'
+        f'<span class="rec-meta">{len(rec_seq)} books · ~{rec_total} min · Beginner</span></div>'
+        f'<ol class="rec-steps">{rec_steps}</ol>'
+        + (f'<a class="rec-cta" href="read/{first["id"]}.html">★ Start with {html.escape(first["title"])} — {first.get("time_minutes", 30)} min →</a>' if first else '')
+        + f'</section>') if rec_seq else ""
     paths_html = ""
     for pid in (PATH_ORDER or sorted(bypath.keys())):
         seq = bypath.get(pid, [])
@@ -880,7 +998,7 @@ def build():
 <body>
 <header class="top"><div class="wrap">
 <span class="logo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="5" cy="12" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="6" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="18" r="2.6" stroke="#18E299" stroke-width="2"/><path d="M7.6 12h5.2m0 0-2.6-2.6m2.6 2.6-2.6 2.6M13.4 7.4l2.8-1M13.4 16.6l2.8 1" stroke="#18E299" stroke-width="2" stroke-linecap="round"/></svg>CICD<span> BY Nabawy</span></span>
-<div class="search"><div class="searchwrap"><input id="q" type="search" placeholder="Search books…" autocomplete="off"><div class="searchdrop" id="qdrop" role="listbox"></div></div><kbd>⌘K</kbd></div>
+<div class="search"><div class="searchwrap"><input id="q" type="search" placeholder="Search all {len(books)} books…" autocomplete="off"><div class="searchdrop" id="qdrop" role="listbox"></div></div><kbd>⌘K</kbd></div>
 <a class="btn" href="roadmap/">Roadmap</a>
 <a class="btn" href="glossary.html" style="text-decoration:none">Glossary</a>
 <button class="btn" id="themebtn" aria-label="Toggle theme">☀</button>
@@ -891,6 +1009,7 @@ def build():
 <div class="stats"><span><b>{len(books)}</b> books</span><span><b>{len(cats)}</b> topics</span><span><b>{sum(1 for b in books if b["category"]=="Labs")}</b> hands-on labs</span><span>BY Nabawy</span></div></div>
 <div id="continue"></div>
 <div id="marksrow"></div>
+{rec_html}
 <div class="collectlabel">LEARNING PATHS</div>
 <p class="sub">Ordered end to end — follow a path, don't wander shelves.</p>
 <div class="pathgrid">{paths_html}</div>
@@ -993,7 +1112,7 @@ try{{const p=getP('cicdlib:prog:{b['id']}',null);if(p&&p.pct>0&&p.pct<100)$('#st
     # --- P0: 404 + search index ---
     notfound = f"""<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Not found — CICD BY Nabawy</title><meta name="theme-color" content="#0B0D10"><style>{BASE_CSS}</style></head><body><div class="wrap" style="text-align:center;padding:80px 20px"><h1>Page not found</h1><p class="sub">Try search or start with Foundations.</p><p><a class="btn" href="index.html">Library</a> <a class="btn" href="read/foundations.html">Foundations</a> <a class="btn" href="glossary.html">Glossary</a></p></div></body></html>"""
     pathlib.Path(os.path.join(DIST, "404.html")).write_text(notfound, encoding="utf-8")
-    search_idx = [{"id": b["id"], "title": b["title"], "desc": b.get("description", ""), "cat": b["category"], "dif": b["difficulty"], "tags": b.get("tags", []), "time": b.get("time_minutes", 30)} for b in books]
+    search_idx = [{"id": b["id"], "title": b["title"], "desc": b.get("description", ""), "cat": b["category"], "dif": b["difficulty"], "tags": b.get("tags", []), "time": b.get("time_minutes", 30), "sections": all_sections.get(b["id"], []), "body": all_body.get(b["id"], "")[:2000]} for b in books]
     pathlib.Path(os.path.join(DIST, "search.json")).write_text(json.dumps(search_idx, ensure_ascii=False, indent=1), encoding="utf-8")
 
     print(f"BUILT {len(books)} books + {len(books)} overviews + index + glossary + updates → {DIST}")
