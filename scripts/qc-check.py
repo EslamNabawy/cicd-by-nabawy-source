@@ -77,7 +77,7 @@ def pdfs_qc():
             flag(f"{n}: code fences")
         if "<script" in h.lower():
             flag(f"{n}: script tag")
-        if "m-reflow" not in h:
+        if "m-reflow" not in h and not re.search(r"@media\s*(?:screen\s+and\s+)?\(max-width:", h, re.I):
             flag(f"{n}: no mobile marker")
         for s in set(re.findall(r'src="(\.\./assets/[^"]+)"', h)):
             if not os.path.exists(os.path.normpath(os.path.join(ROOT, "pdf", s))):
