@@ -185,10 +185,11 @@ header.top .crumbs{flex:1;min-width:0;gap:5px;font-size:12px}
 header.top .crumbs .logo{font-size:13px;gap:4px}
 header.top .crumbs .logo svg{width:17px;height:17px}
 header.top .crumbs .sep,header.top .crumbs .here{display:none}
-header.top .search,header.top #qcount,header.top #markbtn,header.top .reader-nav{display:none}
+header.top .search,header.top #qcount,header.top #markbtn,header.top nav.reader-nav{display:none}
 header.top .mobilemenu{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;padding:0;font-size:19px}
-header.top #tocbtn{display:inline-flex;order:2;width:38px;height:38px;padding:0;overflow:hidden;font-size:0;align-items:center;justify-content:center}
-header.top #tocbtn::before{content:'☰';font-size:18px}
+header.top #tocbtn{display:inline-flex;order:2;width:78px;height:38px;padding:0;overflow:hidden;font-size:0;align-items:center;justify-content:center;color:transparent}
+header.top #tocbtn::before{content:'Contents';font-size:11px;font-family:var(--mono);color:var(--ink)}
+header.top #backbtn{display:inline-flex;order:3;font-size:12px;padding:5px 9px}
 .readcontext{padding:6px 12px}
 .readcontext .wrap{gap:5px}
 .readcontext .readback{display:none}
@@ -503,7 +504,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
 </head>
 <body data-book="cheatsheet">
 <header class="top"><div class="wrap">
-<button class="btn tocbtn" id="tocbtn">☰ Contents · 0</button>
+<button class="btn tocbtn" id="tocbtn" aria-label="Open table of contents">☰ Contents · 0</button>
 <nav class="crumbs"><a class="logo" href="../index.html" style="color:inherit"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="5" cy="12" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="6" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="18" r="2.6" stroke="#18E299" stroke-width="2"/><path d="M7.6 12h5.2m0 0-2.6-2.6m2.6 2.6-2.6 2.6M13.4 7.4l2.8-1M13.4 16.6l2.8 1" stroke="#18E299" stroke-width="2" stroke-linecap="round"/></svg>CICD<span> BY Nabawy</span></a>
 <span class="sep">/</span>
 <span class="here">Command Cheatsheet</span></nav>
