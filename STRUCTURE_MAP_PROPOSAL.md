@@ -129,3 +129,24 @@ This addendum reflects the UI as actually shipped after the combined sepia + str
 - **375px:** blocks stack `1fr`, perspective none, preview via tap button (verified hidden until `.preview-open`, dashed cat border), cards `1fr`, hero `20px` padding — all functional without hover.
 - **Blocks stand out:** as per separation check above, bold cat accent applied via `CAT_COLORS` map (`data-cat`/`--cat`) more boldly than homepage thin-border treatment.
 - **Build+QC:** `python website/scripts/build.py` green, `python scripts/qc-check.py` 33 FAILs — **identical to main** (stub PDFs), zero new. `12 blocks × 42 cards` verified. Interior spot-checks: CI/CD (`--cat:#5B8DEF`), Jenkins (`#22B8CF`), Platforms (`#F97316`) — distinct per-category accents, shared card chrome, sepia/dark/light via tokens.
+
+## Addendum — Rev 2026-09-14: Map becomes landing, paths redesigned, related enriched (feat/paths-map-landing-related)
+
+### Route swap (option (a) from the level-up spec)
+- `/` now serves the Structure Map (12 blocks, same `#slug` detail anchors) + Learning Paths section below it.
+- Old shelf/grid homepage moved intact to `/shelf.html` (hero, recstrip, paths, rubric, filters, shelves); nav gains `Browse`.
+- `map.html` kept as a redirect (canonical `/`, meta-refresh + `location.replace('./'+hash)` so old `#slug` links survive).
+- Reader contextbar now reads `Browse › <Path> › <Book>` pointing at `shelf.html#path-<id>`; header `Map` points at `/`, plus `Browse`.
+- Map detail `← Back to map` keeps its wording (it returns to the zoomed-out grid above on the same page); back transition made robust (hash cleared via pushState guarded by `if(location.hash)`, `.exiting` removed, 500ms fallback timer in case `animationend` never fires).
+- Learning Paths live on BOTH `/` (under the map) and `/shelf.html` — discoverable from the landing, still with the shelves.
+
+### Learning Paths redesign (visual data in `website/content/paths.json`, grouping derived from `books.json`)
+- Accent: dominant-category rule — each path card takes `--cat`/icon from the category holding the most of its books (CI/CD `#5B8DEF` for Start Here/CI Core, Delivery `#F472B6`, Jenkins `#22B8CF`, Labs `#EAB308`, Reference `#64748B`, Roadmap `#18E299`). No neutral fallback was needed: every path has a strict majority.
+- Steps: connected journey — `data-n` numbered circles (`1.5px cat` ring) joined by a `2px 32%-cat` vertical connector, difficulty as `Beg/Int/Adv` badges in the site's level colors (`#2ECC71/#F5A524/#E5484D`), step title (600wt, links to reader) primary vs mono time meta secondary, final step filled cat circle + `🏁 Finish` pill.
+- Long paths (≥6 steps: delivery×7, labs×8, jenkins-advanced×7) get `.long` compact spacing (9px vs 16px gaps); short paths (start-here×2) keep airy spacing.
+- Footer stats restyled to map `map-pill` chips (`N books`, `~M min`, `Level Beg→Int` span). All theme-token colors, `currentColor` icons.
+- QC: `python website/scripts/build.py` + `python scripts/qc-check.py` → 33 FAILs identical to main (stub PDFs), zero new.
+
+### Related Books (still build-time static, richer signals)
+- Scoring per reader: adjacent path steps (next +12 / prev +10, same-path +4) > prereq/follow-up (+8) > same category (+3) > shared tags (+2 each); reason label rendered (`Next/Previous in path`, `Prerequisite`, `Follow-up`, `Same topic`, `Shared tags`).
+- Treatment: compact `.relcard` rows reusing card tokens (`bg2`, cat left bar, 30px `currentColor` icon chip, `Beg/Int/Adv` badge, time, `→ reason`); 4 items (was 3 pills). Spot-checks: pipelines→artifacts(next)/git-branching(prereq), security→rollback(next)/envs(prev), jenkins-pipelines→jenkins-agents(next)/jenkins-setup(prev).

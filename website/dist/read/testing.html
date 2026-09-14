@@ -225,13 +225,34 @@ table.gloss th{background:var(--bg2)}
 @media print{header.top,aside.toc,.drawer,.chapnav,.copybtn,.copybar,.codehead,.filterbar,#resume,.jumpnav,.shelf-head .arrows{display:none !important} body{background:#fff !important;color:#000 !important} .card,.readbody .page{break-inside:avoid;border:1px solid #ccc !important;background:#fff !important;color:#000 !important} main.read{padding:0}.readbody{max-width:none;font-size:12pt}}
 @media(prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important;scroll-behavior:auto !important}.rail{scroll-snap-type:none}}
 /* P1: paths + rubric + search dropdown + bookmarks + related + labs + lightbox */
-.pathgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin:16px 0 8px}
-.pathcard{background:var(--card);border:1px solid var(--line-soft);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow)}
-.pathcard h3{font-size:16px;margin-bottom:4px}
-.pathcard p{font-size:13px;color:var(--mut);margin-bottom:10px}
-.pathcard ol{margin:0 0 10px 18px;font-size:13px;color:var(--mut)}
-.pathcard ol b{color:var(--ink);font-weight:500}
-.pathcard .meta{font-family:var(--mono);font-size:11px;color:var(--mut)}
+/* Learning Paths — journey cards reusing the map card system (same gradient/border/shadow tokens, --cat accent, currentColor icons) */
+.pathgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;margin:16px 0 8px}
+.pathcard{position:relative;background:linear-gradient(135deg,color-mix(in srgb,var(--cat) 7%,var(--card)) 0%,var(--card) 55%);border:1.5px solid color-mix(in srgb,var(--cat) 28%,var(--line-soft));border-radius:16px;padding:0;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06),0 8px 24px -8px color-mix(in srgb,var(--cat) 18%,transparent),0 2px 10px rgba(0,0,0,.06);display:flex;flex-direction:column}
+.pathcard::before{content:"";position:absolute;top:0;left:0;right:0;height:5px;background:var(--cat,var(--brand));z-index:2}
+.pathcard-head{display:flex;gap:12px;align-items:flex-start;padding:22px 20px 0}
+.pathcard-head .map-icon{width:42px;height:42px;border-radius:11px;flex:none}
+.pathcard-head .map-icon svg{width:22px;height:22px}
+.pathcard-titles h3{font-size:16px;font-weight:700;letter-spacing:-.2px;line-height:1.25}
+.pathcount{font-family:var(--mono);font-size:11px;color:var(--mut);font-weight:500}
+.pathdesc{font-size:13px;color:var(--mut);line-height:1.55;padding:8px 20px 0}
+.pathsteps{list-style:none;margin:12px 0 0;padding:2px 20px 0;position:relative;display:flex;flex-direction:column}
+.pathstep{position:relative;padding:2px 0 16px 36px;min-height:44px}
+.pathstep::before{content:attr(data-n);position:absolute;left:0;top:0;width:26px;height:26px;border-radius:50%;background:var(--card);border:1.5px solid var(--cat,var(--brand));color:var(--ink);font-family:var(--mono);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;z-index:1}
+.pathstep::after{content:"";position:absolute;left:12px;top:28px;bottom:0;width:2px;background:color-mix(in srgb,var(--cat) 32%,var(--line-soft));border-radius:2px}
+.pathstep:last-child::after{display:none}
+.pathstep.finish::before{background:var(--cat,var(--brand));border-color:var(--cat,var(--brand));color:#0B0D10}
+[data-theme=light] .pathstep.finish::before{color:#fff}
+.pathsteps.long .pathstep{padding-bottom:9px;min-height:38px}
+.steptitle{display:block;font-size:14.5px;font-weight:600;line-height:1.35;color:var(--ink)}
+.steptitle:hover{color:var(--cat,var(--brand))}
+.stepmeta{display:block;font-family:var(--mono);font-size:11px;color:var(--mut);margin-top:3px}
+.finpill{display:inline-block;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.4px;background:color-mix(in srgb,var(--cat) 12%,transparent);border:1px solid color-mix(in srgb,var(--cat) 35%,transparent);color:var(--cat);border-radius:9999px;padding:1px 8px;margin-left:6px;white-space:nowrap}
+.difbadge{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:3px 9px;border-radius:9999px;border:1px solid;color:var(--cat);background:color-mix(in srgb,var(--cat) 10%,var(--bg2));border-color:color-mix(in srgb,var(--cat) 22%,var(--line-soft));white-space:nowrap}
+.difbadge.beg{--cat:#2ECC71}
+.difbadge.int{--cat:#F5A524}
+.difbadge.adv{--cat:#E5484D}
+.pathfoot{display:flex;gap:6px;flex-wrap:wrap;padding:14px 20px 18px;margin-top:auto}
+@media(max-width:600px){.pathgrid{grid-template-columns:1fr}.pathstep{padding-bottom:14px}.pathsteps.long .pathstep{padding-bottom:8px}}
 .rubric{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
 .rubric div{flex:1;min-width:200px;background:var(--card);border:1px solid var(--line-soft);border-radius:10px;padding:12px 16px;font-size:13px;color:var(--mut)}
 .rubric b{display:block;color:var(--ink);margin-bottom:4px}
@@ -244,9 +265,17 @@ table.gloss th{background:var(--bg2)}
 .markbtn{background:transparent;border:1px solid var(--line);color:var(--ink);border-radius:9999px;font-size:12px;padding:4px 12px;cursor:pointer}
 .markbtn.on{background:var(--acc-soft);border-color:var(--brand);color:var(--brand)}
 .relatedbox{background:var(--card);border:1px solid var(--line-soft);border-radius:14px;padding:18px 22px;margin-top:28px}
-.relatedbox h4{font-family:var(--mono);font-size:11px;letter-spacing:.6px;text-transform:uppercase;color:var(--mut);margin-bottom:10px}
-.relatedbox ul{list-style:none;display:flex;gap:8px;flex-wrap:wrap}
-.relatedbox a{font-size:13px;border:1px solid var(--line);border-radius:9999px;padding:5px 14px}
+.relatedbox h4{font-family:var(--mono);font-size:11px;letter-spacing:.6px;text-transform:uppercase;color:var(--mut);margin-bottom:12px}
+.relgrid{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin:0;padding:0}
+.relcard{position:relative;display:flex;gap:10px;align-items:flex-start;background:var(--bg2);border:1px solid var(--line-soft);border-left:3px solid var(--cat,var(--brand));border-radius:10px;padding:10px 12px}
+.rel-icon{width:30px;height:30px;border-radius:8px;flex:none;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--cat) 12%,var(--bg2));border:1px solid color-mix(in srgb,var(--cat) 18%,var(--line-soft));color:var(--cat)}
+.rel-icon svg{width:16px;height:16px;display:block}
+.rel-main{display:flex;flex-direction:column;gap:4px;min-width:0;flex:1}
+.rel-main>a{font-size:13.5px;font-weight:600;line-height:1.35;color:var(--ink)}
+.rel-main>a:hover{color:var(--cat,var(--brand))}
+.rel-meta{font-family:var(--mono);font-size:11px;color:var(--mut);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.rel-why{font-family:var(--mono);font-size:10px;font-weight:600;color:var(--cat)}
+@media(max-width:600px){.relgrid{grid-template-columns:1fr}}
 .upnext{display:flex;justify-content:space-between;gap:10px;background:var(--acc-soft);border:1px solid var(--brand);border-radius:14px;padding:14px 20px;margin-top:20px;font-size:14px}
 .labcheck{list-style:none;margin:12px 0}
 .labcheck li{display:flex;gap:10px;align-items:flex-start;background:var(--card);border:1px solid var(--line-soft);border-radius:10px;padding:10px 14px;margin-bottom:8px;font-size:14px}
@@ -456,13 +485,14 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
 <div class="search"><input id="q" type="search" placeholder="Find in this book…" aria-label="Find in this book"><kbd>⌘K</kbd></div>
 <span id="qcount" style="font-size:12px;color:var(--mut)"></span>
 <button class="markbtn" id="markbtn" aria-label="Bookmark this book">☆ Save</button>
-<a class="btn" href="../map.html" style="text-decoration:none">Map</a>
+<a class="btn" href="../index.html" style="text-decoration:none">Map</a>
+<a class="btn" href="../shelf.html" style="text-decoration:none">Browse</a>
 <a class="btn" href="../book/testing.html" style="text-decoration:none">Overview</a>
 <button class="btn" id="setbtn" aria-label="Reading settings">⚙ A⁺</button>
 </div>
 <div class="prog" style="height:3px;background:var(--line)"><b id="pbar" style="display:block;height:100%;width:0;background:var(--acc)"></b></div>
 </header>
-<div class="readcontext" data-testid="reader-context"><div class="wrap"><a href="../index.html">Library</a><span>›</span><a href="../index.html#ci-core">CI Core</a><span>›</span><span class="here">Testing Strategy</span><span class="pathpos">5 of 5 in CI Core</span><span class="prereq">Prereq:<a href="build.html">Build Systems</a></span></div></div>
+<div class="readcontext" data-testid="reader-context"><div class="wrap"><a href="../shelf.html">Browse</a><span>›</span><a href="../shelf.html#path-ci-core">CI Core</a><span>›</span><span class="here">Testing Strategy</span><span class="pathpos">5 of 5 in CI Core</span><span class="prereq">Prereq:<a href="build.html">Build Systems</a></span></div></div>
 <div class="rlayout">
 <aside class="toc"><h4>CONTENTS · 0 PAGES · 0 SECTIONS</h4>
 <div style="margin-top:14px"><a href="../pdf/pdf-23-testing-strategy.html">⭳ Open print HTML</a></div>
@@ -472,7 +502,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
 
 
 
-<div class="relatedbox"><h4>Related books</h4><ul><li><a href="artifacts.html">Artifact Management</a></li><li><a href="build.html">Build Systems</a></li><li><a href="pipelines.html">CI/CD Pipelines</a></li></ul></div>
+<div class="relatedbox"><h4>Related books</h4><ul class="relgrid"><li class="relcard" data-cat="Build" style="--cat:#F5A524"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 6l3.5 3.5-8 8H6v-4l8.5-8z"/><path d="M11 9l3 3"/><path d="M13 6l3-3 3 3-3 3-3-3z" opacity=".5"/></svg></span><span class="rel-main"><a href="build.html">Build Systems</a><span class="rel-meta">30 min · <span class="difbadge int">Int</span></span><span class="rel-why">→ Previous in path</span></span></li><li class="relcard" data-cat="CI/CD" style="--cat:#5B8DEF"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5" cy="12" r="1.9"/><circle cx="19" cy="6" r="1.9"/><circle cx="19" cy="18" r="1.9"/><path d="M7.2 12h5M13.4 7.4l3-1M13.4 16.6l3 1"/><path d="M9 8l-2 4 2 4M15 8l2 4-2 4" opacity=".7"/></svg></span><span class="rel-main"><a href="artifacts.html">Artifact Management</a><span class="rel-meta">35 min · <span class="difbadge int">Int</span></span><span class="rel-why">→ Same path</span></span></li><li class="relcard" data-cat="CI/CD" style="--cat:#5B8DEF"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5" cy="12" r="1.9"/><circle cx="19" cy="6" r="1.9"/><circle cx="19" cy="18" r="1.9"/><path d="M7.2 12h5M13.4 7.4l3-1M13.4 16.6l3 1"/><path d="M9 8l-2 4 2 4M15 8l2 4-2 4" opacity=".7"/></svg></span><span class="rel-main"><a href="pipelines.html">CI/CD Pipelines</a><span class="rel-meta">35 min · <span class="difbadge beg">Beg</span></span><span class="rel-why">→ Same path</span></span></li><li class="relcard" data-cat="CI/CD" style="--cat:#5B8DEF"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5" cy="12" r="1.9"/><circle cx="19" cy="6" r="1.9"/><circle cx="19" cy="18" r="1.9"/><path d="M7.2 12h5M13.4 7.4l3-1M13.4 16.6l3 1"/><path d="M9 8l-2 4 2 4M15 8l2 4-2 4" opacity=".7"/></svg></span><span class="rel-main"><a href="ci.html">Continuous Integration</a><span class="rel-meta">25 min · <span class="difbadge beg">Beg</span></span><span class="rel-why">→ Same path</span></span></li></ul></div>
 <div class="ratebox" id="ratebox"><span>Was this book useful?</span><button id="rateup" aria-label="Mark useful">👍 Yes</button><button id="ratedown" aria-label="Mark not useful">👎 No</button><span id="ratethanks" style="color:var(--mut)"></span></div>
 <div class="chapnav"><a id="prevbook" href="build.html"><small>← CI Core</small>Build Systems</a><span></span></div>
 </div></main>

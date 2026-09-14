@@ -256,13 +256,34 @@ table.gloss th{background:var(--bg2)}
 @media print{header.top,aside.toc,.drawer,.chapnav,.copybtn,.copybar,.codehead,.filterbar,#resume,.jumpnav,.shelf-head .arrows{display:none !important} body{background:#fff !important;color:#000 !important} .card,.readbody .page{break-inside:avoid;border:1px solid #ccc !important;background:#fff !important;color:#000 !important} main.read{padding:0}.readbody{max-width:none;font-size:12pt}}
 @media(prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important;scroll-behavior:auto !important}.rail{scroll-snap-type:none}}
 /* P1: paths + rubric + search dropdown + bookmarks + related + labs + lightbox */
-.pathgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin:16px 0 8px}
-.pathcard{background:var(--card);border:1px solid var(--line-soft);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow)}
-.pathcard h3{font-size:16px;margin-bottom:4px}
-.pathcard p{font-size:13px;color:var(--mut);margin-bottom:10px}
-.pathcard ol{margin:0 0 10px 18px;font-size:13px;color:var(--mut)}
-.pathcard ol b{color:var(--ink);font-weight:500}
-.pathcard .meta{font-family:var(--mono);font-size:11px;color:var(--mut)}
+/* Learning Paths — journey cards reusing the map card system (same gradient/border/shadow tokens, --cat accent, currentColor icons) */
+.pathgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;margin:16px 0 8px}
+.pathcard{position:relative;background:linear-gradient(135deg,color-mix(in srgb,var(--cat) 7%,var(--card)) 0%,var(--card) 55%);border:1.5px solid color-mix(in srgb,var(--cat) 28%,var(--line-soft));border-radius:16px;padding:0;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06),0 8px 24px -8px color-mix(in srgb,var(--cat) 18%,transparent),0 2px 10px rgba(0,0,0,.06);display:flex;flex-direction:column}
+.pathcard::before{content:"";position:absolute;top:0;left:0;right:0;height:5px;background:var(--cat,var(--brand));z-index:2}
+.pathcard-head{display:flex;gap:12px;align-items:flex-start;padding:22px 20px 0}
+.pathcard-head .map-icon{width:42px;height:42px;border-radius:11px;flex:none}
+.pathcard-head .map-icon svg{width:22px;height:22px}
+.pathcard-titles h3{font-size:16px;font-weight:700;letter-spacing:-.2px;line-height:1.25}
+.pathcount{font-family:var(--mono);font-size:11px;color:var(--mut);font-weight:500}
+.pathdesc{font-size:13px;color:var(--mut);line-height:1.55;padding:8px 20px 0}
+.pathsteps{list-style:none;margin:12px 0 0;padding:2px 20px 0;position:relative;display:flex;flex-direction:column}
+.pathstep{position:relative;padding:2px 0 16px 36px;min-height:44px}
+.pathstep::before{content:attr(data-n);position:absolute;left:0;top:0;width:26px;height:26px;border-radius:50%;background:var(--card);border:1.5px solid var(--cat,var(--brand));color:var(--ink);font-family:var(--mono);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;z-index:1}
+.pathstep::after{content:"";position:absolute;left:12px;top:28px;bottom:0;width:2px;background:color-mix(in srgb,var(--cat) 32%,var(--line-soft));border-radius:2px}
+.pathstep:last-child::after{display:none}
+.pathstep.finish::before{background:var(--cat,var(--brand));border-color:var(--cat,var(--brand));color:#0B0D10}
+[data-theme=light] .pathstep.finish::before{color:#fff}
+.pathsteps.long .pathstep{padding-bottom:9px;min-height:38px}
+.steptitle{display:block;font-size:14.5px;font-weight:600;line-height:1.35;color:var(--ink)}
+.steptitle:hover{color:var(--cat,var(--brand))}
+.stepmeta{display:block;font-family:var(--mono);font-size:11px;color:var(--mut);margin-top:3px}
+.finpill{display:inline-block;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.4px;background:color-mix(in srgb,var(--cat) 12%,transparent);border:1px solid color-mix(in srgb,var(--cat) 35%,transparent);color:var(--cat);border-radius:9999px;padding:1px 8px;margin-left:6px;white-space:nowrap}
+.difbadge{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:3px 9px;border-radius:9999px;border:1px solid;color:var(--cat);background:color-mix(in srgb,var(--cat) 10%,var(--bg2));border-color:color-mix(in srgb,var(--cat) 22%,var(--line-soft));white-space:nowrap}
+.difbadge.beg{--cat:#2ECC71}
+.difbadge.int{--cat:#F5A524}
+.difbadge.adv{--cat:#E5484D}
+.pathfoot{display:flex;gap:6px;flex-wrap:wrap;padding:14px 20px 18px;margin-top:auto}
+@media(max-width:600px){.pathgrid{grid-template-columns:1fr}.pathstep{padding-bottom:14px}.pathsteps.long .pathstep{padding-bottom:8px}}
 .rubric{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
 .rubric div{flex:1;min-width:200px;background:var(--card);border:1px solid var(--line-soft);border-radius:10px;padding:12px 16px;font-size:13px;color:var(--mut)}
 .rubric b{display:block;color:var(--ink);margin-bottom:4px}
@@ -275,9 +296,17 @@ table.gloss th{background:var(--bg2)}
 .markbtn{background:transparent;border:1px solid var(--line);color:var(--ink);border-radius:9999px;font-size:12px;padding:4px 12px;cursor:pointer}
 .markbtn.on{background:var(--acc-soft);border-color:var(--brand);color:var(--brand)}
 .relatedbox{background:var(--card);border:1px solid var(--line-soft);border-radius:14px;padding:18px 22px;margin-top:28px}
-.relatedbox h4{font-family:var(--mono);font-size:11px;letter-spacing:.6px;text-transform:uppercase;color:var(--mut);margin-bottom:10px}
-.relatedbox ul{list-style:none;display:flex;gap:8px;flex-wrap:wrap}
-.relatedbox a{font-size:13px;border:1px solid var(--line);border-radius:9999px;padding:5px 14px}
+.relatedbox h4{font-family:var(--mono);font-size:11px;letter-spacing:.6px;text-transform:uppercase;color:var(--mut);margin-bottom:12px}
+.relgrid{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin:0;padding:0}
+.relcard{position:relative;display:flex;gap:10px;align-items:flex-start;background:var(--bg2);border:1px solid var(--line-soft);border-left:3px solid var(--cat,var(--brand));border-radius:10px;padding:10px 12px}
+.rel-icon{width:30px;height:30px;border-radius:8px;flex:none;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--cat) 12%,var(--bg2));border:1px solid color-mix(in srgb,var(--cat) 18%,var(--line-soft));color:var(--cat)}
+.rel-icon svg{width:16px;height:16px;display:block}
+.rel-main{display:flex;flex-direction:column;gap:4px;min-width:0;flex:1}
+.rel-main>a{font-size:13.5px;font-weight:600;line-height:1.35;color:var(--ink)}
+.rel-main>a:hover{color:var(--cat,var(--brand))}
+.rel-meta{font-family:var(--mono);font-size:11px;color:var(--mut);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.rel-why{font-family:var(--mono);font-size:10px;font-weight:600;color:var(--cat)}
+@media(max-width:600px){.relgrid{grid-template-columns:1fr}}
 .upnext{display:flex;justify-content:space-between;gap:10px;background:var(--acc-soft);border:1px solid var(--brand);border-radius:14px;padding:14px 20px;margin-top:20px;font-size:14px}
 .labcheck{list-style:none;margin:12px 0}
 .labcheck li{display:flex;gap:10px;align-items:flex-start;background:var(--card);border:1px solid var(--line-soft);border-radius:10px;padding:10px 14px;margin-bottom:8px;font-size:14px}
@@ -678,6 +707,9 @@ def toc_of(pages):
 
 
 DIFF_RANK = {"Beginner": 0, "Intermediate": 1, "Advanced": 2}
+CAT_HEX = {"CI/CD":"#5B8DEF","Build":"#F5A524","Testing":"#2ECC71","Security":"#E5484D","Reliability":"#9B7BF0","Jenkins":"#22B8CF","Delivery":"#F472B6","GitHub":"#94A3B8","Platforms":"#F97316","Labs":"#EAB308","Reference":"#64748B","Roadmap":"#18E299"}
+DIF_SHORT = {"Beginner":"Beg","Intermediate":"Int","Advanced":"Adv"}
+DIF_CLS = {"Beginner":"beg","Intermediate":"int","Advanced":"adv"}
 
 
 def reader_url(b):
@@ -703,7 +735,7 @@ CATEGORY_ICONS = {
 def _slug_cat(name):
     return re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-").replace("--","-")
 
-def build_map_page(books, output_dir):
+def build_map_page(books, output_dir, paths_html=""):
     """Structure Map — 12 pseudo-3D blocks derived from books.json categories at build time.
     No second manifest: grouping, counts, difficulty spread computed here.
     Reuses card() markup for detail views, BASE_CSS vars for theming.
@@ -715,7 +747,7 @@ def build_map_page(books, output_dir):
     # deterministic order: CAT_ORDER first, then rest alpha; no hardcoded count
     CAT_ORDER = ["CI/CD","Jenkins","Labs","Platforms","Roadmap","Build","Testing","Delivery","Security","Reliability","Reference","GitHub"]
     cats_sorted = [c for c in CAT_ORDER if c in bycat] + sorted([c for c in bycat if c not in CAT_ORDER])
-    CAT_COLORS_MAP = {"CI/CD":"#5B8DEF","Build":"#F5A524","Testing":"#2ECC71","Security":"#E5484D","Reliability":"#9B7BF0","Jenkins":"#22B8CF","Delivery":"#F472B6","GitHub":"#94A3B8","Platforms":"#F97316","Labs":"#EAB308","Reference":"#64748B","Roadmap":"#18E299"}
+    CAT_COLORS_MAP = CAT_HEX
     # Build blocks html
     blocks_html = ""
     detail_html = ""
@@ -808,16 +840,16 @@ def build_map_page(books, output_dir):
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Structure Map — CICD BY Nabawy</title>
-{seo_tags("Structure Map — CICD BY Nabawy", "Zoomed-out visual map of the CI/CD knowledge structure — 12 categories derived from books.json.", f"{SITE_URL}/map.html")}
+<title>CICD BY Nabawy</title>
+{seo_tags("CICD BY Nabawy", "Zoomed-out structure map of the CI/CD library — 12 categories derived from books.json — plus ordered learning paths.", f"{SITE_URL}/")}
 <style>{BASE_CSS}</style><script>try{{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}}catch(e){{document.documentElement.dataset.theme='sepia'}}</script>
 </head>
 <body>
 <header class="top"><div class="wrap">
 <a class="logo" href="index.html" style="color:inherit"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="5" cy="12" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="6" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="18" r="2.6" stroke="#18E299" stroke-width="2"/><path d="M7.6 12h5.2m0 0-2.6-2.6m2.6 2.6-2.6 2.6M13.4 7.4l2.8-1M13.4 16.6l2.8 1" stroke="#18E299" stroke-width="2" stroke-linecap="round"/></svg>CICD<span> BY Nabawy</span></a>
 <div class="search"><div class="searchwrap"><input id="q" type="search" placeholder="Search all {len(books)} books…" autocomplete="off"><div class="searchdrop" id="qdrop" role="listbox"></div></div><kbd>⌘K</kbd></div>
-<a class="btn" href="index.html" style="text-decoration:none">Library</a>
-<a class="btn" href="map.html" aria-current="page" style="text-decoration:none;border-color:var(--brand);color:var(--brand)">Map</a>
+<a class="btn" href="index.html" aria-current="page" style="text-decoration:none;border-color:var(--brand);color:var(--brand)">Map</a>
+<a class="btn" href="shelf.html" style="text-decoration:none">Browse</a>
 <a class="btn" href="roadmap/" style="text-decoration:none">Roadmap</a>
 <a class="btn" href="glossary.html" style="text-decoration:none">Glossary</a>
 <button class="btn" id="themebtn" aria-label="Toggle theme">☀</button>
@@ -825,10 +857,11 @@ def build_map_page(books, output_dir):
 <div class="wrap">
 <div class="map-hero"><span class="eyebrow">STRUCTURE MAP</span><h1>The whole building, <span style="color:var(--mut)">one glance.</span></h1><p>{stats_line}</p></div>
 <div class="map-grid" id="mapGrid" role="list" aria-label="Knowledge structure map">{blocks_html}</div>
+{paths_html}
 <div id="mapDetails">{detail_html}</div>
-<div class="empty" id="mapEmpty" style="display:none">No category matches this link. <a href="map.html">Back to map</a></div>
+<div class="empty" id="mapEmpty" style="display:none">No category matches this link. <a href="index.html">Back to map</a></div>
 </div>
-<footer><div class="wrap"><span>CICD BY Nabawy</span><span><a href="index.html">Library</a> · <a href="roadmap/">Roadmap</a> · <a href="glossary.html">Glossary</a> · <a href="map.html">Map</a> · v2.1 Sep 2026</span></div></footer>
+<footer><div class="wrap"><span>CICD BY Nabawy</span><span><a href="index.html">Map</a> · <a href="shelf.html">Browse</a> · <a href="roadmap/">Roadmap</a> · <a href="glossary.html">Glossary</a> · v2.1 Sep 2026</span></div></footer>
 <script>
 (function(){{
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
@@ -839,13 +872,13 @@ const THS=['sepia','dark','light','dim','contrast'],THI={{dark:'☀',light:'☾'
 function syncTheme(){{const th=THS.includes(pref.theme)?pref.theme:'sepia';document.documentElement.dataset.theme=th;const t=$('#themebtn');if(t)t.textContent=THI[th]||'☀'}}
 syncTheme();
 $('#themebtn').onclick=()=>{{pref.theme=THS[(THS.indexOf(pref.theme)+1)%THS.length];setP('cicdlib:pref',pref);syncTheme()}};
-const grid=$('#mapGrid'),details=$$('.map-detail'),empty=$('#mapEmpty');
+const grid=$('#mapGrid'),details=$$('.map-detail'),empty=$('#mapEmpty'),paths=$('#mapPaths');
 function slugFromHash(){{return location.hash.replace(/^#/,'').trim().toLowerCase();}}
 function showDetail(slug, push){{
   const target=document.getElementById('detail-'+slug);
-  if(!slug){{ grid.style.display=''; grid.classList.remove('hidden'); details.forEach(d=>d.classList.remove('active')); empty.style.display='none'; document.title='Structure Map — CICD BY Nabawy'; return; }}
-  if(!target){{ grid.style.display='none'; details.forEach(d=>d.classList.remove('active')); empty.style.display=''; return; }}
-  grid.style.display='none'; grid.classList.add('hidden');
+  if(!slug){{ grid.style.display='';if(paths)paths.style.display=''; grid.classList.remove('hidden'); details.forEach(d=>d.classList.remove('active')); empty.style.display='none'; document.title='Structure Map — CICD BY Nabawy'; return; }}
+  if(!target){{ grid.style.display='none';if(paths)paths.style.display='none'; details.forEach(d=>d.classList.remove('active')); empty.style.display=''; return; }}
+  grid.style.display='none';if(paths)paths.style.display='none'; grid.classList.add('hidden');
   details.forEach(d=>d.classList.toggle('active', d===target));
   empty.style.display='none';
   const cat=target.dataset.cat||slug;
@@ -875,17 +908,18 @@ document.addEventListener('click', e=>{{
 $$('[data-back]').forEach(b=>b.addEventListener('click',()=>{{
   const active = document.querySelector('.map-detail.active');
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(active && !prefersReduced){{
-    active.classList.add('exiting');
-    active.addEventListener('animationend', ()=>{{
-      history.pushState(null,'',location.pathname+location.search);
-      showDetail('',false);
-      window.scrollTo({{top:0,behavior:'smooth'}});
-    }}, {{once:true}});
-  }} else {{
-    history.pushState(null,'',location.pathname+location.search);
+  function backHome(){{
+    if(location.hash){{ history.pushState(null,'',location.pathname+location.search); }}
+    if(active)active.classList.remove('exiting');
     showDetail('',false);
     window.scrollTo({{top:0,behavior: prefersReduced ? 'auto':'smooth'}});
+  }}
+  if(active && !prefersReduced){{
+    active.classList.add('exiting');
+    active.addEventListener('animationend', backHome, {{once:true}});
+    setTimeout(()=>{{ if(document.querySelector('.map-detail.exiting')) backHome(); }}, 500);
+  }} else {{
+    backHome();
   }}
 }}));;
 window.addEventListener('hashchange',()=>showDetail(slugFromHash(),false));
@@ -896,8 +930,16 @@ if(initial) showDetail(initial,false);
 </script>
 </body>
 </html>"""
-    pathlib.Path(output_dir, "map.html").write_text(page, encoding="utf-8")
-    print(f"BUILT map: {len(books)} books in {len(cats_sorted)} categories → {output_dir}/map.html")
+    pathlib.Path(output_dir, "index.html").write_text(page, encoding="utf-8")
+    redir = ("<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\">"
+        "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
+        "<title>Structure Map — CICD BY Nabawy</title>"
+        "<link rel=\"canonical\" href=\"https://eslamnabawy.github.io/cicd-by-nabawy/\">"
+        "<meta http-equiv=\"refresh\" content=\"0; url=./\">"
+        "<script>location.replace('./'+location.hash)</script>"
+        "</head><body><p>Structure Map moved home — <a href=\"./\">continue to the map</a>.</p></body></html>")
+    pathlib.Path(output_dir, "map.html").write_text(redir, encoding="utf-8")
+    print(f"BUILT map landing: {len(books)} books in {len(cats_sorted)} categories → {output_dir}/index.html (+ map.html redirect)")
 
 def build_roadmap_page(books, output_dir):
     """Static visual map of every manifest book, grouped by category.
@@ -955,8 +997,8 @@ def build_roadmap_page(books, output_dir):
 <a class="logo" href="../index.html" style="color:inherit"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="5" cy="12" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="6" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="18" r="2.6" stroke="#18E299" stroke-width="2"/><path d="M7.6 12h5.2m0 0-2.6-2.6m2.6 2.6-2.6 2.6M13.4 7.4l2.8-1M13.4 16.6l2.8 1" stroke="#18E299" stroke-width="2" stroke-linecap="round"/></svg>CICD<span> BY Nabawy</span></a>
 <nav class="crumbs"><span class="sep">/</span><span class="here">Roadmap</span></nav>
 <div class="search"></div>
-<a class="btn" href="../index.html" style="text-decoration:none">Library</a>
-<a class="btn" href="../map.html" style="text-decoration:none">Map</a>
+<a class="btn" href="../index.html" style="text-decoration:none">Map</a>
+<a class="btn" href="../shelf.html" style="text-decoration:none">Browse</a>
 <a class="btn" href="../glossary.html" style="text-decoration:none">Glossary</a>
 <button class="btn" id="themebtn" aria-label="Toggle theme">☀</button>
 </div></header>
@@ -986,18 +1028,9 @@ $('#themebtn').onclick=()=>{{pref.theme=THS[(THS.indexOf(pref.theme)+1)%THS.leng
 
 
 def build():
+    from collections import Counter
     books = json.load(open(os.path.join(ROOT, "content", "books.json"), encoding="utf-8"))
     os.makedirs(READ, exist_ok=True)
-    build_map_page(books, DIST)
-    build_roadmap_page(books, DIST)
-    # shared icon library: single source (KB assets) copied into dist
-    shutil.rmtree(os.path.join(DIST, "assets"), ignore_errors=True)
-    shutil.copytree(os.path.join(KB, "assets"), os.path.join(DIST, "assets"))
-    # print editions ship with the site so reader "Open print HTML" works live
-    shutil.rmtree(os.path.join(DIST, "pdf"), ignore_errors=True)
-    shutil.copytree(PDF, os.path.join(DIST, "pdf"))
-    stats = []
-
     try:
         pathdata = json.load(open(os.path.join(ROOT, "content", "paths.json"), encoding="utf-8"))
         PATH_ORDER = pathdata.get("order", [])
@@ -1009,22 +1042,41 @@ def build():
         bypath.setdefault(b.get("path", "ci-core"), []).append(b)
     byid = {b["id"]: b for b in books}
 
-    def related_books(b, n=3):
+    def related_books(b, n=4):
+        """Build-time static, context-aware: adjacent path steps first, then
+        explicit prereq links, then same path / same category / shared tags."""
+        seq = bypath.get(b.get("path", ""), [])
+        ids = [x["id"] for x in seq]
+        pos = ids.index(b["id"]) if b["id"] in ids else -1
+        btags = set(b.get("tags", []))
         scored = []
-        for o in bypath.get(b.get("path", ""), []):
+        for o in books:
             if o["id"] == b["id"]:
                 continue
-            score = len(set(b.get("tags", [])) & set(o.get("tags", []))) * 2 + (o["category"] == b["category"])
-            scored.append((score, o))
+            opos = ids.index(o["id"]) if o["id"] in ids else -1
+            sig = []
+            if pos >= 0 and opos >= 0:
+                d = opos - pos
+                if d == 1:
+                    sig.append((12, "Next in path"))
+                elif d == -1:
+                    sig.append((10, "Previous in path"))
+                else:
+                    sig.append((4, "Same path"))
+            if o["id"] in b.get("prereqs", []):
+                sig.append((8, "Prerequisite"))
+            elif b["id"] in o.get("prereqs", []):
+                sig.append((8, "Follow-up"))
+            if o["category"] == b["category"]:
+                sig.append((3, "Same topic"))
+            shared = len(btags & set(o.get("tags", [])))
+            if shared:
+                sig.append((2 * shared, "Shared tags"))
+            score = sum(w for w, _ in sig)
+            why = max(sig)[1] if sig else "More to explore"
+            scored.append((score, o, why))
         scored.sort(key=lambda t: (-t[0], t[1]["title"]))
-        rel = [o for _, o in scored[:n]]
-        if len(rel) < n:
-            for o in books:
-                if o["id"] != b["id"] and o not in rel:
-                    rel.append(o)
-                if len(rel) >= n:
-                    break
-        return rel
+        return [(o, w) for _, o, w in scored[:n]]
 
     def path_next(b):
         seq = bypath.get(b.get("path", ""), [])
@@ -1032,6 +1084,78 @@ def build():
         if b["id"] in ids and ids.index(b["id"]) + 1 < len(ids):
             return byid[ids[ids.index(b["id"]) + 1]]
         return None
+
+    def related_box_html(rels):
+        items = ""
+        for o, why in rels:
+            color = CAT_HEX.get(o.get("category", ""), "#18E299")
+            icon = CATEGORY_ICONS.get(o.get("category", ""), CATEGORY_ICONS["Reference"])
+            dc = DIF_CLS.get(o.get("difficulty", ""), "int")
+            ds = DIF_SHORT.get(o.get("difficulty", ""), o.get("difficulty", ""))
+            items += (
+                f'<li class="relcard" data-cat="{html.escape(o.get("category", ""))}" style="--cat:{color}">'
+                f'<span class="rel-icon" aria-hidden="true">{icon}</span>'
+                f'<span class="rel-main"><a href="{o["id"]}.html">{html.escape(o["title"])}</a>'
+                f'<span class="rel-meta">{o.get("time_minutes", 30)} min · <span class="difbadge {dc}">{ds}</span></span>'
+                f'<span class="rel-why">→ {html.escape(why)}</span></span></li>')
+        return f'<div class="relatedbox"><h4>Related books</h4><ul class="relgrid">{items}</ul></div>'
+
+    def paths_section_html(wrap_id=""):
+        """Journey cards: dominant-category accent+icon, connected numbered
+        steps with difficulty badges + finish marker, pill footer stats."""
+        cards = ""
+        for pid in (PATH_ORDER or sorted(bypath.keys())):
+            seq = bypath.get(pid, [])
+            if not seq:
+                continue
+            label = PATHS.get(pid, {}).get("label", pid)
+            desc = PATHS.get(pid, {}).get("desc", "")
+            tmin = sum(x.get("time_minutes", 30) for x in seq)
+            dom = Counter(x.get("category", "") for x in seq).most_common(1)[0][0]
+            color = CAT_HEX.get(dom, "#18E299")
+            icon = CATEGORY_ICONS.get(dom, CATEGORY_ICONS["Reference"])
+            ranks = sorted(DIFF_RANK.get(x.get("difficulty", ""), 9) for x in seq)
+            inv = {v: k for k, v in DIFF_RANK.items()}
+            lo, hi = DIF_SHORT.get(inv.get(ranks[0], ""), ""), DIF_SHORT.get(inv.get(ranks[-1], ""), "")
+            span = lo if lo == hi else f"{lo}→{hi}"
+            steps = ""
+            for n, x in enumerate(seq, 1):
+                last = n == len(seq)
+                dc = DIF_CLS.get(x.get("difficulty", ""), "int")
+                ds = DIF_SHORT.get(x.get("difficulty", ""), x.get("difficulty", ""))
+                fin = ' <span class="finpill">🏁 Finish</span>' if last else ""
+                steps += (
+                    f'<li class="pathstep{" finish" if last else ""}" data-n="{n:02d}">'
+                    f'<a class="steptitle" href="read/{x["id"]}.html">{html.escape(x["title"])}</a>'
+                    f'<span class="stepmeta">{x.get("time_minutes", 30)} min · <span class="difbadge {dc}">{ds}</span>{fin}</span></li>')
+            long = " long" if len(seq) >= 6 else ""
+            unit = "book" if len(seq) == 1 else "books"
+            cards += (
+                f'<article class="pathcard" id="path-{pid}" data-cat="{html.escape(dom)}" style="--cat:{color}" aria-label="{html.escape(label)} learning path">'
+                f'<div class="pathcard-head"><span class="map-icon" aria-hidden="true">{icon}</span>'
+                f'<div class="pathcard-titles"><h3>{html.escape(label)}</h3>'
+                f'<span class="pathcount">{len(seq)} {unit} · ~{tmin} min</span></div></div>'
+                f'<p class="pathdesc">{html.escape(desc)}</p>'
+                f'<ol class="pathsteps{long}">{steps}</ol>'
+                f'<div class="pathfoot"><span class="map-pill"><b>{len(seq)}</b> {unit}</span>'
+                f'<span class="map-pill">~<b>{tmin}</b> min</span>'
+                f'<span class="map-pill">Level <b>{span}</b></span></div></article>')
+        inner = ('<div class="collectlabel">LEARNING PATHS</div>'
+                 '<p class="sub">Ordered end to end — follow a path, don\u2019t wander shelves.</p>'
+                 f'<div class="pathgrid" data-testid="learning-paths">{cards}</div>')
+        return f'<div id="{wrap_id}">{inner}</div>' if wrap_id else inner
+
+    build_map_page(books, DIST, paths_html=paths_section_html(wrap_id="mapPaths"))
+    build_roadmap_page(books, DIST)
+    # shared icon library: single source (KB assets) copied into dist
+    shutil.rmtree(os.path.join(DIST, "assets"), ignore_errors=True)
+    shutil.copytree(os.path.join(KB, "assets"), os.path.join(DIST, "assets"))
+    # print editions ship with the site so reader "Open print HTML" works live
+    shutil.rmtree(os.path.join(DIST, "pdf"), ignore_errors=True)
+    shutil.copytree(PDF, os.path.join(DIST, "pdf"))
+    stats = []
+
+    # (path context + related/path helpers are defined at the top of build())
 
     all_sections = {}
     # P2.3: book id -> markdown source (from AUDIT_STRUCTURE mapping; 3 roadmaps are pdf-only)
@@ -1083,8 +1207,8 @@ def build():
             prereq_html = '<span class="prereq">Prereq: None — start here</span>'
         contextbar = (
             f'<div class="readcontext" data-testid="reader-context"><div class="wrap">'
-            f'<a href="../index.html">Library</a><span>›</span>'
-            f'<a href="../index.html#{html.escape(b.get("path", ""))}">{html.escape(plabel)}</a><span>›</span>'
+            f'<a href="../shelf.html">Browse</a><span>›</span>'
+            f'<a href="../shelf.html#path-{html.escape(b.get("path", ""))}">{html.escape(plabel)}</a><span>›</span>'
             f'<span class="here">{html.escape(b["title"])}</span>'
             f'<span class="pathpos">{ppos} of {ptotal} in {html.escape(plabel)}</span>'
             f'{prereq_html}</div></div>')
@@ -1143,7 +1267,8 @@ def build():
 <div class="search"><input id="q" type="search" placeholder="Find in this book…" aria-label="Find in this book"><kbd>⌘K</kbd></div>
 <span id="qcount" style="font-size:12px;color:var(--mut)"></span>
 <button class="markbtn" id="markbtn" aria-label="Bookmark this book">☆ Save</button>
-<a class="btn" href="../map.html" style="text-decoration:none">Map</a>
+<a class="btn" href="../index.html" style="text-decoration:none">Map</a>
+<a class="btn" href="../shelf.html" style="text-decoration:none">Browse</a>
 <a class="btn" href="../book/{b['id']}.html" style="text-decoration:none">Overview</a>
 <button class="btn" id="setbtn" aria-label="Reading settings">⚙ A⁺</button>
 </div>
@@ -1159,7 +1284,7 @@ def build():
 {f'<div class="labbanner">🧪 Hands-on lab · {b.get("time_minutes", 45)} min · Env: {html.escape(b.get("lab_env", "See book overview"))} · <a href="../book/' + b["id"] + '.html">Overview &amp; prereqs</a> · <button class="markbtn" id="labreset" style="margin-left:8px">Reset checks</button></div>' if is_lab else ''}
 {''.join(body_pages)}
 {f'<div class="upnext">Up next in {html.escape(PATHS.get(b.get("path", ""), {}).get("label", b.get("path", "")))} → <a href="{upnext["id"]}.html"><b>{html.escape(upnext["title"])}</b></a></div>' if upnext else ''}
-<div class="relatedbox"><h4>Related books</h4><ul>{"".join(f'<li><a href="{r["id"]}.html">{html.escape(r["title"])}</a></li>' for r in rels)}</ul></div>
+{related_box_html(rels)}
 <div class="ratebox" id="ratebox"><span>Was this book useful?</span><button id="rateup" aria-label="Mark useful">👍 Yes</button><button id="ratedown" aria-label="Mark not useful">👎 No</button><span id="ratethanks" style="color:var(--mut)"></span></div>
 <div class="chapnav">{prev_link}{next_link}</div>
 </div></main>
@@ -1312,24 +1437,14 @@ def build():
         f'<ol class="rec-steps">{rec_steps}</ol>'
         + (f'<a class="rec-cta" href="read/{first["id"]}.html">★ Start with {html.escape(first["title"])} — {first.get("time_minutes", 30)} min →</a>' if first else '')
         + f'</section>') if rec_seq else ""
-    paths_html = ""
-    for pid in (PATH_ORDER or sorted(bypath.keys())):
-        seq = bypath.get(pid, [])
-        if not seq:
-            continue
-        label = PATHS.get(pid, {}).get("label", pid)
-        desc = PATHS.get(pid, {}).get("desc", "")
-        tmin = sum(b.get("time_minutes", 30) for b in seq)
-        lis = "".join(f'<li><a href="read/{b["id"]}.html"><b>{html.escape(b["title"])}</b></a> · {b.get("time_minutes", 30)} min · {b["difficulty"]}</li>' for b in seq)
-        paths_html += f'<div class="pathcard"><h3>{html.escape(label)}</h3><p>{html.escape(desc)}</p><ol>{lis}</ol><div class="meta">{len(seq)} books · ~{tmin} min</div></div>'
 
     index = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CICD BY Nabawy</title>
-{seo_tags("CICD BY Nabawy", SITE_DESC, f"{SITE_URL}/", image=f"{SITE_URL}/og/library.svg")}
+<title>CICD BY Nabawy — Browse all books</title>
+{seo_tags("CICD BY Nabawy — Browse", SITE_DESC, f"{SITE_URL}/shelf.html", image=f"{SITE_URL}/og/library.svg")}
 <style>{BASE_CSS}</style><script>try{{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}}catch(e){{document.documentElement.dataset.theme='sepia'}}</script>
 <script type="application/ld+json">{json.dumps({"@context":"https://schema.org","@type":"CollectionPage","name":"CICD BY Nabawy","description":SITE_DESC,"url":SITE_URL,"hasPart":[{"@type":"TechArticle","name":b["title"],"url":SITE_URL + "/read/" + b["id"] + ".html"} for b in books]})}</script>
 </head>
@@ -1337,7 +1452,8 @@ def build():
 <header class="top"><div class="wrap">
 <span class="logo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="5" cy="12" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="6" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="18" r="2.6" stroke="#18E299" stroke-width="2"/><path d="M7.6 12h5.2m0 0-2.6-2.6m2.6 2.6-2.6 2.6M13.4 7.4l2.8-1M13.4 16.6l2.8 1" stroke="#18E299" stroke-width="2" stroke-linecap="round"/></svg>CICD<span> BY Nabawy</span></span>
 <div class="search"><div class="searchwrap"><input id="q" type="search" placeholder="Search all {len(books)} books…" autocomplete="off"><div class="searchdrop" id="qdrop" role="listbox"></div></div><kbd>⌘K</kbd></div>
-<a class="btn" href="map.html" style="text-decoration:none">Map</a>
+<a class="btn" href="index.html" style="text-decoration:none">Map</a>
+<a class="btn" href="shelf.html" aria-current="page" style="text-decoration:none;border-color:var(--brand);color:var(--brand)">Browse</a>
 <a class="btn" href="roadmap/">Roadmap</a>
 <a class="btn" href="glossary.html" style="text-decoration:none">Glossary</a>
 <button class="btn" id="themebtn" aria-label="Toggle theme">☀</button>
@@ -1349,9 +1465,7 @@ def build():
 <div id="continue"></div>
 <div id="marksrow"></div>
 {rec_html}
-<div class="collectlabel">LEARNING PATHS</div>
-<p class="sub">Ordered end to end — follow a path, don't wander shelves.</p>
-<div class="pathgrid">{paths_html}</div>
+{paths_section_html()}
 <div class="collectlabel">LEVELS</div>
 <div class="rubric"><div><b>Beginner</b>No prior CI/CD. Start with Foundations → Git → Pipelines.</div><div><b>Intermediate</b>Built a pipeline. Tackle artifacts, delivery, Jenkins core, labs.</div><div><b>Advanced</b>Runs prod. Security, Jenkins advanced, GitOps, recovery drills.</div></div>
 <div class="collectlabel">BROWSE EVERYTHING</div>
@@ -1363,7 +1477,7 @@ def build():
 <div class="empty" id="empty" style="display:none">No books found. Try another search — or start with <a href="read/foundations.html">Foundations</a>.</div>
 </div>
 <a id="resume" href="#" style="display:none">Resume</a>
-<footer><div class="wrap"><span>CICD BY Nabawy</span><span><a href="updates.html">Updates</a> · <a href="glossary.html">Glossary</a> · <a href="roadmap/">Roadmap</a> · v2.1 Sep 2026</span></div></footer>
+<footer><div class="wrap"><span>CICD BY Nabawy</span><span><a href="index.html">Map</a> · <a href="updates.html">Updates</a> · <a href="glossary.html">Glossary</a> · <a href="roadmap/">Roadmap</a> · v2.1 Sep 2026</span></div></footer>
 <script>window.SEARCH_IDX={json.dumps(search_idx, ensure_ascii=False)};</script>
 <script>{INDEX_JS}</script>
 <script>
@@ -1372,7 +1486,8 @@ try{{const cats=[...new Set($$('.book[data-id]').map(c=>c.dataset.cat))].sort();
 </script>
 </body>
 </html>"""
-    open(os.path.join(DIST, "index.html"), "w", encoding="utf-8").write(index)
+    open(os.path.join(DIST, "shelf.html"), "w", encoding="utf-8").write(index)
+    print(f"BUILT shelf: {len(books)} books + paths + shelves → {DIST}/shelf.html")
 
     # glossary (dedupe by term, anchor links)
     rows = re.findall(r"^\| ([^|]+) \| ([^|]+) \| ([^|]+) \|", open(os.path.join(KB, "GLOSSARY.md"), encoding="utf-8").read(), re.M)
@@ -1391,7 +1506,7 @@ try{{const cats=[...new Set($$('.book[data-id]').map(c=>c.dataset.cat))].sort();
 <title>Glossary — CICD BY Nabawy</title>{seo_tags("Glossary — CICD BY Nabawy", "CI/CD glossary: terms shared by all books, reader and search.", f"{SITE_URL}/glossary.html")}<style>{BASE_CSS}</style><script>try{{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}}catch(e){{document.documentElement.dataset.theme='sepia'}}</script></head>
 <body>
 <header class="top"><div class="wrap"><a class="logo" href="index.html" style="text-decoration:none;color:inherit"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="5" cy="12" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="6" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="18" r="2.6" stroke="#18E299" stroke-width="2"/><path d="M7.6 12h5.2m0 0-2.6-2.6m2.6 2.6-2.6 2.6M13.4 7.4l2.8-1M13.4 16.6l2.8 1" stroke="#18E299" stroke-width="2" stroke-linecap="round"/></svg>CICD<span> BY Nabawy</span></a>
-<div class="search"><input id="q" type="search" placeholder="Filter terms…"></div><a class="btn" href="map.html" style="text-decoration:none">Map</a><a class="btn" href="roadmap/" style="text-decoration:none">Roadmap</a></div></header>
+<div class="search"><input id="q" type="search" placeholder="Filter terms…"></div><a class="btn" href="index.html" style="text-decoration:none">Map</a><a class="btn" href="shelf.html" style="text-decoration:none">Browse</a><a class="btn" href="roadmap/" style="text-decoration:none">Roadmap</a></div></header>
 <div class="wrap"><h2 class="sec">Glossary</h2><p class="sub">{len(re.findall('<tr>', grows))} terms · shared by books, reader and search</p>
 <table class="gloss"><tr><th>Term</th><th>Definition</th><th>Topic</th><th>Link</th></tr>{grows}</table></div>
 <footer><div class="wrap">CICD BY Nabawy</div></footer>
@@ -1413,14 +1528,14 @@ $$('table.gloss tr').forEach((r,i)=>{{if(!i)return;r.style.display=r.textContent
         initials = "".join(w[0] for w in re.sub(r"[^A-Za-z0-9 ]", "", b["title"]).split()[:2]).upper()
         bp = f"""<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>{html.escape(b['title'])} — Overview — CICD BY Nabawy</title>{seo_tags(b['title'] + " — Overview — CICD BY Nabawy", b.get("description", ""), f"{SITE_URL}/book/{b['id']}.html", image=f"{SITE_URL}/og/{b['id']}.svg")}<link rel="prefetch" href="../read/{b['id']}.html"><style>{BASE_CSS}</style><script>try{{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}}catch(e){{document.documentElement.dataset.theme='sepia'}}</script>
 {f'<script type="application/ld+json">{json.dumps({"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":SITE_URL + "/"},{"@type":"ListItem","position":2,"name":b["title"],"item":SITE_URL + "/book/" + b["id"] + ".html"}]})}</script>'}></head>
-<body><header class="top"><div class="wrap"><a class="logo" href="../index.html" style="color:inherit">CICD<span> BY Nabawy</span></a><nav class="crumbs"><span class="sep">/</span><span class="here">{html.escape(b['title'])}</span></nav><div class="search"></div><a class="btn" href="../index.html">Library</a><a class="btn" href="../map.html">Map</a><button class="btn" id="themebtn">☀</button></div></header>
+<body><header class="top"><div class="wrap"><a class="logo" href="../index.html" style="color:inherit">CICD<span> BY Nabawy</span></a><nav class="crumbs"><span class="sep">/</span><span class="here">{html.escape(b['title'])}</span></nav><div class="search"></div><a class="btn" href="../shelf.html">Browse</a><a class="btn" href="../index.html">Map</a><button class="btn" id="themebtn">☀</button></div></header>
 <div class="wrap"><div class="bookhero"><div class="coverart" data-cat="{html.escape(b['category'])}"><b>{initials}</b></div><div style="flex:1;min-width:260px"><span class="num">{html.escape(b['category'])} · {b['difficulty']} · {b.get('time_minutes', 30)} min · v{b.get('version', '2.0')} · Updated {html.escape(b.get('updated', ''))}</span><h1 style="font-size:34px;margin:6px 0">{html.escape(b['title'])}</h1><p class="sub">{html.escape(b.get('description', ''))}</p>
 <div class="chiprow"><a id="startbtn" href="../read/{b['id']}.html">Start reading →</a><a href="../pdf/{b['file']}">Open print HTML</a><a href="../read/{b['id']}.html">Reader</a></div>
 <div class="chiprow"><span>Prereqs:</span>{preq}</div></div></div>
 <div class="outcomes"><b>What you'll learn</b><ul>{outs}</ul></div>
 <h2 class="sec" style="margin-top:20px">Contents preview</h2><ul class="labcheck">{"".join(f"<li>{html.escape(t)}</li>" for t in toc)}</ul>
 {f'<div class="upnext">Up next in {html.escape(PATHS.get(b.get("path", ""), {}).get("label", b.get("path", "")))} → <a href="{upnext["id"]}.html"><b>{html.escape(upnext["title"])}</b></a></div>' if upnext else ''}
-<div class="relatedbox"><h4>Related books</h4><ul>{"".join(f'<li><a href="{r["id"]}.html">{html.escape(r["title"])}</a></li>' for r in rels)}</ul></div>
+{related_box_html(rels)}
 </div><footer><div class="wrap"><span>CICD BY Nabawy</span></div></footer>
 <script>{BASE_JS}
 const pref=getP('cicdlib:pref',{{theme:'sepia'}});const THX=['sepia','dark','light','dim','contrast'];document.documentElement.dataset.theme=THX.includes(pref.theme)?pref.theme:'sepia';
@@ -1437,7 +1552,7 @@ try{{const p=getP('cicdlib:prog:{b['id']}',null);if(p&&p.pct>0&&p.pct<100)$('#st
     # --- SEO: sitemap + robots ---
     from datetime import date as _d
     today = _d.today().isoformat()
-    urls = [SITE_URL + "/", SITE_URL + "/glossary.html", SITE_URL + "/roadmap/", SITE_URL + "/map.html", SITE_URL + "/updates.html"]
+    urls = [SITE_URL + "/", SITE_URL + "/shelf.html", SITE_URL + "/glossary.html", SITE_URL + "/roadmap/", SITE_URL + "/map.html", SITE_URL + "/updates.html"]
     for b in books:
         urls.append(f"{SITE_URL}/read/{b['id']}.html")
         urls.append(f"{SITE_URL}/book/{b['id']}.html")
@@ -1449,7 +1564,7 @@ try{{const p=getP('cicdlib:prog:{b['id']}',null);if(p&&p.pct>0&&p.pct<100)$('#st
     pathlib.Path(os.path.join(DIST, "robots.txt")).write_text(f"User-agent: *{chr(10)}Allow: /{chr(10)}Sitemap: {SITE_URL}/sitemap.xml{chr(10)}", encoding="utf-8")
 
     # --- P0: 404 + search index ---
-    notfound = f"""<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Not found — CICD BY Nabawy</title><link rel="icon" type="image/svg+xml" href="https://eslamnabawy.github.io/cicd-by-nabawy/favicon.svg"><meta name="theme-color" content="#0B0D10"><style>{BASE_CSS}</style><script>try{{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}}catch(e){{document.documentElement.dataset.theme='sepia'}}</script></head><body><div class="wrap" style="text-align:center;padding:80px 20px"><h1>Page not found</h1><p class="sub">Try search or start with Foundations.</p><p><a class="btn" href="index.html">Library</a> <a class="btn" href="read/foundations.html">Foundations</a> <a class="btn" href="glossary.html">Glossary</a></p></div></body></html>"""
+    notfound = f"""<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Not found — CICD BY Nabawy</title><link rel="icon" type="image/svg+xml" href="https://eslamnabawy.github.io/cicd-by-nabawy/favicon.svg"><meta name="theme-color" content="#0B0D10"><style>{BASE_CSS}</style><script>try{{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}}catch(e){{document.documentElement.dataset.theme='sepia'}}</script></head><body><div class="wrap" style="text-align:center;padding:80px 20px"><h1>Page not found</h1><p class="sub">Try search or start with Foundations.</p><p><a class="btn" href="index.html">Map</a> <a class="btn" href="shelf.html">Browse</a> <a class="btn" href="read/foundations.html">Foundations</a> <a class="btn" href="glossary.html">Glossary</a></p></div></body></html>"""
     pathlib.Path(os.path.join(DIST, "404.html")).write_text(notfound, encoding="utf-8")
     pathlib.Path(os.path.join(DIST, "favicon.svg")).write_text(FAVICON_SVG, encoding="utf-8")
     search_idx = [{"id": b["id"], "title": b["title"], "desc": b.get("description", ""), "cat": b["category"], "dif": b["difficulty"], "tags": b.get("tags", []), "time": b.get("time_minutes", 30), "sections": all_sections.get(b["id"], []), "body": all_body.get(b["id"], "")[:2000]} for b in books]
