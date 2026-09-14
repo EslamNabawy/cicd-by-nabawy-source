@@ -21,6 +21,7 @@
 | GitOps | Git as desired state; in-cluster operator pulls reality toward it | [ArgoCD & GitOps](15-platforms-and-tools/argocd-gitops.md) |
 | Game Day | Planned failure injection in staging to practice recovery | [Rollback & Recovery](14-reliability-and-recovery/rollback-recovery.md) |
 | Merge Queue | Serializes merges onto latest green main with re-verification | [Continuous Integration](02-continuous-integration/continuous-integration.md) |
+| Multibranch Pipeline | Auto-created sub-job per branch/PR with Jenkinsfile; reports checks, prunes dead branches | [Jenkins Pipelines](15-platforms-and-tools/jenkins/jenkins-pipelines.md) |
 | Error Budget | Allowable failure quota; burn it too fast and releases halt | [Continuous Delivery](07-continuous-delivery/continuous-delivery.md) |
 | Feedback | Signals (test results, metrics, alerts) returned to developers | [Observability & Feedback](13-observability-and-feedback/observability-feedback.md) |
 | Feature Flags | Runtime toggles switching code paths without redeploying; instant rollback | [Deployment Strategies](10-deployment-strategies/deployment-strategies.md) |
