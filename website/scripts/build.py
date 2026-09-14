@@ -242,6 +242,7 @@ header.top .logo span{display:none}
 header.top .search{display:none}
 header.top .btn{padding:6px 9px;font-size:12px;min-height:34px}
 header.top .wrap>.btn{flex:none}
+header.top #themebtn{width:32px;min-width:32px;padding:0}
 }
 @media(min-width:601px) and (max-width:900px){
 header.top .wrap{min-width:0;max-width:100%;padding:10px 18px;gap:8px;overflow:hidden}
