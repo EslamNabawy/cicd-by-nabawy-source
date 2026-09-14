@@ -272,6 +272,7 @@ main.read{padding:0}.readbody{max-width:none}}
 table.gloss{width:100%;border-collapse:collapse;font-size:14px;margin:16px 0}
 table.gloss td,table.gloss th{border:1px solid var(--line);padding:9px 11px;text-align:left}
 table.gloss th{background:var(--bg2)}
+table.gloss .upd{color:var(--brand);font-weight:700;font-size:11px;white-space:nowrap}
 /* P0: sepia theme + light leak guards + covers + filters + a11y */
 [data-theme=sepia]{--bg:#F6F1E7;--bg2:#EDE3CC;--card:#FFFBF0;--ink:#3B2F1E;--mut:#6F665A;--line:rgba(59,47,30,.16);--line-soft:rgba(59,47,30,.09);--acc:#0B9B68;--acc-soft:rgba(11,155,104,.11);--brand:#0B9B68;--shadow:rgba(59,47,30,.08) 0px 2px 8px;--shadow-btn:rgba(59,47,30,.10) 0px 1px 3px;--shadow-lift:rgba(59,47,30,.16) 0px 16px 32px -10px}
 [data-theme=sepia] .readbody{--paper:#FFFBF0;--white:#FFFBF0;--ink:#3B2F1E;--muted:#6F665A;--line:rgba(59,47,30,.14);--panel:#EDE3CC;--text-light:#3B2F1E}
@@ -1638,7 +1639,7 @@ def build():
     first = rec_seq[0] if rec_seq else None
     rec_html = (
         f'<section class="recstrip" data-testid="recommended-path" aria-label="Recommended reading path for beginners">'
-        f'<div class="rec-head"><span class="eyebrow">★ Start here — new to CI/CD</span>'
+        f'<div class="rec-head"><span class="eyebrow">★ First week — new to CI/CD</span>'
         f'<span class="rec-meta">{len(rec_seq)} books · ~{rec_total} min · Beginner</span></div>'
         f'<ol class="rec-steps">{rec_steps}</ol>'
         + (f'<a class="rec-cta" href="read/{first["id"]}.html">★ Start with {html.escape(first["title"])} — {first.get("time_minutes", 30)} min →</a>' if first else '')
@@ -1698,6 +1699,7 @@ try{{const cats=[...new Set($$('.book[data-id]').map(c=>c.dataset.cat))].sort();
     # glossary (dedupe by term, anchor links)
     rows = re.findall(r"^\| ([^|]+) \| ([^|]+) \| ([^|]+) \|", open(os.path.join(KB, "GLOSSARY.md"), encoding="utf-8").read(), re.M)
     seen = set()
+    MD_INV = {v: k for k, v in MD_MAP.items()}
     grows = ""
     for t, d, r in rows:
         t = t.strip()
@@ -1705,7 +1707,14 @@ try{{const cats=[...new Set($$('.book[data-id]').map(c=>c.dataset.cat))].sort();
             continue
         seen.add(t.lower())
         slug = re.sub(r"[^a-z0-9]+", "-", t.lower()).strip("-")
-        grows += f'<tr id="g-{slug}"><td><b>{html.escape(t)}</b></td><td>{html.escape(d.strip())}</td><td>{html.escape(r.strip())}</td><td><a href="#g-{slug}">#</a></td></tr>'
+        rm = re.match(r"\[([^]]+)\]\(([^)]+)\)", r.strip())
+        if rm:
+            rlabel, rpath = rm.group(1), rm.group(2)
+            rid = MD_INV.get(rpath)
+            topic = f'<a href="read/{rid}.html">{html.escape(rlabel)}</a>' if rid else html.escape(rlabel)
+        else:
+            topic = md_inline(r.strip())
+        grows += f'<tr id="g-{slug}"><td><b>{html.escape(t)}</b></td><td>{html.escape(d.strip())}</td><td>{topic}</td><td><a href="#g-{slug}" title="Permalink">¶</a></td></tr>'
     gloss = f"""<!DOCTYPE html>
 <html lang="en">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1713,7 +1722,7 @@ try{{const cats=[...new Set($$('.book[data-id]').map(c=>c.dataset.cat))].sort();
 <body>
 <header class="top"><div class="wrap"><a class="logo" href="index.html" style="text-decoration:none;color:inherit"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="5" cy="12" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="6" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="18" r="2.6" stroke="#18E299" stroke-width="2"/><path d="M7.6 12h5.2m0 0-2.6-2.6m2.6 2.6-2.6 2.6M13.4 7.4l2.8-1M13.4 16.6l2.8 1" stroke="#18E299" stroke-width="2" stroke-linecap="round"/></svg>CICD<span> BY Nabawy</span></a>
 <div class="search"><input id="q" type="search" placeholder="Filter terms…"></div><a class="btn" href="index.html" style="text-decoration:none">Map</a><a class="btn" href="shelf.html" style="text-decoration:none">Browse</a><a class="btn" href="roadmap/" style="text-decoration:none">Roadmap</a></div></header>
-<div class="wrap"><h2 class="sec">Glossary</h2><p class="sub">{len(re.findall('<tr>', grows))} terms · shared by books, reader and search</p>
+<div class="wrap"><h2 class="sec">Glossary</h2><p class="sub">{len(re.findall('<tr ', grows))} terms · shared by books, reader and search</p>
 <table class="gloss"><tr><th>Term</th><th>Definition</th><th>Topic</th><th>Link</th></tr>{grows}</table></div>
 <footer><div class="wrap">CICD BY Nabawy</div></footer>
 <script>{BASE_JS}
@@ -1750,8 +1759,33 @@ try{{const p=getP('cicdlib:prog:{b['id']}',null);if(p&&p.pct>0&&p.pct<100)$('#st
 </script></body></html>"""
         open(os.path.join(bookdir, b["id"] + ".html"), "w", encoding="utf-8").write(bp)
 
-    # --- P1: updates page ---
-    rows_u = "".join(f'<tr><td><a href="book/{b["id"]}.html">{html.escape(b["title"])}</a></td><td>{html.escape(b["category"])}</td><td>{b["difficulty"]}</td><td>v{html.escape(b.get("version", "2.0"))}</td><td>{html.escape(b.get("updated", ""))}</td><td>{b.get("time_minutes", 30)} min</td></tr>' for b in books)
+    # --- P1: updates page (per-book date from git, manifest fallback) ---
+    import subprocess as _sp
+    from datetime import date as _du
+    _today = _du.today()
+    def _book_date(b):
+        cands = [os.path.join(PDF, b["file"])]
+        _src = MD_MAP.get(b["id"])
+        if _src:
+            cands.append(os.path.join(KB, _src))
+        for _cp in cands:
+            try:
+                _out = _sp.check_output(["git", "log", "-1", "--format=%ad", "--date=short", "--", os.path.relpath(_cp, KB)], cwd=KB, stderr=_sp.DEVNULL, text=True).strip()
+                if _out:
+                    return _out
+            except Exception:
+                pass
+        return b.get("updated", "")
+    def _fresh(ds):
+        try:
+            return (_today - _du.fromisoformat(ds)).days <= 60
+        except Exception:
+            return False
+    def _urow(b):
+        _ds = _book_date(b)
+        _rib = ' <span class="upd">\u25cf Updated</span>' if _fresh(_ds) else ""
+        return (f'<tr><td><a href="book/{b["id"]}.html">{html.escape(b["title"])}</a></td><td>{html.escape(b["category"])}</td><td>{b["difficulty"]}</td><td>v{html.escape(b.get("version", "2.0"))}</td><td>{html.escape(_ds)}{_rib}</td><td>{b.get("time_minutes", 30)} min</td></tr>')
+    rows_u = "".join(_urow(b) for b in books)
     upd = f"""<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Updates — CICD BY Nabawy</title>{seo_tags("Updates — CICD BY Nabawy", "What changed across the library.", f"{SITE_URL}/updates.html")}<style>{BASE_CSS}</style><script>try{{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}}catch(e){{document.documentElement.dataset.theme='sepia'}}</script></head><body><header class="top"><div class="wrap"><a class="logo" href="index.html" style="color:inherit">CICD<span> BY Nabawy</span></a><nav class="crumbs"><span class="sep">/</span><span class="here">Updates</span></nav></div></header><div class="wrap"><h2 class="sec">Updates</h2><p class="sub">{len(books)} books · P0+P1 shipped Sep 2026: metadata, filters, paths, bookmarks, related, lab checks</p><table class="gloss"><tr><th>Book</th><th>Category</th><th>Level</th><th>Ver</th><th>Updated</th><th>Time</th></tr>{rows_u}</table></div></body></html>"""
     open(os.path.join(DIST, "updates.html"), "w", encoding="utf-8").write(upd)
 
