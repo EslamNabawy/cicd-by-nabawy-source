@@ -89,3 +89,8 @@ Keep the library repo — it is the seed of pipeline governance.
 ## What This Proved
 
 Reusable pipeline code with versioning. Continue with [Lab 08](08-jenkins-backup-restore.md).
+
+## Interview Notes
+
+- `Library not found`: the two causes (name vs version) and where each is configured.
+- Why library changes go through PR review on their own repo — what unreviewed shared code risks.

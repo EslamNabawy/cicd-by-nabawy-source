@@ -46,6 +46,12 @@ Untrusted/edited scripts run in the **sandbox**; calls outside the allowlist nee
 - Bad config change → `JENKINS_HOME/config.xml` (or job `config.xml`) is versioned? Restore the file, reload config — no full restart needed (*Manage Jenkins → Reload Configuration*).
 - Full disaster → restore `JENKINS_HOME` backup (jobs + secrets + config) to a fresh pinned image; verify by running the smoke pipeline from [setup](jenkins-setup.md).
 
+## 5. Interview Notes
+
+- First red line is the effect, not the cause — where you actually scroll to find a pipeline failure.
+- Dirty workspace vs real failure: the one action that distinguishes them before you debug further.
+- Config recovery without restart — which file you restore and which button reloads it.
+
 ## Related Topics
 
 - [Jenkins Setup](jenkins-setup.md)

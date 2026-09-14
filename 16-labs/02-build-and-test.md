@@ -95,3 +95,8 @@ Keep; Lab 03 packages this build's output.
 ## What This Proved
 
 DAG ordering, hermetic installs, lockfile caching. Continue with [Lab 03](03-artifacts.md).
+
+## Interview Notes
+
+- What `needs:` actually guarantees — and the failure you get when the edge is missing.
+- Why the cache key includes the lockfile, and what "cache never hits" tells you about the repo.

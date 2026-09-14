@@ -58,6 +58,12 @@ Jenkins **masks** bound variables in console output automatically.
 - Wrong scope (System-only cred used in pipeline) → "credentials not found"; move it to Global.
 - Duplicate IDs across stores → ambiguous resolution; keep IDs unique and descriptive (`github-acme-app-token`).
 
+## 5. Interview Notes
+
+- IDs vs values: why rotation replaces the entry without touching any Jenkinsfile.
+- Masking limits — what Jenkins hides in logs vs what still leaks into image layers and artifacts.
+- Scopes (System vs Global): where a "credentials not found" error almost always comes from.
+
 Secrets stored — but who delivers all these capabilities? Continue in **[Jenkins Plugins](jenkins-plugins.md)**, where Git, Docker, and credentials bindings themselves come from.
 
 ## Related Topics

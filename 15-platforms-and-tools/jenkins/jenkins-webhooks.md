@@ -46,6 +46,12 @@ A Multibranch Pipeline scans the repo, creates a sub-job per branch/PR with a Je
 - Duplicate builds (webhook + polling both on) → disable polling once webhooks work.
 - Secret mismatch → validate webhook secrets so anyone can't trigger builds with curl.
 
+## 5. Interview Notes
+
+- Webhook vs polling: why push delivery beats minute-interval polling for PR feedback time.
+- 403/404 on delivery — URL shape vs plugin vs secret, in the order you check them.
+- Why duplicate builds happen when both triggers are on, and which one you disable first.
+
 ## Related Topics
 
 - [Git, Branching & Pull Requests](../../01-source-control/git-branching-pull-requests.md) (generic triggers)

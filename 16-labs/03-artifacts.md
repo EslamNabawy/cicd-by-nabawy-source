@@ -92,3 +92,8 @@ Keep images; they are small and prove immutability.
 ## What This Proved
 
 Build-once identity, SHA discipline, SBOM habit. Continue with [Lab 04](04-deployment.md).
+
+## Interview Notes
+
+- Digest vs tag: why redeploying `latest` can silently change what's running.
+- The 403 on push — which single permission block fixes it and why least privilege demands it.

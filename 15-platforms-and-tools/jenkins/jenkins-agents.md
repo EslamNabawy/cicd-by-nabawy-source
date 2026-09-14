@@ -60,6 +60,12 @@ Each run gets a pristine container — "works on my machine" dies here.
 - Stale permanent agents (tool drift) → flaky builds; prefer ephemeral or reimage regularly.
 - Too many executors per CPU → builds starve each other; ~1 executor per 1–2 cores.
 
+## 6. Interview Notes
+
+- Inbound vs SSH connection: which side initiates, and which survives NAT without opening inbound ports.
+- Why ephemeral agents beat permanent ones for reproducibility — what "tool drift" does to flaky-build rates.
+- Label expressions vs executor counts: what a build stuck in queue almost always means.
+
 Agents run the work — next they need secrets. Continue in **[Jenkins Credentials](jenkins-credentials.md)**.
 
 ## Related Topics
