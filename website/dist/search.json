@@ -303,7 +303,7 @@
   "title": "Lab 02: Build & Test",
   "desc": "DAG jobs, caching, hermetic proof.",
   "cat": "Labs",
-  "dif": "Beginner",
+  "dif": "Intermediate",
   "tags": [
    "lab",
    "build"
@@ -586,7 +586,7 @@
   "title": "Groovy Cheatsheet",
   "desc": "Only the Groovy Jenkinsfiles need: strings, closures, idioms, sandbox rules.",
   "cat": "Jenkins",
-  "dif": "Beginner",
+  "dif": "Intermediate",
   "tags": [
    "groovy",
    "jenkinsfile"

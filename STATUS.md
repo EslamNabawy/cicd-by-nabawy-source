@@ -14,11 +14,11 @@ Branch: `levelup/ui-ux-content` | Manifest: `tasks.yaml` | QC: `python scripts/q
 | P2.4 | Mobile reading pass | passed | ≤480px reflow for .life→column, .lconn→↓, .two→1col. foundations 2 life blocks; jenkins-architecture vflow (already vertical). Desktop CSS untouched (media-query only). |
 | P2.5 | Empty/edge state copy | passed | Dropdown→wry Foundations pointer; reader qcount→in-this-book; placeholders disambiguated (all 42 / in this book). 404 + home-empty + glossary kept. |
 | P2.gate | Full rebuild + re-run UX audit | passed | Approved 2026-09-14 — #2 shelves-grid deferred by decision. P2 locked. |
-| P3.1 | Backfill missing structure | in-progress | Interview Check for 20 books, per-file confirmation. Book 1 next. |
-| P3.2 | Cross-linking pass | pending | |
-| P3.3 | Glossary completeness | pending | |
-| P3.4 | Difficulty ladder sanity check | pending | |
-| P3.5 | Vendor-neutral generics check | pending | |
+| P3.1 | Backfill missing structure | passed | 17 applied + security/advanced pre-existing + 2 audit false-negatives corrected. 3 HTML-only roadmaps exempt (no md source; rule 6). Committed 3b12251. |
+| P3.2 | Cross-linking pass | passed | 4 links (rollback→artifacts inline+related, observability canary→strategies, argocd→artifacts). All resolve; build green. Committed 7fa2ab3. |
+| P3.3 | Glossary completeness | passed | +Multibranch Pipeline (6 books). Unused 2 kept per approval. Committed 076adaf. |
+| P3.4 | Difficulty ladder sanity check | passed | lab-02 + groovy → Intermediate (books.json). Approved + committed 8320c75. |
+| P3.5 | Vendor-neutral generics check | in-progress | Jenkins/GitLab/Actions leakage in git-branching, pipelines, delivery, strategies. |
 | P3.gate | Content phase rebuild | pending | |
 | P4.1 | Full QC + rebuild diff summary | pending | |
 | P4.2 | Regression spot-check | pending | |
