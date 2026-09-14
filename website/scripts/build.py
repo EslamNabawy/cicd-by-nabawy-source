@@ -49,6 +49,52 @@ def og_svg(title, category, color):
     c = html.escape(category)
     return f'<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630"><rect width="1200" height="630" fill="#0B0D10"/><rect width="1200" height="14" fill="{color}"/><circle cx="120" cy="120" r="34" fill="none" stroke="#18E299" stroke-width="8"/><text x="80" y="330" font-family="monospace" font-size="44" fill="#18E299">{c}</text><text x="80" y="430" font-family="sans-serif" font-weight="bold" font-size="84" fill="#ededed">{t}</text><text x="80" y="500" font-family="sans-serif" font-size="36" fill="#a0a0a0">CICD BY Nabawy</text></svg>'
 
+
+try:
+    from PIL import Image as _PILImage, ImageDraw as _PILDraw, ImageFont as _PILFont
+    _PIL = True
+except Exception:
+    _PIL = False
+OG_EXT = "png" if _PIL else "svg"
+
+
+def og_png(title, category, color):
+    """1200x630 social card mirroring og_svg. PNG bytes, or None without Pillow."""
+    if not _PIL:
+        return None
+    import io as _io
+    W, H = 1200, 630
+    img = _PILImage.new("RGB", (W, H), "#0B0D10")
+    dr = _PILDraw.Draw(img)
+    dr.rectangle([0, 0, W, 14], fill=color)
+    dr.ellipse([86, 86, 154, 154], outline="#18E299", width=8)
+    def _font(name, size):
+        try:
+            return _PILFont.truetype(name, size)
+        except Exception:
+            return _PILFont.load_default()
+    fcat = _font("arial.ttf", 44)
+    ftitle = _font("arialbd.ttf", 84)
+    ffoot = _font("arial.ttf", 36)
+    dr.text((80, 270), str(category)[:28], font=fcat, fill="#18E299")
+    words, lines, cur = str(title).split(), [], ""
+    for w in words:
+        t = (cur + " " + w).strip()
+        if dr.textlength(t, font=ftitle) > 1040 and cur:
+            lines.append(cur)
+            cur = w
+        else:
+            cur = t
+    lines.append(cur)
+    lines = lines[:2]
+    y = 340
+    for ln in lines:
+        dr.text((80, y), ln, font=ftitle, fill="#ededed")
+        y += 100
+    dr.text((80, 500), "CICD BY Nabawy", font=ffoot, fill="#a0a0a0")
+    buf = _io.BytesIO()
+    img.save(buf, "PNG")
+    return buf.getvalue()
 BASE_CSS = """
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap');
 :root{--bg:#0B0D10;--bg2:#12151a;--card:#12151a;--ink:#ededed;--mut:#a0a0a0;--line:rgba(255,255,255,.1);--line-soft:rgba(255,255,255,.07);--acc:#18E299;--acc-soft:rgba(24,226,153,.12);--brand:#18E299;--warn:#c37d0d;--red:#d45656;--shadow:rgba(0,0,0,.4) 0px 2px 4px;--shadow-btn:rgba(0,0,0,.4) 0px 1px 2px;--shadow-lift:rgba(0,0,0,.5) 0px 12px 28px -8px;--radius:12px;--mono:'Geist Mono',ui-monospace,SFMono-Regular,Menlo,monospace}
@@ -169,7 +215,7 @@ main.read{flex:1;min-width:0;padding:32px 32px 90px}
 .readbody{margin:0 auto;max-width:820px}
 .readbody .page{width:auto !important;min-height:0 !important;margin:0 auto 22px !important;padding:26px !important;border-radius:14px;scroll-margin-top:80px}
 .readbody .page.cover{align-items:flex-start !important}
-.readbody pre,.readbody .terminal{position:relative;overflow-x:auto;max-width:100%;scrollbar-width:thin}
+.readbody pre,.readbody .terminal{position:relative;overflow-x:auto;max-width:100%;scrollbar-width:thin;white-space:pre}
 .readbody code,.readbody .mono{overflow-wrap:anywhere}
 .readbody .md-fallback{font-size:18px !important;line-height:1.75 !important}
 .readbody .md-fallback .body{font-size:18px !important;line-height:1.75 !important;margin:14px 0 !important}
@@ -226,10 +272,10 @@ header.top .crumbs .logo{font-size:13px;gap:4px}
 header.top .crumbs .logo svg{width:17px;height:17px}
 header.top .crumbs .sep,header.top .crumbs .here{display:none}
 header.top .search,header.top #qcount,header.top #markbtn,header.top nav.reader-nav{display:none}
-header.top .mobilemenu{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;padding:0;font-size:19px}
-header.top #tocbtn{display:inline-flex;order:2;width:78px;height:38px;padding:0;overflow:hidden;font-size:0;align-items:center;justify-content:center;color:transparent}
+header.top .mobilemenu{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;padding:0;font-size:19px}
+header.top #tocbtn{display:inline-flex;order:2;width:78px;height:44px;padding:0;overflow:hidden;font-size:0;align-items:center;justify-content:center;color:transparent}
 header.top #tocbtn::before{content:'Contents';font-size:11px;font-family:var(--mono);color:var(--ink)}
-header.top #backbtn{display:inline-flex;order:3;font-size:12px;padding:5px 9px}
+header.top #backbtn{display:inline-flex;order:3;font-size:12px;padding:5px 9px;min-height:44px;align-items:center}
 .readcontext{padding:6px 12px}
 .readcontext .wrap{gap:5px}
 .readcontext .readback{display:none}
@@ -250,9 +296,9 @@ header.top .logo{font-size:14px;gap:5px;flex:none}
 header.top .logo{margin-right:0}
 header.top .logo span{display:none}
 header.top .search{display:none}
-header.top .btn{padding:5px 7px;font-size:11px;min-height:32px}
+header.top .btn{padding:5px 7px;font-size:11px;min-height:44px}
 header.top .wrap>.btn{flex:none}
-header.top #themebtn{width:28px;min-width:28px;padding:0}
+header.top #themebtn{width:28px;min-width:28px;min-height:44px;padding:0}
 }
 @media(min-width:601px) and (max-width:900px){
 header.top .wrap{min-width:0;max-width:100%;padding:10px 18px;gap:8px;overflow:hidden}
@@ -633,7 +679,7 @@ function applyPref(){document.documentElement.dataset.theme=RTHEMES.includes(pre
   setP(PREF,pref);}
 function setOpt(k,v){pref[k]=v;applyPref()}
 $$('.terminal').forEach(t=>{const bar=document.createElement('div');bar.className='copybar';const b=document.createElement('button');b.className='copybtn';b.textContent='Copy';b.onclick=()=>{let txt=t.innerText.split('\\n').filter(l=>!l.match(/^\\s*(NAME|nginx-|CONTAINER|NAME\\s+READY)/)).join('\\n');navigator.clipboard.writeText(txt||t.innerText).then(()=>{b.textContent='Copied!';setTimeout(()=>b.textContent='Copy',1200)})};bar.appendChild(b);t.before(bar)});
-$$('.readbody pre').forEach(p=>{if(p.closest('.terminal')||p.previousElementSibling?.classList?.contains('codehead'))return;const h=document.createElement('div');h.className='codehead';h.innerHTML='<span class=dot></span><span>code</span>';const b=document.createElement('button');b.textContent='Copy';b.onclick=()=>{navigator.clipboard.writeText(p.innerText).then(()=>{b.textContent='Copied!';setTimeout(()=>b.textContent='Copy',1200)})};const w=document.createElement('button');w.textContent='Wrap';w.style.marginLeft='6px';w.onclick=()=>{p.style.whiteSpace=p.style.whiteSpace==='pre-wrap'?'pre':'pre-wrap'};h.appendChild(b);h.appendChild(w);p.before(h)});
+$$('.readbody pre').forEach(p=>{if(p.closest('.terminal')||p.previousElementSibling?.classList?.contains('codehead'))return;const h=document.createElement('div');h.className='codehead';h.innerHTML='<span class=dot></span><span>'+(p.dataset.lang||"code")+'</span>';const b=document.createElement('button');b.textContent='Copy';b.onclick=()=>{navigator.clipboard.writeText(p.innerText).then(()=>{b.textContent='Copied!';setTimeout(()=>b.textContent='Copy',1200)})};const w=document.createElement('button');w.textContent='Wrap';w.style.marginLeft='6px';w.onclick=()=>{p.style.whiteSpace=p.style.whiteSpace==='pre-wrap'?'pre':'pre-wrap'};h.appendChild(b);h.appendChild(w);p.before(h)});
 $$('.readbody img').forEach(im=>{im.setAttribute('loading','lazy');if(!im.getAttribute('alt'))im.setAttribute('alt','Diagram from '+BID);im.style.cursor='zoom-in';im.addEventListener('click',()=>{const lb=$('#lightbox');if(lb){lb.querySelector('img').src=im.src;lb.classList.add('open');}});im.addEventListener('error',()=>{im.dataset.broken='1';const f=document.createElement('div');f.className='imgfallback';f.style.display='block';f.textContent='Image unavailable: '+(im.getAttribute('alt')||im.src);im.after(f);});});
 const _lb=$('#lightbox');if(_lb)_lb.addEventListener('click',()=>_lb.classList.remove('open'));
 const MARKS='cicdlib:marks';
@@ -750,6 +796,7 @@ def markdown_pages(path, title):
     current = []
     in_code = False
     code = []
+    lang = "code"
 
     def flush():
         nonlocal current
@@ -762,11 +809,12 @@ def markdown_pages(path, title):
         line = lines[i]
         if line.startswith("```"):
             if in_code:
-                current.append('<div class="terminal">' + html.escape("\n".join(code)) + '</div>')
+                current.append('<pre class="codeblock" data-lang="' + html.escape(lang, quote=True) + '"><code>' + html.escape("\n".join(code)) + '</code></pre>')
                 code = []
                 in_code = False
             else:
                 in_code = True
+                lang = line[3:].strip() or "code"
             i += 1
             continue
         if in_code:
@@ -793,7 +841,11 @@ def markdown_pages(path, title):
         if re.match(r"^[-*]\s+", line):
             items = []
             while i < len(lines) and re.match(r"^[-*]\s+", lines[i]):
-                items.append("<li>" + md_inline(re.sub(r"^[-*]\s+", "", lines[i])) + "</li>")
+                _item = re.sub(r"^[-*]\s+", "", lines[i])
+                if re.match(r"^\[ \]\s*", _item):
+                    items.append('<li class="step">' + md_inline(re.sub(r"^\[ \]\s*", "", _item)) + "</li>")
+                else:
+                    items.append("<li>" + md_inline(_item) + "</li>")
                 i += 1
             current.append('<ul class="tight">' + "".join(items) + "</ul>")
             continue
@@ -811,7 +863,7 @@ def markdown_pages(path, title):
             i += 1
         current.append('<p class="body">' + md_inline(" ".join(paragraph)) + '</p>')
     if in_code and code:
-        current.append('<div class="terminal">' + html.escape("\n".join(code)) + '</div>')
+        current.append('<pre class="codeblock" data-lang="' + html.escape(lang, quote=True) + '"><code>' + html.escape("\n".join(code)) + '</code></pre>')
     flush()
     cover = (f'<div class="page cover"><div class="brand">CI/CD ENGINEERING · KNOWLEDGE BASE</div>'
              f'<h1>{html.escape(title)}</h1><p class="sub">CICD BY Nabawy</p>'
@@ -1431,7 +1483,7 @@ def build():
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{html.escape(b['title'])} — CICD BY Nabawy</title>
-{seo_tags(f"{b['title']} — CICD BY Nabawy", b.get("description",""), f"{SITE_URL}/read/{b['id']}.html", og_type="article", image=f"{SITE_URL}/og/{b['id']}.svg")}
+{seo_tags(f"{b['title']} — CICD BY Nabawy", b.get("description",""), f"{SITE_URL}/read/{b['id']}.html", og_type="article", image=f"{SITE_URL}/og/{b['id']}.{OG_EXT}")}
 {(f'<link rel="prefetch" href="{upnext["id"]}.html">' if upnext else '') + (f'<link rel="prefetch" href="{nextb["id"]}.html">' if nextb and (not upnext or nextb["id"] != upnext["id"]) else '')}
 <style>{BASE_CSS}</style><script>try{{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}}catch(e){{document.documentElement.dataset.theme='sepia'}}</script>
 {f'<script type="application/ld+json">{json.dumps({"@context":"https://schema.org","@type":"TechArticle","headline":b["title"],"description":b.get("description",""),"url":SITE_URL + "/read/" + b["id"] + ".html","author":{"@type":"Person","name":"Nabawy"},"isPartOf":{"@type":"CollectionPage","name":"CICD BY Nabawy","url":SITE_URL}})}</script>'}
@@ -1612,7 +1664,13 @@ def build():
     os.makedirs(ogdir, exist_ok=True)
     for b in books:
         open(os.path.join(ogdir, b["id"] + ".svg"), "w", encoding="utf-8").write(og_svg(b["title"], b["category"], CAT_COLORS.get(b["category"], "#18E299")))
+        _png = og_png(b["title"], b["category"], CAT_COLORS.get(b["category"], "#18E299"))
+        if _png:
+            open(os.path.join(ogdir, b["id"] + ".png"), "wb").write(_png)
     open(os.path.join(ogdir, "library.svg"), "w", encoding="utf-8").write(og_svg("Technical Library", "CI/CD", "#18E299"))
+    _libpng = og_png("Technical Library", "CI/CD", "#18E299")
+    if _libpng:
+        open(os.path.join(ogdir, "library.png"), "wb").write(_libpng)
     jump = ("<div class=\"jumpnav\">" + "".join(
         f"<a href=\"#{slug(s['name'])}\">{s['name']}</a>" for s in sections) + "</div>")
     rendered = "".join(
@@ -1651,7 +1709,7 @@ def build():
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CICD BY Nabawy — Browse all books</title>
-{seo_tags("CICD BY Nabawy — Browse", SITE_DESC, f"{SITE_URL}/shelf.html", image=f"{SITE_URL}/og/library.svg")}
+{seo_tags("CICD BY Nabawy — Browse", SITE_DESC, f"{SITE_URL}/shelf.html", image=f"{SITE_URL}/og/library.{OG_EXT}")}
 <style>{BASE_CSS}</style><script>try{{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}}catch(e){{document.documentElement.dataset.theme='sepia'}}</script>
 <script type="application/ld+json">{json.dumps({"@context":"https://schema.org","@type":"CollectionPage","name":"CICD BY Nabawy","description":SITE_DESC,"url":SITE_URL,"hasPart":[{"@type":"TechArticle","name":b["title"],"url":SITE_URL + "/read/" + b["id"] + ".html"} for b in books]})}</script>
 </head>
@@ -1721,13 +1779,17 @@ try{{const cats=[...new Set($$('.book[data-id]').map(c=>c.dataset.cat))].sort();
 <title>Glossary — CICD BY Nabawy</title>{seo_tags("Glossary — CICD BY Nabawy", "CI/CD glossary: terms shared by all books, reader and search.", f"{SITE_URL}/glossary.html")}<style>{BASE_CSS}</style><script>try{{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}}catch(e){{document.documentElement.dataset.theme='sepia'}}</script></head>
 <body>
 <header class="top"><div class="wrap"><a class="logo" href="index.html" style="text-decoration:none;color:inherit"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="5" cy="12" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="6" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="18" r="2.6" stroke="#18E299" stroke-width="2"/><path d="M7.6 12h5.2m0 0-2.6-2.6m2.6 2.6-2.6 2.6M13.4 7.4l2.8-1M13.4 16.6l2.8 1" stroke="#18E299" stroke-width="2" stroke-linecap="round"/></svg>CICD<span> BY Nabawy</span></a>
-<div class="search"><input id="q" type="search" placeholder="Filter terms…"></div><a class="btn" href="index.html" style="text-decoration:none">Map</a><a class="btn" href="shelf.html" style="text-decoration:none">Browse</a><a class="btn" href="roadmap/" style="text-decoration:none">Roadmap</a></div></header>
+<div class="search"><input id="q" type="search" placeholder="Filter terms…"></div><a class="btn" href="index.html" style="text-decoration:none">Map</a><a class="btn" href="shelf.html" style="text-decoration:none">Browse</a><a class="btn" href="roadmap/" style="text-decoration:none">Roadmap</a><button class="btn" id="themebtn">☀</button></div></header>
 <div class="wrap"><h2 class="sec">Glossary</h2><p class="sub">{len(re.findall('<tr ', grows))} terms · shared by books, reader and search</p>
 <table class="gloss"><tr><th>Term</th><th>Definition</th><th>Topic</th><th>Link</th></tr>{grows}</table></div>
 <footer><div class="wrap">CICD BY Nabawy</div></footer>
 <script>{BASE_JS}
 $('#q').addEventListener('input',e=>{{const q=e.target.value.toLowerCase();
 $$('table.gloss tr').forEach((r,i)=>{{if(!i)return;r.style.display=r.textContent.toLowerCase().includes(q)?'':'none'}})}});
+const THS=['sepia','dark','light'],THI={{dark:'☀',light:'☾',sepia:'◐'}};
+function syncTheme(){{const p=getP('cicdlib:pref',{{theme:'sepia'}});const th=THS.includes(p.theme)?p.theme:'sepia';document.documentElement.dataset.theme=th;const t=$('#themebtn');if(t)t.textContent=THI[th]||'☀'}}
+syncTheme();
+$('#themebtn').onclick=()=>{{const p=getP('cicdlib:pref',{{theme:'sepia'}});p.theme=THS[(THS.indexOf(p.theme)+1)%THS.length];setP('cicdlib:pref',p);syncTheme()}};
 </script></body></html>"""
     open(os.path.join(DIST, "glossary.html"), "w", encoding="utf-8").write(gloss)
 
@@ -1741,7 +1803,7 @@ $$('table.gloss tr').forEach((r,i)=>{{if(!i)return;r.style.display=r.textContent
         preq = "".join(f'<a href="{p}.html">{html.escape(byid[p]["title"])}</a>' if p in byid else f'<span>{html.escape(p)}</span>' for p in b.get("prereqs", [])) or "<span>None — start here</span>"
         outs = "".join(f"<li>{html.escape(o)}</li>" for o in b.get("outcomes", [])) or "<li>Read the full book</li>"
         initials = "".join(w[0] for w in re.sub(r"[^A-Za-z0-9 ]", "", b["title"]).split()[:2]).upper()
-        bp = f"""<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>{html.escape(b['title'])} — Overview — CICD BY Nabawy</title>{seo_tags(b['title'] + " — Overview — CICD BY Nabawy", b.get("description", ""), f"{SITE_URL}/book/{b['id']}.html", image=f"{SITE_URL}/og/{b['id']}.svg")}<link rel="prefetch" href="../read/{b['id']}.html"><style>{BASE_CSS}</style><script>try{{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}}catch(e){{document.documentElement.dataset.theme='sepia'}}</script>
+        bp = f"""<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>{html.escape(b['title'])} — Overview — CICD BY Nabawy</title>{seo_tags(b['title'] + " — Overview — CICD BY Nabawy", b.get("description", ""), f"{SITE_URL}/book/{b['id']}.html", image=f"{SITE_URL}/og/{b['id']}.{OG_EXT}")}<link rel="prefetch" href="../read/{b['id']}.html"><style>{BASE_CSS}</style><script>try{{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}}catch(e){{document.documentElement.dataset.theme='sepia'}}</script>
 {f'<script type="application/ld+json">{json.dumps({"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":SITE_URL + "/"},{"@type":"ListItem","position":2,"name":b["title"],"item":SITE_URL + "/book/" + b["id"] + ".html"}]})}</script>'}></head>
 <body><header class="top"><div class="wrap"><a class="logo" href="../index.html" style="color:inherit">CICD<span> BY Nabawy</span></a><nav class="crumbs"><span class="sep">/</span><span class="here">{html.escape(b['title'])}</span></nav><div class="search"></div><a class="btn" href="../shelf.html">Browse</a><a class="btn" href="../index.html">Map</a><button class="btn" id="themebtn">☀</button></div></header>
 <div class="wrap"><div class="bookhero"><div class="coverart" data-cat="{html.escape(b['category'])}"><b>{initials}</b></div><div style="flex:1;min-width:260px"><span class="num">{html.escape(b['category'])} · {b['difficulty']} · {b.get('time_minutes', 30)} min · v{b.get('version', '2.0')} · Updated {html.escape(b.get('updated', ''))}</span><h1 style="font-size:34px;margin:6px 0">{html.escape(b['title'])}</h1><p class="sub">{html.escape(b.get('description', ''))}</p>
