@@ -22,7 +22,7 @@ Branch: `levelup/ui-ux-content` | Manifest: `tasks.yaml` | QC: `python scripts/q
 | P3.gate | Content phase rebuild | passed | Build green (exit 0). Dist committed e89ff91. |
 | P4.1 | Full QC + rebuild diff summary | waived | 33 pre-existing (identical to main); waived per approval to proceed. |
 | P4.2 | Regression spot-check | passed | Checklist confirmed 2026-09-14. Frontmatter 5/5, anchors match main, icons 0 unmapped. |
-| P4.3 | Deploy | blocked-on-human | Pushed + PR #1 open. Awaiting human merge → auto-deploy. |
-| P4.4 | Live verification | pending | |
+| P4.3 | Deploy | passed | PR #1 merged; Actions deploy broken pre-existing (0 jobs) → manual fallback pushed gh-pages. |
+| P4.4 | Live verification | passed | Live: recstrip+CTA, breadcrumb 2-of-5+upnext-top, 42-entry section index. |
 
 Resume: `Read STATUS.md and tasks.yaml, continue from first non-passed task.`
