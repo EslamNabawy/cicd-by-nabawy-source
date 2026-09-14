@@ -174,7 +174,7 @@ mark{background:var(--acc-soft);color:var(--ink);border-radius:3px;padding:0 2px
 .setrow h5{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--mut);margin-bottom:10px}
 .setrow .opts{display:flex;gap:8px;flex-wrap:wrap}
 .setrow .opts .btn.on{border-color:var(--ink);background:var(--ink);color:var(--bg)}
-.tocbtn{display:none}
+.tocbtn{display:inline-flex;align-items:center}
 .pdflink{display:inline-block;margin-top:12px;background:var(--ink);color:var(--bg);border-radius:9999px;padding:8px 24px;text-decoration:none;font-size:14px;font-weight:500;box-shadow:var(--shadow-btn)}
 .pdflink:hover{opacity:.85;color:var(--bg)}
 .crumbs{display:flex;align-items:center;gap:8px;font-size:13.5px;min-width:0}
@@ -1561,7 +1561,7 @@ window.addEventListener('pageshow',tocUpdate);
 function lockScroll(){const any=$('#drawer').classList.contains('open')||document.querySelector('aside.toc').classList.contains('open');document.body.classList.toggle('lock',any);document.querySelector('aside.toc').setAttribute('aria-modal',document.querySelector('aside.toc').classList.contains('open')?'true':'false');document.querySelector('#drawer .panel').setAttribute('aria-modal',$('#drawer').classList.contains('open')?'true':'false');}
 new MutationObserver(lockScroll).observe(document.querySelector('aside.toc'),{attributes:true,attributeFilter:['class']});
 new MutationObserver(lockScroll).observe($('#drawer'),{attributes:true,attributeFilter:['class']});
-function tocToggle(){const mob=matchMedia('(max-width:900px)').matches;const toc=document.querySelector('aside.toc');if(mob){toc.classList.toggle('open');}else{document.body.classList.toggle('toc-hide');}lockScroll();}
+function tocToggle(){const mob=matchMedia('(max-width:900px)').matches;const toc=document.querySelector('aside.toc');if(mob){toc.classList.toggle('open');}else{document.body.classList.toggle('toc-hide');}lockScroll();const tb=$('#tocbtn');if(tb)tb.setAttribute('aria-expanded',String(!document.body.classList.contains('toc-hide')));}
 const _tocx=$('#tocx');if(_tocx)_tocx.onclick=()=>{document.querySelector('aside.toc').classList.remove('open');document.body.classList.add('toc-hide');lockScroll();};
 const _setx=$('#setx');if(_setx)_setx.onclick=()=>{$('#drawer').classList.remove('open');lockScroll();};
 document.addEventListener('keydown',e=>{if(e.key!=='Tab')return;const open=document.querySelector('aside.toc.open')||document.querySelector('#drawer.open');if(!open)return;const f=[...open.querySelectorAll('button,a[href],input,[tabindex]')].filter(el=>el.offsetParent);if(!f.length)return;if(e.shiftKey&&document.activeElement===f[0]){e.preventDefault();f[f.length-1].focus();}else if(!e.shiftKey&&document.activeElement===f[f.length-1]){e.preventDefault();f[0].focus();}});
