@@ -21,3 +21,4 @@ Locked spec (D.gate 2026-09-14): category grouping / (a) pseudo-3D / /map.html +
 | B4.2 | Regression check on existing pages | passed | homepage 51 cards, glossary 50 rows, 3 readers intact. |
 | B4.3 | Commit, merge, deploy | passed | PR #5 merged; manual fallback pushed gh-pages (Actions 0 jobs broken). |
 | B4.4 | Live verification | passed | map.html 12 blocks, zoom hash 12, nav on home+reader, both themes OK. |
+| S.1 | Sepia default + map polish — sepia palette & default, exterior/interior overhaul | passed | Sepia #F6F1E7/#3B2F1E, brand #0B9B68 (warmed, 3.16:1), default sepia first-paint, 3-way sepia→dark→light (5-way incl dim/contrast), icons audited. Map: bold cat border/tint+shadow, 52px icon, diff bar+dots, preview popover+touch. Interior: cat hero, badge+snippet cards, matching zoom in/out, a11y kept. Build+QC 33 pre-existing zero new. |

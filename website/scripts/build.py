@@ -226,8 +226,8 @@ table.gloss{width:100%;border-collapse:collapse;font-size:14px;margin:16px 0}
 table.gloss td,table.gloss th{border:1px solid var(--line);padding:9px 11px;text-align:left}
 table.gloss th{background:var(--bg2)}
 /* P0: sepia theme + light leak guards + covers + filters + a11y */
-[data-theme=sepia]{--bg:#f6f1e7;--bg2:#efe7d6;--card:#fffdf7;--ink:#2b2620;--mut:#6f665a;--line:rgba(43,38,32,.14);--line-soft:rgba(43,38,32,.09);--acc:#0b9b68;--acc-soft:#d4fae8;--brand:#0b9b68;--shadow:rgba(43,38,32,.06) 0px 2px 4px;--shadow-btn:rgba(43,38,32,.08) 0px 1px 2px;--shadow-lift:rgba(43,38,32,.12) 0px 12px 28px -8px}
-[data-theme=sepia] .readbody{--paper:#fffdf7;--white:#fffdf7;--ink:#2b2620;--muted:#6f665a;--line:rgba(43,38,32,.14);--panel:#efe7d6;--text-light:#2b2620}
+[data-theme=sepia]{--bg:#F6F1E7;--bg2:#EDE3CC;--card:#FFFBF0;--ink:#3B2F1E;--mut:#6F665A;--line:rgba(59,47,30,.16);--line-soft:rgba(59,47,30,.09);--acc:#0B9B68;--acc-soft:rgba(11,155,104,.11);--brand:#0B9B68;--shadow:rgba(59,47,30,.08) 0px 2px 8px;--shadow-btn:rgba(59,47,30,.10) 0px 1px 3px;--shadow-lift:rgba(59,47,30,.16) 0px 16px 32px -10px}
+[data-theme=sepia] .readbody{--paper:#FFFBF0;--white:#FFFBF0;--ink:#3B2F1E;--muted:#6F665A;--line:rgba(59,47,30,.14);--panel:#EDE3CC;--text-light:#3B2F1E}
 [data-theme=light] .readbody{--paper:#ffffff;--white:#ffffff;--ink:#0d0d0d;--muted:#555;--line:rgba(0,0,0,.1);--panel:#f4f4f4;--text-light:#0d0d0d}
 [data-theme=light] .readbody .page,[data-theme=sepia] .readbody .page{background:var(--card) !important;color:var(--ink)}
 [data-theme=light] .readbody pre,[data-theme=light] .readbody .terminal,[data-theme=sepia] .readbody pre,[data-theme=sepia] .readbody .terminal{background:var(--bg2) !important;color:var(--ink);border:1px solid var(--line)}
@@ -347,41 +347,110 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
 .popsearch{font-size:12px;color:var(--mut);margin-top:6px}
 .popsearch a{color:var(--mut);text-decoration:underline;cursor:pointer}
 /* Structure Map — pseudo-3D isometric (B1.2/B2/B3) */
-.map-hero{padding:48px 24px 12px;text-align:center}
-.map-hero .eyebrow{display:inline-block;font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--brand);background:var(--acc-soft);border-radius:9999px;padding:5px 14px;margin-bottom:14px}
-.map-hero h1{font-size:clamp(28px,4vw,44px);font-weight:600;letter-spacing:-.8px;line-height:1.1}
-.map-hero p{color:var(--mut);font-size:16px;max-width:640px;margin:12px auto 0}
-.map-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px;margin:28px 0 24px;perspective:1200px}
-.map-block{position:relative;background:var(--card);border:1px solid var(--line-soft);border-radius:12px;padding:22px 20px 18px;display:flex;flex-direction:column;gap:8px;box-shadow:var(--shadow);overflow:hidden;transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;text-align:left;cursor:pointer;color:var(--ink);text-decoration:none;transform-style:preserve-3d}
-.map-block::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--cat,var(--brand))}
-.map-block:hover{transform:perspective(600px) rotateX(4deg) rotateY(-6deg) translateY(-4px);box-shadow:var(--shadow-lift);border-color:var(--line)}
-.map-block:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
-.map-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:var(--bg2);border:1px solid var(--line-soft);color:var(--cat);flex:none}
-.map-icon svg{width:22px;height:22px;display:block}
-.map-cat{font-size:17px;font-weight:700;letter-spacing:-.2px;line-height:1.2}
-.map-count{font-family:var(--mono);font-size:12px;color:var(--mut);font-weight:500}
-.map-pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
-.map-pill{font-family:var(--mono);font-size:11px;font-weight:600;padding:3px 8px;border-radius:9999px;background:var(--bg2);border:1px solid var(--line-soft);color:var(--mut)}
+.map-hero{padding:52px 24px 16px;text-align:center;position:relative}
+.map-hero .eyebrow{display:inline-block;font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--brand);background:var(--acc-soft);border-radius:9999px;padding:5px 14px;margin-bottom:16px}
+.map-hero h1{font-size:clamp(28px,4.4vw,46px);font-weight:700;letter-spacing:-.9px;line-height:1.08}
+.map-hero p{color:var(--mut);font-size:16px;max-width:640px;margin:12px auto 0;line-height:1.55}
+.map-hero p strong{color:var(--ink);font-weight:600}
+/* — MAP GRID: exterior blocks as distinct objects — */
+.map-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;margin:32px 0 28px;perspective:1200px}
+.map-block{position:relative;background:linear-gradient(135deg,color-mix(in srgb,var(--cat) 7%,var(--card)) 0%,var(--card) 55%);border:1.5px solid color-mix(in srgb,var(--cat) 28%,var(--line-soft));border-radius:16px;padding:0;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06),0 8px 24px -8px color-mix(in srgb,var(--cat) 18%,transparent),0 2px 10px rgba(0,0,0,.06);transition:transform .24s cubic-bezier(.2,.8,.2,1),box-shadow .24s ease,border-color .24s ease;text-align:left;cursor:pointer;color:var(--ink);text-decoration:none;transform-style:preserve-3d}
+.map-block::before{content:"";position:absolute;top:0;left:0;right:0;height:5px;background:var(--cat,var(--brand));z-index:2}
+.map-block::after{content:"";position:absolute;top:5px;left:0;right:0;height:1px;background:linear-gradient(90deg,rgba(255,255,255,.55),transparent 60%);pointer-events:none;z-index:2}
+[data-theme=dark] .map-block::after,[data-theme=dim] .map-block::after{background:linear-gradient(90deg,rgba(255,255,255,.12),transparent 60%)}
+.map-block:hover{transform:perspective(700px) rotateX(3deg) rotateY(-5deg) translateY(-6px) scale(1.015);box-shadow:0 4px 12px rgba(0,0,0,.1),0 20px 40px -12px color-mix(in srgb,var(--cat) 22%,transparent),0 8px 20px rgba(0,0,0,.08);border-color:color-mix(in srgb,var(--cat) 42%,var(--line))}
+.map-block:focus-visible{outline:2px solid var(--cat,var(--brand));outline-offset:3px}
+.map-block:active{transform:perspective(700px) rotateX(2deg) rotateY(-3deg) translateY(-2px) scale(.995)}
+/* block interior layout */
+.map-block-inner{padding:22px 20px 18px;display:flex;flex-direction:column;gap:10px;flex:1}
+.map-block-top{display:flex;align-items:flex-start;gap:14px}
+.map-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--cat) 12%,var(--bg2));border:1px solid color-mix(in srgb,var(--cat) 18%,var(--line-soft));color:var(--cat);flex:none;box-shadow:inset 0 1px 0 rgba(255,255,255,.6)}
+[data-theme=dark] .map-icon,[data-theme=dim] .map-icon{box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
+.map-icon svg{width:28px;height:28px;display:block}
+.map-cat{font-size:18px;font-weight:800;letter-spacing:-.3px;line-height:1.2;flex:1;min-width:0}
+.map-count{font-family:var(--mono);font-size:12.5px;color:var(--mut);font-weight:600;display:flex;align-items:center;gap:6px}
+.map-count::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--cat);flex:none;opacity:.9}
+.map-difficulty{display:flex;align-items:center;gap:8px;margin-top:2px}
+.map-diff-label{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--mut)}
+.map-diff-bar{display:flex;gap:3px;align-items:center;flex:1}
+.map-diff-seg{height:6px;border-radius:9999px;min-width:8px;transition:width .2s}
+.map-diff-seg.beg{background:#2ECC71}
+.map-diff-seg.int{background:#F5A524}
+.map-diff-seg.adv{background:#E5484D}
+.map-diff-dots{display:flex;gap:4px;align-items:center}
+.map-diff-dots i{width:8px;height:8px;border-radius:50%;display:inline-block}
+.map-diff-dots i.beg{background:#2ECC71}
+.map-diff-dots i.int{background:#F5A524}
+.map-diff-dots i.adv{background:#E5484D}
+.map-diff-count{font-family:var(--mono);font-size:11px;color:var(--mut);font-weight:600}
+.map-pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:2px}
+.map-pill{font-family:var(--mono);font-size:11px;font-weight:600;padding:3px 9px;border-radius:9999px;background:color-mix(in srgb,var(--cat) 8%,var(--bg2));border:1px solid color-mix(in srgb,var(--cat) 14%,var(--line-soft));color:var(--mut)}
 .map-pill b{color:var(--ink)}
+/* hover/focus preview popover — 2-3 titles */
+.map-preview{position:absolute;left:12px;right:12px;bottom:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;box-shadow:var(--shadow-lift);opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity .2s ease,transform .2s ease;z-index:5;max-height:120px;overflow:hidden}
+.map-block:hover .map-preview,.map-block:focus-within .map-preview,.map-block.preview-open .map-preview{opacity:1;transform:translateY(0);pointer-events:auto}
+.map-preview-title{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--cat);margin-bottom:6px}
+.map-preview ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px}
+.map-preview li{font-size:12.5px;font-weight:500;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.35}
+.map-preview li::before{content:"→ ";color:var(--cat);font-weight:600}
+.map-preview-more{font-family:var(--mono);font-size:11px;color:var(--mut);margin-top:6px}
+/* touch affordance — preview button on mobile */
+.map-preview-btn{display:none;position:absolute;top:10px;right:10px;z-index:3;width:32px;height:32px;border-radius:50%;background:var(--card);border:1px solid var(--line);color:var(--mut);font-size:16px;cursor:pointer;align-items:center;justify-content:center;box-shadow:var(--shadow)}
+.map-preview-btn:hover{border-color:var(--cat);color:var(--cat)}
+/* — MAP DETAIL: interior as distinct themed space — */
 .map-detail{display:none}
-.map-detail.active{display:block;animation:mapZoom .26s ease}
-@keyframes mapZoom{from{opacity:0;transform:scale(.96) translateY(8px)}to{opacity:1;transform:scale(1) translateY(0)}}
-.map-back{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:500;background:var(--card);border:1px solid var(--line);border-radius:9999px;padding:8px 16px;margin:14px 0 16px;cursor:pointer;color:var(--ink)}
-.map-back:hover{border-color:var(--brand);color:var(--brand)}
-.map-detail-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:8px 0 18px}
-.map-detail-head h2{font-size:22px;font-weight:700;letter-spacing:-.3px}
-.map-detail-head .count{font-family:var(--mono);font-size:12px;color:var(--mut);background:var(--card);border:1px solid var(--line-soft);border-radius:9999px;padding:4px 10px}
-.map-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.map-detail.active{display:block;animation:mapZoomIn .32s cubic-bezier(.2,.8,.2,1)}
+.map-detail.exiting{animation:mapZoomOut .24s ease forwards}
+@keyframes mapZoomIn{from{opacity:0;transform:scale(.96) translateY(12px)}to{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes mapZoomOut{from{opacity:1;transform:scale(1) translateY(0)}to{opacity:0;transform:scale(.98) translateY(8px)}}
+.map-detail-hero{position:relative;border-radius:20px;padding:28px 28px 24px;margin:16px 0 20px;overflow:hidden;background:linear-gradient(135deg,color-mix(in srgb,var(--cat) 16%,var(--card)),color-mix(in srgb,var(--cat) 6%,var(--bg2)));border:1.5px solid color-mix(in srgb,var(--cat) 22%,var(--line-soft));box-shadow:0 4px 20px -6px color-mix(in srgb,var(--cat) 18%,transparent)}
+.map-detail-hero::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:var(--cat)}
+.map-detail-hero-top{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.map-detail-hero .map-icon{width:56px;height:56px;border-radius:16px}
+.map-detail-hero .map-icon svg{width:30px;height:30px}
+.map-detail-hero h2{font-size:26px;font-weight:800;letter-spacing:-.4px;line-height:1.1;flex:1;min-width:160px}
+.map-detail-hero .count{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--ink);background:var(--card);border:1px solid color-mix(in srgb,var(--cat) 18%,var(--line-soft));border-radius:9999px;padding:6px 14px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.map-detail-hero .desc{color:var(--mut);font-size:14.5px;line-height:1.5;max-width:680px;margin-top:12px}
+.map-detail-hero .map-pills{margin-top:12px}
+.map-back{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;background:var(--card);border:1.5px solid var(--line);border-radius:9999px;padding:10px 18px;margin:0 0 4px;cursor:pointer;color:var(--ink);transition:border-color .15s,background .15s,transform .15s;box-shadow:var(--shadow)}
+.map-back:hover{border-color:var(--cat);color:var(--cat);transform:translateX(-2px)}
+.map-back:active{transform:translateX(-1px) scale(.98)}
+/* interior cards — richer hierarchy */
+.map-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+.map-cards .card{padding:0;overflow:hidden;display:flex;flex-direction:column;gap:0;border:1.5px solid color-mix(in srgb,var(--cat, var(--brand)) 14%,var(--line-soft));transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.map-cards .card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift);border-color:color-mix(in srgb,var(--cat, var(--brand)) 26%,var(--line))}
+.map-card-top{padding:20px 22px 14px;display:flex;flex-direction:column;gap:8px;flex:1}
+.map-card-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.map-card-badge{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:4px 10px;border-radius:9999px;border:1px solid;color:var(--cat);background:color-mix(in srgb,var(--cat) 10%,var(--bg2));border-color:color-mix(in srgb,var(--cat) 22%,var(--line-soft))}
+.map-card-badge.beg{--cat:#2ECC71}
+.map-card-badge.int{--cat:#F5A524}
+.map-card-badge.adv{--cat:#E5484D}
+.map-card-time{font-family:var(--mono);font-size:11px;color:var(--mut);font-weight:500}
+.map-cards .card h3{font-size:17px;font-weight:700;letter-spacing:-.2px;line-height:1.3;margin:0}
+.map-cards .card h3 a{color:var(--ink)}
+.map-cards .card h3 a:hover{color:var(--cat,var(--brand))}
+.map-cards .card .desc{font-size:13.5px;color:var(--mut);line-height:1.55;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;flex:1}
+.map-card-footer{padding:12px 22px 16px;border-top:1px solid var(--line-soft);display:flex;align-items:center;gap:10px;background:color-mix(in srgb,var(--cat, transparent) 3%,var(--bg2))}
+.map-card-footer .meta-line{font-size:12px;color:var(--mut);flex:1}
+.map-card-footer a.read{margin:0}
 @media(max-width:600px){
-  .map-grid{grid-template-columns:1fr;gap:12px;perspective:none}
-  .map-block{transform:none !important;perspective:none}
-  .map-block:hover{transform:none;box-shadow:var(--shadow)}
+  .map-grid{grid-template-columns:1fr;gap:16px;perspective:none}
+  .map-block{transform:none !important}
+  .map-block:hover{transform:translateY(-2px) !important;box-shadow:var(--shadow-lift)}
+  .map-preview{position:static;opacity:1;transform:none;pointer-events:auto;margin:0 12px 12px;max-height:none;box-shadow:none;border:1px dashed color-mix(in srgb,var(--cat) 22%,var(--line-soft));background:color-mix(in srgb,var(--cat) 4%,var(--card))}
+  .map-preview-btn{display:flex}
+  .map-block:not(.preview-open) .map-preview{display:none}
+  .map-block.preview-open .map-preview{display:block}
   .map-cards{grid-template-columns:1fr}
-  .map-hero{padding:28px 14px 8px}
+  .map-hero{padding:28px 16px 8px}
+  .map-detail-hero{padding:20px 18px 18px;border-radius:16px}
+  .map-detail-hero h2{font-size:22px}
 }
 @media(prefers-reduced-motion:reduce){
   .map-block,.map-detail,.map-grid{transition:none !important;animation:none !important;transform:none !important}
   .map-detail.active{animation:none}
+  .map-detail.exiting{animation:none;display:none}
+  .map-preview{transition:none !important}
 }
 """
 
@@ -393,11 +462,11 @@ function setP(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
 
 INDEX_JS = BASE_JS + """
 const PREF='cicdlib:pref',PROG='cicdlib:prog:';
-const pref=getP(PREF,{theme:'dark'});
-const THEMES=['dark','light','sepia','dim','contrast'],THICON={dark:'☀',light:'☾',sepia:'◐',dim:'◑',contrast:'◉'};
-function syncTheme(){const th=THEMES.includes(pref.theme)?pref.theme:'dark';document.documentElement.dataset.theme=th;const t=$('#themebtn');if(t)t.textContent=THICON[th]||'☀'}
+const pref=getP(PREF,{theme:'sepia'});
+const THEMES=['sepia','dark','light','dim','contrast'],THICON={dark:'☀',light:'☾',sepia:'◐',dim:'◑',contrast:'◉'};
+function syncTheme(){const th=THEMES.includes(pref.theme)?pref.theme:'sepia';document.documentElement.dataset.theme=th;const t=$('#themebtn');if(t)t.textContent=THICON[th]||'☀'}
 syncTheme();
-function cycleTheme(){pref.theme=THEMES[(THEMES.indexOf(pref.theme)+1)%THEMES.length]||'dark';setP(PREF,pref);syncTheme();}
+function cycleTheme(){pref.theme=THEMES[(THEMES.indexOf(pref.theme)+1)%THEMES.length]||'sepia';setP(PREF,pref);syncTheme();}
 function renderContinue(){
   const box=$('#continue'),items=[],done=[],hist=[];
   $$('.book[data-id]').forEach(c=>{const p=getP(PROG+c.dataset.id,null);if(!p||!p.pct)return;const e={id:c.dataset.id,title:c.dataset.title,pct:p.pct,ts:p.ts||0};hist.push(e);if(p.pct>=98)done.push(e);else if(p.pct>0)items.push(e);});
@@ -456,9 +525,9 @@ renderContinue();filter();
 
 READER_JS = BASE_JS + """
 const BID=document.body.dataset.book,PREF='cicdlib:pref',PKEY='cicdlib:prog:'+BID;
-const pref=Object.assign({theme:'dark',fs:18,width:'820px',font:'sans',lh:1.7},getP(PREF,{}));
-const RTHEMES=['dark','light','sepia','dim','contrast'];
-function applyPref(){document.documentElement.dataset.theme=RTHEMES.includes(pref.theme)?pref.theme:'dark';
+const pref=Object.assign({theme:'sepia',fs:18,width:'820px',font:'sans',lh:1.7},getP(PREF,{}));
+const RTHEMES=['sepia','dark','light','dim','contrast'];
+function applyPref(){document.documentElement.dataset.theme=RTHEMES.includes(pref.theme)?pref.theme:'sepia';
   document.body.dataset.font=pref.font==='serif'?'serif':'sans';
   const rb=document.querySelector('.readbody');if(rb){rb.style.fontSize=pref.fs+'px';rb.style.setProperty('max-width',pref.width);rb.style.setProperty('--lh',pref.lh);}
   $$('.setrow .opts .btn').forEach(b=>b.classList.toggle('on',b.dataset.set===undefined?'':String(pref[b.dataset.k])===b.dataset.set));
@@ -650,39 +719,72 @@ def build_map_page(books, output_dir):
             n = diff_cnt.get(lvl,0)
             if n:
                 pills += f'<span class="map-pill"><b>{n}</b> {lvl[:3]}</span>'
-        # aria-label: category — N books, difficulty spread
+        # Difficulty bar: proportional segments (beg/int/adv)
+        total_d = sum(diff_cnt.values()) or 1
+        bar_segs = ""
+        for lvl, cls in [("Beginner","beg"),("Intermediate","int"),("Advanced","adv")]:
+            n = diff_cnt.get(lvl,0)
+            if n:
+                pct = max(12, round(n/total_d*100))
+                bar_segs += f'<span class="map-diff-seg {cls}" style="width:{pct}%" title="{lvl}: {n}"></span>'
+        # Dots variant for small counts
+        dots = ""
+        for lvl, cls in [("Beginner","beg"),("Intermediate","int"),("Advanced","adv")]:
+            n = diff_cnt.get(lvl,0)
+            for _ in range(n):
+                dots += f'<i class="{cls}" title="{lvl}"></i>'
+        # Preview titles: 2-3 books in this category
+        preview_titles = bs[:3]
+        preview_items = "".join(f'<li>{html.escape(b["title"])}</li>' for b in preview_titles)
+        more_n = cnt - len(preview_titles)
+        more_txt = f'<div class="map-preview-more">+{more_n} more</div>' if more_n>0 else ""
+        preview_html = f'<div class="map-preview" aria-hidden="true"><div class="map-preview-title">Inside — {cnt} books</div><ul>{preview_items}</ul>{more_txt}</div>' if cnt else ""
+        # aria-label
         aria_parts = [f"{diff_cnt.get(l,0)} {l}" for l in ["Beginner","Intermediate","Advanced"] if diff_cnt.get(l,0)]
         aria = html.escape(f"{cat} — {cnt} {'book' if cnt==1 else 'books'}" + (", " + ", ".join(aria_parts) if aria_parts else ""))
         count_label = f"{cnt} {'book' if cnt==1 else 'books'}"
         blocks_html += (
             f'<a href="#{slug}" class="map-block" data-cat="{html.escape(cat)}" id="block-{slug}" '
             f'style="--cat:{color}" data-slug="{slug}" aria-label="{aria}" tabindex="0">'
-            f'<span class="map-icon" aria-hidden="true">{icon}</span>'
-            f'<span class="map-cat">{html.escape(cat)}</span>'
+            f'<button class="map-preview-btn" aria-label="Preview {html.escape(cat)} contents" data-preview-btn="{slug}">…</button>'
+            f'<div class="map-block-inner">'
+            f'<div class="map-block-top"><span class="map-icon" aria-hidden="true">{icon}</span>'
+            f'<span class="map-cat">{html.escape(cat)}</span></div>'
             f'<span class="map-count">{count_label}</span>'
+            f'<div class="map-difficulty"><span class="map-diff-label">Level mix</span><span class="map-diff-bar">{bar_segs}</span><span class="map-diff-dots">{dots}</span><span class="map-diff-count">{cnt}</span></div>'
             f'<span class="map-pills">{pills}</span>'
+            f'</div>'
+            f'{preview_html}'
             f'</a>'
         )
-        # detail view reuses card markup — inline reuse of homepage card template
+        # detail view — themed interior with improved card hierarchy
+        cat_desc = {"CI/CD":"Fundamentals: lifecycle, branching, pipelines & artifacts","Jenkins":"Controllers, agents, pipelines, Groovy & plugins","Labs":"Hands-on labs — build, deploy & recover","Platforms":"Jenkins, GitHub Actions, GitLab & ArgoCD","Roadmap":"Planned paths through the library","Build":"Hermetic builds, BuildKit & Kaniko","Testing":"Strategy, pyramids & flaky tests","Delivery":"Releasable always, deployed by decision","Security":"Signing, SBOM & supply chain","Reliability":"Rollback, recovery & resilience","Reference":"Cheatsheets & quick lookup","GitHub":"Actions, workflows & automation"}.get(cat, f"{cnt} books in {cat}")
         cards = ""
         for b in bs:
             idx = next((i for i, x in enumerate(books) if x["id"]==b["id"]), 0)
             initials = "".join(w[0] for w in __import__('re').sub(r"[^A-Za-z0-9 ]", "", b["title"]).split()[:2]).upper()
             tmin = b.get("time_minutes", 30)
             tags = " ".join(b.get("tags", []))
-            # reuse exact same card HTML as homepage (B2.2 — single source of truth for markup)
+            diff_cls = {"Beginner":"beg","Intermediate":"int","Advanced":"adv"}.get(b["difficulty"],"int")
+            desc_short = b.get("description","")[:140]
             cards += (
-                f'<div class="card book" data-id="{__import__("html").escape(b["id"])}" data-cat="{__import__("html").escape(b["category"])}" data-dif="{__import__("html").escape(b["difficulty"])}" data-time="{tmin}" data-tags="{__import__("html").escape(tags)}" data-title="{__import__("html").escape(b["title"])}" data-desc="{__import__("html").escape(b.get("description",""))}">'
+                f'<div class="card book" data-id="{__import__("html").escape(b["id"])}" data-cat="{__import__("html").escape(b["category"])}" data-dif="{__import__("html").escape(b["difficulty"])}" data-time="{tmin}" data-tags="{__import__("html").escape(tags)}" data-title="{__import__("html").escape(b["title"])}" data-desc="{__import__("html").escape(b.get("description",""))}" style="--cat:{color}">'
                 f'<div class="coverart" aria-hidden="true"><b>{initials}</b></div>'
-                f'<span class="num">PDF {idx+1:02d} · {tmin} min · Updated {__import__("html").escape(b.get("updated",""))}</span><h3><a href="read/{__import__("html").escape(b["id"])}.html">{__import__("html").escape(b["title"])}</a></h3><p>{__import__("html").escape(b.get("description",""))}</p>'
-                f'<div class="dif"><i></i>{b["difficulty"]} · {__import__("html").escape(b.get("path",""))}</div>'
-                f'<div class="meta-line">{tmin} min · v{__import__("html").escape(b.get("version","2.0"))} · Updated {__import__("html").escape(b.get("updated",""))}</div>'
-                f'<span><a class="read" href="read/{__import__("html").escape(b["id"])}.html">Read</a> <a href="book/{__import__("html").escape(b["id"])}.html" style="font-size:13px;color:var(--mut)">Overview</a></span></div>'
+                f'<div class="map-card-top">'
+                f'<div class="map-card-meta"><span class="map-card-badge {diff_cls}">{html.escape(b["difficulty"])}</span><span class="map-card-time">{tmin} min · {html.escape(b.get("path",""))}</span></div>'
+                f'<h3><a href="read/{__import__("html").escape(b["id"])}.html">{__import__("html").escape(b["title"])}</a></h3>'
+                f'<p class="desc">{html.escape(desc_short)}</p>'
+                f'</div>'
+                f'<div class="map-card-footer"><span class="meta-line">PDF {idx+1:02d} · v{__import__("html").escape(b.get("version","2.0"))} · {html.escape(b.get("updated",""))}</span><a class="read" href="read/{__import__("html").escape(b["id"])}.html">Read</a></div>'
+                f'</div>'
             )
         detail_html += (
             f'<section class="map-detail" id="detail-{slug}" data-cat="{html.escape(cat)}" aria-label="{html.escape(cat)} books" style="--cat:{color}">'
             f'<button class="map-back" data-back aria-label="Back to map">← Back to map</button>'
-            f'<div class="map-detail-head"><h2>{html.escape(cat)}</h2><span class="count">{cnt} {"book" if cnt==1 else "books"}</span>'
+            f'<div class="map-detail-hero" style="--cat:{color}"><div class="map-detail-hero-top">'
+            f'<span class="map-icon" aria-hidden="true">{CATEGORY_ICONS.get(cat, CATEGORY_ICONS["Reference"])}</span>'
+            f'<h2>{html.escape(cat)}</h2><span class="count">{cnt} {"book" if cnt==1 else "books"}</span></div>'
+            f'<p class="desc">{html.escape(cat_desc)}</p>'
             f'<span class="map-pills">{pills}</span></div>'
             f'<div class="map-cards">{cards}</div>'
             f'</section>'
@@ -696,7 +798,7 @@ def build_map_page(books, output_dir):
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Structure Map — CICD BY Nabawy</title>
 {seo_tags("Structure Map — CICD BY Nabawy", "Zoomed-out visual map of the CI/CD knowledge structure — 12 categories derived from books.json.", f"{SITE_URL}/map.html")}
-<style>{BASE_CSS}</style>
+<style>{BASE_CSS}</style><script>try{{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}}catch(e){{document.documentElement.dataset.theme='sepia'}}</script>
 </head>
 <body>
 <header class="top"><div class="wrap">
@@ -720,9 +822,9 @@ def build_map_page(books, output_dir):
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 function getP(k,d){{try{{const v=JSON.parse(localStorage.getItem(k));return v??d}}catch(e){{return d}}}}
 function setP(k,v){{try{{localStorage.setItem(k,JSON.stringify(v))}}catch(e){{}}}}
-const pref=getP('cicdlib:pref',{{theme:'dark'}});
-const THS=['dark','light','sepia','dim','contrast'],THI={{dark:'☀',light:'☾',sepia:'◐',dim:'◑',contrast:'◉'}};
-function syncTheme(){{const th=THS.includes(pref.theme)?pref.theme:'dark';document.documentElement.dataset.theme=th;const t=$('#themebtn');if(t)t.textContent=THI[th]||'☀'}}
+const pref=getP('cicdlib:pref',{{theme:'sepia'}});
+const THS=['sepia','dark','light','dim','contrast'],THI={{dark:'☀',light:'☾',sepia:'◐',dim:'◑',contrast:'◉'}};
+function syncTheme(){{const th=THS.includes(pref.theme)?pref.theme:'sepia';document.documentElement.dataset.theme=th;const t=$('#themebtn');if(t)t.textContent=THI[th]||'☀'}}
 syncTheme();
 $('#themebtn').onclick=()=>{{pref.theme=THS[(THS.indexOf(pref.theme)+1)%THS.length];setP('cicdlib:pref',pref);syncTheme()}};
 const grid=$('#mapGrid'),details=$$('.map-detail'),empty=$('#mapEmpty');
@@ -745,7 +847,35 @@ $$('.map-block').forEach(a=>{{
     if(e.key==='Enter'){{ /* anchor handles natively */ }}
   }});
 }});
-$$('[data-back]').forEach(b=>b.addEventListener('click',()=>{{ history.pushState(null,'',location.pathname+location.search); showDetail('',false); window.scrollTo({{top:0,behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto':'smooth'}}); }}));
+/* touch preview toggle (mobile where hover doesn't exist) */
+$$('[data-preview-btn]').forEach(btn=>{{
+  btn.addEventListener('click', e=>{{
+    e.preventDefault(); e.stopPropagation();
+    const card = btn.closest('.map-block');
+    const wasOpen = card.classList.contains('preview-open');
+    $$('.map-block.preview-open').forEach(c=>c.classList.remove('preview-open'));
+    if(!wasOpen) card.classList.add('preview-open');
+  }});
+}});
+document.addEventListener('click', e=>{{
+  if(!e.target.closest('.map-block')) $$('.map-block.preview-open').forEach(c=>c.classList.remove('preview-open'));
+}});
+$$('[data-back]').forEach(b=>b.addEventListener('click',()=>{{
+  const active = document.querySelector('.map-detail.active');
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(active && !prefersReduced){{
+    active.classList.add('exiting');
+    active.addEventListener('animationend', ()=>{{
+      history.pushState(null,'',location.pathname+location.search);
+      showDetail('',false);
+      window.scrollTo({{top:0,behavior:'smooth'}});
+    }}, {{once:true}});
+  }} else {{
+    history.pushState(null,'',location.pathname+location.search);
+    showDetail('',false);
+    window.scrollTo({{top:0,behavior: prefersReduced ? 'auto':'smooth'}});
+  }}
+}}));;
 window.addEventListener('hashchange',()=>showDetail(slugFromHash(),false));
 window.addEventListener('popstate',()=>showDetail(slugFromHash(),false));
 const initial=slugFromHash();
@@ -806,7 +936,7 @@ def build_roadmap_page(books, output_dir):
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Roadmap — CICD BY Nabawy</title>
 {seo_tags("Roadmap — CICD BY Nabawy", "Visual map of all 39 books grouped by category — the same source as the library.", f"{SITE_URL}/roadmap/")}
-<style>{BASE_CSS}</style>
+<style>{BASE_CSS}</style><script>try{{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}}catch(e){{document.documentElement.dataset.theme='sepia'}}</script>
 </head>
 <body>
 <header class="top"><div class="wrap">
@@ -829,9 +959,9 @@ def build_roadmap_page(books, output_dir):
 const $=s=>document.querySelector(s);
 function getP(k,d){{try{{const v=JSON.parse(localStorage.getItem(k));return v??d}}catch(e){{return d}}}}
 function setP(k,v){{try{{localStorage.setItem(k,JSON.stringify(v))}}catch(e){{}}}}
-const pref=getP('cicdlib:pref',{{theme:'dark'}});
-const THS=['dark','light','sepia','dim','contrast'],THI={{dark:'☀',light:'☾',sepia:'◐',dim:'◑',contrast:'◉'}};
-function syncTheme(){{const th=THS.includes(pref.theme)?pref.theme:'dark';document.documentElement.dataset.theme=th;const t=$('#themebtn');if(t)t.textContent=THI[th]||'☀'}}
+const pref=getP('cicdlib:pref',{{theme:'sepia'}});
+const THS=['sepia','dark','light','dim','contrast'],THI={{dark:'☀',light:'☾',sepia:'◐',dim:'◑',contrast:'◉'}};
+function syncTheme(){{const th=THS.includes(pref.theme)?pref.theme:'sepia';document.documentElement.dataset.theme=th;const t=$('#themebtn');if(t)t.textContent=THI[th]||'☀'}}
 syncTheme();
 $('#themebtn').onclick=()=>{{pref.theme=THS[(THS.indexOf(pref.theme)+1)%THS.length];setP('cicdlib:pref',pref);syncTheme()}};
 </script>
@@ -978,7 +1108,7 @@ def build():
 <title>{html.escape(b['title'])} — CICD BY Nabawy</title>
 {seo_tags(f"{b['title']} — CICD BY Nabawy", b.get("description",""), f"{SITE_URL}/read/{b['id']}.html", og_type="article", image=f"{SITE_URL}/og/{b['id']}.svg")}
 {(f'<link rel="prefetch" href="{upnext["id"]}.html">' if upnext else '') + (f'<link rel="prefetch" href="{nextb["id"]}.html">' if nextb and (not upnext or nextb["id"] != upnext["id"]) else '')}
-<style>{BASE_CSS}</style>
+<style>{BASE_CSS}</style><script>try{{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}}catch(e){{document.documentElement.dataset.theme='sepia'}}</script>
 {f'<script type="application/ld+json">{json.dumps({"@context":"https://schema.org","@type":"TechArticle","headline":b["title"],"description":b.get("description",""),"url":SITE_URL + "/read/" + b["id"] + ".html","author":{"@type":"Person","name":"Nabawy"},"isPartOf":{"@type":"CollectionPage","name":"CICD BY Nabawy","url":SITE_URL}})}</script>'}
 {f'<script type="application/ld+json">{json.dumps({"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":SITE_URL + "/"},{"@type":"ListItem","position":2,"name":b["title"],"item":SITE_URL + "/read/" + b["id"] + ".html"}]})}</script>'}
 <style>{css}
@@ -1188,7 +1318,7 @@ def build():
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CICD BY Nabawy</title>
 {seo_tags("CICD BY Nabawy", SITE_DESC, f"{SITE_URL}/", image=f"{SITE_URL}/og/library.svg")}
-<style>{BASE_CSS}</style>
+<style>{BASE_CSS}</style><script>try{{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}}catch(e){{document.documentElement.dataset.theme='sepia'}}</script>
 <script type="application/ld+json">{json.dumps({"@context":"https://schema.org","@type":"CollectionPage","name":"CICD BY Nabawy","description":SITE_DESC,"url":SITE_URL,"hasPart":[{"@type":"TechArticle","name":b["title"],"url":SITE_URL + "/read/" + b["id"] + ".html"} for b in books]})}</script>
 </head>
 <body>
@@ -1246,7 +1376,7 @@ try{{const cats=[...new Set($$('.book[data-id]').map(c=>c.dataset.cat))].sort();
     gloss = f"""<!DOCTYPE html>
 <html lang="en">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Glossary — CICD BY Nabawy</title>{seo_tags("Glossary — CICD BY Nabawy", "CI/CD glossary: terms shared by all books, reader and search.", f"{SITE_URL}/glossary.html")}<style>{BASE_CSS}</style></head>
+<title>Glossary — CICD BY Nabawy</title>{seo_tags("Glossary — CICD BY Nabawy", "CI/CD glossary: terms shared by all books, reader and search.", f"{SITE_URL}/glossary.html")}<style>{BASE_CSS}</style><script>try{{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}}catch(e){{document.documentElement.dataset.theme='sepia'}}</script></head>
 <body>
 <header class="top"><div class="wrap"><a class="logo" href="index.html" style="text-decoration:none;color:inherit"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="5" cy="12" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="6" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="18" r="2.6" stroke="#18E299" stroke-width="2"/><path d="M7.6 12h5.2m0 0-2.6-2.6m2.6 2.6-2.6 2.6M13.4 7.4l2.8-1M13.4 16.6l2.8 1" stroke="#18E299" stroke-width="2" stroke-linecap="round"/></svg>CICD<span> BY Nabawy</span></a>
 <div class="search"><input id="q" type="search" placeholder="Filter terms…"></div><a class="btn" href="map.html" style="text-decoration:none">Map</a><a class="btn" href="roadmap/" style="text-decoration:none">Roadmap</a></div></header>
@@ -1269,7 +1399,7 @@ $$('table.gloss tr').forEach((r,i)=>{{if(!i)return;r.style.display=r.textContent
         preq = "".join(f'<a href="{p}.html">{html.escape(byid[p]["title"])}</a>' if p in byid else f'<span>{html.escape(p)}</span>' for p in b.get("prereqs", [])) or "<span>None — start here</span>"
         outs = "".join(f"<li>{html.escape(o)}</li>" for o in b.get("outcomes", [])) or "<li>Read the full book</li>"
         initials = "".join(w[0] for w in re.sub(r"[^A-Za-z0-9 ]", "", b["title"]).split()[:2]).upper()
-        bp = f"""<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>{html.escape(b['title'])} — Overview — CICD BY Nabawy</title>{seo_tags(b['title'] + " — Overview — CICD BY Nabawy", b.get("description", ""), f"{SITE_URL}/book/{b['id']}.html", image=f"{SITE_URL}/og/{b['id']}.svg")}<link rel="prefetch" href="../read/{b['id']}.html"><style>{BASE_CSS}</style>
+        bp = f"""<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>{html.escape(b['title'])} — Overview — CICD BY Nabawy</title>{seo_tags(b['title'] + " — Overview — CICD BY Nabawy", b.get("description", ""), f"{SITE_URL}/book/{b['id']}.html", image=f"{SITE_URL}/og/{b['id']}.svg")}<link rel="prefetch" href="../read/{b['id']}.html"><style>{BASE_CSS}</style><script>try{{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}}catch(e){{document.documentElement.dataset.theme='sepia'}}</script>
 {f'<script type="application/ld+json">{json.dumps({"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":SITE_URL + "/"},{"@type":"ListItem","position":2,"name":b["title"],"item":SITE_URL + "/book/" + b["id"] + ".html"}]})}</script>'}></head>
 <body><header class="top"><div class="wrap"><a class="logo" href="../index.html" style="color:inherit">CICD<span> BY Nabawy</span></a><nav class="crumbs"><span class="sep">/</span><span class="here">{html.escape(b['title'])}</span></nav><div class="search"></div><a class="btn" href="../index.html">Library</a><a class="btn" href="../map.html">Map</a><button class="btn" id="themebtn">☀</button></div></header>
 <div class="wrap"><div class="bookhero"><div class="coverart" data-cat="{html.escape(b['category'])}"><b>{initials}</b></div><div style="flex:1;min-width:260px"><span class="num">{html.escape(b['category'])} · {b['difficulty']} · {b.get('time_minutes', 30)} min · v{b.get('version', '2.0')} · Updated {html.escape(b.get('updated', ''))}</span><h1 style="font-size:34px;margin:6px 0">{html.escape(b['title'])}</h1><p class="sub">{html.escape(b.get('description', ''))}</p>
@@ -1281,15 +1411,15 @@ $$('table.gloss tr').forEach((r,i)=>{{if(!i)return;r.style.display=r.textContent
 <div class="relatedbox"><h4>Related books</h4><ul>{"".join(f'<li><a href="{r["id"]}.html">{html.escape(r["title"])}</a></li>' for r in rels)}</ul></div>
 </div><footer><div class="wrap"><span>CICD BY Nabawy</span></div></footer>
 <script>{BASE_JS}
-const pref=getP('cicdlib:pref',{{theme:'dark'}});const THX=['dark','light','sepia','dim','contrast'];document.documentElement.dataset.theme=THX.includes(pref.theme)?pref.theme:'dark';
-$('#themebtn').onclick=()=>{{pref.theme=THX[(THX.indexOf(pref.theme)+1)%THX.length];setP('cicdlib:pref',pref);document.documentElement.dataset.theme=pref.theme;}};
+const pref=getP('cicdlib:pref',{{theme:'sepia'}});const THX=['sepia','dark','light','dim','contrast'];document.documentElement.dataset.theme=THX.includes(pref.theme)?pref.theme:'sepia';
+$('#themebtn').onclick=()=>{{pref.theme=THX[(THX.indexOf(pref.theme)+1)%THX.length]||'sepia';setP('cicdlib:pref',pref);document.documentElement.dataset.theme=pref.theme;}};
 try{{const p=getP('cicdlib:prog:{b['id']}',null);if(p&&p.pct>0&&p.pct<100)$('#startbtn').textContent='Continue reading — '+p.pct+'% →';}}catch(e){{}}
 </script></body></html>"""
         open(os.path.join(bookdir, b["id"] + ".html"), "w", encoding="utf-8").write(bp)
 
     # --- P1: updates page ---
     rows_u = "".join(f'<tr><td><a href="book/{b["id"]}.html">{html.escape(b["title"])}</a></td><td>{html.escape(b["category"])}</td><td>{b["difficulty"]}</td><td>v{html.escape(b.get("version", "2.0"))}</td><td>{html.escape(b.get("updated", ""))}</td><td>{b.get("time_minutes", 30)} min</td></tr>' for b in books)
-    upd = f"""<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Updates — CICD BY Nabawy</title>{seo_tags("Updates — CICD BY Nabawy", "What changed across the library.", f"{SITE_URL}/updates.html")}<style>{BASE_CSS}</style></head><body><header class="top"><div class="wrap"><a class="logo" href="index.html" style="color:inherit">CICD<span> BY Nabawy</span></a><nav class="crumbs"><span class="sep">/</span><span class="here">Updates</span></nav></div></header><div class="wrap"><h2 class="sec">Updates</h2><p class="sub">{len(books)} books · P0+P1 shipped Sep 2026: metadata, filters, paths, bookmarks, related, lab checks</p><table class="gloss"><tr><th>Book</th><th>Category</th><th>Level</th><th>Ver</th><th>Updated</th><th>Time</th></tr>{rows_u}</table></div></body></html>"""
+    upd = f"""<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Updates — CICD BY Nabawy</title>{seo_tags("Updates — CICD BY Nabawy", "What changed across the library.", f"{SITE_URL}/updates.html")}<style>{BASE_CSS}</style><script>try{{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}}catch(e){{document.documentElement.dataset.theme='sepia'}}</script></head><body><header class="top"><div class="wrap"><a class="logo" href="index.html" style="color:inherit">CICD<span> BY Nabawy</span></a><nav class="crumbs"><span class="sep">/</span><span class="here">Updates</span></nav></div></header><div class="wrap"><h2 class="sec">Updates</h2><p class="sub">{len(books)} books · P0+P1 shipped Sep 2026: metadata, filters, paths, bookmarks, related, lab checks</p><table class="gloss"><tr><th>Book</th><th>Category</th><th>Level</th><th>Ver</th><th>Updated</th><th>Time</th></tr>{rows_u}</table></div></body></html>"""
     open(os.path.join(DIST, "updates.html"), "w", encoding="utf-8").write(upd)
 
     # --- SEO: sitemap + robots ---
@@ -1307,7 +1437,7 @@ try{{const p=getP('cicdlib:prog:{b['id']}',null);if(p&&p.pct>0&&p.pct<100)$('#st
     pathlib.Path(os.path.join(DIST, "robots.txt")).write_text(f"User-agent: *{chr(10)}Allow: /{chr(10)}Sitemap: {SITE_URL}/sitemap.xml{chr(10)}", encoding="utf-8")
 
     # --- P0: 404 + search index ---
-    notfound = f"""<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Not found — CICD BY Nabawy</title><link rel="icon" type="image/svg+xml" href="https://eslamnabawy.github.io/cicd-by-nabawy/favicon.svg"><meta name="theme-color" content="#0B0D10"><style>{BASE_CSS}</style></head><body><div class="wrap" style="text-align:center;padding:80px 20px"><h1>Page not found</h1><p class="sub">Try search or start with Foundations.</p><p><a class="btn" href="index.html">Library</a> <a class="btn" href="read/foundations.html">Foundations</a> <a class="btn" href="glossary.html">Glossary</a></p></div></body></html>"""
+    notfound = f"""<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Not found — CICD BY Nabawy</title><link rel="icon" type="image/svg+xml" href="https://eslamnabawy.github.io/cicd-by-nabawy/favicon.svg"><meta name="theme-color" content="#0B0D10"><style>{BASE_CSS}</style><script>try{{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}}catch(e){{document.documentElement.dataset.theme='sepia'}}</script></head><body><div class="wrap" style="text-align:center;padding:80px 20px"><h1>Page not found</h1><p class="sub">Try search or start with Foundations.</p><p><a class="btn" href="index.html">Library</a> <a class="btn" href="read/foundations.html">Foundations</a> <a class="btn" href="glossary.html">Glossary</a></p></div></body></html>"""
     pathlib.Path(os.path.join(DIST, "404.html")).write_text(notfound, encoding="utf-8")
     pathlib.Path(os.path.join(DIST, "favicon.svg")).write_text(FAVICON_SVG, encoding="utf-8")
     search_idx = [{"id": b["id"], "title": b["title"], "desc": b.get("description", ""), "cat": b["category"], "dif": b["difficulty"], "tags": b.get("tags", []), "time": b.get("time_minutes", 30), "sections": all_sections.get(b["id"], []), "body": all_body.get(b["id"], "")[:2000]} for b in books]

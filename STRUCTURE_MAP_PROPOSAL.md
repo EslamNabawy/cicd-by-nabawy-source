@@ -95,3 +95,36 @@ This is **strictly additive**:
 4. **Anything to change or explicitly exclude before build starts?**
 
 Reply with your answers to 1–3 (e.g. `category / a / /map.html + header ok`) plus any edits, and I'll build the rest autonomously.
+
+
+---
+
+## Addendum — Rev 2026-09-14: Sepia default + Exterior & Interior overhaul (feat/sepia-map-polish)
+
+This addendum reflects the UI as actually shipped after the combined sepia + structure-map polish. The original proposal (above) described the initial weak version; this section is the accurate record.
+
+### Sepia theme (now default)
+
+- **Tokens:** `--bg:#F6F1E7` (warm cream, within #F4ECD8–#F8F1E3 range), `--bg2:#EDE3CC`, `--card:#FFFBF0`, `--ink:#3B2F1E` (warm dark brown), `--mut:#6F665A` (warm muted, 5.01:1 on bg — passes AA), `--line:rgba(59,47,30,.16)`, warm `shadow` tints. Checked: ink 11.58:1 on bg (AAA), mut 5.01:1 (AA).
+- **Brand accent decision:** `#18E299` (original brand) on sepia `#F6F1E7` is 1.51:1 — fails even large-text AA, reads too cool against warm palette. Warmed variant **`#0B9B68`** used consistently for sepia (`--acc`/`--brand`): 3.16:1 on bg (passes large-text AA, sufficient for borders/buttons/accents) and 3.44:1 on card. Dark and light keep `#18E299` unchanged. Reader `--acc-soft` is `rgba(11,155,104,.11)` (warm-transparent) instead of cool `#d4fae8`.
+- **Default & cycle:** First paint is `sepia` when no saved preference exists (synchronous `<script>` in `<head>` before any paint, respecting `localStorage['cicdlib:pref']` — returning visitors keep their choice). Toggle cycles `sepia → dark → light → dim → contrast → sepia` (sepia first). All 5 theme placements (`THEMES`/`RTHEMES`/`THS`/`THX`) updated.
+- **Icon audit vs sepia:** All 20 registered icons audited. Lucide line glyphs use `stroke="currentColor"` and render via `filter:brightness(0)` (black) on light/sepia, `filter:invert(1)` on dark — correct on `#F6F1E7`. Official brand SVGs (Docker blue `#2496ED`, Argo orange `#EF7B4D`, Jenkins etc.) keep official fills untouched by any filter (scoped only to dark-surface line glyphs). No hardcoded white/black fills remain.
+
+### Map exterior — before → after
+
+- **Before:** Flat `var(--card)` blocks with thin `3px` top line in `--cat`, `1px solid var(--line-soft)` border, `var(--shadow)` — blended into page, no depth cues beyond a subtle lift, small 40×40 icon box, pill row `3 Beg · 1 Int` only, no preview.
+- **After:** Distinct objects — `1.5px solid color-mix(var(--cat) 28%, var(--line-soft))` border **visible in all 3 themes** (verified: sepia warm border on `#F6F1E7`, light neutral on white, dark bright on `#0B0D10`), tinted `linear-gradient(135deg, color-mix(var(--cat) 7%, var(--card)), var(--card))` background (category presence without overwhelming), 5px top accent + 1px top highlight (light source top-left consistent: shadow bottom-right `0 8px 24px -8px color-mix(var(--cat) 18%)`), `scale(1.015) rotateX(3deg) rotateY(-5deg) translateY(-6px)` hover with matching `shadow-lift`, `face vs side` via highlight vs shadow. Info scent per face: **large 52×52 icon** (28px glyph, `12% cat` bg), **name (18px/800)**, **count (mono + 6px cat dot)**, **difficulty bar** (proportional segments `beg:#2ECC71 int:#F5A524 adv:#E5484D` + matching dots + mono count), **pills**. Hover/focus shows **2–3 title preview popover** (`→ Title` list, `"Inside — N books"` header, `+N more`). Touch equivalent: `…` preview button (`data-preview-btn`) toggles `.preview-open` on mobile where hover doesn't exist (375px: preview is inline dashed box, stacked 1fr grid, no perspective).
+- **Contrast/visual-separation check:** Verified blocks separate from bg in sepia (`#FFFBF0` card tinted with cat vs `#F6F1E7` bg + 1.5px cat border + shadow), light (`#fff` + cat border + shadow), dark (`#12151a` + cat border + shadow). Single light source top-left across all themes (highlight top, shadow bottom-right).
+
+### Map interior — before → after
+
+- **Before:** Plain filtered `.card` grid (same as homepage: `coverart` initials + `PDF 01 · 30 min` + title + description + `Beginner · path` + `Read` link), no themed identity, `← Back to map` pill, `mapZoom 0.26s scale .96`.
+- **After:** **Themed hero** per category — `linear-gradient(135deg, color-mix(cat 16%, card), color-mix(cat 6%, bg2))` backdrop, 1.5px cat-tinted border, 4px top cat bar, `56×56` cat icon, category name + pill count + description sentence (e.g. Jenkins: "Controllers, agents, pipelines, Groovy & plugins"), same pills. **Card hierarchy improved:** top area with difficulty **badge** (`Beg/Int/Adv` colored `10% cat` bg, `22% cat` border), time+path mono, larger title (17px/700), 2-line clamped description snippet, **footer** with version/date meta + `Read` button on cat-tinted `bg2` strip, `1.5px cat 14%` border. **Back transition matches entry:** `mapZoomIn .32s cubic-bezier(.2,.8,.2,1)` in, `mapZoomOut .24s` + `.exiting` class on back (history pushState + scroll to top), both disabled under `prefers-reduced-motion: reduce` (instant). Header/backdrop uses same `--cat` as exterior, so entry feels like spatial transition.
+- **A11y kept:** `tabindex 0` + `aria-label` with counts, `Enter/Space` activation, `focus-visible` in `var(--cat)`, `prefers-reduced-motion` disables all transform/animation/preview transitions.
+
+### Verification
+
+- Rendered `map.html` + one detail (`#jenkins`) in **sepia/dark/light** (state color pairs checked above, not "looks fine").
+- **375px:** blocks stack `1fr`, perspective none, preview via tap button (verified hidden until `.preview-open`, dashed cat border), cards `1fr`, hero `20px` padding — all functional without hover.
+- **Blocks stand out:** as per separation check above, bold cat accent applied via `CAT_COLORS` map (`data-cat`/`--cat`) more boldly than homepage thin-border treatment.
+- **Build+QC:** `python website/scripts/build.py` green, `python scripts/qc-check.py` 33 FAILs — **identical to main** (stub PDFs), zero new. `12 blocks × 42 cards` verified.
