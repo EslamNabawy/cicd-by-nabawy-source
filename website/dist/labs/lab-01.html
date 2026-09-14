@@ -192,12 +192,14 @@ main.read{padding:20px 14px 90px}
 .drawer .panel{width:min(320px,88vw)}}
 aside.toc a{scroll-margin-top:0}
 body.lock{overflow:hidden}
+@media(min-width:901px){body.toc-hide aside.toc{display:none}}
 #fsbar{display:none;position:fixed;left:50%;transform:translateX(-50%);bottom:max(14px,env(safe-area-inset-bottom));z-index:80;background:var(--card);border:1px solid var(--line);border-radius:9999px;padding:6px 8px;gap:4px;box-shadow:var(--shadow-lift);align-items:center;max-width:96vw}
 body.fs #fsbar{display:flex}
 body.fs header.top,body.fs .readcontext{display:none !important}
 body.fs main.read{padding-top:24px}
 #fsbar .btn{min-height:44px;padding:6px 12px}
 #fs-prog{font-family:var(--mono);font-size:12px;color:var(--mut);padding:0 8px;white-space:nowrap}
+body.fs .topbtn,body.lock .topbtn{display:none !important}
 .drawerx{position:absolute;top:8px;right:8px;width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;background:transparent;border:1px solid var(--line);border-radius:10px;color:var(--mut);font-size:20px;cursor:pointer;z-index:2}
 .drawerx:hover{color:var(--ink);border-color:var(--brand)}
 .readbody li.step{list-style:none;display:flex;gap:10px;align-items:flex-start;margin:8px 0}
@@ -1569,7 +1571,7 @@ document.addEventListener('keydown',e=>{
 $('#setbtn').onclick=()=>$('#drawer').classList.add('open');
 const _pr=$('#prefreset');if(_pr)_pr.onclick=()=>{setP(PREF,{theme:'sepia',fs:18,width:'820px',font:'sans',lh:1.7});location.reload();};
 $('#drawer .scrim').onclick=()=>$('#drawer').classList.remove('open');
-$('#tocbtn').onclick=()=>$('aside.toc').classList.toggle('open');
+$('#tocbtn').onclick=()=>tocToggle();
 $$('aside.toc a').forEach(a=>a.onclick=()=>{if(innerWidth<=900)$('aside.toc').classList.remove('open')});
 const back=$('#backbtn');
 if(back)back.addEventListener('click',e=>{
@@ -1592,7 +1594,8 @@ window.addEventListener('pageshow',tocUpdate);
 function lockScroll(){const any=$('#drawer').classList.contains('open')||document.querySelector('aside.toc').classList.contains('open');document.body.classList.toggle('lock',any);document.querySelector('aside.toc').setAttribute('aria-modal',document.querySelector('aside.toc').classList.contains('open')?'true':'false');document.querySelector('#drawer .panel').setAttribute('aria-modal',$('#drawer').classList.contains('open')?'true':'false');}
 new MutationObserver(lockScroll).observe(document.querySelector('aside.toc'),{attributes:true,attributeFilter:['class']});
 new MutationObserver(lockScroll).observe($('#drawer'),{attributes:true,attributeFilter:['class']});
-const _tocx=$('#tocx');if(_tocx)_tocx.onclick=()=>{document.querySelector('aside.toc').classList.remove('open');lockScroll();};
+function tocToggle(){const mob=matchMedia('(max-width:900px)').matches;const toc=document.querySelector('aside.toc');if(mob){toc.classList.toggle('open');}else{document.body.classList.toggle('toc-hide');}lockScroll();}
+const _tocx=$('#tocx');if(_tocx)_tocx.onclick=()=>{document.querySelector('aside.toc').classList.remove('open');document.body.classList.add('toc-hide');lockScroll();};
 const _setx=$('#setx');if(_setx)_setx.onclick=()=>{$('#drawer').classList.remove('open');lockScroll();};
 document.addEventListener('keydown',e=>{if(e.key!=='Tab')return;const open=document.querySelector('aside.toc.open')||document.querySelector('#drawer.open');if(!open)return;const f=[...open.querySelectorAll('button,a[href],input,[tabindex]')].filter(el=>el.offsetParent);if(!f.length)return;if(e.shiftKey&&document.activeElement===f[0]){e.preventDefault();f[f.length-1].focus();}else if(!e.shiftKey&&document.activeElement===f[f.length-1]){e.preventDefault();f[0].focus();}});
 // Fullscreen: Fullscreen API where available, CSS-immersive fallback otherwise. Per-session toggle (never auto-restored).
@@ -1600,7 +1603,7 @@ function syncFS(){const on=document.body.classList.contains('fs');const bar=$('#
 function setFS(on){if(on){document.body.classList.add('fs');try{const el=document.documentElement;const pr=el.requestFullscreen&&el.requestFullscreen();if(pr&&pr.catch)pr.catch(()=>{});}catch(err){}}else{document.body.classList.remove('fs');try{if(document.fullscreenElement&&document.exitFullscreen)document.exitFullscreen().catch(()=>{});}catch(err){}}syncFS();}
 document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement)document.body.classList.remove('fs');syncFS();});
 const _fsb=$('#fsbtn'),_fsm=$('#fsbtnm');if(_fsb)_fsb.onclick=()=>setFS(!document.body.classList.contains('fs'));if(_fsm)_fsm.onclick=()=>{$('#drawer').classList.remove('open');setFS(!document.body.classList.contains('fs'));};
-const _ft=$('#fs-toc');if(_ft)_ft.onclick=()=>{document.querySelector('aside.toc').classList.toggle('open');lockScroll();};
+const _ft=$('#fs-toc');if(_ft)_ft.onclick=()=>tocToggle();
 const _fx=$('#fs-exit');if(_fx)_fx.onclick=()=>setFS(false);
 const _fth=$('#fs-theme');if(_fth)_fth.onclick=()=>{setOpt('theme',RTHEMES[(RTHEMES.indexOf(pref.theme)+1)%RTHEMES.length]);};
 function _fsStep(dd){const S=[16,18,20,22];let i=S.indexOf(pref.fs);if(i<0)i=1;setOpt('fs',S[Math.min(S.length-1,Math.max(0,i+dd))]);}

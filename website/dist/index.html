@@ -190,12 +190,14 @@ main.read{padding:20px 14px 90px}
 .drawer .panel{width:min(320px,88vw)}}
 aside.toc a{scroll-margin-top:0}
 body.lock{overflow:hidden}
+@media(min-width:901px){body.toc-hide aside.toc{display:none}}
 #fsbar{display:none;position:fixed;left:50%;transform:translateX(-50%);bottom:max(14px,env(safe-area-inset-bottom));z-index:80;background:var(--card);border:1px solid var(--line);border-radius:9999px;padding:6px 8px;gap:4px;box-shadow:var(--shadow-lift);align-items:center;max-width:96vw}
 body.fs #fsbar{display:flex}
 body.fs header.top,body.fs .readcontext{display:none !important}
 body.fs main.read{padding-top:24px}
 #fsbar .btn{min-height:44px;padding:6px 12px}
 #fs-prog{font-family:var(--mono);font-size:12px;color:var(--mut);padding:0 8px;white-space:nowrap}
+body.fs .topbtn,body.lock .topbtn{display:none !important}
 .drawerx{position:absolute;top:8px;right:8px;width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;background:transparent;border:1px solid var(--line);border-radius:10px;color:var(--mut);font-size:20px;cursor:pointer;z-index:2}
 .drawerx:hover{color:var(--ink);border-color:var(--brand)}
 .readbody li.step{list-style:none;display:flex;gap:10px;align-items:flex-start;margin:8px 0}
