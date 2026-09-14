@@ -259,6 +259,17 @@ The deploy stage is the generic "pipeline calls the environment's API with the n
 - What `agent`, `post`, `options`, `environment` do.
 - Why Jenkinsfile belongs in source control next to the code it builds.
 
+## Kaniko on Kubernetes Agents
+
+Daemon-free image builds from locked-down agents (see [CI/CD Pipelines](../../06-ci-cd-pipelines/pipelines.md) for the generic Kaniko pattern):
+
+```groovy
+// Jenkins Kubernetes agent: kaniko executor builds + pushes, no daemon at all
+container('kaniko') {
+    sh '/kaniko/executor --context `pwd` --destination registry/app:$GIT_COMMIT'
+}
+```
+
 ## Related Topics
 
 - [CI/CD Pipelines](../../06-ci-cd-pipelines/pipelines.md) (generic — read first)

@@ -130,14 +130,7 @@ RUN --mount=type=secret,id=REG_PWD npm publish
 
 - **WHAT:** a container image (`gcr.io/kaniko/executor`) that builds Docker images from a Dockerfile entirely in userspace — no daemon, no privileged flag.
 - **WHY:** hardened clusters ban socket mounts (host root) and DinD (privileged); Kaniko is the only compliant way to build images there.
-- **HOW:** run the executor container with the build context mounted, pass `--destination` for the registry target; it snapshots each Dockerfile instruction into layers itself.
-
-```groovy
-// Jenkins Kubernetes agent: kaniko executor builds + pushes, no daemon at all
-container('kaniko') {
-    sh '/kaniko/executor --context `pwd` --destination registry/app:$GIT_COMMIT'
-}
-```
+- **HOW:** run the executor container with the build context mounted, pass `--destination` for the registry target; it snapshots each Dockerfile instruction into layers itself. (Jenkins calling convention: see [Jenkins Pipelines](../15-platforms-and-tools/jenkins/jenkins-pipelines.md#kaniko-on-kubernetes-agents).)
 
 | | BuildKit (`buildx`) | Kaniko |
 |---|---|---|
