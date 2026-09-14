@@ -610,7 +610,7 @@ ul.tight li{margin-bottom:4px}
 </header>
 <div class="readcontext" data-testid="reader-context"><div class="wrap"><a href="../shelf.html">Browse</a><span>›</span><a href="../shelf.html#path-jenkins-advanced">Jenkins Advanced</a><span>›</span><span class="here">Groovy Cheatsheet</span><span class="pathpos">1 of 7 in Jenkins Advanced</span><span class="prereq">Prereq:<a href="jenkins-pipelines.html">Jenkins Pipelines</a></span></div></div>
 <div class="rlayout">
-<aside class="toc"><h4>CONTENTS · 4 PAGES · 8 SECTIONS</h4><a href="#p1" class="toc-l1" aria-label="Cover — GROOVYCHEATSHEET">Cover — GROOVYCHEATSHEET</a><a href="#p2" class="toc-l1" aria-label="1 Basics">1 Basics</a><a href="#p2" class="toc-l2" aria-label="1.1 01 / Strings, Collections, Conditionals">1.1 01 / Strings, Collections, Conditionals</a><a href="#p3" class="toc-l1" aria-label="2 Power">2 Power</a><a href="#p3" class="toc-l2" aria-label="2.1 02 / Dynamic Stages, Safe Nulls, Maps">2.1 02 / Dynamic Stages, Safe Nulls, Maps</a><a href="#p4" class="toc-l1" aria-label="3 Idioms">3 Idioms</a><a href="#p4" class="toc-l2" aria-label="3.1 03 / Jenkinsfile Idioms">3.1 03 / Jenkinsfile Idioms</a><a href="#p4" class="toc-l2" aria-label="3.2 04 / Sandbox Gotchas">3.2 04 / Sandbox Gotchas</a>
+<aside class="toc"><h4>CONTENTS · 4 PAGES · 8 SECTIONS</h4><a href="#p1" class="toc-l1" aria-label="Cover — GROOVYCHEATSHEET">Cover — GROOVYCHEATSHEET</a><a href="#p2-h1" class="toc-l1" aria-label="1 Basics">1 Basics</a><a href="#p2-h2" class="toc-l2" aria-label="1.1 01 / Strings, Collections, Conditionals">1.1 01 / Strings, Collections, Conditionals</a><a href="#p3-h1" class="toc-l1" aria-label="2 Power">2 Power</a><a href="#p3-h2" class="toc-l2" aria-label="2.1 02 / Dynamic Stages, Safe Nulls, Maps">2.1 02 / Dynamic Stages, Safe Nulls, Maps</a><a href="#p4-h1" class="toc-l1" aria-label="3 Idioms">3 Idioms</a><a href="#p4-h2" class="toc-l2" aria-label="3.1 03 / Jenkinsfile Idioms">3.1 03 / Jenkinsfile Idioms</a><a href="#p4-h3" class="toc-l2" aria-label="3.2 04 / Sandbox Gotchas">3.2 04 / Sandbox Gotchas</a>
 </aside>
 <main class="read"><div class="readbody">
 <div class="upnext upnext-top">Up next in Jenkins Advanced → <a href="jenkins-credentials.html"><b>Jenkins Credentials</b></a></div>
@@ -632,7 +632,7 @@ ul.tight li{margin-bottom:4px}
 <div class="bignum">11</div>
 <div class="ctitle">GROOVY CORE</div>
 <p class="lede">Picking up from <em>Pipelines</em>, where Declarative met Scripted — this is <em>the Groovy subset both run on</em>.</p>
-<h3 class="sec"><span class="n">01 /</span> Strings, Collections, Conditionals</h3>
+<h3 id="p2-h1" class="sec"><span class="n">01 /</span> Strings, Collections, Conditionals</h3>
 <div class="terminal"><span class="c">// "double quotes" interpolate, 'single' don't</span>
 def tag = env.GIT_COMMIT.take(7)
 echo <span class="p">"Building ${app}:${tag}"</span>
@@ -642,7 +642,7 @@ def env2 = env.BRANCH_NAME == <span class="p">'main'</span> ? <span class="p">'p
 
 </div><div id="p3" class="page">
 
-<h3 class="sec"><span class="n">02 /</span> Dynamic Stages, Safe Nulls, Maps</h3>
+<h3 id="p3-h1" class="sec"><span class="n">02 /</span> Dynamic Stages, Safe Nulls, Maps</h3>
 <div class="terminal"><span class="c">// one stage per service — impossible in pure Declarative</span>
 [<span class="p">'api'</span>,<span class="p">'web'</span>,<span class="p">'worker'</span>].each { svc ->
 &nbsp;&nbsp;stage(<span class="p">"Test ${svc}"</span>) { sh <span class="p">"./test.sh ${svc}"</span> } }
@@ -653,12 +653,12 @@ timeout(time: cfg.timeout, unit: <span class="p">'MINUTES'</span>) { sh <span cl
 
 </div><div id="p4" class="page">
 
-<h3 class="sec"><span class="n">03 /</span> Jenkinsfile Idioms</h3>
+<h3 id="p4-h1" class="sec"><span class="n">03 /</span> Jenkinsfile Idioms</h3>
 <div class="terminal">withCredentials([string(credentialsId: <span class="p">'api-token'</span>, variable: <span class="p">'T'</span>)]) {
 &nbsp;&nbsp;sh <span class="p">'curl -H "Authorization: Bearer $T" ...'</span> }
 retry(3) { sh <span class="p">'./flaky-deploy.sh'</span> }
 catchError(buildResult: <span class="p">'UNSTABLE'</span>) { sh <span class="p">'./optional-audit.sh'</span> }</div>
-<h3 class="sec"><span class="n">04 /</span> Sandbox Gotchas</h3>
+<h3 id="p4-h2" class="sec"><span class="n">04 /</span> Sandbox Gotchas</h3>
 <table class="cmp"><tr><th>Code</th><th>Fix</th></tr>
 <tr><td><span class="mono">new File().text</span></td><td>Use <span class="mono">readFile</span> step</td></tr>
 <tr><td><span class="mono">System.getenv()</span></td><td>Use <span class="mono">env.X</span></td></tr>

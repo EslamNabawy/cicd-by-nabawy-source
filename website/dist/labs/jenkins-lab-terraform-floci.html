@@ -1133,7 +1133,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
 </header>
 <div class="readcontext" data-testid="reader-context"><div class="wrap"><a href="../shelf.html">Browse</a><span>›</span><a href="../shelf.html#path-labs">Hands-on Labs</a><span>›</span><span class="here">Lab 05: The Infrastructure Pipeline</span><span class="pathpos">13 of 14 in Hands-on Labs</span><span class="prereq">Prereq:<a href="jenkins-lab-shared-library.html">Lab 04: Reusable Pipeline Logic</a><a href="iac.html">IaC for Environments</a></span></div></div>
 <div class="rlayout">
-<aside class="toc"><h4>CONTENTS · 8 PAGES · 28 SECTIONS</h4><a href="#p1" class="toc-l1" aria-label="Cover — Page 1">Cover — Page 1</a><a href="#p2" class="toc-l1" aria-label="1 01 / The Infrastructure Pipeline">1 01 / The Infrastructure Pipeline</a><a href="#p2" class="toc-l3" aria-label="1.0.1 WHAT">1.0.1 WHAT</a><a href="#p2" class="toc-l3" aria-label="1.0.2 WHY">1.0.2 WHY</a><a href="#p2" class="toc-l3" aria-label="1.0.3 WHEN">1.0.3 WHEN</a><a href="#p2" class="toc-l3" aria-label="1.0.4 WHAT CHANGES">1.0.4 WHAT CHANGES</a><a href="#p2" class="toc-l3" aria-label="1.0.5 WHY THIS EXISTS">1.0.5 WHY THIS EXISTS</a><a href="#p3" class="toc-l1" aria-label="2 02 / Architecture &amp; Pre-Flight">2 02 / Architecture &amp; Pre-Flight</a><a href="#p3" class="toc-l2" aria-label="2.1 Execution Architecture">2.1 Execution Architecture</a><a href="#p3" class="toc-l2" aria-label="2.2 Pre-Flight Verification">2.2 Pre-Flight Verification</a><a href="#p3" class="toc-l3" aria-label="2.2.1 GOTCHA">2.2.1 GOTCHA</a><a href="#p4" class="toc-l1" aria-label="3 03 / Workspace Isolation">3 03 / Workspace Isolation</a><a href="#p4" class="toc-l2" aria-label="3.1 Environment Tracks">3.1 Environment Tracks</a><a href="#p4" class="toc-l2" aria-label="3.2 Workspace Selection Logic">3.2 Workspace Selection Logic</a><a href="#p4" class="toc-l3" aria-label="3.2.1 INTERVIEW CHECK">3.2.1 INTERVIEW CHECK</a><a href="#p5" class="toc-l1" aria-label="4 04 / The Approval Gate">4 04 / The Approval Gate</a><a href="#p5" class="toc-l2" aria-label="4.1 Jenkins Input Step">4.1 Jenkins Input Step</a><a href="#p5" class="toc-l3" aria-label="4.1.1 GOTCHA">4.1.1 GOTCHA</a><a href="#p5" class="toc-l3" aria-label="4.1.2 WHY IT MATTERS">4.1.2 WHY IT MATTERS</a><a href="#p6" class="toc-l1" aria-label="5 05 / FLOCI Provider Configuration">5 05 / FLOCI Provider Configuration</a><a href="#p6" class="toc-l3" aria-label="5.0.1 COMMAND">5.0.1 COMMAND</a><a href="#p6" class="toc-l3" aria-label="5.0.2 RESULT">5.0.2 RESULT</a><a href="#p6" class="toc-l3" aria-label="5.0.3 WHY IT MATTERS">5.0.3 WHY IT MATTERS</a><a href="#p7" class="toc-l1" aria-label="6 06 / Lab: End-to-End Provisioning">6 06 / Lab: End-to-End Provisioning</a><a href="#p7" class="toc-l2" aria-label="6.1 Failure &amp;amp; Recovery Flow">6.1 Failure &amp;amp; Recovery Flow</a><a href="#p8" class="toc-l1" aria-label="7 07 / System Map &amp; Troubleshooting">7 07 / System Map &amp; Troubleshooting</a><a href="#p8" class="toc-l2" aria-label="7.1 Troubleshooting Flow">7.1 Troubleshooting Flow</a><a href="#p8" class="toc-l3" aria-label="7.1.1 INTERVIEW CHECK">7.1.1 INTERVIEW CHECK</a>
+<aside class="toc"><h4>CONTENTS · 8 PAGES · 28 SECTIONS</h4><a href="#p1" class="toc-l1" aria-label="Cover — Page 1">Cover — Page 1</a><a href="#p2-h1" class="toc-l1" aria-label="1 01 / The Infrastructure Pipeline">1 01 / The Infrastructure Pipeline</a><a href="#p2-h2" class="toc-l3" aria-label="1.0.1 WHAT">1.0.1 WHAT</a><a href="#p2-h3" class="toc-l3" aria-label="1.0.2 WHY">1.0.2 WHY</a><a href="#p2-h4" class="toc-l3" aria-label="1.0.3 WHEN">1.0.3 WHEN</a><a href="#p2-h5" class="toc-l3" aria-label="1.0.4 WHAT CHANGES">1.0.4 WHAT CHANGES</a><a href="#p2-h6" class="toc-l3" aria-label="1.0.5 WHY THIS EXISTS">1.0.5 WHY THIS EXISTS</a><a href="#p3-h1" class="toc-l1" aria-label="2 02 / Architecture &amp; Pre-Flight">2 02 / Architecture &amp; Pre-Flight</a><a href="#p3-h2" class="toc-l2" aria-label="2.1 Execution Architecture">2.1 Execution Architecture</a><a href="#p3-h3" class="toc-l2" aria-label="2.2 Pre-Flight Verification">2.2 Pre-Flight Verification</a><a href="#p3-h4" class="toc-l3" aria-label="2.2.1 GOTCHA">2.2.1 GOTCHA</a><a href="#p4-h1" class="toc-l1" aria-label="3 03 / Workspace Isolation">3 03 / Workspace Isolation</a><a href="#p4-h2" class="toc-l2" aria-label="3.1 Environment Tracks">3.1 Environment Tracks</a><a href="#p4-h3" class="toc-l2" aria-label="3.2 Workspace Selection Logic">3.2 Workspace Selection Logic</a><a href="#p4-h4" class="toc-l3" aria-label="3.2.1 INTERVIEW CHECK">3.2.1 INTERVIEW CHECK</a><a href="#p5-h1" class="toc-l1" aria-label="4 04 / The Approval Gate">4 04 / The Approval Gate</a><a href="#p5-h2" class="toc-l2" aria-label="4.1 Jenkins Input Step">4.1 Jenkins Input Step</a><a href="#p5-h3" class="toc-l3" aria-label="4.1.1 GOTCHA">4.1.1 GOTCHA</a><a href="#p5-h4" class="toc-l3" aria-label="4.1.2 WHY IT MATTERS">4.1.2 WHY IT MATTERS</a><a href="#p6-h1" class="toc-l1" aria-label="5 05 / FLOCI Provider Configuration">5 05 / FLOCI Provider Configuration</a><a href="#p6-h2" class="toc-l3" aria-label="5.0.1 COMMAND">5.0.1 COMMAND</a><a href="#p6-h3" class="toc-l3" aria-label="5.0.2 RESULT">5.0.2 RESULT</a><a href="#p6-h4" class="toc-l3" aria-label="5.0.3 WHY IT MATTERS">5.0.3 WHY IT MATTERS</a><a href="#p7-h1" class="toc-l1" aria-label="6 06 / Lab: End-to-End Provisioning">6 06 / Lab: End-to-End Provisioning</a><a href="#p7-h2" class="toc-l2" aria-label="6.1 Failure &amp;amp; Recovery Flow">6.1 Failure &amp;amp; Recovery Flow</a><a href="#p8-h1" class="toc-l1" aria-label="7 07 / System Map &amp; Troubleshooting">7 07 / System Map &amp; Troubleshooting</a><a href="#p8-h2" class="toc-l2" aria-label="7.1 Troubleshooting Flow">7.1 Troubleshooting Flow</a><a href="#p8-h3" class="toc-l3" aria-label="7.1.1 INTERVIEW CHECK">7.1.1 INTERVIEW CHECK</a>
 </aside>
 <main class="read"><div class="readbody">
 <div class="upnext upnext-top">Up next in Hands-on Labs → <a href="jenkins-labs.html"><b>Jenkins Labs</b></a></div>
@@ -1203,7 +1203,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
             <span class="h-title">INFRASTRUCTURE PIPELINE</span>
         </header>
         <div class="content">
-            <h2 class="section-title"><span class="n">01 /</span> The Infrastructure Pipeline</h2>
+            <h2 id="p2-h1" class="section-title"><span class="n">01 /</span> The Infrastructure Pipeline</h2>
             <p>Infrastructure as Code (IaC) requires the same rigorous CI/CD practices as application code. However, unlike application deployments, infrastructure changes can cause immediate, irreversible state shifts. The pipeline must therefore include strict validation and manual approval gates before applying changes.</p>
             
             <div class="pipeline">
@@ -1279,10 +1279,10 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
             <span class="h-title">PROVISIONING ARCHITECTURE</span>
         </header>
         <div class="content">
-            <h2 class="section-title"><span class="n">02 /</span> Architecture & Pre-Flight</h2>
+            <h2 id="p3-h1" class="section-title"><span class="n">02 /</span> Architecture & Pre-Flight</h2>
             <p>The pipeline bridges GitHub, Jenkins, and FLOCI. The critical integration point is the <code>Provider.tf</code> file, which redirects standard AWS API calls to the FLOCI simulation endpoint.</p>
 
-            <h3 class="sub-title">Execution Architecture</h3>
+            <h3 id="p3-h2" class="sub-title">Execution Architecture</h3>
             <div class="arch-diagram">
                 <div class="arch-row">
                     <div class="arch-node">GITHUB REPO</div>
@@ -1303,7 +1303,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
                 </div>
             </div>
 
-            <h3 class="sub-title">Pre-Flight Verification</h3>
+            <h3 id="p3-h3" class="sub-title">Pre-Flight Verification</h3>
             <div class="terminal">
                 <span class="term-line"><span class="term-prompt">$</span> terraform -version</span>
                 <span class="term-line term-out">Terraform v1.5.0</span>
@@ -1330,10 +1330,10 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
             <span class="h-title">ENVIRONMENT ISOLATION</span>
         </header>
         <div class="content">
-            <h2 class="section-title"><span class="n">03 /</span> Workspace Isolation</h2>
+            <h2 id="p4-h1" class="section-title"><span class="n">03 /</span> Workspace Isolation</h2>
             <p>Infrastructure state must be isolated per environment. A change in <code>dev</code> must never alter <code>prod</code> state. Terraform workspaces combined with environment-specific <code>.tfvars</code> files achieve this within a single pipeline.</p>
 
-            <h3 class="sub-title">Environment Tracks</h3>
+            <h3 id="p4-h2" class="sub-title">Environment Tracks</h3>
             <div class="lanes">
                 <div class="lane">
                     <div class="lane-header" style="background: var(--accent-dark);">DEV</div>
@@ -1358,7 +1358,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
                 </div>
             </div>
 
-            <h3 class="sub-title">Workspace Selection Logic</h3>
+            <h3 id="p4-h3" class="sub-title">Workspace Selection Logic</h3>
             <div class="terminal">
                 <span class="term-line">sh <span class="term-ok">'terraform workspace select ${ENV_NAME} || terraform workspace new ${ENV_NAME}'</span></span>
                 <span class="term-line term-out">Switched to workspace "dev".</span>
@@ -1382,7 +1382,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
             <span class="h-title">MANUAL APPROVAL GATE</span>
         </header>
         <div class="content">
-            <h2 class="section-title"><span class="n">04 /</span> The Approval Gate</h2>
+            <h2 id="p5-h1" class="section-title"><span class="n">04 /</span> The Approval Gate</h2>
             <p>Terraform <code>apply</code> is destructive. A pipeline that auto-applies infrastructure changes is dangerous. The pipeline must pause after the <code>plan</code> stage, presenting the execution plan for human review before proceeding.</p>
 
             <div class="dec-container">
@@ -1405,7 +1405,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
                 </div>
             </div>
 
-            <h3 class="sub-title">Jenkins Input Step</h3>
+            <h3 id="p5-h2" class="sub-title">Jenkins Input Step</h3>
             <div class="terminal">
                 <span class="term-line">stage(<span class="term-blue">'Approve'</span>) {</span>
                 <span class="term-line">    steps {</span>
@@ -1436,7 +1436,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
             <span class="h-title">SIMULATED CLOUD</span>
         </header>
         <div class="content">
-            <h2 class="section-title"><span class="n">05 /</span> FLOCI Provider Configuration</h2>
+            <h2 id="p6-h1" class="section-title"><span class="n">05 /</span> FLOCI Provider Configuration</h2>
             <p>To target FLOCI instead of real AWS, the <code>Provider.tf</code> must override the default AWS endpoints. This intercepts the Terraform AWS provider's HTTP calls and routes them to the local simulation.</p>
 
             <div class="terminal">
@@ -1491,7 +1491,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
             <span class="h-title">LAB: PROVISIONING &amp; RECOVERY</span>
         </header>
         <div class="content">
-            <h2 class="section-title"><span class="n">06 /</span> Lab: End-to-End Provisioning</h2>
+            <h2 id="p7-h1" class="section-title"><span class="n">06 /</span> Lab: End-to-End Provisioning</h2>
             <p>Execute the pipeline and observe the state transitions, from webhook trigger through manual approval to simulated deployment and failure recovery.</p>
 
             <div class="lab-step">
@@ -1511,7 +1511,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
                 <div class="lab-content"><p>Introduce a syntax error in <code>VPC.tf</code> and push. The pipeline will fail at <code>Plan</code>. The <code>post { failure { mail ... } }</code> block executes, sending an alert.</p></div>
             </div>
 
-            <h3 class="sub-title">Failure &amp; Recovery Flow</h3>
+            <h3 id="p7-h2" class="sub-title">Failure &amp; Recovery Flow</h3>
             <div class="pipeline">
                 <div class="stage passed">
                     <span class="stage-no">01</span>
@@ -1561,7 +1561,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
             <span class="h-title">SYSTEM MAP</span>
         </header>
         <div class="content">
-            <h2 class="section-title"><span class="n">07 /</span> System Map & Troubleshooting</h2>
+            <h2 id="p8-h1" class="section-title"><span class="n">07 /</span> System Map & Troubleshooting</h2>
             <p>Infrastructure pipelines fail in predictable ways: state conflicts, provider mismatches, or unauthorized credentials. Use this map to isolate the failure domain.</p>
 
             <div class="sys-map">
@@ -1577,7 +1577,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
                 <div class="map-feedback">FEEDBACK: STATE LOCK & SIMULATED RESOURCE STATUS</div>
             </div>
 
-            <h3 class="sub-title">Troubleshooting Flow</h3>
+            <h3 id="p8-h2" class="sub-title">Troubleshooting Flow</h3>
             <table class="cmp">
                 <thead>
                     <tr>

@@ -1132,7 +1132,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
 </header>
 <div class="readcontext" data-testid="reader-context"><div class="wrap"><a href="../shelf.html">Browse</a><span>›</span><a href="../shelf.html#path-labs">Hands-on Labs</a><span>›</span><span class="here">Lab 04: Reusable Pipeline Logic</span><span class="pathpos">12 of 14 in Hands-on Labs</span><span class="prereq">Prereq:<a href="jenkins-lab-multibranch.html">Lab 03: Multibranch Foundations</a><a href="groovy.html">Groovy Cheatsheet</a></span></div></div>
 <div class="rlayout">
-<aside class="toc"><h4>CONTENTS · 8 PAGES · 28 SECTIONS</h4><a href="#p1" class="toc-l1" aria-label="Cover — Page 1">Cover — Page 1</a><a href="#p2" class="toc-l1" aria-label="1 01 / Reusable Pipeline Logic">1 01 / Reusable Pipeline Logic</a><a href="#p2" class="toc-l3" aria-label="1.0.1 WHAT">1.0.1 WHAT</a><a href="#p2" class="toc-l3" aria-label="1.0.2 WHY">1.0.2 WHY</a><a href="#p2" class="toc-l3" aria-label="1.0.3 WHEN">1.0.3 WHEN</a><a href="#p2" class="toc-l3" aria-label="1.0.4 WHAT CHANGES">1.0.4 WHAT CHANGES</a><a href="#p2" class="toc-l3" aria-label="1.0.5 WHY THIS EXISTS">1.0.5 WHY THIS EXISTS</a><a href="#p3" class="toc-l1" aria-label="2 02 / Repository Architecture">2 02 / Repository Architecture</a><a href="#p3" class="toc-l2" aria-label="2.1 Directory Structure">2.1 Directory Structure</a><a href="#p3" class="toc-l2" aria-label="2.2 Class Definition: UatInput.groovy">2.2 Class Definition: UatInput.groovy</a><a href="#p3" class="toc-l2" aria-label="2.3 Execution Architecture">2.3 Execution Architecture</a><a href="#p3" class="toc-l3" aria-label="2.3.1 GOTCHA">2.3.1 GOTCHA</a><a href="#p4" class="toc-l1" aria-label="3 03 / Jenkins Registration">3 03 / Jenkins Registration</a><a href="#p4" class="toc-l2" aria-label="3.1 System Configuration">3.1 System Configuration</a><a href="#p4" class="toc-l3" aria-label="3.1.1 GOTCHA">3.1.1 GOTCHA</a><a href="#p4" class="toc-l3" aria-label="3.1.2 INTERVIEW CHECK">3.1.2 INTERVIEW CHECK</a><a href="#p5" class="toc-l1" aria-label="4 04 / Scripted Pipeline Usage">4 04 / Scripted Pipeline Usage</a><a href="#p5" class="toc-l2" aria-label="4.1 Execution Result (File Present)">4.1 Execution Result (File Present)</a><a href="#p5" class="toc-l3" aria-label="4.1.1 COMMAND">4.1.1 COMMAND</a><a href="#p5" class="toc-l3" aria-label="4.1.2 RESULT">4.1.2 RESULT</a><a href="#p5" class="toc-l3" aria-label="4.1.3 WHY IT MATTERS">4.1.3 WHY IT MATTERS</a><a href="#p6" class="toc-l1" aria-label="5 05 / Declarative &amp; Conditionals">5 05 / Declarative &amp; Conditionals</a><a href="#p6" class="toc-l2" aria-label="5.1 State Transition">5.1 State Transition</a><a href="#p6" class="toc-l3" aria-label="5.1.1 GOTCHA">5.1.1 GOTCHA</a><a href="#p7" class="toc-l1" aria-label="6 06 / Lab: End-to-End Validation">6 06 / Lab: End-to-End Validation</a><a href="#p8" class="toc-l1" aria-label="7 07 / System Map &amp; Troubleshooting">7 07 / System Map &amp; Troubleshooting</a><a href="#p8" class="toc-l2" aria-label="7.1 Troubleshooting Flow">7.1 Troubleshooting Flow</a><a href="#p8" class="toc-l3" aria-label="7.1.1 INTERVIEW CHECK">7.1.1 INTERVIEW CHECK</a>
+<aside class="toc"><h4>CONTENTS · 8 PAGES · 28 SECTIONS</h4><a href="#p1" class="toc-l1" aria-label="Cover — Page 1">Cover — Page 1</a><a href="#p2-h1" class="toc-l1" aria-label="1 01 / Reusable Pipeline Logic">1 01 / Reusable Pipeline Logic</a><a href="#p2-h2" class="toc-l3" aria-label="1.0.1 WHAT">1.0.1 WHAT</a><a href="#p2-h3" class="toc-l3" aria-label="1.0.2 WHY">1.0.2 WHY</a><a href="#p2-h4" class="toc-l3" aria-label="1.0.3 WHEN">1.0.3 WHEN</a><a href="#p2-h5" class="toc-l3" aria-label="1.0.4 WHAT CHANGES">1.0.4 WHAT CHANGES</a><a href="#p2-h6" class="toc-l3" aria-label="1.0.5 WHY THIS EXISTS">1.0.5 WHY THIS EXISTS</a><a href="#p3-h1" class="toc-l1" aria-label="2 02 / Repository Architecture">2 02 / Repository Architecture</a><a href="#p3-h2" class="toc-l2" aria-label="2.1 Directory Structure">2.1 Directory Structure</a><a href="#p3-h3" class="toc-l2" aria-label="2.2 Class Definition: UatInput.groovy">2.2 Class Definition: UatInput.groovy</a><a href="#p3-h4" class="toc-l2" aria-label="2.3 Execution Architecture">2.3 Execution Architecture</a><a href="#p3-h5" class="toc-l3" aria-label="2.3.1 GOTCHA">2.3.1 GOTCHA</a><a href="#p4-h1" class="toc-l1" aria-label="3 03 / Jenkins Registration">3 03 / Jenkins Registration</a><a href="#p4-h2" class="toc-l2" aria-label="3.1 System Configuration">3.1 System Configuration</a><a href="#p4-h3" class="toc-l3" aria-label="3.1.1 GOTCHA">3.1.1 GOTCHA</a><a href="#p4-h4" class="toc-l3" aria-label="3.1.2 INTERVIEW CHECK">3.1.2 INTERVIEW CHECK</a><a href="#p5-h1" class="toc-l1" aria-label="4 04 / Scripted Pipeline Usage">4 04 / Scripted Pipeline Usage</a><a href="#p5-h2" class="toc-l2" aria-label="4.1 Execution Result (File Present)">4.1 Execution Result (File Present)</a><a href="#p5-h3" class="toc-l3" aria-label="4.1.1 COMMAND">4.1.1 COMMAND</a><a href="#p5-h4" class="toc-l3" aria-label="4.1.2 RESULT">4.1.2 RESULT</a><a href="#p5-h5" class="toc-l3" aria-label="4.1.3 WHY IT MATTERS">4.1.3 WHY IT MATTERS</a><a href="#p6-h1" class="toc-l1" aria-label="5 05 / Declarative &amp; Conditionals">5 05 / Declarative &amp; Conditionals</a><a href="#p6-h2" class="toc-l2" aria-label="5.1 State Transition">5.1 State Transition</a><a href="#p6-h3" class="toc-l3" aria-label="5.1.1 GOTCHA">5.1.1 GOTCHA</a><a href="#p7-h1" class="toc-l1" aria-label="6 06 / Lab: End-to-End Validation">6 06 / Lab: End-to-End Validation</a><a href="#p8-h1" class="toc-l1" aria-label="7 07 / System Map &amp; Troubleshooting">7 07 / System Map &amp; Troubleshooting</a><a href="#p8-h2" class="toc-l2" aria-label="7.1 Troubleshooting Flow">7.1 Troubleshooting Flow</a><a href="#p8-h3" class="toc-l3" aria-label="7.1.1 INTERVIEW CHECK">7.1.1 INTERVIEW CHECK</a>
 </aside>
 <main class="read"><div class="readbody">
 <div class="upnext upnext-top">Up next in Hands-on Labs → <a href="jenkins-lab-terraform-floci.html"><b>Lab 05: The Infrastructure Pipeline</b></a></div>
@@ -1202,7 +1202,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
             <span class="h-title">SHARED LIBRARIES</span>
         </header>
         <div class="content">
-            <h2 class="section-title"><span class="n">01 /</span> Reusable Pipeline Logic</h2>
+            <h2 id="p2-h1" class="section-title"><span class="n">01 /</span> Reusable Pipeline Logic</h2>
             <p>As pipeline complexity grows, duplicating Groovy logic across dozens of Jenkinsfiles creates a maintenance nightmare. A Shared Library allows you to store versioned Groovy classes in a standard Git repository and import them into any pipeline.</p>
             
             <div class="pipeline">
@@ -1278,10 +1278,10 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
             <span class="h-title">LIBRARY STRUCTURE</span>
         </header>
         <div class="content">
-            <h2 class="section-title"><span class="n">02 /</span> Repository Architecture</h2>
+            <h2 id="p3-h1" class="section-title"><span class="n">02 /</span> Repository Architecture</h2>
             <p>Jenkins expects a specific directory structure for shared libraries. Groovy classes must reside in the <code>src/</code> directory, following standard Java package naming conventions.</p>
 
-            <h3 class="sub-title">Directory Structure</h3>
+            <h3 id="p3-h2" class="sub-title">Directory Structure</h3>
             <div class="file-tree">
                 <div class="ft-item parent">📁 jenkins-shared-library</div>
                 <div class="ft-item child">📁 src</div>
@@ -1290,7 +1290,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
                 <div class="ft-item file">└── UatInput.groovy</div>
             </div>
 
-            <h3 class="sub-title">Class Definition: UatInput.groovy</h3>
+            <h3 id="p3-h3" class="sub-title">Class Definition: UatInput.groovy</h3>
             <div class="terminal">
                 <span class="term-line">package com.yourname</span>
                 <span class="term-line"></span>
@@ -1302,7 +1302,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
                 <span class="term-line">}</span>
             </div>
 
-            <h3 class="sub-title">Execution Architecture</h3>
+            <h3 id="p3-h4" class="sub-title">Execution Architecture</h3>
             <div class="arch-diagram">
                 <div class="arch-row">
                     <div class="arch-node artifact">GROOVY REPO</div>
@@ -1334,7 +1334,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
             <span class="h-title">GLOBAL CONFIGURATION</span>
         </header>
         <div class="content">
-            <h2 class="section-title"><span class="n">03 /</span> Jenkins Registration</h2>
+            <h2 id="p4-h1" class="section-title"><span class="n">03 /</span> Jenkins Registration</h2>
             <p>Before a pipeline can import the library, Jenkins must be aware of its existence. Register the library globally so it is available to all jobs without per-job configuration.</p>
 
             <div class="dec-container">
@@ -1357,7 +1357,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
                 </div>
             </div>
 
-            <h3 class="sub-title">System Configuration</h3>
+            <h3 id="p4-h2" class="sub-title">System Configuration</h3>
             <div class="terminal">
                 <span class="term-line term-out">Manage Jenkins -> Configure System</span>
                 <span class="term-line term-out">Global Pipeline Libraries -> Add</span>
@@ -1392,7 +1392,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
             <span class="h-title">SCRIPTED EXECUTION</span>
         </header>
         <div class="content">
-            <h2 class="section-title"><span class="n">04 /</span> Scripted Pipeline Usage</h2>
+            <h2 id="p5-h1" class="section-title"><span class="n">04 /</span> Scripted Pipeline Usage</h2>
             <p>Import the library into a scripted pipeline using the <code>@Library</code> annotation. Instantiate the class and call its methods to evaluate workspace state.</p>
 
             <div class="terminal">
@@ -1408,7 +1408,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
                 <span class="term-line">}</span>
             </div>
 
-            <h3 class="sub-title">Execution Result (File Present)</h3>
+            <h3 id="p5-h2" class="sub-title">Execution Result (File Present)</h3>
             <div class="cmdres">
                 <div class="cmd-block">
                     <h4>COMMAND</h4>
@@ -1445,7 +1445,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
             <span class="h-title">DECLARATIVE EXECUTION</span>
         </header>
         <div class="content">
-            <h2 class="section-title"><span class="n">05 /</span> Declarative & Conditionals</h2>
+            <h2 id="p6-h1" class="section-title"><span class="n">05 /</span> Declarative & Conditionals</h2>
             <p>In declarative pipelines, the imported class can be used inside a <code>when</code> block to conditionally skip or execute stages based on workspace state.</p>
 
             <div class="terminal">
@@ -1465,7 +1465,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
                 <span class="term-line">}</span>
             </div>
 
-            <h3 class="sub-title">State Transition</h3>
+            <h3 id="p6-h2" class="sub-title">State Transition</h3>
             <div class="lanes">
                 <div class="lane">
                     <div class="lane-header" style="background: var(--accent-dark);">APPROVED</div>
@@ -1500,7 +1500,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
             <span class="h-title">LAB: CONDITIONAL VALIDATION</span>
         </header>
         <div class="content">
-            <h2 class="section-title"><span class="n">06 /</span> Lab: End-to-End Validation</h2>
+            <h2 id="p7-h1" class="section-title"><span class="n">06 /</span> Lab: End-to-End Validation</h2>
             <p>Test the shared library logic by toggling the existence of the approval file and observing the pipeline's state transition.</p>
 
             <div class="lab-step">
@@ -1578,7 +1578,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
             <span class="h-title">SYSTEM MAP</span>
         </header>
         <div class="content">
-            <h2 class="section-title"><span class="n">07 /</span> System Map & Troubleshooting</h2>
+            <h2 id="p8-h1" class="section-title"><span class="n">07 /</span> System Map & Troubleshooting</h2>
             <p>Shared libraries introduce external dependencies into the pipeline. Failures usually stem from package path mismatches, sandbox restrictions, or network access to the Git repository.</p>
 
             <div class="sys-map">
@@ -1594,7 +1594,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
                 <div class="map-feedback">FEEDBACK: CLASS INSTANTIATION & METHOD EVALUATION</div>
             </div>
 
-            <h3 class="sub-title">Troubleshooting Flow</h3>
+            <h3 id="p8-h2" class="sub-title">Troubleshooting Flow</h3>
             <table class="cmp">
                 <thead>
                     <tr>

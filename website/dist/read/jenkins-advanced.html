@@ -612,7 +612,7 @@ ul.tight li{margin-bottom:4px}
 </header>
 <div class="readcontext" data-testid="reader-context"><div class="wrap"><a href="../shelf.html">Browse</a><span>›</span><a href="../shelf.html#path-jenkins-advanced">Jenkins Advanced</a><span>›</span><span class="here">Jenkins Advanced</span><span class="pathpos">6 of 7 in Jenkins Advanced</span><span class="prereq">Prereq:<a href="jenkins-pipelines.html">Jenkins Pipelines</a><a href="jenkins-agents.html">Jenkins Agents</a></span></div></div>
 <div class="rlayout">
-<aside class="toc"><h4>CONTENTS · 4 PAGES · 10 SECTIONS</h4><a href="#p1" class="toc-l1" aria-label="Cover — JENKINSADVANCED">Cover — JENKINSADVANCED</a><a href="#p2" class="toc-l1" aria-label="1 Reuse">1 Reuse</a><a href="#p2" class="toc-l2" aria-label="1.1 01 / Shared Libraries">1.1 01 / Shared Libraries</a><a href="#p2" class="toc-l2" aria-label="1.2 02 / Parallel &amp;amp; Matrix">1.2 02 / Parallel &amp;amp; Matrix</a><a href="#p3" class="toc-l1" aria-label="2 As Code">2 As Code</a><a href="#p3" class="toc-l2" aria-label="2.1 03 / Controller From YAML">2.1 03 / Controller From YAML</a><a href="#p3" class="toc-l2" aria-label="2.2 04 / Backup, Console, Tuning">2.2 04 / Backup, Console, Tuning</a><a href="#p4" class="toc-l1" aria-label="3 Check &amp;amp; Handoff">3 Check &amp;amp; Handoff</a><a href="#p4" class="toc-l2" aria-label="3.1 05 / Interview Check">3.1 05 / Interview Check</a><a href="#p4" class="toc-l2" aria-label="3.2 06 / Handoff">3.2 06 / Handoff</a>
+<aside class="toc"><h4>CONTENTS · 4 PAGES · 10 SECTIONS</h4><a href="#p1" class="toc-l1" aria-label="Cover — JENKINSADVANCED">Cover — JENKINSADVANCED</a><a href="#p2-h1" class="toc-l1" aria-label="1 Reuse">1 Reuse</a><a href="#p2-h2" class="toc-l2" aria-label="1.1 01 / Shared Libraries">1.1 01 / Shared Libraries</a><a href="#p2-h3" class="toc-l2" aria-label="1.2 02 / Parallel &amp;amp; Matrix">1.2 02 / Parallel &amp;amp; Matrix</a><a href="#p3-h1" class="toc-l1" aria-label="2 As Code">2 As Code</a><a href="#p3-h2" class="toc-l2" aria-label="2.1 03 / Controller From YAML">2.1 03 / Controller From YAML</a><a href="#p3-h3" class="toc-l2" aria-label="2.2 04 / Backup, Console, Tuning">2.2 04 / Backup, Console, Tuning</a><a href="#p4-h1" class="toc-l1" aria-label="3 Check &amp;amp; Handoff">3 Check &amp;amp; Handoff</a><a href="#p4-h2" class="toc-l2" aria-label="3.1 05 / Interview Check">3.1 05 / Interview Check</a><a href="#p4-h3" class="toc-l2" aria-label="3.2 06 / Handoff">3.2 06 / Handoff</a>
 </aside>
 <main class="read"><div class="readbody">
 <div class="upnext upnext-top">Up next in Jenkins Advanced → <a href="jenkins-troubleshooting.html"><b>Jenkins Troubleshooting</b></a></div>
@@ -634,31 +634,31 @@ ul.tight li{margin-bottom:4px}
 <div class="bignum">17</div>
 <div class="ctitle">ADVANCED</div>
 <p class="lede">Picking up from <em>Security</em>, where trust boundaries were drawn — shared libraries run <em>outside the sandbox</em>, so that trust model governs them.</p>
-<h3 class="sec"><span class="n">01 /</span> Shared Libraries</h3>
+<h3 id="p2-h1" class="sec"><span class="n">01 /</span> Shared Libraries</h3>
 <div class="terminal"><span class="c">// Jenkinsfile: one line replaces 60 of boilerplate</span>
 @Library(<span class="p">'acme-pipeline-lib@1.4'</span>) _
 standardServicePipeline(app: <span class="p">'shop'</span>, deployEnv: <span class="p">'staging'</span>)</div>
 <div class="kv"><b>RULES —</b> version the lib (<span class="mono">@1.4</span>, never <span class="mono">@main</span>) · test with JenkinsPipelineUnit before tagging · only admins approve library repos (unsandboxed).</div>
-<h3 class="sec"><span class="n">02 /</span> Parallel &amp; Matrix</h3>
+<h3 id="p2-h2" class="sec"><span class="n">02 /</span> Parallel &amp; Matrix</h3>
 <p class="body">Parallelize <b>independent verification</b> (unit/lint/scan), never dependent deploys. Matrix multiplies stages × axes (JDK 17/21, browsers). Size agent pools for <b>peak fan-out</b>, not average load.</p>
 
 </div><div id="p3" class="page">
 
-<h3 class="sec"><span class="n">03 /</span> Controller From YAML</h3>
+<h3 id="p3-h1" class="sec"><span class="n">03 /</span> Controller From YAML</h3>
 <div class="terminal"><span class="c"># jenkins.yaml — identical controller every boot</span>
 jenkins: { numExecutors: <span class="p">0</span> }
 credentials: { system: { … registry-token: <span class="p">"${REGISTRY_TOKEN}"</span> } }
 <span class="c"># boot: pinned image + plugins.txt + jenkins.yaml. UI drift is ephemeral.</span></div>
-<h3 class="sec"><span class="n">04 /</span> Backup, Console, Tuning</h3>
+<h3 id="p3-h2" class="sec"><span class="n">04 /</span> Backup, Console, Tuning</h3>
 <ul class="tight"><li><b>Backup</b> <span class="mono">JENKINS_HOME</span> minus workspaces; restore jobs + credentials + config + YAML + plugins. Untested backup = rumor. Encrypt off-site.</li><li><b>Script Console</b> = Groovy as admin; audit every run; never paste blind snippets.</li><li><b>Queue</b> — executors ≤ ~1 per 1–2 cores; heap ≥ 4 GB (<span class="mono">-Xmx4g</span>); stagger cron (<span class="mono">H 9 * * *</span>); quiet periods batch rapid commits.</li></ul>
 <div class="kv"><b>PROD TOPOLOGY —</b> active-passive controllers from one <span class="mono">jenkins.yaml</span> + replicated storage · agent fleets per team/env (labels route) · controller private behind TLS proxy, agents outbound-only · quarterly DR restore drill measured against RTO.</div>
 
 </div><div id="p4" class="page">
 
-<h3 class="sec"><span class="n">05 /</span> Interview Check</h3>
+<h3 id="p4-h1" class="sec"><span class="n">05 /</span> Interview Check</h3>
 <div class="qa"><span class="qq">Q:</span> Roll out a shared library to 50 repos?<br><span class="aa">A:</span> Version + unit-test the lib, migrate one pilot repo, pin tags, admin-approve the repo (unsandboxed trust).</div>
 <div class="qa"><span class="qq">Q:</span> Rebuild-a-controller drill order?<br><span class="aa">A:</span> Image → plugins → JCasC → secrets → backup restore → smoke pipeline. Secrets break first.</div>
-<h3 class="sec"><span class="n">06 /</span> Handoff</h3>
+<h3 id="p4-h2" class="sec"><span class="n">06 /</span> Handoff</h3>
 <p class="body">Advanced patterns banked — when they break, diagnose in order. Continue in <b>PDF 18 · Jenkins Troubleshooting</b>.</p>
 
 

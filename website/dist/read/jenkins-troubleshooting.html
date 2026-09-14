@@ -614,7 +614,7 @@ ul.tight li{margin-bottom:4px}
 </header>
 <div class="readcontext" data-testid="reader-context"><div class="wrap"><a href="../shelf.html">Browse</a><span>›</span><a href="../shelf.html#path-jenkins-advanced">Jenkins Advanced</a><span>›</span><span class="here">Jenkins Troubleshooting</span><span class="pathpos">7 of 7 in Jenkins Advanced</span><span class="prereq">Prereq:<a href="jenkins-agents.html">Jenkins Agents</a><a href="jenkins-pipelines.html">Jenkins Pipelines</a></span></div></div>
 <div class="rlayout">
-<aside class="toc"><h4>CONTENTS · 3 PAGES · 7 SECTIONS</h4><a href="#p1" class="toc-l1" aria-label="Cover — JENKINSTROUBLESHOOTING">Cover — JENKINSTROUBLESHOOTING</a><a href="#p2" class="toc-l1" aria-label="1 Triage">1 Triage</a><a href="#p2" class="toc-l2" aria-label="1.1 01 / Triage Table">1.1 01 / Triage Table</a><a href="#p3" class="toc-l1" aria-label="2 Logs &amp;amp; Recovery">2 Logs &amp;amp; Recovery</a><a href="#p3" class="toc-l2" aria-label="2.1 02 / Reading a Build Log">2.1 02 / Reading a Build Log</a><a href="#p3" class="toc-l2" aria-label="2.2 03 / Sandbox &amp;amp; Recovery">2.2 03 / Sandbox &amp;amp; Recovery</a><a href="#p3" class="toc-l2" aria-label="2.3 04 / Handoff">2.3 04 / Handoff</a>
+<aside class="toc"><h4>CONTENTS · 3 PAGES · 7 SECTIONS</h4><a href="#p1" class="toc-l1" aria-label="Cover — JENKINSTROUBLESHOOTING">Cover — JENKINSTROUBLESHOOTING</a><a href="#p2-h1" class="toc-l1" aria-label="1 Triage">1 Triage</a><a href="#p2-h2" class="toc-l2" aria-label="1.1 01 / Triage Table">1.1 01 / Triage Table</a><a href="#p3-h1" class="toc-l1" aria-label="2 Logs &amp;amp; Recovery">2 Logs &amp;amp; Recovery</a><a href="#p3-h2" class="toc-l2" aria-label="2.1 02 / Reading a Build Log">2.1 02 / Reading a Build Log</a><a href="#p3-h3" class="toc-l2" aria-label="2.2 03 / Sandbox &amp;amp; Recovery">2.2 03 / Sandbox &amp;amp; Recovery</a><a href="#p3-h4" class="toc-l2" aria-label="2.3 04 / Handoff">2.3 04 / Handoff</a>
 </aside>
 <main class="read"><div class="readbody">
 
@@ -636,7 +636,7 @@ ul.tight li{margin-bottom:4px}
 <div class="bignum">18</div>
 <div class="ctitle">TRIAGE</div>
 <p class="lede">Picking up from <em>Advanced</em>, where moving parts multiplied — this is <em>the diagnostic order that untangles them</em>.</p>
-<h3 class="sec"><span class="n">01 /</span> Triage Table</h3>
+<h3 id="p2-h1" class="sec"><span class="n">01 /</span> Triage Table</h3>
 <table class="cmp"><tr><th>Symptom</th><th>Check</th><th>Fix</th></tr>
 <tr><td>Stuck in queue</td><td>Executor Status, labels, agents</td><td>Fix typo, free executor</td></tr>
 <tr><td><span class="mono">No such DSL method</span></td><td>Owning plugin installed?</td><td>Install / pin plugin</td></tr>
@@ -647,11 +647,11 @@ ul.tight li{margin-bottom:4px}
 
 </div><div id="p3" class="page">
 
-<h3 class="sec"><span class="n">02 /</span> Reading a Build Log</h3>
+<h3 id="p3-h1" class="sec"><span class="n">02 /</span> Reading a Build Log</h3>
 <ul class="tight"><li>First red line = <b>effect</b>; scroll up for the <b>cause</b> (exit code, Groovy stack).</li><li><b>Replay</b> button re-runs edited pipelines without pushing commits.</li><li>Wipe workspace + rebuild separates dirty-workspace flakes from real failures.</li></ul>
-<h3 class="sec"><span class="n">03 /</span> Sandbox &amp; Recovery</h3>
+<h3 id="p3-h2" class="sec"><span class="n">03 /</span> Sandbox &amp; Recovery</h3>
 <div class="kv"><b>SANDBOX —</b> untrusted scripts run allowlisted only; beyond that needs Script Approval. Prefer allowlisted steps — each approval is future maintenance.<br><b>RECOVERY —</b> bad config? Restore <span class="mono">config.xml</span> + Reload Configuration (no restart). Disaster? Restore <span class="mono">JENKINS_HOME</span> backup to a fresh pinned image, replay the smoke pipeline.</div>
-<h3 class="sec"><span class="n">04 /</span> Handoff</h3>
+<h3 id="p3-h3" class="sec"><span class="n">04 /</span> Handoff</h3>
 <p class="body">Jenkins domain complete — now meet the sibling implementation. Continue in <b>PDF 19 · GitHub Actions</b>: hosted runners, YAML, zero infrastructure.</p>
 
 

@@ -613,7 +613,7 @@ ul.tight li{margin-bottom:4px}
 </header>
 <div class="readcontext" data-testid="reader-context"><div class="wrap"><a href="../shelf.html">Browse</a><span>›</span><a href="../shelf.html#path-jenkins-core">Jenkins Core</a><span>›</span><span class="here">Jenkins Agents</span><span class="pathpos">5 of 5 in Jenkins Core</span><span class="prereq">Prereq:<a href="jenkins-architecture.html">Jenkins Architecture</a></span></div></div>
 <div class="rlayout">
-<aside class="toc"><h4>CONTENTS · 3 PAGES · 8 SECTIONS</h4><a href="#p1" class="toc-l1" aria-label="Cover — JENKINSAGENTS">Cover — JENKINSAGENTS</a><a href="#p2" class="toc-l1" aria-label="1 Fleet">1 Fleet</a><a href="#p2" class="toc-l2" aria-label="1.1 01 / Three Kinds">1.1 01 / Three Kinds</a><a href="#p2" class="toc-l2" aria-label="1.2 02 / Labels &amp;amp; Executors">1.2 02 / Labels &amp;amp; Executors</a><a href="#p3" class="toc-l1" aria-label="2 Wiring">2 Wiring</a><a href="#p3" class="toc-l2" aria-label="2.1 03 / Connection &amp;amp; Trust">2.1 03 / Connection &amp;amp; Trust</a><a href="#p3" class="toc-l3" aria-label="2.1.1 TRUST BOUNDARY">2.1.1 TRUST BOUNDARY</a><a href="#p3" class="toc-l2" aria-label="2.2 04 / Handoff">2.2 04 / Handoff</a>
+<aside class="toc"><h4>CONTENTS · 3 PAGES · 8 SECTIONS</h4><a href="#p1" class="toc-l1" aria-label="Cover — JENKINSAGENTS">Cover — JENKINSAGENTS</a><a href="#p2-h1" class="toc-l1" aria-label="1 Fleet">1 Fleet</a><a href="#p2-h2" class="toc-l2" aria-label="1.1 01 / Three Kinds">1.1 01 / Three Kinds</a><a href="#p2-h3" class="toc-l2" aria-label="1.2 02 / Labels &amp;amp; Executors">1.2 02 / Labels &amp;amp; Executors</a><a href="#p3-h1" class="toc-l1" aria-label="2 Wiring">2 Wiring</a><a href="#p3-h2" class="toc-l2" aria-label="2.1 03 / Connection &amp;amp; Trust">2.1 03 / Connection &amp;amp; Trust</a><a href="#p3-h3" class="toc-l3" aria-label="2.1.1 TRUST BOUNDARY">2.1.1 TRUST BOUNDARY</a><a href="#p3-h4" class="toc-l2" aria-label="2.2 04 / Handoff">2.2 04 / Handoff</a>
 </aside>
 <main class="read"><div class="readbody">
 
@@ -634,12 +634,12 @@ ul.tight li{margin-bottom:4px}
 <div class="bignum">12</div>
 <div class="ctitle">AGENTS</div>
 <p class="lede">Picking up from <em>Groovy</em> — pipelines written, language in hand — we now provision <em>the machines that execute them</em>.</p>
-<h3 class="sec"><span class="n">01 /</span> Three Kinds</h3>
+<h3 id="p2-h1" class="sec"><span class="n">01 /</span> Three Kinds</h3>
 <table class="cmp"><tr><th>Type</th><th>Lifecycle</th><th>Best for</th></tr>
 <tr><td>Permanent</td><td>Long-lived VM</td><td>Special HW, Windows/GPU</td></tr>
 <tr><td>Docker cloud</td><td>Container per build</td><td>Default Linux — clean every run</td></tr>
 <tr><td>Kubernetes</td><td>Pod per build</td><td>Elastic, bursty CI</td></tr></table>
-<h3 class="sec"><span class="n">02 /</span> Labels &amp; Executors</h3>
+<h3 id="p2-h2" class="sec"><span class="n">02 /</span> Labels &amp; Executors</h3>
 <div class="terminal">agent { label <span class="p">'linux && docker'</span> }   <span class="c">// must have BOTH</span>
 agent { docker { image <span class="p">'node:20'</span> } } <span class="c">// ephemeral container</span>
 agent none                           <span class="c">// each stage picks</span></div>
@@ -647,11 +647,11 @@ agent none                           <span class="c">// each stage picks</span><
 
 </div><div id="p3" class="page">
 
-<h3 class="sec"><span class="n">03 /</span> Connection &amp; Trust</h3>
+<h3 id="p3-h1" class="sec"><span class="n">03 /</span> Connection &amp; Trust</h3>
 <ul class="tight"><li><b>Inbound</b> — agent dials out via WebSocket; survives NAT, needs port 50000.</li><li><b>SSH</b> — controller dials in; simple on flat networks, needs port 22 + credential.</li><li><b>Ephemeral wins</b> — pristine container per run kills "works on my machine" and tool drift.</li></ul>
 <div class="callout"><h4>TRUST BOUNDARY</h4><p>Never run untrusted fork PRs on permanent agents holding deploy credentials. Forks get isolated, credential-free agents — a malicious workflow otherwise owns your box.</p></div>
 <ul class="tight"><li>Label typo → queue forever; check Executor Status.</li><li>Too many executors per CPU → starvation.</li></ul>
-<h3 class="sec"><span class="n">04 /</span> Handoff</h3>
+<h3 id="p3-h2" class="sec"><span class="n">04 /</span> Handoff</h3>
 <p class="body">Agents run the work — next they need secrets. Continue in <b>PDF 13 · Jenkins Credentials</b>.</p>
 
 

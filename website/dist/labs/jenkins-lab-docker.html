@@ -1096,7 +1096,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
 </header>
 <div class="readcontext" data-testid="reader-context"><div class="wrap"><a href="../shelf.html">Browse</a><span>›</span><a href="../shelf.html#path-labs">Hands-on Labs</a><span>›</span><span class="here">Lab 02: Container Delivery</span><span class="pathpos">10 of 14 in Hands-on Labs</span><span class="prereq">Prereq:<a href="jenkins-lab-webhook.html">Lab 01: Automated Integration Foundations</a><a href="artifacts.html">Artifact Management</a></span></div></div>
 <div class="rlayout">
-<aside class="toc"><h4>CONTENTS · 8 PAGES · 28 SECTIONS</h4><a href="#p1" class="toc-l1" aria-label="Cover — Page 1">Cover — Page 1</a><a href="#p2" class="toc-l1" aria-label="1 01 / The Container Lifecycle">1 01 / The Container Lifecycle</a><a href="#p2" class="toc-l3" aria-label="1.0.1 WHAT">1.0.1 WHAT</a><a href="#p2" class="toc-l3" aria-label="1.0.2 WHY">1.0.2 WHY</a><a href="#p2" class="toc-l3" aria-label="1.0.3 WHEN">1.0.3 WHEN</a><a href="#p2" class="toc-l3" aria-label="1.0.4 WHAT CHANGES">1.0.4 WHAT CHANGES</a><a href="#p2" class="toc-l3" aria-label="1.0.5 WHY THIS EXISTS">1.0.5 WHY THIS EXISTS</a><a href="#p3" class="toc-l1" aria-label="2 02 / Build Architecture &amp; Pre-Flight">2 02 / Build Architecture &amp; Pre-Flight</a><a href="#p3" class="toc-l2" aria-label="2.1 Execution Architecture">2.1 Execution Architecture</a><a href="#p3" class="toc-l2" aria-label="2.2 Pre-Flight Verification">2.2 Pre-Flight Verification</a><a href="#p3" class="toc-l3" aria-label="2.2.1 GOTCHA">2.2.1 GOTCHA</a><a href="#p4" class="toc-l1" aria-label="3 03 / Registry Authentication">3 03 / Registry Authentication</a><a href="#p4" class="toc-l2" aria-label="3.1 Credential Configuration">3.1 Credential Configuration</a><a href="#p4" class="toc-l3" aria-label="3.1.1 PIPELINE SNIPPET">3.1.1 PIPELINE SNIPPET</a><a href="#p4" class="toc-l3" aria-label="3.1.2 EXECUTION RESULT">3.1.2 EXECUTION RESULT</a><a href="#p4" class="toc-l3" aria-label="3.1.3 GOTCHA">3.1.3 GOTCHA</a><a href="#p4" class="toc-l3" aria-label="3.1.4 INTERVIEW CHECK">3.1.4 INTERVIEW CHECK</a><a href="#p5" class="toc-l1" aria-label="4 04 / Jenkinsfile Construction">4 04 / Jenkinsfile Construction</a><a href="#p5" class="toc-l3" aria-label="4.0.1 WHY IT MATTERS">4.0.1 WHY IT MATTERS</a><a href="#p6" class="toc-l1" aria-label="5 05 / The Deployment Track">5 05 / The Deployment Track</a><a href="#p6" class="toc-l2" aria-label="5.1 Environment Lanes">5.1 Environment Lanes</a><a href="#p6" class="toc-l2" aria-label="5.2 Conditional Deployment Stage">5.2 Conditional Deployment Stage</a><a href="#p7" class="toc-l1" aria-label="6 06 / Lab: End-to-End Delivery">6 06 / Lab: End-to-End Delivery</a><a href="#p7" class="toc-l3" aria-label="6.0.1 COMMAND">6.0.1 COMMAND</a><a href="#p7" class="toc-l3" aria-label="6.0.2 RESULT">6.0.2 RESULT</a><a href="#p8" class="toc-l1" aria-label="7 07 / System Map &amp; Troubleshooting">7 07 / System Map &amp; Troubleshooting</a><a href="#p8" class="toc-l2" aria-label="7.1 Troubleshooting Flow">7.1 Troubleshooting Flow</a><a href="#p8" class="toc-l3" aria-label="7.1.1 INTERVIEW CHECK">7.1.1 INTERVIEW CHECK</a>
+<aside class="toc"><h4>CONTENTS · 8 PAGES · 28 SECTIONS</h4><a href="#p1" class="toc-l1" aria-label="Cover — Page 1">Cover — Page 1</a><a href="#p2-h1" class="toc-l1" aria-label="1 01 / The Container Lifecycle">1 01 / The Container Lifecycle</a><a href="#p2-h2" class="toc-l3" aria-label="1.0.1 WHAT">1.0.1 WHAT</a><a href="#p2-h3" class="toc-l3" aria-label="1.0.2 WHY">1.0.2 WHY</a><a href="#p2-h4" class="toc-l3" aria-label="1.0.3 WHEN">1.0.3 WHEN</a><a href="#p2-h5" class="toc-l3" aria-label="1.0.4 WHAT CHANGES">1.0.4 WHAT CHANGES</a><a href="#p2-h6" class="toc-l3" aria-label="1.0.5 WHY THIS EXISTS">1.0.5 WHY THIS EXISTS</a><a href="#p3-h1" class="toc-l1" aria-label="2 02 / Build Architecture &amp; Pre-Flight">2 02 / Build Architecture &amp; Pre-Flight</a><a href="#p3-h2" class="toc-l2" aria-label="2.1 Execution Architecture">2.1 Execution Architecture</a><a href="#p3-h3" class="toc-l2" aria-label="2.2 Pre-Flight Verification">2.2 Pre-Flight Verification</a><a href="#p3-h4" class="toc-l3" aria-label="2.2.1 GOTCHA">2.2.1 GOTCHA</a><a href="#p4-h1" class="toc-l1" aria-label="3 03 / Registry Authentication">3 03 / Registry Authentication</a><a href="#p4-h2" class="toc-l2" aria-label="3.1 Credential Configuration">3.1 Credential Configuration</a><a href="#p4-h3" class="toc-l3" aria-label="3.1.1 PIPELINE SNIPPET">3.1.1 PIPELINE SNIPPET</a><a href="#p4-h4" class="toc-l3" aria-label="3.1.2 EXECUTION RESULT">3.1.2 EXECUTION RESULT</a><a href="#p4-h5" class="toc-l3" aria-label="3.1.3 GOTCHA">3.1.3 GOTCHA</a><a href="#p4-h6" class="toc-l3" aria-label="3.1.4 INTERVIEW CHECK">3.1.4 INTERVIEW CHECK</a><a href="#p5-h1" class="toc-l1" aria-label="4 04 / Jenkinsfile Construction">4 04 / Jenkinsfile Construction</a><a href="#p5-h2" class="toc-l3" aria-label="4.0.1 WHY IT MATTERS">4.0.1 WHY IT MATTERS</a><a href="#p6-h1" class="toc-l1" aria-label="5 05 / The Deployment Track">5 05 / The Deployment Track</a><a href="#p6-h2" class="toc-l2" aria-label="5.1 Environment Lanes">5.1 Environment Lanes</a><a href="#p6-h3" class="toc-l2" aria-label="5.2 Conditional Deployment Stage">5.2 Conditional Deployment Stage</a><a href="#p7-h1" class="toc-l1" aria-label="6 06 / Lab: End-to-End Delivery">6 06 / Lab: End-to-End Delivery</a><a href="#p7-h2" class="toc-l3" aria-label="6.0.1 COMMAND">6.0.1 COMMAND</a><a href="#p7-h3" class="toc-l3" aria-label="6.0.2 RESULT">6.0.2 RESULT</a><a href="#p8-h1" class="toc-l1" aria-label="7 07 / System Map &amp; Troubleshooting">7 07 / System Map &amp; Troubleshooting</a><a href="#p8-h2" class="toc-l2" aria-label="7.1 Troubleshooting Flow">7.1 Troubleshooting Flow</a><a href="#p8-h3" class="toc-l3" aria-label="7.1.1 INTERVIEW CHECK">7.1.1 INTERVIEW CHECK</a>
 </aside>
 <main class="read"><div class="readbody">
 <div class="upnext upnext-top">Up next in Hands-on Labs → <a href="jenkins-lab-multibranch.html"><b>Lab 03: Multibranch Foundations</b></a></div>
@@ -1166,7 +1166,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
             <span class="h-title">CONTAINER DELIVERY</span>
         </header>
         <div class="content">
-            <h2 class="section-title"><span class="n">01 /</span> The Container Lifecycle</h2>
+            <h2 id="p2-h1" class="section-title"><span class="n">01 /</span> The Container Lifecycle</h2>
             <p>Moving from source code to a running application requires a deterministic path. The code must be compiled, packaged with its dependencies, and shipped as an immutable artifact. In modern CI/CD, this artifact is a Docker image.</p>
             
             <div class="pipeline">
@@ -1242,10 +1242,10 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
             <span class="h-title">BUILD ARCHITECTURE</span>
         </header>
         <div class="content">
-            <h2 class="section-title"><span class="n">02 /</span> Build Architecture & Pre-Flight</h2>
+            <h2 id="p3-h1" class="section-title"><span class="n">02 /</span> Build Architecture & Pre-Flight</h2>
             <p>The pipeline requires specific tools to be available on the Jenkins agent before execution. Verifying these dependencies upfront prevents silent failures during the Docker build or push stages.</p>
 
-            <h3 class="sub-title">Execution Architecture</h3>
+            <h3 id="p3-h2" class="sub-title">Execution Architecture</h3>
             <div class="arch-diagram">
                 <div class="arch-row">
                     <div class="arch-node">GITHUB SOURCE</div>
@@ -1266,7 +1266,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
                 </div>
             </div>
 
-            <h3 class="sub-title">Pre-Flight Verification</h3>
+            <h3 id="p3-h3" class="sub-title">Pre-Flight Verification</h3>
             <div class="terminal">
                 <span class="term-line"><span class="term-prompt">$</span> docker --version</span>
                 <span class="term-line term-out">Docker version 24.0.2, build cb74dfc</span>
@@ -1293,10 +1293,10 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
             <span class="h-title">SECURE AUTHENTICATION</span>
         </header>
         <div class="content">
-            <h2 class="section-title"><span class="n">03 /</span> Registry Authentication</h2>
+            <h2 id="p4-h1" class="section-title"><span class="n">03 /</span> Registry Authentication</h2>
             <p>To push an image to a private or public Docker Hub repository, Jenkins must authenticate. Credentials must be stored securely in Jenkins and injected at runtime, never hardcoded into the Jenkinsfile.</p>
 
-            <h3 class="sub-title">Credential Configuration</h3>
+            <h3 id="p4-h2" class="sub-title">Credential Configuration</h3>
             <p>In Jenkins, navigate to <strong>Manage Jenkins → Credentials</strong> and add a "Username with password" credential. Use your Docker Hub username and an Access Token (not your account password).</p>
 
             <div class="cmdres">
@@ -1350,7 +1350,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
             <span class="h-title">PIPELINE DEFINITION</span>
         </header>
         <div class="content">
-            <h2 class="section-title"><span class="n">04 /</span> Jenkinsfile Construction</h2>
+            <h2 id="p5-h1" class="section-title"><span class="n">04 /</span> Jenkinsfile Construction</h2>
             <p>The declarative pipeline orchestrates the build, tag, and push sequence. Environment variables capture the image name and build tag, ensuring traceability between the Git commit, the Jenkins build number, and the Docker image.</p>
 
             <div class="terminal">
@@ -1397,7 +1397,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
             <span class="h-title">SIMULATED DEPLOYMENT</span>
         </header>
         <div class="content">
-            <h2 class="section-title"><span class="n">05 /</span> The Deployment Track</h2>
+            <h2 id="p6-h1" class="section-title"><span class="n">05 /</span> The Deployment Track</h2>
             <p>Once the image is in the registry, the pipeline can optionally deploy it to a target environment. In this lab, the target is FLOCI, a simulated AWS infrastructure environment. The deployment stage must be conditional to allow for build-only runs.</p>
 
             <div class="dec-container">
@@ -1420,7 +1420,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
                 </div>
             </div>
 
-            <h3 class="sub-title">Environment Lanes</h3>
+            <h3 id="p6-h2" class="sub-title">Environment Lanes</h3>
             <div class="lanes">
                 <div class="lane">
                     <div class="lane-header" style="background: var(--artifact);">BUILD</div>
@@ -1438,7 +1438,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
                 </div>
             </div>
 
-            <h3 class="sub-title">Conditional Deployment Stage</h3>
+            <h3 id="p6-h3" class="sub-title">Conditional Deployment Stage</h3>
             <div class="terminal">
                 <span class="term-line">stage(<span class="term-blue">'Application Deployment'</span>) {</span>
                 <span class="term-line">    when { expression { return params.DEPLOY_TO_FLOCI == true } }</span>
@@ -1461,7 +1461,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
             <span class="h-title">LAB: END-TO-END DELIVERY</span>
         </header>
         <div class="content">
-            <h2 class="section-title"><span class="n">06 /</span> Lab: End-to-End Delivery</h2>
+            <h2 id="p7-h1" class="section-title"><span class="n">06 /</span> Lab: End-to-End Delivery</h2>
             <p>Execute the pipeline and verify the artifact progression from source code to registry deployment.</p>
 
             <div class="lab-step">
@@ -1547,7 +1547,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
             <span class="h-title">SYSTEM MAP</span>
         </header>
         <div class="content">
-            <h2 class="section-title"><span class="n">07 /</span> System Map & Troubleshooting</h2>
+            <h2 id="p8-h1" class="section-title"><span class="n">07 /</span> System Map & Troubleshooting</h2>
             <p>The container delivery pipeline is a critical path. Failures in building or pushing artifacts will block all downstream deployments. Use this map to contextualize the Docker build process and resolve common failure states.</p>
 
             <div class="sys-map">
@@ -1563,7 +1563,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
                 <div class="map-feedback">FEEDBACK: DEPLOYMENT STATUS & LOGS RETURNED TO JENKINS</div>
             </div>
 
-            <h3 class="sub-title">Troubleshooting Flow</h3>
+            <h3 id="p8-h2" class="sub-title">Troubleshooting Flow</h3>
             <table class="cmp">
                 <thead>
                     <tr>

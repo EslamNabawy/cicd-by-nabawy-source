@@ -612,7 +612,7 @@ ul.tight li{margin-bottom:4px}
 </header>
 <div class="readcontext" data-testid="reader-context"><div class="wrap"><a href="../shelf.html">Browse</a><span>›</span><a href="../shelf.html#path-jenkins-core">Jenkins Core</a><span>›</span><span class="here">Jenkins Setup</span><span class="pathpos">3 of 5 in Jenkins Core</span><span class="prereq">Prereq:<a href="jenkins-architecture.html">Jenkins Architecture</a></span></div></div>
 <div class="rlayout">
-<aside class="toc"><h4>CONTENTS · 5 PAGES · 11 SECTIONS</h4><a href="#p1" class="toc-l1" aria-label="Cover — JENKINSSETUP">Cover — JENKINSSETUP</a><a href="#p2" class="toc-l1" aria-label="1 Install">1 Install</a><a href="#p2" class="toc-l2" aria-label="1.1 01 / Run &amp;amp; Unlock">1.1 01 / Run &amp;amp; Unlock</a><a href="#p3" class="toc-l1" aria-label="2 Platforms">2 Platforms</a><a href="#p3" class="toc-l2" aria-label="2.1 02 / Where to Run It">2.1 02 / Where to Run It</a><a href="#p3" class="toc-l2" aria-label="2.2 03 / Smoke Test">2.2 03 / Smoke Test</a><a href="#p4" class="toc-l1" aria-label="3 Seven Steps">3 Seven Steps</a><a href="#p4" class="toc-l2" aria-label="3.1 04 / Run &amp;amp; Use, End to End">3.1 04 / Run &amp;amp; Use, End to End</a><a href="#p5" class="toc-l1" aria-label="4 Harden &amp;amp; Handoff">4 Harden &amp;amp; Handoff</a><a href="#p5" class="toc-l2" aria-label="4.1 05 / Production Checklist">4.1 05 / Production Checklist</a><a href="#p5" class="toc-l2" aria-label="4.2 06 / Handoff">4.2 06 / Handoff</a>
+<aside class="toc"><h4>CONTENTS · 5 PAGES · 11 SECTIONS</h4><a href="#p1" class="toc-l1" aria-label="Cover — JENKINSSETUP">Cover — JENKINSSETUP</a><a href="#p2-h1" class="toc-l1" aria-label="1 Install">1 Install</a><a href="#p2-h2" class="toc-l2" aria-label="1.1 01 / Run &amp;amp; Unlock">1.1 01 / Run &amp;amp; Unlock</a><a href="#p3-h1" class="toc-l1" aria-label="2 Platforms">2 Platforms</a><a href="#p3-h2" class="toc-l2" aria-label="2.1 02 / Where to Run It">2.1 02 / Where to Run It</a><a href="#p3-h3" class="toc-l2" aria-label="2.2 03 / Smoke Test">2.2 03 / Smoke Test</a><a href="#p4-h1" class="toc-l1" aria-label="3 Seven Steps">3 Seven Steps</a><a href="#p4-h2" class="toc-l2" aria-label="3.1 04 / Run &amp;amp; Use, End to End">3.1 04 / Run &amp;amp; Use, End to End</a><a href="#p5-h1" class="toc-l1" aria-label="4 Harden &amp;amp; Handoff">4 Harden &amp;amp; Handoff</a><a href="#p5-h2" class="toc-l2" aria-label="4.1 05 / Production Checklist">4.1 05 / Production Checklist</a><a href="#p5-h3" class="toc-l2" aria-label="4.2 06 / Handoff">4.2 06 / Handoff</a>
 </aside>
 <main class="read"><div class="readbody">
 <div class="upnext upnext-top">Up next in Jenkins Core → <a href="jenkins-pipelines.html"><b>Jenkins Pipelines</b></a></div>
@@ -634,7 +634,7 @@ ul.tight li{margin-bottom:4px}
 <div class="bignum">09</div>
 <div class="ctitle">SETUP</div>
 <p class="lede">Picking up from <em>Architecture</em>, where the topology was defined — we now <em>run it</em>: one container, one volume, one socket.</p>
-<h3 class="sec"><span class="n">01 /</span> Run &amp; Unlock</h3>
+<h3 id="p2-h1" class="sec"><span class="n">01 /</span> Run &amp; Unlock</h3>
 <div class="terminal"><span class="p">$</span> docker volume create jenkins_home
 <span class="p">$</span> docker run -d --name jenkins \
 &nbsp;&nbsp;-p 8080:8080 -p 50000:50000 \
@@ -646,20 +646,20 @@ ul.tight li{margin-bottom:4px}
 
 </div><div id="p3" class="page">
 
-<h3 class="sec"><span class="n">02 /</span> Where to Run It</h3>
+<h3 id="p3-h1" class="sec"><span class="n">02 /</span> Where to Run It</h3>
 <table class="cmp"><tr><th>Method</th><th>When</th></tr>
 <tr><td>Docker image</td><td>Default: dev, training, labs</td></tr>
 <tr><td>OS package</td><td>Long-lived on-prem server</td></tr>
 <tr><td>Kubernetes Helm</td><td>Production, ephemeral agents</td></tr></table>
 <div class="kv"><b>WINDOWS —</b> native <span class="mono">msi</span> works, but prefer Docker Desktop (WSL2 backend): same command, Linux-normal paths. Keep a Windows <b>agent</b> (label <span class="mono">windows</span>) only for .NET/MSBuild workloads. Watch <span class="mono">bat</span> vs <span class="mono">sh</span>, CRLF, and firewall ports 8080/50000.</div>
-<h3 class="sec"><span class="n">03 /</span> Smoke Test</h3>
+<h3 id="p3-h2" class="sec"><span class="n">03 /</span> Smoke Test</h3>
 <div class="terminal">New Item → Pipeline → `hello` → inline script:
 pipeline { agent any { stage('Hello') { echo 'alive' } } }
 Build Now → <span class="p">green ball = controller + executors + workspace work</span></div>
 
 </div><div id="p4" class="page">
 
-<h3 class="sec"><span class="n">04 /</span> Run &amp; Use, End to End</h3>
+<h3 id="p4-h1" class="sec"><span class="n">04 /</span> Run &amp; Use, End to End</h3>
 <div class="step"><b>1 · Run</b> — container + volume + socket (above).</div>
 <div class="step"><b>2 · Unlock</b> — password, suggested plugins, admin user.</div>
 <div class="step"><b>3 · Lock controller</b> — built-in executors = 0.</div>
@@ -670,9 +670,9 @@ Build Now → <span class="p">green ball = controller + executors + workspace wo
 
 </div><div id="p5" class="page">
 
-<h3 class="sec"><span class="n">05 /</span> Production Checklist</h3>
+<h3 id="p5-h1" class="sec"><span class="n">05 /</span> Production Checklist</h3>
 <ul class="tight"><li>Persistent, backed-up <span class="mono">JENKINS_HOME</span> (test restore).</li><li>Pinned image + plugin versions; deliberate upgrades.</li><li>TLS reverse proxy + auth matrix from day one.</li><li>Lost data on recreate = volume wasn't mounted. Port 50000 blocked = agents can't connect.</li></ul>
-<h3 class="sec"><span class="n">06 /</span> Handoff</h3>
+<h3 id="p5-h2" class="sec"><span class="n">06 /</span> Handoff</h3>
 <p class="body">Server running and first job green — now write real pipelines. Continue in <b>PDF 10 · Jenkins Pipelines</b>.</p>
 
 

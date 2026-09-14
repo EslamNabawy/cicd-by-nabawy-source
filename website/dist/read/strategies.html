@@ -620,7 +620,7 @@ ul.tight li{margin-bottom:4px}
 </header>
 <div class="readcontext" data-testid="reader-context"><div class="wrap"><a href="../shelf.html">Browse</a><span>›</span><a href="../shelf.html#path-delivery">Delivery &amp; Deployment</a><span>›</span><span class="here">Deployment Strategies</span><span class="pathpos">2 of 7 in Delivery &amp; Deployment</span><span class="prereq">Prereq:<a href="delivery.html">Continuous Delivery</a></span></div></div>
 <div class="rlayout">
-<aside class="toc"><h4>CONTENTS · 4 PAGES · 9 SECTIONS</h4><a href="#p1" class="toc-l1" aria-label="Cover — DEPLOYMENTSTRATEGIES">Cover — DEPLOYMENTSTRATEGIES</a><a href="#p2" class="toc-l1" aria-label="1 Shapes">1 Shapes</a><a href="#p2" class="toc-l2" aria-label="1.1 01 / Five Shapes">1.1 01 / Five Shapes</a><a href="#p3" class="toc-l1" aria-label="2 Mechanics">2 Mechanics</a><a href="#p3" class="toc-l2" aria-label="2.1 02 / How Each Moves Traffic">2.1 02 / How Each Moves Traffic</a><a href="#p3" class="toc-l2" aria-label="2.2 03 / Failure Modes">2.2 03 / Failure Modes</a><a href="#p4" class="toc-l1" aria-label="3 Check &amp;amp; Handoff">3 Check &amp;amp; Handoff</a><a href="#p4" class="toc-l2" aria-label="3.1 04 / Interview Check">3.1 04 / Interview Check</a><a href="#p4" class="toc-l2" aria-label="3.2 05 / Handoff">3.2 05 / Handoff</a>
+<aside class="toc"><h4>CONTENTS · 4 PAGES · 9 SECTIONS</h4><a href="#p1" class="toc-l1" aria-label="Cover — DEPLOYMENTSTRATEGIES">Cover — DEPLOYMENTSTRATEGIES</a><a href="#p2-h1" class="toc-l1" aria-label="1 Shapes">1 Shapes</a><a href="#p2-h2" class="toc-l2" aria-label="1.1 01 / Five Shapes">1.1 01 / Five Shapes</a><a href="#p3-h1" class="toc-l1" aria-label="2 Mechanics">2 Mechanics</a><a href="#p3-h2" class="toc-l2" aria-label="2.1 02 / How Each Moves Traffic">2.1 02 / How Each Moves Traffic</a><a href="#p3-h3" class="toc-l2" aria-label="2.2 03 / Failure Modes">2.2 03 / Failure Modes</a><a href="#p4-h1" class="toc-l1" aria-label="3 Check &amp;amp; Handoff">3 Check &amp;amp; Handoff</a><a href="#p4-h2" class="toc-l2" aria-label="3.1 04 / Interview Check">3.1 04 / Interview Check</a><a href="#p4-h3" class="toc-l2" aria-label="3.2 05 / Handoff">3.2 05 / Handoff</a>
 </aside>
 <main class="read"><div class="readbody">
 <div class="upnext upnext-top">Up next in Delivery &amp; Deployment → <a href="deployment-auto.html"><b>Continuous Deployment</b></a></div>
@@ -642,7 +642,7 @@ ul.tight li{margin-bottom:4px}
 <div class="bignum">20</div>
 <div class="ctitle">STRATEGIES</div>
 <p class="lede">Picking up from <em>Delivery</em>, where the approval gate opened — we now choose <em>how the new version meets real traffic</em>.</p>
-<h3 class="sec"><span class="n">01 /</span> Five Shapes</h3>
+<h3 id="p2-h1" class="sec"><span class="n">01 /</span> Five Shapes</h3>
 <table class="cmp"><tr><th>Strategy</th><th>Downtime</th><th>Rollback</th></tr>
 <tr><td>Recreate</td><td>Yes</td><td>Slow (redeploy)</td></tr>
 <tr><td>Rolling</td><td>No</td><td>Gradual</td></tr>
@@ -653,21 +653,21 @@ ul.tight li{margin-bottom:4px}
 
 </div><div id="p3" class="page">
 
-<h3 class="sec"><span class="n">02 /</span> How Each Moves Traffic</h3>
+<h3 id="p3-h1" class="sec"><span class="n">02 /</span> How Each Moves Traffic</h3>
 <div class="vflow">
 <div class="fnode"><img src="../assets/icons/deployment/rocket.svg" alt="Rolling"><b>ROLLING</b><small>batch by batch, probes gate each step</small></div><div class="farrow">↓</div>
 <div class="fnode"><img src="../assets/icons/deployment/rocket.svg" alt="BlueGreen"><b>BLUE/GREEN</b><small>validate Green, flip router, keep Blue warm</small></div><div class="farrow">↓</div>
 <div class="fnode"><img src="../assets/icons/monitoring/activity.svg" alt="Canary"><b>CANARY 5→100%</b><small>golden signals decide; halt on burn</small></div>
 </div>
-<h3 class="sec"><span class="n">03 /</span> Failure Modes</h3>
+<h3 id="p3-h2" class="sec"><span class="n">03 /</span> Failure Modes</h3>
 <ul class="tight"><li>Rolling without probes → bad version reaches 100% "successfully".</li><li>Blue/Green sharing mutable state → Green writes what Blue can't read; keep schemas backward-compatible.</li><li>Canary without version labels → blended metrics lie.</li><li>Flag sprawl → untestable combinations; every flag gets an owner + expiry.</li></ul>
 
 </div><div id="p4" class="page">
 
-<h3 class="sec"><span class="n">04 /</span> Interview Check</h3>
+<h3 id="p4-h1" class="sec"><span class="n">04 /</span> Interview Check</h3>
 <div class="qa"><span class="qq">Q:</span> Canary vs Rolling?<br><span class="aa">A:</span> Rolling replaces capacity; canary tests a hypothesis on a subset with explicit success criteria.</div>
 <div class="qa"><span class="qq">Q:</span> Why do stateful systems break strategy thinking?<br><span class="aa">A:</span> Traffic shapes can't fix data: migrations must be expand-contract and backward-compatible first.</div>
-<h3 class="sec"><span class="n">05 /</span> Handoff</h3>
+<h3 id="p4-h2" class="sec"><span class="n">05 /</span> Handoff</h3>
 <p class="body">Strategy chosen — but canary is blind without signals. Continue in <b>PDF 06 · Observability &amp; Feedback</b>, whose golden signals gate every progressive rollout.</p>
 
 

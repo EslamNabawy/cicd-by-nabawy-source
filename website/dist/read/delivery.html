@@ -628,7 +628,7 @@ ul.tight li{margin-bottom:4px}
 </header>
 <div class="readcontext" data-testid="reader-context"><div class="wrap"><a href="../shelf.html">Browse</a><span>›</span><a href="../shelf.html#path-delivery">Delivery &amp; Deployment</a><span>›</span><span class="here">Continuous Delivery</span><span class="pathpos">1 of 7 in Delivery &amp; Deployment</span><span class="prereq">Prereq:<a href="pipelines.html">CI/CD Pipelines</a><a href="artifacts.html">Artifact Management</a></span></div></div>
 <div class="rlayout">
-<aside class="toc"><h4>CONTENTS · 5 PAGES · 11 SECTIONS</h4><a href="#p1" class="toc-l1" aria-label="Cover — CONTINUOUSDELIVERY">Cover — CONTINUOUSDELIVERY</a><a href="#p2" class="toc-l1" aria-label="1 Delivery">1 Delivery</a><a href="#p2" class="toc-l2" aria-label="1.1 01 / Delivery vs Deployment">1.1 01 / Delivery vs Deployment</a><a href="#p3" class="toc-l1" aria-label="2 Flow">2 Flow</a><a href="#p3" class="toc-l2" aria-label="2.1 02 / How Delivery Executes">2.1 02 / How Delivery Executes</a><a href="#p3" class="toc-l2" aria-label="2.2 03 / Promotion as Code">2.2 03 / Promotion as Code</a><a href="#p4" class="toc-l1" aria-label="3 Environments">3 Environments</a><a href="#p4" class="toc-l2" aria-label="3.1 04 / Staging vs Production">3.1 04 / Staging vs Production</a><a href="#p5" class="toc-l1" aria-label="4 Check &amp;amp; Handoff">4 Check &amp;amp; Handoff</a><a href="#p5" class="toc-l2" aria-label="4.1 05 / Interview Check">4.1 05 / Interview Check</a><a href="#p5" class="toc-l2" aria-label="4.2 06 / Handoff">4.2 06 / Handoff</a>
+<aside class="toc"><h4>CONTENTS · 5 PAGES · 11 SECTIONS</h4><a href="#p1" class="toc-l1" aria-label="Cover — CONTINUOUSDELIVERY">Cover — CONTINUOUSDELIVERY</a><a href="#p2-h1" class="toc-l1" aria-label="1 Delivery">1 Delivery</a><a href="#p2-h2" class="toc-l2" aria-label="1.1 01 / Delivery vs Deployment">1.1 01 / Delivery vs Deployment</a><a href="#p3-h1" class="toc-l1" aria-label="2 Flow">2 Flow</a><a href="#p3-h2" class="toc-l2" aria-label="2.1 02 / How Delivery Executes">2.1 02 / How Delivery Executes</a><a href="#p3-h3" class="toc-l2" aria-label="2.2 03 / Promotion as Code">2.2 03 / Promotion as Code</a><a href="#p4-h1" class="toc-l1" aria-label="3 Environments">3 Environments</a><a href="#p4-h2" class="toc-l2" aria-label="3.1 04 / Staging vs Production">3.1 04 / Staging vs Production</a><a href="#p5-h1" class="toc-l1" aria-label="4 Check &amp;amp; Handoff">4 Check &amp;amp; Handoff</a><a href="#p5-h2" class="toc-l2" aria-label="4.1 05 / Interview Check">4.1 05 / Interview Check</a><a href="#p5-h3" class="toc-l2" aria-label="4.2 06 / Handoff">4.2 06 / Handoff</a>
 </aside>
 <main class="read"><div class="readbody">
 <div class="upnext upnext-top">Up next in Delivery &amp; Deployment → <a href="strategies.html"><b>Deployment Strategies</b></a></div>
@@ -650,7 +650,7 @@ ul.tight li{margin-bottom:4px}
 <div class="bignum">05</div>
 <div class="ctitle">DELIVERY</div>
 <p class="lede">Picking up from <em>Artifacts</em>, where the digest was frozen — we now move <em>that exact artifact</em> through staging to production.</p>
-<h3 class="sec"><span class="n">01 /</span> Delivery vs Deployment</h3>
+<h3 id="p2-h1" class="sec"><span class="n">01 /</span> Delivery vs Deployment</h3>
 <table class="cmp"><tr><th></th><th>Delivery</th><th>Deployment</th></tr>
 <tr><td>After CI</td><td>Releasable, auto-staged</td><td>Shipped to production</td></tr>
 <tr><td>Prod deploy</td><td>A human/policy decision</td><td>Automatic</td></tr>
@@ -659,14 +659,14 @@ ul.tight li{margin-bottom:4px}
 
 </div><div id="p3" class="page">
 
-<h3 class="sec"><span class="n">02 /</span> How Delivery Executes</h3>
+<h3 id="p3-h1" class="sec"><span class="n">02 /</span> How Delivery Executes</h3>
 <div class="vflow">
 <div class="fnode"><img src="../assets/icons/general/package.svg" alt="Artifact"><b>REGISTRY</b><small>digest pushed</small></div><div class="farrow">↓</div>
 <div class="fnode"><img src="../assets/icons/deployment/rocket.svg" alt="Staging"><b>STAGING</b><small>auto + smoke tests</small></div><div class="farrow">↓</div>
 <div class="fnode gate"><b>◌ APPROVAL</b><small>checks green + time window + owner sign-off</small></div><div class="farrow">↓</div>
 <div class="fnode"><img src="../assets/icons/deployment/rocket.svg" alt="Production"><b>PRODUCTION</b><small>same digest + env config</small></div>
 </div>
-<h3 class="sec"><span class="n">03 /</span> Promotion as Code</h3>
+<h3 id="p3-h2" class="sec"><span class="n">03 /</span> Promotion as Code</h3>
 <div class="terminal"><span class="c"># Helm installs the chart with the tested tag — same digest, env values</span>
 deploy-staging:    <span class="c"># auto on main</span>
 &nbsp;&nbsp;environment: staging
@@ -676,7 +676,7 @@ deploy-production: <span class="c"># manual gate</span>
 
 </div><div id="p4" class="page">
 
-<h3 class="sec"><span class="n">04 /</span> Staging vs Production</h3>
+<h3 id="p4-h1" class="sec"><span class="n">04 /</span> Staging vs Production</h3>
 <div class="lane stg"><div class="lt"><span>STAGING</span><span>DEPLOY → VERIFY</span></div><div class="lb">rehearse · sanitized data · auto · smaller scale</div></div>
 <div class="lane prd"><div class="lt"><span>PRODUCTION</span><span>APPROVE → DEPLOY</span></div><div class="lb">serve users · real data · gated · full scale</div></div>
 <ul class="tight"><li>Config drift → same chart/manifests, env-only values.</li><li>Approval bottleneck → policy gates for low-risk paths.</li><li>Rebuild instead of digest → pin digests end-to-end.</li></ul>
@@ -684,10 +684,10 @@ deploy-production: <span class="c"># manual gate</span>
 
 </div><div id="p5" class="page">
 
-<h3 class="sec"><span class="n">05 /</span> Interview Check</h3>
+<h3 id="p5-h1" class="sec"><span class="n">05 /</span> Interview Check</h3>
 <div class="qa"><span class="qq">Q:</span> Delivery vs Deployment in one sentence each?<br><span class="aa">A:</span> Delivery: production-ready behind an approval. Deployment: validated changes released automatically.</div>
 <div class="qa"><span class="qq">Q:</span> Design an approval gate.<br><span class="aa">A:</span> Who/what approves, on what signal: checks green + time window + owner sign-off.</div>
-<h3 class="sec"><span class="n">06 /</span> Handoff</h3>
+<h3 id="p5-h2" class="sec"><span class="n">06 /</span> Handoff</h3>
 <p class="body">The release is live — now it must be watched. Continue in <b>PDF 06 · Observability &amp; Feedback</b>, where production signals close the loop back to the developer.</p>
 
 

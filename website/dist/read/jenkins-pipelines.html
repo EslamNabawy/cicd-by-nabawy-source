@@ -622,7 +622,7 @@ ul.tight li{margin-bottom:4px}
 </header>
 <div class="readcontext" data-testid="reader-context"><div class="wrap"><a href="../shelf.html">Browse</a><span>›</span><a href="../shelf.html#path-jenkins-core">Jenkins Core</a><span>›</span><span class="here">Jenkins Pipelines</span><span class="pathpos">4 of 5 in Jenkins Core</span><span class="prereq">Prereq:<a href="jenkins-setup.html">Jenkins Setup</a><a href="pipelines.html">CI/CD Pipelines</a></span></div></div>
 <div class="rlayout">
-<aside class="toc"><h4>CONTENTS · 5 PAGES · 12 SECTIONS</h4><a href="#p1" class="toc-l1" aria-label="Cover — JENKINSPIPELINES">Cover — JENKINSPIPELINES</a><a href="#p2" class="toc-l1" aria-label="1 Mapping">1 Mapping</a><a href="#p2" class="toc-l2" aria-label="1.1 01 / Generic → Jenkins">1.1 01 / Generic → Jenkins</a><a href="#p2" class="toc-l2" aria-label="1.2 02 / Declarative vs Scripted">1.2 02 / Declarative vs Scripted</a><a href="#p3" class="toc-l1" aria-label="2 Canonical">2 Canonical</a><a href="#p3" class="toc-l2" aria-label="2.1 03 / Canonical Jenkinsfile">2.1 03 / Canonical Jenkinsfile</a><a href="#p3" class="toc-l2" aria-label="2.2 04 / Multibranch = PR Gates">2.2 04 / Multibranch = PR Gates</a><a href="#p4" class="toc-l1" aria-label="3 Docker CI/CD">3 Docker CI/CD</a><a href="#p4" class="toc-l2" aria-label="3.1 05 / Full Arc in Docker">3.1 05 / Full Arc in Docker</a><a href="#p5" class="toc-l1" aria-label="4 DinD &amp;amp; Handoff">4 DinD &amp;amp; Handoff</a><a href="#p5" class="toc-l2" aria-label="4.1 06 / Socket vs DinD">4.1 06 / Socket vs DinD</a><a href="#p5" class="toc-l2" aria-label="4.2 07 / Handoff">4.2 07 / Handoff</a>
+<aside class="toc"><h4>CONTENTS · 5 PAGES · 12 SECTIONS</h4><a href="#p1" class="toc-l1" aria-label="Cover — JENKINSPIPELINES">Cover — JENKINSPIPELINES</a><a href="#p2-h1" class="toc-l1" aria-label="1 Mapping">1 Mapping</a><a href="#p2-h2" class="toc-l2" aria-label="1.1 01 / Generic → Jenkins">1.1 01 / Generic → Jenkins</a><a href="#p2-h3" class="toc-l2" aria-label="1.2 02 / Declarative vs Scripted">1.2 02 / Declarative vs Scripted</a><a href="#p3-h1" class="toc-l1" aria-label="2 Canonical">2 Canonical</a><a href="#p3-h2" class="toc-l2" aria-label="2.1 03 / Canonical Jenkinsfile">2.1 03 / Canonical Jenkinsfile</a><a href="#p3-h3" class="toc-l2" aria-label="2.2 04 / Multibranch = PR Gates">2.2 04 / Multibranch = PR Gates</a><a href="#p4-h1" class="toc-l1" aria-label="3 Docker CI/CD">3 Docker CI/CD</a><a href="#p4-h2" class="toc-l2" aria-label="3.1 05 / Full Arc in Docker">3.1 05 / Full Arc in Docker</a><a href="#p5-h1" class="toc-l1" aria-label="4 DinD &amp;amp; Handoff">4 DinD &amp;amp; Handoff</a><a href="#p5-h2" class="toc-l2" aria-label="4.1 06 / Socket vs DinD">4.1 06 / Socket vs DinD</a><a href="#p5-h3" class="toc-l2" aria-label="4.2 07 / Handoff">4.2 07 / Handoff</a>
 </aside>
 <main class="read"><div class="readbody">
 <div class="upnext upnext-top">Up next in Jenkins Core → <a href="jenkins-agents.html"><b>Jenkins Agents</b></a></div>
@@ -644,18 +644,18 @@ ul.tight li{margin-bottom:4px}
 <div class="bignum">10</div>
 <div class="ctitle">JENKINSFILES</div>
 <p class="lede">Picking up from <em>Setup</em>, where the first smoke job went green — we now write <em>production Jenkinsfiles</em>: Declarative structure, multibranch, and the full CI→CD arc.</p>
-<h3 class="sec"><span class="n">01 /</span> Generic → Jenkins</h3>
+<h3 id="p2-h1" class="sec"><span class="n">01 /</span> Generic → Jenkins</h3>
 <table class="cmp"><tr><th>Generic</th><th>Jenkins</th></tr>
 <tr><td>Pipeline</td><td><span class="mono">pipeline { … }</span> in Jenkinsfile</td></tr>
 <tr><td>Stage / Step</td><td><span class="mono">stage('Build')</span> / <span class="mono">sh</span>, <span class="mono">echo</span>, plugin steps</td></tr>
 <tr><td>Runner</td><td><span class="mono">agent</span> directive (label, docker, any)</td></tr>
 <tr><td>Artifact</td><td><span class="mono">archiveArtifacts</span> / pushed image</td></tr></table>
-<h3 class="sec"><span class="n">02 /</span> Declarative vs Scripted</h3>
+<h3 id="p2-h2" class="sec"><span class="n">02 /</span> Declarative vs Scripted</h3>
 <div class="kv"><b>DECLARATIVE</b> (default, 95%) — opinionated skeleton, syntax-checked pre-run. <b>SCRIPTED</b> — raw Groovy (<span class="mono">node { stage(…) }</span>) for dynamic stages. Language: Apache Groovy; DSL steps documented in the built-in snippet generator.</div>
 
 </div><div id="p3" class="page">
 
-<h3 class="sec"><span class="n">03 /</span> Canonical Jenkinsfile</h3>
+<h3 id="p3-h1" class="sec"><span class="n">03 /</span> Canonical Jenkinsfile</h3>
 <div class="terminal"><span class="g">pipeline</span> {
 &nbsp;&nbsp;agent { label <span class="p">'linux'</span> }
 &nbsp;&nbsp;stages {
@@ -666,12 +666,12 @@ ul.tight li{margin-bottom:4px}
 &nbsp;&nbsp;}
 &nbsp;&nbsp;post { failure { mail to: <span class="p">'team@acme.io'</span> } }
 }</div>
-<h3 class="sec"><span class="n">04 /</span> Multibranch = PR Gates</h3>
+<h3 id="p3-h2" class="sec"><span class="n">04 /</span> Multibranch = PR Gates</h3>
 <p class="body">A Multibranch job auto-discovers branches/PRs containing a Jenkinsfile and builds each independently — the Jenkins-native PR gate. Prefer it over hand-wired jobs per branch.</p>
 
 </div><div id="p4" class="page">
 
-<h3 class="sec"><span class="n">05 /</span> Full Arc in Docker</h3>
+<h3 id="p4-h1" class="sec"><span class="n">05 /</span> Full Arc in Docker</h3>
 <div class="vflow">
 <div class="fnode"><img src="../assets/icons/ci-cd/hammer.svg" alt="Build"><b>BUILD &amp; TEST</b><small>npm ci → test</small></div><div class="farrow">↓</div>
 <div class="fnode art"><img src="../assets/icons/general/package.svg" alt="Image"><b>IMAGE</b><small>build + push same digest</small></div><div class="farrow">↓</div>
@@ -682,14 +682,14 @@ ul.tight li{margin-bottom:4px}
 
 </div><div id="p5" class="page">
 
-<h3 class="sec"><span class="n">06 /</span> Socket vs DinD</h3>
+<h3 id="p5-h1" class="sec"><span class="n">06 /</span> Socket vs DinD</h3>
 <table class="cmp"><tr><th></th><th>Socket mount</th><th>DinD</th></tr>
 <tr><td>Isolation</td><td>Weak — shared daemon</td><td>Strong — own daemon</td></tr>
 <tr><td>Risk</td><td>Malicious build = host root</td><td>Blast radius: dind container</td></tr>
 <tr><td>Use when</td><td>Trusted teams (fast)</td><td>Untrusted builds</td></tr></table>
 <ul class="tight"><li><span class="mono">agent any</span> everywhere → builds land on controller; use labeled agents.</li><li>Inline scripts → unreviewable; keep Jenkinsfiles in the repo.</li><li>Giant single stage → no visibility; mirror build/test/scan 1:1.</li></ul>
 <div class="qa"><span class="qq">Q:</span> Declarative vs Scripted?<br><span class="aa">A:</span> Declarative for 95% (validated, readable); Scripted for dynamic stages and advanced flow.</div>
-<h3 class="sec"><span class="n">07 /</span> Handoff</h3>
+<h3 id="p5-h2" class="sec"><span class="n">07 /</span> Handoff</h3>
 <p class="body">Pipelines need a language upgrade next: the Groovy subset that powers them lives in <b>PDF 11 · Groovy Cheatsheet</b>.</p>
 
 

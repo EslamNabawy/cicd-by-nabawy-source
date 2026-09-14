@@ -635,7 +635,7 @@ ul.tight li{margin-bottom:4px}
 </header>
 <div class="readcontext" data-testid="reader-context"><div class="wrap"><a href="../shelf.html">Browse</a><span>›</span><a href="../shelf.html#path-ci-core">CI Core</a><span>›</span><span class="here">CI/CD Pipelines</span><span class="pathpos">1 of 5 in CI Core</span><span class="prereq">Prereq:<a href="foundations.html">CI/CD Foundations</a><a href="git-branching.html">Git, Branching &amp; Pull Requests</a></span></div></div>
 <div class="rlayout">
-<aside class="toc"><h4>CONTENTS · 6 PAGES · 13 SECTIONS</h4><a href="#p1" class="toc-l1" aria-label="Cover — CI/CDPIPELINES">Cover — CI/CDPIPELINES</a><a href="#p2" class="toc-l1" aria-label="1 Pipelines">1 Pipelines</a><a href="#p2" class="toc-l2" aria-label="1.1 01 / Vocabulary">1.1 01 / Vocabulary</a><a href="#p3" class="toc-l1" aria-label="2 Execution">2 Execution</a><a href="#p3" class="toc-l2" aria-label="2.1 02 / How a Run Executes">2.1 02 / How a Run Executes</a><a href="#p3" class="toc-l2" aria-label="2.2 03 / Canonical Workflow">2.2 03 / Canonical Workflow</a><a href="#p4" class="toc-l1" aria-label="3 Stages &amp;amp; Builders">3 Stages &amp;amp; Builders</a><a href="#p4" class="toc-l2" aria-label="3.1 04 / The Three Verification Stages">3.1 04 / The Three Verification Stages</a><a href="#p4" class="toc-l2" aria-label="3.2 05 / Without a Daemon: BuildKit &amp;amp; Kaniko">3.2 05 / Without a Daemon: BuildKit &amp;amp; Kaniko</a><a href="#p5" class="toc-l1" aria-label="4 Discipline">4 Discipline</a><a href="#p5" class="toc-l2" aria-label="4.1 06 / Failure Modes">4.1 06 / Failure Modes</a><a href="#p6" class="toc-l1" aria-label="5 Handoff">5 Handoff</a><a href="#p6" class="toc-l2" aria-label="5.1 07 / Handoff">5.1 07 / Handoff</a>
+<aside class="toc"><h4>CONTENTS · 6 PAGES · 13 SECTIONS</h4><a href="#p1" class="toc-l1" aria-label="Cover — CI/CDPIPELINES">Cover — CI/CDPIPELINES</a><a href="#p2-h1" class="toc-l1" aria-label="1 Pipelines">1 Pipelines</a><a href="#p2-h2" class="toc-l2" aria-label="1.1 01 / Vocabulary">1.1 01 / Vocabulary</a><a href="#p3-h1" class="toc-l1" aria-label="2 Execution">2 Execution</a><a href="#p3-h2" class="toc-l2" aria-label="2.1 02 / How a Run Executes">2.1 02 / How a Run Executes</a><a href="#p3-h3" class="toc-l2" aria-label="2.2 03 / Canonical Workflow">2.2 03 / Canonical Workflow</a><a href="#p4-h1" class="toc-l1" aria-label="3 Stages &amp;amp; Builders">3 Stages &amp;amp; Builders</a><a href="#p4-h2" class="toc-l2" aria-label="3.1 04 / The Three Verification Stages">3.1 04 / The Three Verification Stages</a><a href="#p4-h3" class="toc-l2" aria-label="3.2 05 / Without a Daemon: BuildKit &amp;amp; Kaniko">3.2 05 / Without a Daemon: BuildKit &amp;amp; Kaniko</a><a href="#p5-h1" class="toc-l1" aria-label="4 Discipline">4 Discipline</a><a href="#p5-h2" class="toc-l2" aria-label="4.1 06 / Failure Modes">4.1 06 / Failure Modes</a><a href="#p6-h1" class="toc-l1" aria-label="5 Handoff">5 Handoff</a><a href="#p6-h2" class="toc-l2" aria-label="5.1 07 / Handoff">5.1 07 / Handoff</a>
 </aside>
 <main class="read"><div class="readbody">
 <div class="upnext upnext-top">Up next in CI Core → <a href="artifacts.html"><b>Artifact Management</b></a></div>
@@ -658,7 +658,7 @@ ul.tight li{margin-bottom:4px}
 <div class="bignum">03</div>
 <div class="ctitle">PIPELINES</div>
 <p class="lede">Picking up from <em>Source Control</em>, where a merge fired the trigger — we now examine <em>the pipeline that the trigger starts</em>: stages of jobs of steps, executed by runners.</p>
-<h3 class="sec"><span class="n">01 /</span> Vocabulary</h3>
+<h3 id="p2-h1" class="sec"><span class="n">01 /</span> Vocabulary</h3>
 <table class="cmp"><tr><th>Term</th><th>Meaning</th><th>Example</th></tr>
 <tr><td>Pipeline</td><td>Whole automated workflow</td><td><span class="mono">ci.yml</span></td></tr>
 <tr><td>Stage</td><td>Logical phase</td><td>build → test → scan</td></tr>
@@ -668,7 +668,7 @@ ul.tight li{margin-bottom:4px}
 
 </div><div id="p3" class="page">
 
-<h3 class="sec"><span class="n">02 /</span> How a Run Executes</h3>
+<h3 id="p3-h1" class="sec"><span class="n">02 /</span> How a Run Executes</h3>
 <div class="pipeline">
 <div class="stage"><small class="st">TRIGGER</small><strong>START</strong><span class="desc">PR · push</span></div><div class="connector">→</div>
 <div class="stage"><small class="st">JOB</small><strong>BUILD</strong><span class="desc">compile</span></div><div class="connector">→</div>
@@ -676,7 +676,7 @@ ul.tight li{margin-bottom:4px}
 <div class="stage art"><small class="st">GATE</small><strong>ARTIFACT</strong><span class="desc">package + push</span></div>
 </div>
 <p class="body">Runner checks out the commit, sets up a cached toolchain, runs build → test → scan (independent jobs in parallel, <span class="mono">needs:</span> for gates), and returns results as PR feedback. Fail-fast by default; advisory checks ride <span class="mono">continue-on-error</span>.</p>
-<h3 class="sec"><span class="n">03 /</span> Canonical Workflow</h3>
+<h3 id="p3-h2" class="sec"><span class="n">03 /</span> Canonical Workflow</h3>
 <div class="terminal"><span class="c"># ci.yml — build, then test + scan in parallel</span>
 <span class="g">jobs:</span>
 &nbsp;&nbsp;build: <span class="c"># npm ci + build</span>
@@ -685,9 +685,9 @@ ul.tight li{margin-bottom:4px}
 
 </div><div id="p4" class="page">
 
-<h3 class="sec"><span class="n">04 /</span> The Three Verification Stages</h3>
+<h3 id="p4-h1" class="sec"><span class="n">04 /</span> The Three Verification Stages</h3>
 <ul class="tight"><li><b>Build</b> — hermetic: pinned deps, clean env, no hidden host tools. Same commit → byte-identical output anywhere.</li><li><b>Test</b> — unit (fast, per-PR) → integration → E2E/smoke (staging). PR suites stay under 10 min.</li><li><b>Security scan</b> — <span class="mono">npm audit</span>, gitleaks, Trivy on every PR. Shifting left beats incident response.</li></ul>
-<h3 class="sec"><span class="n">05 /</span> Without a Daemon: BuildKit &amp; Kaniko</h3>
+<h3 id="p4-h2" class="sec"><span class="n">05 /</span> Without a Daemon: BuildKit &amp; Kaniko</h3>
 <table class="cmp"><tr><th></th><th>BuildKit (<span class="mono">buildx</span>)</th><th>Kaniko</th></tr>
 <tr><td>Needs daemon</td><td>Yes (local or remote)</td><td>No — userspace build</td></tr>
 <tr><td>Best in</td><td>Docker agents, dev machines</td><td>Locked-down K8s</td></tr>
@@ -697,7 +697,7 @@ ul.tight li{margin-bottom:4px}
 
 </div><div id="p5" class="page">
 
-<h3 class="sec"><span class="n">06 /</span> Failure Modes</h3>
+<h3 id="p5-h1" class="sec"><span class="n">06 /</span> Failure Modes</h3>
 <div class="vflow">
 <div class="fnode bad"><img src="../assets/icons/testing/flask-conical.svg" alt="Flaky"><b>FLAKY TESTS</b><small>shared state → quarantine, fix, or delete</small></div><div class="farrow">↓</div>
 <div class="fnode bad"><img src="../assets/icons/ci-cd/workflow.svg" alt="Slow"><b>SLOW PIPELINE</b><small>no cache → cache, split, parallelize</small></div><div class="farrow">↓</div>
@@ -708,7 +708,7 @@ ul.tight li{margin-bottom:4px}
 
 </div><div id="p6" class="page">
 
-<h3 class="sec"><span class="n">07 /</span> Handoff</h3>
+<h3 id="p6-h1" class="sec"><span class="n">07 /</span> Handoff</h3>
 <p class="body">This pipeline produces one thing that outlives it — the artifact. Continue in <b>PDF 04 · Artifact Management</b>, where the versioned output is stored, promoted, and traced.</p>
 
 

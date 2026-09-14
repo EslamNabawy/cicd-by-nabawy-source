@@ -846,7 +846,7 @@ def toc_of(pages):
             label = re.sub(r"<[^>]+>", "", m.group(1)).strip() if m else f"Page {i+1}"
             items.append((f"p{i+1}", "Cover — " + label[:40], 1))
             continue
-        for tag, htxt in heads:
+        for heading_index, (tag, htxt) in enumerate(heads, 1):
             clean = re.sub(r"<[^>]+>", "", htxt).strip()
             if not clean:
                 continue
@@ -859,7 +859,7 @@ def toc_of(pages):
             else:
                 n3 += 1; num = f"{n1}.{n2}.{n3}" if n1 else f"{n2}.{n3}"
                 lvl = 3
-            items.append((f"p{i+1}", f"{num} {clean[:60]}", lvl))
+            items.append((f"p{i+1}-h{heading_index}", f"{num} {clean[:60]}", lvl))
     return items
 
 
@@ -1390,6 +1390,12 @@ def build():
 
         body_pages = []
         for i, p in enumerate(pages):
+            hnum = 0
+            def mark_heading(match):
+                nonlocal hnum
+                hnum += 1
+                return f'<{match.group(1)} id="p{i+1}-h{hnum}"{match.group(2)}>'
+            p = re.sub(r'<(h[234])(\s[^>]*)>', mark_heading, p)
             body_pages.append(re.sub(r'class="page', f'id="p{i+1}" class="page', p, count=1))
         # toc_of already returns concrete page ids (p1, p2, ...).
         toc_html = "".join(f'<a href="#{page_id}" class="toc-l{lvl}" aria-label="{html.escape(t)}">{html.escape(t)}</a>' for page_id, t, lvl in toc)

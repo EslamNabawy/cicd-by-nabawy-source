@@ -614,7 +614,7 @@ ul.tight li{margin-bottom:4px}
 </header>
 <div class="readcontext" data-testid="reader-context"><div class="wrap"><a href="../shelf.html">Browse</a><span>›</span><a href="../shelf.html#path-jenkins-advanced">Jenkins Advanced</a><span>›</span><span class="here">Jenkins Security</span><span class="pathpos">5 of 7 in Jenkins Advanced</span><span class="prereq">Prereq:<a href="jenkins-credentials.html">Jenkins Credentials</a><a href="security.html">CI/CD Security</a></span></div></div>
 <div class="rlayout">
-<aside class="toc"><h4>CONTENTS · 4 PAGES · 9 SECTIONS</h4><a href="#p1" class="toc-l1" aria-label="Cover — JENKINSSECURITY">Cover — JENKINSSECURITY</a><a href="#p2" class="toc-l1" aria-label="1 Access">1 Access</a><a href="#p2" class="toc-l2" aria-label="1.1 01 / Authentication &amp;amp; Authorization">1.1 01 / Authentication &amp;amp; Authorization</a><a href="#p3" class="toc-l1" aria-label="2 Trust">2 Trust</a><a href="#p3" class="toc-l2" aria-label="2.1 02 / Agent-to-Controller Distrust">2.1 02 / Agent-to-Controller Distrust</a><a href="#p3" class="toc-l2" aria-label="2.2 03 / Secrets &amp;amp; Updates">2.2 03 / Secrets &amp;amp; Updates</a><a href="#p3" class="toc-l3" aria-label="2.2.1 IF SECRETS LEAK">2.2.1 IF SECRETS LEAK</a><a href="#p4" class="toc-l1" aria-label="3 Handoff">3 Handoff</a><a href="#p4" class="toc-l2" aria-label="3.1 04 / Handoff">3.1 04 / Handoff</a>
+<aside class="toc"><h4>CONTENTS · 4 PAGES · 9 SECTIONS</h4><a href="#p1" class="toc-l1" aria-label="Cover — JENKINSSECURITY">Cover — JENKINSSECURITY</a><a href="#p2-h1" class="toc-l1" aria-label="1 Access">1 Access</a><a href="#p2-h2" class="toc-l2" aria-label="1.1 01 / Authentication &amp;amp; Authorization">1.1 01 / Authentication &amp;amp; Authorization</a><a href="#p3-h1" class="toc-l1" aria-label="2 Trust">2 Trust</a><a href="#p3-h2" class="toc-l2" aria-label="2.1 02 / Agent-to-Controller Distrust">2.1 02 / Agent-to-Controller Distrust</a><a href="#p3-h3" class="toc-l2" aria-label="2.2 03 / Secrets &amp;amp; Updates">2.2 03 / Secrets &amp;amp; Updates</a><a href="#p3-h4" class="toc-l3" aria-label="2.2.1 IF SECRETS LEAK">2.2.1 IF SECRETS LEAK</a><a href="#p4-h1" class="toc-l1" aria-label="3 Handoff">3 Handoff</a><a href="#p4-h2" class="toc-l2" aria-label="3.1 04 / Handoff">3.1 04 / Handoff</a>
 </aside>
 <main class="read"><div class="readbody">
 <div class="upnext upnext-top">Up next in Jenkins Advanced → <a href="jenkins-advanced.html"><b>Jenkins Advanced</b></a></div>
@@ -636,7 +636,7 @@ ul.tight li{margin-bottom:4px}
 <div class="bignum">16</div>
 <div class="ctitle">SECURITY</div>
 <p class="lede">Picking up from <em>Webhooks</em>, where anyone-with-curl could fire builds — we now decide <em>who may do what</em>.</p>
-<h3 class="sec"><span class="n">01 /</span> Authentication &amp; Authorization</h3>
+<h3 id="p2-h1" class="sec"><span class="n">01 /</span> Authentication &amp; Authorization</h3>
 <table class="cmp"><tr><th>Role</th><th>Grants</th></tr>
 <tr><td>Developers</td><td>Job/Build + Read</td></tr>
 <tr><td>Leads</td><td>+ Configure / Cancel</td></tr>
@@ -645,16 +645,16 @@ ul.tight li{margin-bottom:4px}
 
 </div><div id="p3" class="page">
 
-<h3 class="sec"><span class="n">02 /</span> Agent-to-Controller Distrust</h3>
+<h3 id="p3-h1" class="sec"><span class="n">02 /</span> Agent-to-Controller Distrust</h3>
 <ul class="tight"><li>Builds execute attacker-influenced code — default deny on Agent → Controller access.</li><li>Ephemeral agents: a compromised container dies with the build.</li><li>Fork PRs → isolated, credential-free agents. Never shared permanent ones.</li></ul>
-<h3 class="sec"><span class="n">03 /</span> Secrets &amp; Updates</h3>
+<h3 id="p3-h2" class="sec"><span class="n">03 /</span> Secrets &amp; Updates</h3>
 <ul class="tight"><li>Secrets only via bindings; <span class="mono">set +x</span> around manual handling; TLS-only admin.</li><li>Rotate by ID replacement; deprovision SSO, don't rely on memory.</li><li>CVEs cluster in plugins: staging validates → snapshot → production.</li></ul>
 <div class="callout bad"><h4>IF SECRETS LEAK</h4><p><span class="mono">JENKINS_HOME/secrets</span> decrypts the whole store. Its exposure = everything is compromised. Rotate all of it.</p></div>
 <div class="qa"><span class="qq">Q:</span> Why are PR builds a trust boundary?<br><span class="aa">A:</span> PR contents are attacker-influenced code running on your agents — isolate execution and scope credentials.</div>
 
 </div><div id="p4" class="page">
 
-<h3 class="sec"><span class="n">04 /</span> Handoff</h3>
+<h3 id="p4-h1" class="sec"><span class="n">04 /</span> Handoff</h3>
 <p class="body">Hardened core — now scale the craft. Continue in <b>PDF 17 · Jenkins Advanced</b>: shared libraries, matrix builds, JCasC, and backup/restore.</p>
 
 

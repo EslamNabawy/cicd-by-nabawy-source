@@ -623,7 +623,7 @@ ul.tight li{margin-bottom:4px}
 </header>
 <div class="readcontext" data-testid="reader-context"><div class="wrap"><a href="../shelf.html">Browse</a><span>›</span><a href="../shelf.html#path-ci-core">CI Core</a><span>›</span><span class="here">Artifact Management</span><span class="pathpos">2 of 5 in CI Core</span><span class="prereq">Prereq:<a href="pipelines.html">CI/CD Pipelines</a></span></div></div>
 <div class="rlayout">
-<aside class="toc"><h4>CONTENTS · 4 PAGES · 12 SECTIONS</h4><a href="#p1" class="toc-l1" aria-label="Cover — ARTIFACTMANAGEMENT">Cover — ARTIFACTMANAGEMENT</a><a href="#p2" class="toc-l1" aria-label="1 Artifacts">1 Artifacts</a><a href="#p2" class="toc-l2" aria-label="1.1 01 / Vocabulary">1.1 01 / Vocabulary</a><a href="#p2" class="toc-l2" aria-label="1.2 02 / Why Immutability">1.2 02 / Why Immutability</a><a href="#p3" class="toc-l1" aria-label="2 Lifecycle">2 Lifecycle</a><a href="#p3" class="toc-l2" aria-label="2.1 03 / Producer, Consumer, Lifecycle">2.1 03 / Producer, Consumer, Lifecycle</a><a href="#p3" class="toc-l2" aria-label="2.2 04 / Commands">2.2 04 / Commands</a><a href="#p3" class="toc-l2" aria-label="2.3 05 / Versioning">2.3 05 / Versioning</a><a href="#p4" class="toc-l1" aria-label="3 Trust &amp;amp; Handoff">3 Trust &amp;amp; Handoff</a><a href="#p4" class="toc-l2" aria-label="3.1 06 / Failure Modes">3.1 06 / Failure Modes</a><a href="#p4" class="toc-l3" aria-label="3.1.1 SUPPLY-CHAIN TRUST">3.1.1 SUPPLY-CHAIN TRUST</a><a href="#p4" class="toc-l2" aria-label="3.2 07 / Handoff">3.2 07 / Handoff</a>
+<aside class="toc"><h4>CONTENTS · 4 PAGES · 12 SECTIONS</h4><a href="#p1" class="toc-l1" aria-label="Cover — ARTIFACTMANAGEMENT">Cover — ARTIFACTMANAGEMENT</a><a href="#p2-h1" class="toc-l1" aria-label="1 Artifacts">1 Artifacts</a><a href="#p2-h2" class="toc-l2" aria-label="1.1 01 / Vocabulary">1.1 01 / Vocabulary</a><a href="#p2-h3" class="toc-l2" aria-label="1.2 02 / Why Immutability">1.2 02 / Why Immutability</a><a href="#p3-h1" class="toc-l1" aria-label="2 Lifecycle">2 Lifecycle</a><a href="#p3-h2" class="toc-l2" aria-label="2.1 03 / Producer, Consumer, Lifecycle">2.1 03 / Producer, Consumer, Lifecycle</a><a href="#p3-h3" class="toc-l2" aria-label="2.2 04 / Commands">2.2 04 / Commands</a><a href="#p3-h4" class="toc-l2" aria-label="2.3 05 / Versioning">2.3 05 / Versioning</a><a href="#p4-h1" class="toc-l1" aria-label="3 Trust &amp;amp; Handoff">3 Trust &amp;amp; Handoff</a><a href="#p4-h2" class="toc-l2" aria-label="3.1 06 / Failure Modes">3.1 06 / Failure Modes</a><a href="#p4-h3" class="toc-l3" aria-label="3.1.1 SUPPLY-CHAIN TRUST">3.1.1 SUPPLY-CHAIN TRUST</a><a href="#p4-h4" class="toc-l2" aria-label="3.2 07 / Handoff">3.2 07 / Handoff</a>
 </aside>
 <main class="read"><div class="readbody">
 <div class="upnext upnext-top">Up next in CI Core → <a href="ci.html"><b>Continuous Integration</b></a></div>
@@ -645,31 +645,31 @@ ul.tight li{margin-bottom:4px}
 <div class="bignum">04</div>
 <div class="ctitle">ARTIFACTS</div>
 <p class="lede">Picking up from <em>Pipelines</em>, where the build succeeded — we now follow <em>the one thing that outlives the pipeline</em>: the versioned, immutable artifact.</p>
-<h3 class="sec"><span class="n">01 /</span> Vocabulary</h3>
+<h3 id="p2-h1" class="sec"><span class="n">01 /</span> Vocabulary</h3>
 <table class="cmp"><tr><th>Term</th><th>Meaning</th></tr>
 <tr><td>Artifact</td><td>Built output + version (<span class="mono">app:1.4.2</span>, <span class="mono">app:sha-9f3a</span>)</td></tr>
 <tr><td>Registry</td><td>Storage + distribution (Hub, GHCR, ECR, Nexus)</td></tr>
 <tr><td>Promotion</td><td>Same artifact approved staging → production (never rebuild)</td></tr>
 <tr><td>Digest</td><td>Content hash — the image's fingerprint</td></tr></table>
-<h3 class="sec"><span class="n">02 /</span> Why Immutability</h3>
+<h3 id="p2-h2" class="sec"><span class="n">02 /</span> Why Immutability</h3>
 <p class="body">Rebuilding per environment means testing one binary and shipping another. Immutable artifacts guarantee <b>what passed staging is what runs in production</b>.</p>
 
 </div><div id="p3" class="page">
 
-<h3 class="sec"><span class="n">03 /</span> Producer, Consumer, Lifecycle</h3>
+<h3 id="p3-h1" class="sec"><span class="n">03 /</span> Producer, Consumer, Lifecycle</h3>
 <div class="kv"><b>PRODUCER</b> build job → <b>STORAGE</b> registry → <b>CONSUMER</b> CD pipeline · Lifecycle: build → store → promote → deploy → retire.</div>
-<h3 class="sec"><span class="n">04 /</span> Commands</h3>
+<h3 id="p3-h2" class="sec"><span class="n">04 /</span> Commands</h3>
 <div class="terminal"><span class="p">$</span> docker build -t ghcr.io/acme/app:sha-9f3a .<br><span class="p">$</span> docker push ghcr.io/acme/app:sha-9f3a<br><span class="p">$</span> docker tag ghcr.io/acme/app:sha-9f3a ghcr.io/acme/app:1.4.2 <span class="c"># promote: same digest, human tag</span><br><span class="p">$</span> docker push ghcr.io/acme/app:1.4.2</div>
-<h3 class="sec"><span class="n">05 /</span> Versioning</h3>
+<h3 id="p3-h3" class="sec"><span class="n">05 /</span> Versioning</h3>
 <ul class="tight"><li>Immutable primary tag: commit SHA — traceable, never overwritten.</li><li>Human tags: semver (<span class="mono">MAJOR.MINOR.PATCH</span>) applied at promotion, never rebuilt.</li><li>Never deploy <span class="mono">:latest</span> — it is unrepeatable.</li><li>Also valid: build numbers (<span class="mono">build-1042</span>) for ordering, date tags for nightlies. SHA always = truth.</li></ul>
 
 </div><div id="p4" class="page">
 
-<h3 class="sec"><span class="n">06 /</span> Failure Modes</h3>
+<h3 id="p4-h1" class="sec"><span class="n">06 /</span> Failure Modes</h3>
 <ul class="tight"><li>Mutable tags overwritten → unreproducible deploys; fix with SHA digests + tag immutability.</li><li>Registry bloat/slow pulls; fix with retention + layer caching + regional mirrors.</li><li>Secrets baked into images; fix with multi-stage builds + secret mounts, scan with Trivy.</li></ul>
 <div class="callout"><h4>SUPPLY-CHAIN TRUST</h4><p>Sign artifacts (cosign proves who built the image) and keep SBOMs (the machine-readable ingredient list) so a future CVE traces to exactly the affected images. Provenance attestations (SLSA-style) let consumers verify builder + commit before promoting.</p></div>
 <div class="qa"><span class="qq">Q:</span> Why must the same digest flow through all environments?<br><span class="aa">A:</span> Otherwise you tested one binary and shipped another — verification is void.</div>
-<h3 class="sec"><span class="n">07 /</span> Handoff</h3>
+<h3 id="p4-h2" class="sec"><span class="n">07 /</span> Handoff</h3>
 <p class="body">The artifact is frozen — now it must travel. Continue in <b>PDF 05 · Continuous Delivery</b>, where this exact digest moves through staging to production.</p>
 
 
