@@ -641,10 +641,12 @@ if(_mb)_mb.onclick=()=>{const m=getP(MARKS,{});if(m[BID])delete m[BID];else m[BI
 const LABKEY='cicdlib:lab:'+BID;
 function labChecks(){const done=getP(LABKEY,{});$$('.readbody .step').forEach((st,i)=>{if(st.querySelector('input[type=checkbox]'))return;const lab=document.createElement('input');lab.type='checkbox';lab.checked=!!done[i];lab.setAttribute('aria-label','Mark step done');lab.onchange=()=>{const d=getP(LABKEY,{});if(lab.checked)d[i]=1;else delete d[i];setP(LABKEY,d);st.classList.toggle('done',lab.checked);};st.classList.toggle('done',!!done[i]);st.prepend(lab);});const rst=$('#labreset');if(rst)rst.onclick=()=>{setP(LABKEY,{});$$('.readbody .step').forEach(st=>{st.classList.remove('done');const c=st.querySelector('input[type=checkbox]');if(c)c.checked=false;});};}
 labChecks();
-function tocUpdate(){const secs=$$('.readbody .page');let cur=secs[0]&&secs[0].id;
-  secs.forEach(s=>{if(s.getBoundingClientRect().top<160)cur=s.id});
-  window._cur=cur;
-  $$('aside.toc a').forEach(a=>a.classList.toggle('cur',a.getAttribute('href')==='#'+cur));}
+function tocUpdate(){const links=$$('aside.toc a');let cur=null;
+  links.forEach(a=>{const h=a.getAttribute('href');if(!h||h[0]!=='#')return;
+    const el=document.getElementById(h.slice(1));
+    if(el&&el.getBoundingClientRect().top<160)cur=h;});
+  window._cur=cur?cur.slice(1):null;
+  links.forEach(a=>a.classList.toggle('cur',a.getAttribute('href')===cur));}
 window.addEventListener('scroll',()=>{tocUpdate();
   const h=document.documentElement,p=Math.min(100,Math.round(100*(h.scrollTop)/(h.scrollHeight-h.clientHeight||1)));
   setP(PKEY,{pct:p,ts:Date.now()});const bar=$('#pbar');if(bar)bar.style.width=p+'%';},{passive:true});
@@ -840,16 +842,18 @@ def toc_of(pages):
     items = []
     n1 = n2 = n3 = 0
     for i, p in enumerate(pages):
-        heads = re.findall(r"<(h2|h3|h4)[^>]*>(.*?)</\1>", p, re.S)
+        heads = re.findall(r"<(h2|h3|h4)([^>]*)>(.*?)</\1>", p, re.S)
         if not heads:
             m = re.search(r"<h1[^>]*>(.*?)</h1>", p, re.S)
             label = re.sub(r"<[^>]+>", "", m.group(1)).strip() if m else f"Page {i+1}"
             items.append((f"p{i+1}", "Cover — " + label[:40], 1))
             continue
-        for heading_index, (tag, htxt) in enumerate(heads, 1):
+        for heading_index, (tag, attrs, htxt) in enumerate(heads, 1):
             clean = re.sub(r"<[^>]+>", "", htxt).strip()
             if not clean:
                 continue
+            m = re.search(r'id="([^"]+)"', attrs)
+            anchor = m.group(1) if m else f"p{i+1}-h{heading_index}"
             if tag == "h2":
                 n1 += 1; n2 = n3 = 0; num = f"{n1}"
                 lvl = 1
@@ -857,9 +861,15 @@ def toc_of(pages):
                 n2 += 1; n3 = 0; num = f"{n1}.{n2}" if n1 else f"{n2}"
                 lvl = 2
             else:
-                n3 += 1; num = f"{n1}.{n2}.{n3}" if n1 else f"{n2}.{n3}"
+                n3 += 1
+                if n1:
+                    num = f"{n1}.{n2}.{n3}"
+                elif n2:
+                    num = f"{n2}.{n3}"
+                else:
+                    num = f"{n3}"
                 lvl = 3
-            items.append((f"p{i+1}-h{heading_index}", f"{num} {clean[:60]}", lvl))
+            items.append((anchor, f"{num} {clean[:60]}", lvl))
     return items
 
 
@@ -1393,11 +1403,18 @@ def build():
             hnum = 0
             def mark_heading(match):
                 nonlocal hnum
+                if 'id=' in match.group(2):
+                    return match.group(0)
                 hnum += 1
                 return f'<{match.group(1)} id="p{i+1}-h{hnum}"{match.group(2)}>'
-            p = re.sub(r'<(h[234])(\s[^>]*)>', mark_heading, p)
+            # Same heading set as toc_of() (bare + attributed h2/h3/h4) so
+            # per-heading anchors p{i}-h{n} stay aligned with TOC numbering.
+            p = re.sub(r'<(h[234])([^>]*)>', mark_heading, p)
             body_pages.append(re.sub(r'class="page', f'id="p{i+1}" class="page', p, count=1))
-        # toc_of already returns concrete page ids (p1, p2, ...).
+        # Reader TOC is rebuilt from the post-strip, id-injected pages so
+        # every entry points at a heading that exists in the output.
+        # (The loop-top toc stays pre-strip for the search index.)
+        toc = toc_of(body_pages)
         toc_html = "".join(f'<a href="#{page_id}" class="toc-l{lvl}" aria-label="{html.escape(t)}">{html.escape(t)}</a>' for page_id, t, lvl in toc)
         # P2 Top-5 #4: chapnav follows path order, not manifest order
         pprev = pseq[ppos - 2] if ppos > 1 else None

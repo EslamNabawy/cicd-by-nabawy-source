@@ -1245,25 +1245,25 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
 
             <div class="concept-grid">
                 <div class="concept-block">
-                    <h4>WHAT</h4>
+                    <h4 id="p2-h2">WHAT</h4>
                     <p>A Jenkins pipeline that executes Terraform commands against a simulated AWS environment (FLOCI) to provision VPCs, subnets, and compute resources.</p>
                 </div>
                 <div class="concept-block">
-                    <h4>WHY</h4>
+                    <h4 id="p2-h3">WHY</h4>
                     <p>To practice infrastructure automation safely. FLOCI mimics the AWS API without incurring real costs, allowing teams to test CI/CD workflows aggressively.</p>
                 </div>
                 <div class="concept-block">
-                    <h4>WHEN</h4>
+                    <h4 id="p2-h4">WHEN</h4>
                     <p>Triggered automatically by a GitHub webhook on push, but pauses for manual approval before the destructive <code>apply</code> stage.</p>
                 </div>
                 <div class="concept-block">
-                    <h4>WHAT CHANGES</h4>
+                    <h4 id="p2-h5">WHAT CHANGES</h4>
                     <p>Infrastructure moves from manual CLI execution to a versioned, peer-reviewed, automated pipeline. State shifts become deliberate, logged events.</p>
                 </div>
             </div>
 
             <div class="callout">
-                <h4>WHY THIS EXISTS</h4>
+                <h4 id="p2-h6">WHY THIS EXISTS</h4>
                 <p>Without a pipeline, infrastructure drifts. Engineers apply changes locally, state files diverge, and recovery becomes impossible. A pipeline enforces a single, auditable path from code to cloud.</p>
             </div>
         </div>
@@ -1314,7 +1314,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
             </div>
 
             <div class="callout gotcha">
-                <h4>GOTCHA</h4>
+                <h4 id="p3-h4">GOTCHA</h4>
                 <p>FLOCI is a simulation, not real AWS. Standard AWS credential patterns (IAM roles, <code>~/.aws/credentials</code>) do not apply. The <code>Provider.tf</code> must be explicitly configured with the FLOCI endpoint URL and simulation tokens gathered in Step 0.</p>
             </div>
         </div>
@@ -1365,7 +1365,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
             </div>
 
             <div class="callout interview">
-                <h4>INTERVIEW CHECK</h4>
+                <h4 id="p4-h4">INTERVIEW CHECK</h4>
                 <p><strong>Q: Why use workspaces instead of separate directories for state?</strong></p>
                 <p>A: Workspaces allow the same Terraform configuration to manage multiple distinct state files without duplicating code. It simplifies the pipeline by parameterizing the environment via a simple <code>--workspace</code> flag rather than altering backend paths dynamically.</p>
             </div>
@@ -1415,12 +1415,12 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
             </div>
 
             <div class="callout gotcha">
-                <h4>GOTCHA</h4>
+                <h4 id="p5-h3">GOTCHA</h4>
                 <p>If the pipeline is aborted at the <code>input</code> step, Jenkins marks the build as <code>ABORTED</code>, not <code>FAILED</code>. Ensure your <code>post</code> actions distinguish between failure (requiring a mail alert) and abort (a deliberate human choice).</p>
             </div>
             
             <div class="callout">
-                <h4>WHY IT MATTERS</h4>
+                <h4 id="p5-h4">WHY IT MATTERS</h4>
                 <p>Automation stops here because a human decision is required. The <code>plan</code> output is the contract; the <code>apply</code> is the execution. Skipping this gate removes accountability from the infrastructure lifecycle.</p>
             </div>
         </div>
@@ -1459,13 +1459,13 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
 
             <div class="cmdres">
                 <div class="cmd-block">
-                    <h4>COMMAND</h4>
+                    <h4 id="p6-h2">COMMAND</h4>
                     <div class="term-box">
                         <span class="term-line"><span class="term-prompt">$</span> terraform init</span>
                     </div>
                 </div>
                 <div class="res-block">
-                    <h4>RESULT</h4>
+                    <h4 id="p6-h3">RESULT</h4>
                     <div class="term-box">
                         <span class="term-line term-out">Initializing the backend...</span>
                         <span class="term-line term-out">Initializing provider plugins...</span>
@@ -1475,7 +1475,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
             </div>
 
             <div class="callout">
-                <h4>WHY IT MATTERS</h4>
+                <h4 id="p6-h4">WHY IT MATTERS</h4>
                 <p>By skipping credential validation and overriding endpoints, Terraform operates in a sandbox. This allows engineers to test complex VPC topologies and EC2 deployments against a mock API, ensuring the IaC logic is sound before touching a real cloud billing account.</p>
             </div>
         </div>
@@ -1611,7 +1611,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
             </table>
 
             <div class="callout interview">
-                <h4>INTERVIEW CHECK</h4>
+                <h4 id="p8-h3">INTERVIEW CHECK</h4>
                 <p><strong>Q: Why use FLOCI instead of a real AWS Sandbox account?</strong></p>
                 <p>A: Real AWS sandboxes still incur costs and carry the risk of accidental production impact if IAM boundaries are misconfigured. FLOCI provides a zero-cost, zero-risk API mock that is ideal for testing the CI/CD pipeline mechanics themselves.</p>
             </div>
@@ -1680,10 +1680,12 @@ if(_mb)_mb.onclick=()=>{const m=getP(MARKS,{});if(m[BID])delete m[BID];else m[BI
 const LABKEY='cicdlib:lab:'+BID;
 function labChecks(){const done=getP(LABKEY,{});$$('.readbody .step').forEach((st,i)=>{if(st.querySelector('input[type=checkbox]'))return;const lab=document.createElement('input');lab.type='checkbox';lab.checked=!!done[i];lab.setAttribute('aria-label','Mark step done');lab.onchange=()=>{const d=getP(LABKEY,{});if(lab.checked)d[i]=1;else delete d[i];setP(LABKEY,d);st.classList.toggle('done',lab.checked);};st.classList.toggle('done',!!done[i]);st.prepend(lab);});const rst=$('#labreset');if(rst)rst.onclick=()=>{setP(LABKEY,{});$$('.readbody .step').forEach(st=>{st.classList.remove('done');const c=st.querySelector('input[type=checkbox]');if(c)c.checked=false;});};}
 labChecks();
-function tocUpdate(){const secs=$$('.readbody .page');let cur=secs[0]&&secs[0].id;
-  secs.forEach(s=>{if(s.getBoundingClientRect().top<160)cur=s.id});
-  window._cur=cur;
-  $$('aside.toc a').forEach(a=>a.classList.toggle('cur',a.getAttribute('href')==='#'+cur));}
+function tocUpdate(){const links=$$('aside.toc a');let cur=null;
+  links.forEach(a=>{const h=a.getAttribute('href');if(!h||h[0]!=='#')return;
+    const el=document.getElementById(h.slice(1));
+    if(el&&el.getBoundingClientRect().top<160)cur=h;});
+  window._cur=cur?cur.slice(1):null;
+  links.forEach(a=>a.classList.toggle('cur',a.getAttribute('href')===cur));}
 window.addEventListener('scroll',()=>{tocUpdate();
   const h=document.documentElement,p=Math.min(100,Math.round(100*(h.scrollTop)/(h.scrollHeight-h.clientHeight||1)));
   setP(PKEY,{pct:p,ts:Date.now()});const bar=$('#pbar');if(bar)bar.style.width=p+'%';},{passive:true});

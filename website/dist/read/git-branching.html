@@ -610,7 +610,7 @@ ul.tight li{margin-bottom:4px}
 </head>
 <body data-book="git-branching">
 <header class="top"><div class="wrap">
-<button class="btn tocbtn" id="tocbtn" aria-label="Open table of contents">☰ Contents · 14</button>
+<button class="btn tocbtn" id="tocbtn" aria-label="Open table of contents">☰ Contents · 10</button>
 <nav class="crumbs"><a class="logo" href="../index.html" style="color:inherit"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="5" cy="12" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="6" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="18" r="2.6" stroke="#18E299" stroke-width="2"/><path d="M7.6 12h5.2m0 0-2.6-2.6m2.6 2.6-2.6 2.6M13.4 7.4l2.8-1M13.4 16.6l2.8 1" stroke="#18E299" stroke-width="2" stroke-linecap="round"/></svg>CICD<span> BY Nabawy</span></a>
 <span class="sep">/</span>
 <span class="here">Git, Branching &amp; Pull Requests</span></nav>
@@ -628,7 +628,7 @@ ul.tight li{margin-bottom:4px}
 </header>
 <div class="readcontext" data-testid="reader-context"><div class="wrap"><a href="../shelf.html">Browse</a><span>›</span><a href="../shelf.html#path-start-here">Start Here</a><span>›</span><span class="here">Git, Branching &amp; Pull Requests</span><span class="pathpos">2 of 2 in Start Here</span><span class="prereq">Prereq:<a href="foundations.html">CI/CD Foundations</a></span></div></div>
 <div class="rlayout">
-<aside class="toc"><h4>CONTENTS · 5 PAGES · 14 SECTIONS</h4><a href="#p1" class="toc-l1" aria-label="Cover — GIT, BRANCHING&amp;amp; PULL REQUESTS">Cover — GIT, BRANCHING&amp;amp; PULL REQUESTS</a><a href="#p2-h1" class="toc-l1" aria-label="1 Source Control">1 Source Control</a><a href="#p2-h2" class="toc-l2" aria-label="1.1 01 / What Each Piece Is">1.1 01 / What Each Piece Is</a><a href="#p2-h3" class="toc-l2" aria-label="1.2 02 / Why the Gate Exists">1.2 02 / Why the Gate Exists</a><a href="#p3-h1" class="toc-l1" aria-label="2 Flow &amp;amp; Commands">2 Flow &amp;amp; Commands</a><a href="#p3-h2" class="toc-l2" aria-label="2.1 03 / How the Flow Executes">2.1 03 / How the Flow Executes</a><a href="#p3-h3" class="toc-l2" aria-label="2.2 04 / Commands">2.2 04 / Commands</a><a href="#p4-h1" class="toc-l1" aria-label="3 Models &amp;amp; Discipline">3 Models &amp;amp; Discipline</a><a href="#p4-h2" class="toc-l2" aria-label="3.1 05 / Branching Models">3.1 05 / Branching Models</a><a href="#p4-h3" class="toc-l2" aria-label="3.2 06 / Failure Modes &amp;amp; Best Practices">3.2 06 / Failure Modes &amp;amp; Best Practices</a><a href="#p4-h4" class="toc-l3" aria-label="3.2.1 GOTCHA">3.2.1 GOTCHA</a><a href="#p5-h1" class="toc-l1" aria-label="4 Check &amp;amp; Handoff">4 Check &amp;amp; Handoff</a><a href="#p5-h2" class="toc-l2" aria-label="4.1 07 / Interview Check">4.1 07 / Interview Check</a><a href="#p5-h3" class="toc-l2" aria-label="4.2 08 / Handoff">4.2 08 / Handoff</a>
+<aside class="toc"><h4>CONTENTS · 5 PAGES · 10 SECTIONS</h4><a href="#p1" class="toc-l1" aria-label="Cover — GIT, BRANCHING&amp;amp; PULL REQUESTS">Cover — GIT, BRANCHING&amp;amp; PULL REQUESTS</a><a href="#p2-h1" class="toc-l2" aria-label="1 01 / What Each Piece Is">1 01 / What Each Piece Is</a><a href="#p2-h2" class="toc-l2" aria-label="2 02 / Why the Gate Exists">2 02 / Why the Gate Exists</a><a href="#p3-h1" class="toc-l2" aria-label="3 03 / How the Flow Executes">3 03 / How the Flow Executes</a><a href="#p3-h2" class="toc-l2" aria-label="4 04 / Commands">4 04 / Commands</a><a href="#p4-h1" class="toc-l2" aria-label="5 05 / Branching Models">5 05 / Branching Models</a><a href="#p4-h2" class="toc-l2" aria-label="6 06 / Failure Modes &amp;amp; Best Practices">6 06 / Failure Modes &amp;amp; Best Practices</a><a href="#p4-h3" class="toc-l3" aria-label="6.1 GOTCHA">6.1 GOTCHA</a><a href="#p5-h1" class="toc-l2" aria-label="7 07 / Interview Check">7 07 / Interview Check</a><a href="#p5-h2" class="toc-l2" aria-label="8 08 / Handoff">8 08 / Handoff</a>
 </aside>
 <main class="read"><div class="readbody">
 
@@ -681,7 +681,7 @@ ul.tight li{margin-bottom:4px}
 <h3 id="p4-h2" class="sec"><span class="n">06 /</span> Failure Modes &amp; Best Practices</h3>
 <ul class="tight"><li>Long-lived branches → merge hell; fix with trunk-based discipline.</li><li>Red checks ignored; fix with required status checks.</li><li>Merge-queue races; fix with merge queues, linear history.</li></ul>
 <div class="kv"><b>RULES —</b> one logical change per PR (&lt; ~400 lines) · green CI + 1 approval before merge · conventional commits (<span class="mono">feat:</span>, <span class="mono">fix:</span>) so changelogs automate.</div>
-<div class="callout warn"><h4>GOTCHA</h4><p>"Merging equals deploying" is false. Merging makes a change a <i>candidate</i>; Continuous Delivery decides deployment.</p></div>
+<div class="callout warn"><h4 id="p4-h3">GOTCHA</h4><p>"Merging equals deploying" is false. Merging makes a change a <i>candidate</i>; Continuous Delivery decides deployment.</p></div>
 
 </div><div id="p5" class="page">
 
@@ -751,10 +751,12 @@ if(_mb)_mb.onclick=()=>{const m=getP(MARKS,{});if(m[BID])delete m[BID];else m[BI
 const LABKEY='cicdlib:lab:'+BID;
 function labChecks(){const done=getP(LABKEY,{});$$('.readbody .step').forEach((st,i)=>{if(st.querySelector('input[type=checkbox]'))return;const lab=document.createElement('input');lab.type='checkbox';lab.checked=!!done[i];lab.setAttribute('aria-label','Mark step done');lab.onchange=()=>{const d=getP(LABKEY,{});if(lab.checked)d[i]=1;else delete d[i];setP(LABKEY,d);st.classList.toggle('done',lab.checked);};st.classList.toggle('done',!!done[i]);st.prepend(lab);});const rst=$('#labreset');if(rst)rst.onclick=()=>{setP(LABKEY,{});$$('.readbody .step').forEach(st=>{st.classList.remove('done');const c=st.querySelector('input[type=checkbox]');if(c)c.checked=false;});};}
 labChecks();
-function tocUpdate(){const secs=$$('.readbody .page');let cur=secs[0]&&secs[0].id;
-  secs.forEach(s=>{if(s.getBoundingClientRect().top<160)cur=s.id});
-  window._cur=cur;
-  $$('aside.toc a').forEach(a=>a.classList.toggle('cur',a.getAttribute('href')==='#'+cur));}
+function tocUpdate(){const links=$$('aside.toc a');let cur=null;
+  links.forEach(a=>{const h=a.getAttribute('href');if(!h||h[0]!=='#')return;
+    const el=document.getElementById(h.slice(1));
+    if(el&&el.getBoundingClientRect().top<160)cur=h;});
+  window._cur=cur?cur.slice(1):null;
+  links.forEach(a=>a.classList.toggle('cur',a.getAttribute('href')===cur));}
 window.addEventListener('scroll',()=>{tocUpdate();
   const h=document.documentElement,p=Math.min(100,Math.round(100*(h.scrollTop)/(h.scrollHeight-h.clientHeight||1)));
   setP(PKEY,{pct:p,ts:Date.now()});const bar=$('#pbar');if(bar)bar.style.width=p+'%';},{passive:true});

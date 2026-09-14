@@ -1257,25 +1257,25 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
 
             <div class="concept-grid">
                 <div class="concept-block">
-                    <h4>WHAT</h4>
+                    <h4 id="p2-h2">WHAT</h4>
                     <p>A Jenkins job type that automatically creates a sub-job for every branch in a Git repository containing a Jenkinsfile.</p>
                 </div>
                 <div class="concept-block">
-                    <h4>WHY</h4>
+                    <h4 id="p2-h3">WHY</h4>
                     <p>It eliminates the need to manually create and configure a new Jenkins job every time a developer creates a new branch.</p>
                 </div>
                 <div class="concept-block">
-                    <h4>WHEN</h4>
+                    <h4 id="p2-h4">WHEN</h4>
                     <p>On a periodic schedule (e.g., every 5 minutes) or manually triggered. This task deliberately ignores webhooks to simulate an air-gapped environment.</p>
                 </div>
                 <div class="concept-block">
-                    <h4>WHAT CHANGES</h4>
+                    <h4 id="p2-h5">WHAT CHANGES</h4>
                     <p>The relationship between source code and CI inverts. The repository defines the jobs, not Jenkins. Branch deletion leads to job orphaning.</p>
                 </div>
             </div>
 
             <div class="callout">
-                <h4>WHY THIS EXISTS</h4>
+                <h4 id="p2-h6">WHY THIS EXISTS</h4>
                 <p>In dynamic environments with feature branches, manually managing Jenkins jobs is impossible. Multibranch pipelines push job creation down into the repository itself, making the CI configuration version-controlled and branch-specific.</p>
             </div>
         </div>
@@ -1330,7 +1330,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
             </div>
 
             <div class="callout gotcha">
-                <h4>GOTCHA</h4>
+                <h4 id="p3-h4">GOTCHA</h4>
                 <p>Individual branch jobs inside the Multibranch folder (e.g., <code>main</code>, <code>dev</code>) are <strong>not directly configurable</strong>. All behavior (branch filtering, checkout, scan triggers) is controlled from the parent Multibranch Pipeline job's configuration only.</p>
             </div>
         </div>
@@ -1384,7 +1384,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
             </div>
 
             <div class="callout gotcha">
-                <h4>GOTCHA</h4>
+                <h4 id="p4-h3">GOTCHA</h4>
                 <p>Ensure "Check out to matching local branch" is enabled. Without it, Jenkins checks out a detached commit. While builds may succeed, Git metadata within the pipeline won't reflect the actual branch name, breaking <code>when { branch 'stg' }</code> conditionals.</p>
             </div>
         </div>
@@ -1443,7 +1443,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
             </div>
 
             <div class="callout interview">
-                <h4>INTERVIEW CHECK</h4>
+                <h4 id="p5-h3">INTERVIEW CHECK</h4>
                 <p><strong>Q: How does a single Jenkinsfile adapt to different branches?</strong></p>
                 <p>A: The Multibranch plugin injects <code>env.BRANCH_NAME</code>. The <code>when</code> directive evaluates this variable before executing a stage, allowing branch-specific logic (like deployment or extra tests) to reside safely in the same file.</p>
             </div>
@@ -1490,7 +1490,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
             </div>
 
             <div class="callout gotcha">
-                <h4>GOTCHA</h4>
+                <h4 id="p6-h3">GOTCHA</h4>
                 <p>Orphaned branch cleanup only happens <strong>after a rescan</strong>. Deleting a remote branch does not immediately remove its Jenkins job. The next scan evaluates the repository state and removes orphaned items.</p>
             </div>
         </div>
@@ -1556,7 +1556,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
             </table>
 
             <div class="callout interview">
-                <h4>INTERVIEW CHECK</h4>
+                <h4 id="p7-h3">INTERVIEW CHECK</h4>
                 <p><strong>Q: Why use plain Git branch source instead of GitHub-specific integration?</strong></p>
                 <p>A: The plain Git source works with any Git provider (GitLab, Bitbucket, etc.) and functions in air-gapped environments where inbound webhooks are blocked. It relies on periodic polling, prioritizing compatibility over immediate trigger speed.</p>
             </div>
@@ -1625,10 +1625,12 @@ if(_mb)_mb.onclick=()=>{const m=getP(MARKS,{});if(m[BID])delete m[BID];else m[BI
 const LABKEY='cicdlib:lab:'+BID;
 function labChecks(){const done=getP(LABKEY,{});$$('.readbody .step').forEach((st,i)=>{if(st.querySelector('input[type=checkbox]'))return;const lab=document.createElement('input');lab.type='checkbox';lab.checked=!!done[i];lab.setAttribute('aria-label','Mark step done');lab.onchange=()=>{const d=getP(LABKEY,{});if(lab.checked)d[i]=1;else delete d[i];setP(LABKEY,d);st.classList.toggle('done',lab.checked);};st.classList.toggle('done',!!done[i]);st.prepend(lab);});const rst=$('#labreset');if(rst)rst.onclick=()=>{setP(LABKEY,{});$$('.readbody .step').forEach(st=>{st.classList.remove('done');const c=st.querySelector('input[type=checkbox]');if(c)c.checked=false;});};}
 labChecks();
-function tocUpdate(){const secs=$$('.readbody .page');let cur=secs[0]&&secs[0].id;
-  secs.forEach(s=>{if(s.getBoundingClientRect().top<160)cur=s.id});
-  window._cur=cur;
-  $$('aside.toc a').forEach(a=>a.classList.toggle('cur',a.getAttribute('href')==='#'+cur));}
+function tocUpdate(){const links=$$('aside.toc a');let cur=null;
+  links.forEach(a=>{const h=a.getAttribute('href');if(!h||h[0]!=='#')return;
+    const el=document.getElementById(h.slice(1));
+    if(el&&el.getBoundingClientRect().top<160)cur=h;});
+  window._cur=cur?cur.slice(1):null;
+  links.forEach(a=>a.classList.toggle('cur',a.getAttribute('href')===cur));}
 window.addEventListener('scroll',()=>{tocUpdate();
   const h=document.documentElement,p=Math.min(100,Math.round(100*(h.scrollTop)/(h.scrollHeight-h.clientHeight||1)));
   setP(PKEY,{pct:p,ts:Date.now()});const bar=$('#pbar');if(bar)bar.style.width=p+'%';},{passive:true});

@@ -602,7 +602,7 @@ ul.tight li{margin-bottom:4px}
 </head>
 <body data-book="strategies">
 <header class="top"><div class="wrap">
-<button class="btn tocbtn" id="tocbtn" aria-label="Open table of contents">☰ Contents · 9</button>
+<button class="btn tocbtn" id="tocbtn" aria-label="Open table of contents">☰ Contents · 6</button>
 <nav class="crumbs"><a class="logo" href="../index.html" style="color:inherit"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="5" cy="12" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="6" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="18" r="2.6" stroke="#18E299" stroke-width="2"/><path d="M7.6 12h5.2m0 0-2.6-2.6m2.6 2.6-2.6 2.6M13.4 7.4l2.8-1M13.4 16.6l2.8 1" stroke="#18E299" stroke-width="2" stroke-linecap="round"/></svg>CICD<span> BY Nabawy</span></a>
 <span class="sep">/</span>
 <span class="here">Deployment Strategies</span></nav>
@@ -620,7 +620,7 @@ ul.tight li{margin-bottom:4px}
 </header>
 <div class="readcontext" data-testid="reader-context"><div class="wrap"><a href="../shelf.html">Browse</a><span>›</span><a href="../shelf.html#path-delivery">Delivery &amp; Deployment</a><span>›</span><span class="here">Deployment Strategies</span><span class="pathpos">2 of 7 in Delivery &amp; Deployment</span><span class="prereq">Prereq:<a href="delivery.html">Continuous Delivery</a></span></div></div>
 <div class="rlayout">
-<aside class="toc"><h4>CONTENTS · 4 PAGES · 9 SECTIONS</h4><a href="#p1" class="toc-l1" aria-label="Cover — DEPLOYMENTSTRATEGIES">Cover — DEPLOYMENTSTRATEGIES</a><a href="#p2-h1" class="toc-l1" aria-label="1 Shapes">1 Shapes</a><a href="#p2-h2" class="toc-l2" aria-label="1.1 01 / Five Shapes">1.1 01 / Five Shapes</a><a href="#p3-h1" class="toc-l1" aria-label="2 Mechanics">2 Mechanics</a><a href="#p3-h2" class="toc-l2" aria-label="2.1 02 / How Each Moves Traffic">2.1 02 / How Each Moves Traffic</a><a href="#p3-h3" class="toc-l2" aria-label="2.2 03 / Failure Modes">2.2 03 / Failure Modes</a><a href="#p4-h1" class="toc-l1" aria-label="3 Check &amp;amp; Handoff">3 Check &amp;amp; Handoff</a><a href="#p4-h2" class="toc-l2" aria-label="3.1 04 / Interview Check">3.1 04 / Interview Check</a><a href="#p4-h3" class="toc-l2" aria-label="3.2 05 / Handoff">3.2 05 / Handoff</a>
+<aside class="toc"><h4>CONTENTS · 4 PAGES · 6 SECTIONS</h4><a href="#p1" class="toc-l1" aria-label="Cover — DEPLOYMENTSTRATEGIES">Cover — DEPLOYMENTSTRATEGIES</a><a href="#p2-h1" class="toc-l2" aria-label="1 01 / Five Shapes">1 01 / Five Shapes</a><a href="#p3-h1" class="toc-l2" aria-label="2 02 / How Each Moves Traffic">2 02 / How Each Moves Traffic</a><a href="#p3-h2" class="toc-l2" aria-label="3 03 / Failure Modes">3 03 / Failure Modes</a><a href="#p4-h1" class="toc-l2" aria-label="4 04 / Interview Check">4 04 / Interview Check</a><a href="#p4-h2" class="toc-l2" aria-label="5 05 / Handoff">5 05 / Handoff</a>
 </aside>
 <main class="read"><div class="readbody">
 <div class="upnext upnext-top">Up next in Delivery &amp; Deployment → <a href="deployment-auto.html"><b>Continuous Deployment</b></a></div>
@@ -730,10 +730,12 @@ if(_mb)_mb.onclick=()=>{const m=getP(MARKS,{});if(m[BID])delete m[BID];else m[BI
 const LABKEY='cicdlib:lab:'+BID;
 function labChecks(){const done=getP(LABKEY,{});$$('.readbody .step').forEach((st,i)=>{if(st.querySelector('input[type=checkbox]'))return;const lab=document.createElement('input');lab.type='checkbox';lab.checked=!!done[i];lab.setAttribute('aria-label','Mark step done');lab.onchange=()=>{const d=getP(LABKEY,{});if(lab.checked)d[i]=1;else delete d[i];setP(LABKEY,d);st.classList.toggle('done',lab.checked);};st.classList.toggle('done',!!done[i]);st.prepend(lab);});const rst=$('#labreset');if(rst)rst.onclick=()=>{setP(LABKEY,{});$$('.readbody .step').forEach(st=>{st.classList.remove('done');const c=st.querySelector('input[type=checkbox]');if(c)c.checked=false;});};}
 labChecks();
-function tocUpdate(){const secs=$$('.readbody .page');let cur=secs[0]&&secs[0].id;
-  secs.forEach(s=>{if(s.getBoundingClientRect().top<160)cur=s.id});
-  window._cur=cur;
-  $$('aside.toc a').forEach(a=>a.classList.toggle('cur',a.getAttribute('href')==='#'+cur));}
+function tocUpdate(){const links=$$('aside.toc a');let cur=null;
+  links.forEach(a=>{const h=a.getAttribute('href');if(!h||h[0]!=='#')return;
+    const el=document.getElementById(h.slice(1));
+    if(el&&el.getBoundingClientRect().top<160)cur=h;});
+  window._cur=cur?cur.slice(1):null;
+  links.forEach(a=>a.classList.toggle('cur',a.getAttribute('href')===cur));}
 window.addEventListener('scroll',()=>{tocUpdate();
   const h=document.documentElement,p=Math.min(100,Math.round(100*(h.scrollTop)/(h.scrollHeight-h.clientHeight||1)));
   setP(PKEY,{pct:p,ts:Date.now()});const bar=$('#pbar');if(bar)bar.style.width=p+'%';},{passive:true});

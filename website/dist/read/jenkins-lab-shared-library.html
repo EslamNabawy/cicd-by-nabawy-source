@@ -1244,25 +1244,25 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
 
             <div class="concept-grid">
                 <div class="concept-block">
-                    <h4>WHAT</h4>
+                    <h4 id="p2-h2">WHAT</h4>
                     <p>A Git repository containing Groovy code that Jenkins dynamically downloads and makes available to pipelines via an import statement.</p>
                 </div>
                 <div class="concept-block">
-                    <h4>WHY</h4>
+                    <h4 id="p2-h3">WHY</h4>
                     <p>To enforce DRY (Don't Repeat Yourself) principles in CI/CD. Updates to shared logic propagate to all pipelines without modifying individual Jenkinsfiles.</p>
                 </div>
                 <div class="concept-block">
-                    <h4>WHEN</h4>
+                    <h4 id="p2-h4">WHEN</h4>
                     <p>When multiple pipelines share common logic: deployment steps, approval gates, metric parsing, or custom build wrappers.</p>
                 </div>
                 <div class="concept-block">
-                    <h4>WHAT CHANGES</h4>
+                    <h4 id="p2-h5">WHAT CHANGES</h4>
                     <p>Pipelines become thinner. Complex business logic is abstracted into testable Groovy classes, moving Jenkins configuration closer to standard software engineering.</p>
                 </div>
             </div>
 
             <div class="callout">
-                <h4>WHY THIS EXISTS</h4>
+                <h4 id="p2-h6">WHY THIS EXISTS</h4>
                 <p>Without shared libraries, organizations end up with hundreds of bloated Jenkinsfiles that are impossible to update. A shared library transforms CI/CD logic into a versioned, testable software dependency.</p>
             </div>
         </div>
@@ -1318,7 +1318,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
             </div>
 
             <div class="callout gotcha">
-                <h4>GOTCHA</h4>
+                <h4 id="p3-h5">GOTCHA</h4>
                 <p>The package path in the file (<code>package com.yourname</code>) must exactly match the folder structure (<code>src/com/yourname/</code>). A mismatch will result in a <code>ClassNotFoundException</code> during pipeline execution.</p>
             </div>
         </div>
@@ -1370,12 +1370,12 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
             </div>
 
             <div class="callout gotcha">
-                <h4>GOTCHA</h4>
+                <h4 id="p4-h3">GOTCHA</h4>
                 <p>By default, shared library scripts run in the Groovy Sandbox. If your custom class uses standard Java I/O (like <code>new File()</code>), you must uncheck "Use Groovy Sandbox" in the Pipeline job configuration, or explicitly approve the method signatures in <strong>Manage Jenkins -> In-process Script Approval</strong>.</p>
             </div>
 
             <div class="callout interview">
-                <h4>INTERVIEW CHECK</h4>
+                <h4 id="p4-h4">INTERVIEW CHECK</h4>
                 <p><strong>Q: What is the difference between Global Pipeline Libraries and Automatic Pipeline Libraries?</strong></p>
                 <p>A: Global libraries are available to any pipeline but must be explicitly imported via <code>@Library</code>. Automatic libraries are implicitly imported into all pipelines without the annotation, which is convenient but can hide dependencies.</p>
             </div>
@@ -1411,14 +1411,14 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
             <h3 id="p5-h2" class="sub-title">Execution Result (File Present)</h3>
             <div class="cmdres">
                 <div class="cmd-block">
-                    <h4>COMMAND</h4>
+                    <h4 id="p5-h3">COMMAND</h4>
                     <div class="term-box">
                         <span class="term-line"><span class="term-prompt">$</span> touch tools/approved.txt</span>
                         <span class="term-line"><span class="term-prompt">$</span> build now</span>
                     </div>
                 </div>
                 <div class="res-block">
-                    <h4>RESULT</h4>
+                    <h4 id="p5-h4">RESULT</h4>
                     <div class="term-box">
                         <span class="term-line term-out">[Pipeline] stage</span>
                         <span class="term-line term-out">[Pipeline] { (Check Approval)</span>
@@ -1429,7 +1429,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
             </div>
 
             <div class="callout">
-                <h4>WHY IT MATTERS</h4>
+                <h4 id="p5-h5">WHY IT MATTERS</h4>
                 <p>The underscore <code>_</code> in <code>@Library('shared-library') _</code> is required when importing classes. It tells Jenkins to import the library but not automatically run any global variables or scripts, only making the classes available for explicit instantiation.</p>
             </div>
         </div>
@@ -1484,7 +1484,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
             </div>
 
             <div class="callout gotcha">
-                <h4>GOTCHA</h4>
+                <h4 id="p6-h3">GOTCHA</h4>
                 <p>The <code>when</code> directive is evaluated before the <code>agent</code> is allocated for the stage if <code>beforeAgent true</code> is not set. If your Groovy class reads files from the workspace, ensure the agent is checked out first, or evaluate the condition inside a <code>script</code> block within the <code>steps</code>.</p>
             </div>
         </div>
@@ -1628,7 +1628,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
             </table>
 
             <div class="callout interview">
-                <h4>INTERVIEW CHECK</h4>
+                <h4 id="p8-h3">INTERVIEW CHECK</h4>
                 <p><strong>Q: Why disable the Groovy Sandbox for shared libraries?</strong></p>
                 <p>A: The sandbox limits dangerous operations (like file system access) for untrusted scripts. Shared libraries are considered trusted code. Disabling the sandbox allows the library to perform necessary system operations, though it requires strict review of the library code.</p>
             </div>
@@ -1697,10 +1697,12 @@ if(_mb)_mb.onclick=()=>{const m=getP(MARKS,{});if(m[BID])delete m[BID];else m[BI
 const LABKEY='cicdlib:lab:'+BID;
 function labChecks(){const done=getP(LABKEY,{});$$('.readbody .step').forEach((st,i)=>{if(st.querySelector('input[type=checkbox]'))return;const lab=document.createElement('input');lab.type='checkbox';lab.checked=!!done[i];lab.setAttribute('aria-label','Mark step done');lab.onchange=()=>{const d=getP(LABKEY,{});if(lab.checked)d[i]=1;else delete d[i];setP(LABKEY,d);st.classList.toggle('done',lab.checked);};st.classList.toggle('done',!!done[i]);st.prepend(lab);});const rst=$('#labreset');if(rst)rst.onclick=()=>{setP(LABKEY,{});$$('.readbody .step').forEach(st=>{st.classList.remove('done');const c=st.querySelector('input[type=checkbox]');if(c)c.checked=false;});};}
 labChecks();
-function tocUpdate(){const secs=$$('.readbody .page');let cur=secs[0]&&secs[0].id;
-  secs.forEach(s=>{if(s.getBoundingClientRect().top<160)cur=s.id});
-  window._cur=cur;
-  $$('aside.toc a').forEach(a=>a.classList.toggle('cur',a.getAttribute('href')==='#'+cur));}
+function tocUpdate(){const links=$$('aside.toc a');let cur=null;
+  links.forEach(a=>{const h=a.getAttribute('href');if(!h||h[0]!=='#')return;
+    const el=document.getElementById(h.slice(1));
+    if(el&&el.getBoundingClientRect().top<160)cur=h;});
+  window._cur=cur?cur.slice(1):null;
+  links.forEach(a=>a.classList.toggle('cur',a.getAttribute('href')===cur));}
 window.addEventListener('scroll',()=>{tocUpdate();
   const h=document.documentElement,p=Math.min(100,Math.round(100*(h.scrollTop)/(h.scrollHeight-h.clientHeight||1)));
   setP(PKEY,{pct:p,ts:Date.now()});const bar=$('#pbar');if(bar)bar.style.width=p+'%';},{passive:true});

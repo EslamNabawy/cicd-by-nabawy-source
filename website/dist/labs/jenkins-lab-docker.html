@@ -1208,25 +1208,25 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
 
             <div class="concept-grid">
                 <div class="concept-block">
-                    <h4>WHAT</h4>
+                    <h4 id="p2-h2">WHAT</h4>
                     <p>A pipeline that pulls source code, builds a Docker image, tags it with a unique build identifier, pushes it to a central registry, and optionally deploys it to a target environment.</p>
                 </div>
                 <div class="concept-block">
-                    <h4>WHY</h4>
+                    <h4 id="p2-h3">WHY</h4>
                     <p>Containerizing the application ensures environment parity. The exact artifact that passed CI is the one deployed, eliminating "it works on my machine" discrepancies.</p>
                 </div>
                 <div class="concept-block">
-                    <h4>WHEN</h4>
+                    <h4 id="p2-h4">WHEN</h4>
                     <p>On every commit or merge to the main branch. The pipeline triggers automatically via webhook, executing the build and push sequence.</p>
                 </div>
                 <div class="concept-block">
-                    <h4>WHAT CHANGES</h4>
+                    <h4 id="p2-h5">WHAT CHANGES</h4>
                     <p>The release unit shifts from raw source code to a versioned, immutable container image. The registry becomes the source of truth for deployable software.</p>
                 </div>
             </div>
 
             <div class="callout">
-                <h4>WHY THIS EXISTS</h4>
+                <h4 id="p2-h6">WHY THIS EXISTS</h4>
                 <p>Without a standardized packaging format, deployment scripts must understand the application's dependency tree. A Docker image bundles the OS, libraries, and code into a single, static unit, radically simplifying the deployment target.</p>
             </div>
         </div>
@@ -1277,7 +1277,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
             </div>
 
             <div class="callout gotcha">
-                <h4>GOTCHA</h4>
+                <h4 id="p3-h4">GOTCHA</h4>
                 <p>Jenkins must have permission to execute Docker commands. The <code>jenkins</code> user must be added to the <code>docker</code> group, or the Docker Pipeline plugin must be configured to use a sidecar container. Otherwise, the build stage will fail with a "permission denied" socket error.</p>
             </div>
         </div>
@@ -1301,7 +1301,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
 
             <div class="cmdres">
                 <div class="cmd-block">
-                    <h4>PIPELINE SNIPPET</h4>
+                    <h4 id="p4-h3">PIPELINE SNIPPET</h4>
                     <div class="term-box">
                         <span class="term-line">withCredentials([</span>
                         <span class="term-line">  usernamePassword(</span>
@@ -1315,7 +1315,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
                     </div>
                 </div>
                 <div class="res-block">
-                    <h4>EXECUTION RESULT</h4>
+                    <h4 id="p4-h4">EXECUTION RESULT</h4>
                     <div class="term-box">
                         <span class="term-line term-out">[Pipeline] stage</span>
                         <span class="term-line term-out">[Pipeline] withCredentials</span>
@@ -1328,12 +1328,12 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
             </div>
 
             <div class="callout gotcha">
-                <h4>GOTCHA</h4>
+                <h4 id="p4-h5">GOTCHA</h4>
                 <p>Docker Hub has deprecated password authentication for CLI push operations. You must generate a Personal Access Token (PAT) from Docker Hub's Account Settings → Security and use that token as the password in Jenkins.</p>
             </div>
 
             <div class="callout interview">
-                <h4>INTERVIEW CHECK</h4>
+                <h4 id="p4-h6">INTERVIEW CHECK</h4>
                 <p><strong>Q: Why use <code>--password-stdin</code> instead of <code>-p &lt;password&gt;</code>?</strong></p>
                 <p>A: Using <code>-p</code> on the command line exposes the password in the process list and shell history, which other users on the system could read. <code>--password-stdin</code> pipes the token securely via standard input, preventing it from being logged.</p>
             </div>
@@ -1381,7 +1381,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
             </div>
 
             <div class="callout">
-                <h4>WHY IT MATTERS</h4>
+                <h4 id="p5-h2">WHY IT MATTERS</h4>
                 <p>Tagging the image with <code>build-${BUILD_NUMBER}</code> creates an immutable, traceable link to the Jenkins execution. If a deployment fails, you can immediately pull the exact image that was deployed and inspect it. Using <code>:latest</code> destroys this traceability.</p>
             </div>
         </div>
@@ -1520,13 +1520,13 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
 
             <div class="cmdres">
                 <div class="cmd-block">
-                    <h4>COMMAND</h4>
+                    <h4 id="p7-h2">COMMAND</h4>
                     <div class="term-box">
                         <span class="term-line"><span class="term-prompt">$</span> docker push myusername/app:build-124</span>
                     </div>
                 </div>
                 <div class="res-block">
-                    <h4>RESULT</h4>
+                    <h4 id="p7-h3">RESULT</h4>
                     <div class="term-box">
                         <span class="term-line term-out">The push refers to repository [docker.io/myusername/app]</span>
                         <span class="term-line term-ok">2c3f4e5d6a7b: Pushed</span>
@@ -1597,7 +1597,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
             </table>
 
             <div class="callout interview">
-                <h4>INTERVIEW CHECK</h4>
+                <h4 id="p8-h3">INTERVIEW CHECK</h4>
                 <p><strong>Q: Why tag with the build number instead of the Git commit hash?</strong></p>
                 <p>A: While commit hashes are immutable, they are not human-readable or sequential. The build number provides a simple, incrementing identifier that directly maps to the Jenkins execution, making it easier to discuss and trace ("build 124 failed").</p>
             </div>
@@ -1666,10 +1666,12 @@ if(_mb)_mb.onclick=()=>{const m=getP(MARKS,{});if(m[BID])delete m[BID];else m[BI
 const LABKEY='cicdlib:lab:'+BID;
 function labChecks(){const done=getP(LABKEY,{});$$('.readbody .step').forEach((st,i)=>{if(st.querySelector('input[type=checkbox]'))return;const lab=document.createElement('input');lab.type='checkbox';lab.checked=!!done[i];lab.setAttribute('aria-label','Mark step done');lab.onchange=()=>{const d=getP(LABKEY,{});if(lab.checked)d[i]=1;else delete d[i];setP(LABKEY,d);st.classList.toggle('done',lab.checked);};st.classList.toggle('done',!!done[i]);st.prepend(lab);});const rst=$('#labreset');if(rst)rst.onclick=()=>{setP(LABKEY,{});$$('.readbody .step').forEach(st=>{st.classList.remove('done');const c=st.querySelector('input[type=checkbox]');if(c)c.checked=false;});};}
 labChecks();
-function tocUpdate(){const secs=$$('.readbody .page');let cur=secs[0]&&secs[0].id;
-  secs.forEach(s=>{if(s.getBoundingClientRect().top<160)cur=s.id});
-  window._cur=cur;
-  $$('aside.toc a').forEach(a=>a.classList.toggle('cur',a.getAttribute('href')==='#'+cur));}
+function tocUpdate(){const links=$$('aside.toc a');let cur=null;
+  links.forEach(a=>{const h=a.getAttribute('href');if(!h||h[0]!=='#')return;
+    const el=document.getElementById(h.slice(1));
+    if(el&&el.getBoundingClientRect().top<160)cur=h;});
+  window._cur=cur?cur.slice(1):null;
+  links.forEach(a=>a.classList.toggle('cur',a.getAttribute('href')===cur));}
 window.addEventListener('scroll',()=>{tocUpdate();
   const h=document.documentElement,p=Math.min(100,Math.round(100*(h.scrollTop)/(h.scrollHeight-h.clientHeight||1)));
   setP(PKEY,{pct:p,ts:Date.now()});const bar=$('#pbar');if(bar)bar.style.width=p+'%';},{passive:true});
