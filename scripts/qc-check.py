@@ -126,10 +126,15 @@ def dist():
         for s in set(re.findall(r'href="(pdf/series/[^"]+)"', h)):
             if not os.path.exists(os.path.normpath(os.path.join(dist, s))):
                 flag(f"dist series link {f} -> {s}")
-    idx = open(os.path.join(dist, "index.html"), encoding="utf-8").read()
-    for stale in ("CI/CD Technical Library", "CI/CDLIB", "data-set=\"original\""):
-        if stale in idx:
-            flag(f"dist stale ref: {stale}")
+    for landing in ("index.html", "shelf.html"):
+        p = os.path.join(dist, landing)
+        if not os.path.exists(p):
+            flag(f"dist landing missing: {landing}")
+            continue
+        idx = open(p, encoding="utf-8").read()
+        for stale in ("CI/CD Technical Library", "CI/CDLIB", "data-set=\"original\""):
+            if stale in idx:
+                flag(f"dist stale ref {landing}: {stale}")
     # roadmap page: every manifest book shown exactly once, links resolve
     books = json.load(open(os.path.join(ROOT, "website/content/books.json"), encoding="utf-8"))
     rm = os.path.join(dist, "roadmap", "index.html")
