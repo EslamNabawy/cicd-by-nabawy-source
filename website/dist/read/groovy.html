@@ -315,6 +315,43 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
 .ratebox button.on{background:var(--acc-soft);border-color:var(--brand)}
 .popsearch{font-size:12px;color:var(--mut);margin-top:6px}
 .popsearch a{color:var(--mut);text-decoration:underline;cursor:pointer}
+/* Structure Map — pseudo-3D isometric (B1.2/B2/B3) */
+.map-hero{padding:48px 24px 12px;text-align:center}
+.map-hero .eyebrow{display:inline-block;font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--brand);background:var(--acc-soft);border-radius:9999px;padding:5px 14px;margin-bottom:14px}
+.map-hero h1{font-size:clamp(28px,4vw,44px);font-weight:600;letter-spacing:-.8px;line-height:1.1}
+.map-hero p{color:var(--mut);font-size:16px;max-width:640px;margin:12px auto 0}
+.map-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px;margin:28px 0 24px;perspective:1200px}
+.map-block{position:relative;background:var(--card);border:1px solid var(--line-soft);border-radius:12px;padding:22px 20px 18px;display:flex;flex-direction:column;gap:8px;box-shadow:var(--shadow);overflow:hidden;transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;text-align:left;cursor:pointer;color:var(--ink);text-decoration:none;transform-style:preserve-3d}
+.map-block::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--cat,var(--brand))}
+.map-block:hover{transform:perspective(600px) rotateX(4deg) rotateY(-6deg) translateY(-4px);box-shadow:var(--shadow-lift);border-color:var(--line)}
+.map-block:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.map-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:var(--bg2);border:1px solid var(--line-soft);color:var(--cat);flex:none}
+.map-icon svg{width:22px;height:22px;display:block}
+.map-cat{font-size:17px;font-weight:700;letter-spacing:-.2px;line-height:1.2}
+.map-count{font-family:var(--mono);font-size:12px;color:var(--mut);font-weight:500}
+.map-pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+.map-pill{font-family:var(--mono);font-size:11px;font-weight:600;padding:3px 8px;border-radius:9999px;background:var(--bg2);border:1px solid var(--line-soft);color:var(--mut)}
+.map-pill b{color:var(--ink)}
+.map-detail{display:none}
+.map-detail.active{display:block;animation:mapZoom .26s ease}
+@keyframes mapZoom{from{opacity:0;transform:scale(.96) translateY(8px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.map-back{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:500;background:var(--card);border:1px solid var(--line);border-radius:9999px;padding:8px 16px;margin:14px 0 16px;cursor:pointer;color:var(--ink)}
+.map-back:hover{border-color:var(--brand);color:var(--brand)}
+.map-detail-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:8px 0 18px}
+.map-detail-head h2{font-size:22px;font-weight:700;letter-spacing:-.3px}
+.map-detail-head .count{font-family:var(--mono);font-size:12px;color:var(--mut);background:var(--card);border:1px solid var(--line-soft);border-radius:9999px;padding:4px 10px}
+.map-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+@media(max-width:600px){
+  .map-grid{grid-template-columns:1fr;gap:12px;perspective:none}
+  .map-block{transform:none !important;perspective:none}
+  .map-block:hover{transform:none;box-shadow:var(--shadow)}
+  .map-cards{grid-template-columns:1fr}
+  .map-hero{padding:28px 14px 8px}
+}
+@media(prefers-reduced-motion:reduce){
+  .map-block,.map-detail,.map-grid{transition:none !important;animation:none !important;transform:none !important}
+  .map-detail.active{animation:none}
+}
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Groovy Cheatsheet", "description": "Only the Groovy Jenkinsfiles need: strings, closures, idioms, sandbox rules.", "url": "https://eslamnabawy.github.io/cicd-by-nabawy/read/groovy.html", "author": {"@type": "Person", "name": "Nabawy"}, "isPartOf": {"@type": "CollectionPage", "name": "CICD BY Nabawy", "url": "https://eslamnabawy.github.io/cicd-by-nabawy"}}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Library", "item": "https://eslamnabawy.github.io/cicd-by-nabawy/"}, {"@type": "ListItem", "position": 2, "name": "Groovy Cheatsheet", "item": "https://eslamnabawy.github.io/cicd-by-nabawy/read/groovy.html"}]}</script>
@@ -395,6 +432,7 @@ ul.tight li{margin-bottom:4px}
 <div class="search"><input id="q" type="search" placeholder="Find in this book…" aria-label="Find in this book"><kbd>⌘K</kbd></div>
 <span id="qcount" style="font-size:12px;color:var(--mut)"></span>
 <button class="markbtn" id="markbtn" aria-label="Bookmark this book">☆ Save</button>
+<a class="btn" href="../map.html" style="text-decoration:none">Map</a>
 <a class="btn" href="../book/groovy.html" style="text-decoration:none">Overview</a>
 <button class="btn" id="setbtn" aria-label="Reading settings">⚙ A⁺</button>
 </div>

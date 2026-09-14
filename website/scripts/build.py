@@ -346,6 +346,43 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
 .ratebox button.on{background:var(--acc-soft);border-color:var(--brand)}
 .popsearch{font-size:12px;color:var(--mut);margin-top:6px}
 .popsearch a{color:var(--mut);text-decoration:underline;cursor:pointer}
+/* Structure Map — pseudo-3D isometric (B1.2/B2/B3) */
+.map-hero{padding:48px 24px 12px;text-align:center}
+.map-hero .eyebrow{display:inline-block;font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--brand);background:var(--acc-soft);border-radius:9999px;padding:5px 14px;margin-bottom:14px}
+.map-hero h1{font-size:clamp(28px,4vw,44px);font-weight:600;letter-spacing:-.8px;line-height:1.1}
+.map-hero p{color:var(--mut);font-size:16px;max-width:640px;margin:12px auto 0}
+.map-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px;margin:28px 0 24px;perspective:1200px}
+.map-block{position:relative;background:var(--card);border:1px solid var(--line-soft);border-radius:12px;padding:22px 20px 18px;display:flex;flex-direction:column;gap:8px;box-shadow:var(--shadow);overflow:hidden;transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;text-align:left;cursor:pointer;color:var(--ink);text-decoration:none;transform-style:preserve-3d}
+.map-block::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--cat,var(--brand))}
+.map-block:hover{transform:perspective(600px) rotateX(4deg) rotateY(-6deg) translateY(-4px);box-shadow:var(--shadow-lift);border-color:var(--line)}
+.map-block:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.map-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:var(--bg2);border:1px solid var(--line-soft);color:var(--cat);flex:none}
+.map-icon svg{width:22px;height:22px;display:block}
+.map-cat{font-size:17px;font-weight:700;letter-spacing:-.2px;line-height:1.2}
+.map-count{font-family:var(--mono);font-size:12px;color:var(--mut);font-weight:500}
+.map-pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+.map-pill{font-family:var(--mono);font-size:11px;font-weight:600;padding:3px 8px;border-radius:9999px;background:var(--bg2);border:1px solid var(--line-soft);color:var(--mut)}
+.map-pill b{color:var(--ink)}
+.map-detail{display:none}
+.map-detail.active{display:block;animation:mapZoom .26s ease}
+@keyframes mapZoom{from{opacity:0;transform:scale(.96) translateY(8px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.map-back{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:500;background:var(--card);border:1px solid var(--line);border-radius:9999px;padding:8px 16px;margin:14px 0 16px;cursor:pointer;color:var(--ink)}
+.map-back:hover{border-color:var(--brand);color:var(--brand)}
+.map-detail-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:8px 0 18px}
+.map-detail-head h2{font-size:22px;font-weight:700;letter-spacing:-.3px}
+.map-detail-head .count{font-family:var(--mono);font-size:12px;color:var(--mut);background:var(--card);border:1px solid var(--line-soft);border-radius:9999px;padding:4px 10px}
+.map-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+@media(max-width:600px){
+  .map-grid{grid-template-columns:1fr;gap:12px;perspective:none}
+  .map-block{transform:none !important;perspective:none}
+  .map-block:hover{transform:none;box-shadow:var(--shadow)}
+  .map-cards{grid-template-columns:1fr}
+  .map-hero{padding:28px 14px 8px}
+}
+@media(prefers-reduced-motion:reduce){
+  .map-block,.map-detail,.map-grid{transition:none !important;animation:none !important;transform:none !important}
+  .map-detail.active{animation:none}
+}
 """
 
 BASE_JS = """
@@ -567,6 +604,159 @@ def reader_url(b):
     return f"read/{b['id']}.html"
 
 
+CATEGORY_ICONS = {
+    "CI/CD": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5" cy="12" r="1.9"/><circle cx="19" cy="6" r="1.9"/><circle cx="19" cy="18" r="1.9"/><path d="M7.2 12h5M13.4 7.4l3-1M13.4 16.6l3 1"/><path d="M9 8l-2 4 2 4M15 8l2 4-2 4" opacity=".7"/></svg>',
+    "Jenkins": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 8h10M7 12h10M7 16h10"/><circle cx="12" cy="12" r="9" opacity=".35"/></svg>',
+    "Labs": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6v6l3 5a3 3 0 01-3 4H9a3 3 0 01-3-4l3-5V3z"/><path d="M8 14h8" opacity=".6"/></svg>',
+    "Platforms": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 4-8 4-8-4z"/><path d="M4 10l8 4 8-4"/><path d="M4 14l8 4 8-4"/><path d="M4 18l8 4 8-4" opacity=".4"/></svg>',
+    "Roadmap": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3L4 5v14l5-2 6 2 5-2V3l-5 2z"/><path d="M9 5v14M15 7v14"/></svg>',
+    "Build": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 6l3.5 3.5-8 8H6v-4l8.5-8z"/><path d="M11 9l3 3"/><path d="M13 6l3-3 3 3-3 3-3-3z" opacity=".5"/></svg>',
+    "Testing": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6"/><path d="M10 7a5 5 0 1010 0 5 5 0 00-10 0z"/><path d="M12 12v3l2 2"/><path d="M8 14h8" opacity=".6"/></svg>',
+    "Delivery": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l4 6-4 12-4-12z"/><path d="M8 9h8"/><path d="M10 3v4M14 3v4" opacity=".6"/><circle cx="12" cy="9" r="1.2" fill="currentColor" stroke="none"/></svg>',
+    "Security": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 4v5c0 4.2-2.8 7.3-7 9-4.2-1.7-7-4.8-7-9V7z"/><path d="M9 12l2 2 4-4" opacity=".9"/></svg>',
+    "Reliability": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l2-4 3 7 2-4h7"/><circle cx="12" cy="12" r="9" opacity=".2"/></svg>',
+    "Reference": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 4h8a2 2 0 012 2v12a2 2 0 01-2 2H6z"/><path d="M6 8h6"/><path d="M6 12h6"/><path d="M6 16h4" opacity=".6"/></svg>',
+    "GitHub": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 00-3 17.5"/><path d="M9 18c-2.2 1-3-1-3-1"/><path d="M12 16c-1 .3-2 .1-2.5-.8"/><path d="M14.5 18V15a2.5 2.5 0 00-.7-1.8c1.6-.2 3.2-.8 3.2-3.5a2.7 2.7 0 00-.7-1.9s-.6-.2-2 .7a7.8 7.8 0 00-3.6 0c-1.4-.9-2-.7-2-.7a2.7 2.7 0 00-.7 1.9c0 2.7 1.6 3.3 3.2 3.5A2.5 2.5 0 0011.5 15v3"/><circle cx="12" cy="3" r=".3" fill="currentColor"/></svg>',
+}
+
+def _slug_cat(name):
+    return re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-").replace("--","-")
+
+def build_map_page(books, output_dir):
+    """Structure Map — 12 pseudo-3D blocks derived from books.json categories at build time.
+    No second manifest: grouping, counts, difficulty spread computed here.
+    Reuses card() markup for detail views, BASE_CSS vars for theming.
+    """
+    from collections import Counter
+    bycat = {}
+    for b in books:
+        bycat.setdefault(b["category"], []).append(b)
+    # deterministic order: CAT_ORDER first, then rest alpha; no hardcoded count
+    CAT_ORDER = ["CI/CD","Jenkins","Labs","Platforms","Roadmap","Build","Testing","Delivery","Security","Reliability","Reference","GitHub"]
+    cats_sorted = [c for c in CAT_ORDER if c in bycat] + sorted([c for c in bycat if c not in CAT_ORDER])
+    CAT_COLORS_MAP = {"CI/CD":"#5B8DEF","Build":"#F5A524","Testing":"#2ECC71","Security":"#E5484D","Reliability":"#9B7BF0","Jenkins":"#22B8CF","Delivery":"#F472B6","GitHub":"#94A3B8","Platforms":"#F97316","Labs":"#EAB308","Reference":"#64748B","Roadmap":"#18E299"}
+    # Build blocks html
+    blocks_html = ""
+    detail_html = ""
+    for cat in cats_sorted:
+        bs = sorted(bycat[cat], key=lambda x: (DIFF_RANK.get(x["difficulty"],9), x["title"].lower()))
+        cnt = len(bs)
+        slug = _slug_cat(cat)
+        color = CAT_COLORS_MAP.get(cat, "#18E299")
+        icon = CATEGORY_ICONS.get(cat, CATEGORY_ICONS["Reference"])
+        diff_cnt = Counter(b["difficulty"] for b in bs)
+        pills = ""
+        for lvl in ["Beginner","Intermediate","Advanced"]:
+            n = diff_cnt.get(lvl,0)
+            if n:
+                pills += f'<span class="map-pill"><b>{n}</b> {lvl[:3]}</span>'
+        # aria-label: category — N books, difficulty spread
+        aria_parts = [f"{diff_cnt.get(l,0)} {l}" for l in ["Beginner","Intermediate","Advanced"] if diff_cnt.get(l,0)]
+        aria = html.escape(f"{cat} — {cnt} {'book' if cnt==1 else 'books'}" + (", " + ", ".join(aria_parts) if aria_parts else ""))
+        count_label = f"{cnt} {'book' if cnt==1 else 'books'}"
+        blocks_html += (
+            f'<a href="#{slug}" class="map-block" data-cat="{html.escape(cat)}" id="block-{slug}" '
+            f'style="--cat:{color}" data-slug="{slug}" aria-label="{aria}" tabindex="0">'
+            f'<span class="map-icon" aria-hidden="true">{icon}</span>'
+            f'<span class="map-cat">{html.escape(cat)}</span>'
+            f'<span class="map-count">{count_label}</span>'
+            f'<span class="map-pills">{pills}</span>'
+            f'</a>'
+        )
+        # detail view reuses card markup — inline reuse of homepage card template
+        cards = ""
+        for b in bs:
+            idx = next((i for i, x in enumerate(books) if x["id"]==b["id"]), 0)
+            initials = "".join(w[0] for w in __import__('re').sub(r"[^A-Za-z0-9 ]", "", b["title"]).split()[:2]).upper()
+            tmin = b.get("time_minutes", 30)
+            tags = " ".join(b.get("tags", []))
+            # reuse exact same card HTML as homepage (B2.2 — single source of truth for markup)
+            cards += (
+                f'<div class="card book" data-id="{__import__("html").escape(b["id"])}" data-cat="{__import__("html").escape(b["category"])}" data-dif="{__import__("html").escape(b["difficulty"])}" data-time="{tmin}" data-tags="{__import__("html").escape(tags)}" data-title="{__import__("html").escape(b["title"])}" data-desc="{__import__("html").escape(b.get("description",""))}">'
+                f'<div class="coverart" aria-hidden="true"><b>{initials}</b></div>'
+                f'<span class="num">PDF {idx+1:02d} · {tmin} min · Updated {__import__("html").escape(b.get("updated",""))}</span><h3><a href="read/{__import__("html").escape(b["id"])}.html">{__import__("html").escape(b["title"])}</a></h3><p>{__import__("html").escape(b.get("description",""))}</p>'
+                f'<div class="dif"><i></i>{b["difficulty"]} · {__import__("html").escape(b.get("path",""))}</div>'
+                f'<div class="meta-line">{tmin} min · v{__import__("html").escape(b.get("version","2.0"))} · Updated {__import__("html").escape(b.get("updated",""))}</div>'
+                f'<span><a class="read" href="read/{__import__("html").escape(b["id"])}.html">Read</a> <a href="book/{__import__("html").escape(b["id"])}.html" style="font-size:13px;color:var(--mut)">Overview</a></span></div>'
+            )
+        detail_html += (
+            f'<section class="map-detail" id="detail-{slug}" data-cat="{html.escape(cat)}" aria-label="{html.escape(cat)} books" style="--cat:{color}">'
+            f'<button class="map-back" data-back aria-label="Back to map">← Back to map</button>'
+            f'<div class="map-detail-head"><h2>{html.escape(cat)}</h2><span class="count">{cnt} {"book" if cnt==1 else "books"}</span>'
+            f'<span class="map-pills">{pills}</span></div>'
+            f'<div class="map-cards">{cards}</div>'
+            f'</section>'
+        )
+    stats_line = f"{len(books)} books across {len(cats_sorted)} topics — derived from books.json, no second manifest."
+    # Site header chrome: reuse same header as index, with Map active
+    page = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Structure Map — CICD BY Nabawy</title>
+{seo_tags("Structure Map — CICD BY Nabawy", "Zoomed-out visual map of the CI/CD knowledge structure — 12 categories derived from books.json.", f"{SITE_URL}/map.html")}
+<style>{BASE_CSS}</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+<a class="logo" href="index.html" style="color:inherit"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="5" cy="12" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="6" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="18" r="2.6" stroke="#18E299" stroke-width="2"/><path d="M7.6 12h5.2m0 0-2.6-2.6m2.6 2.6-2.6 2.6M13.4 7.4l2.8-1M13.4 16.6l2.8 1" stroke="#18E299" stroke-width="2" stroke-linecap="round"/></svg>CICD<span> BY Nabawy</span></a>
+<div class="search"><div class="searchwrap"><input id="q" type="search" placeholder="Search all {len(books)} books…" autocomplete="off"><div class="searchdrop" id="qdrop" role="listbox"></div></div><kbd>⌘K</kbd></div>
+<a class="btn" href="index.html" style="text-decoration:none">Library</a>
+<a class="btn" href="map.html" aria-current="page" style="text-decoration:none;border-color:var(--brand);color:var(--brand)">Map</a>
+<a class="btn" href="roadmap/" style="text-decoration:none">Roadmap</a>
+<a class="btn" href="glossary.html" style="text-decoration:none">Glossary</a>
+<button class="btn" id="themebtn" aria-label="Toggle theme">☀</button>
+</div></header>
+<div class="wrap">
+<div class="map-hero"><span class="eyebrow">STRUCTURE MAP</span><h1>The whole building, <span style="color:var(--mut)">one glance.</span></h1><p>{stats_line}</p></div>
+<div class="map-grid" id="mapGrid" role="list" aria-label="Knowledge structure map">{blocks_html}</div>
+<div id="mapDetails">{detail_html}</div>
+<div class="empty" id="mapEmpty" style="display:none">No category matches this link. <a href="map.html">Back to map</a></div>
+</div>
+<footer><div class="wrap"><span>CICD BY Nabawy</span><span><a href="index.html">Library</a> · <a href="roadmap/">Roadmap</a> · <a href="glossary.html">Glossary</a> · <a href="map.html">Map</a> · v2.1 Sep 2026</span></div></footer>
+<script>
+(function(){{
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+function getP(k,d){{try{{const v=JSON.parse(localStorage.getItem(k));return v??d}}catch(e){{return d}}}}
+function setP(k,v){{try{{localStorage.setItem(k,JSON.stringify(v))}}catch(e){{}}}}
+const pref=getP('cicdlib:pref',{{theme:'dark'}});
+const THS=['dark','light','sepia','dim','contrast'],THI={{dark:'☀',light:'☾',sepia:'◐',dim:'◑',contrast:'◉'}};
+function syncTheme(){{const th=THS.includes(pref.theme)?pref.theme:'dark';document.documentElement.dataset.theme=th;const t=$('#themebtn');if(t)t.textContent=THI[th]||'☀'}}
+syncTheme();
+$('#themebtn').onclick=()=>{{pref.theme=THS[(THS.indexOf(pref.theme)+1)%THS.length];setP('cicdlib:pref',pref);syncTheme()}};
+const grid=$('#mapGrid'),details=$$('.map-detail'),empty=$('#mapEmpty');
+function slugFromHash(){{return location.hash.replace(/^#/,'').trim().toLowerCase();}}
+function showDetail(slug, push){{
+  const target=document.getElementById('detail-'+slug);
+  if(!slug){{ grid.style.display=''; grid.classList.remove('hidden'); details.forEach(d=>d.classList.remove('active')); empty.style.display='none'; document.title='Structure Map — CICD BY Nabawy'; return; }}
+  if(!target){{ grid.style.display='none'; details.forEach(d=>d.classList.remove('active')); empty.style.display=''; return; }}
+  grid.style.display='none'; grid.classList.add('hidden');
+  details.forEach(d=>d.classList.toggle('active', d===target));
+  empty.style.display='none';
+  const cat=target.dataset.cat||slug;
+  document.title=cat+' — Structure Map — CICD BY Nabawy';
+  target.scrollIntoView({{block:'start'}});
+}}
+function navigate(slug){{ if(!slug){{ history.pushState(null,'',location.pathname); showDetail('',false); }} else {{ if(location.hash.slice(1)!==slug){{ location.hash='#'+slug; }} else {{ showDetail(slug,false); }} }} }}
+$$('.map-block').forEach(a=>{{
+  a.addEventListener('keydown',e=>{{
+    if(e.key===' '||e.key==='Spacebar'){{ e.preventDefault(); a.click(); }}
+    if(e.key==='Enter'){{ /* anchor handles natively */ }}
+  }});
+}});
+$$('[data-back]').forEach(b=>b.addEventListener('click',()=>{{ history.pushState(null,'',location.pathname+location.search); showDetail('',false); window.scrollTo({{top:0,behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto':'smooth'}}); }}));
+window.addEventListener('hashchange',()=>showDetail(slugFromHash(),false));
+window.addEventListener('popstate',()=>showDetail(slugFromHash(),false));
+const initial=slugFromHash();
+if(initial) showDetail(initial,false);
+}})();
+</script>
+</body>
+</html>"""
+    pathlib.Path(output_dir, "map.html").write_text(page, encoding="utf-8")
+    print(f"BUILT map: {len(books)} books in {len(cats_sorted)} categories → {output_dir}/map.html")
+
 def build_roadmap_page(books, output_dir):
     """Static visual map of every manifest book, grouped by category.
 
@@ -624,6 +814,7 @@ def build_roadmap_page(books, output_dir):
 <nav class="crumbs"><span class="sep">/</span><span class="here">Roadmap</span></nav>
 <div class="search"></div>
 <a class="btn" href="../index.html" style="text-decoration:none">Library</a>
+<a class="btn" href="../map.html" style="text-decoration:none">Map</a>
 <a class="btn" href="../glossary.html" style="text-decoration:none">Glossary</a>
 <button class="btn" id="themebtn" aria-label="Toggle theme">☀</button>
 </div></header>
@@ -655,6 +846,7 @@ $('#themebtn').onclick=()=>{{pref.theme=THS[(THS.indexOf(pref.theme)+1)%THS.leng
 def build():
     books = json.load(open(os.path.join(ROOT, "content", "books.json"), encoding="utf-8"))
     os.makedirs(READ, exist_ok=True)
+    build_map_page(books, DIST)
     build_roadmap_page(books, DIST)
     # shared icon library: single source (KB assets) copied into dist
     shutil.rmtree(os.path.join(DIST, "assets"), ignore_errors=True)
@@ -809,6 +1001,7 @@ def build():
 <div class="search"><input id="q" type="search" placeholder="Find in this book…" aria-label="Find in this book"><kbd>⌘K</kbd></div>
 <span id="qcount" style="font-size:12px;color:var(--mut)"></span>
 <button class="markbtn" id="markbtn" aria-label="Bookmark this book">☆ Save</button>
+<a class="btn" href="../map.html" style="text-decoration:none">Map</a>
 <a class="btn" href="../book/{b['id']}.html" style="text-decoration:none">Overview</a>
 <button class="btn" id="setbtn" aria-label="Reading settings">⚙ A⁺</button>
 </div>
@@ -1002,6 +1195,7 @@ def build():
 <header class="top"><div class="wrap">
 <span class="logo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="5" cy="12" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="6" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="18" r="2.6" stroke="#18E299" stroke-width="2"/><path d="M7.6 12h5.2m0 0-2.6-2.6m2.6 2.6-2.6 2.6M13.4 7.4l2.8-1M13.4 16.6l2.8 1" stroke="#18E299" stroke-width="2" stroke-linecap="round"/></svg>CICD<span> BY Nabawy</span></span>
 <div class="search"><div class="searchwrap"><input id="q" type="search" placeholder="Search all {len(books)} books…" autocomplete="off"><div class="searchdrop" id="qdrop" role="listbox"></div></div><kbd>⌘K</kbd></div>
+<a class="btn" href="map.html" style="text-decoration:none">Map</a>
 <a class="btn" href="roadmap/">Roadmap</a>
 <a class="btn" href="glossary.html" style="text-decoration:none">Glossary</a>
 <button class="btn" id="themebtn" aria-label="Toggle theme">☀</button>
@@ -1055,7 +1249,7 @@ try{{const cats=[...new Set($$('.book[data-id]').map(c=>c.dataset.cat))].sort();
 <title>Glossary — CICD BY Nabawy</title>{seo_tags("Glossary — CICD BY Nabawy", "CI/CD glossary: terms shared by all books, reader and search.", f"{SITE_URL}/glossary.html")}<style>{BASE_CSS}</style></head>
 <body>
 <header class="top"><div class="wrap"><a class="logo" href="index.html" style="text-decoration:none;color:inherit"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="5" cy="12" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="6" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="18" r="2.6" stroke="#18E299" stroke-width="2"/><path d="M7.6 12h5.2m0 0-2.6-2.6m2.6 2.6-2.6 2.6M13.4 7.4l2.8-1M13.4 16.6l2.8 1" stroke="#18E299" stroke-width="2" stroke-linecap="round"/></svg>CICD<span> BY Nabawy</span></a>
-<div class="search"><input id="q" type="search" placeholder="Filter terms…"></div><a class="btn" href="roadmap/" style="text-decoration:none">Roadmap</a></div></header>
+<div class="search"><input id="q" type="search" placeholder="Filter terms…"></div><a class="btn" href="map.html" style="text-decoration:none">Map</a><a class="btn" href="roadmap/" style="text-decoration:none">Roadmap</a></div></header>
 <div class="wrap"><h2 class="sec">Glossary</h2><p class="sub">{len(re.findall('<tr>', grows))} terms · shared by books, reader and search</p>
 <table class="gloss"><tr><th>Term</th><th>Definition</th><th>Topic</th><th>Link</th></tr>{grows}</table></div>
 <footer><div class="wrap">CICD BY Nabawy</div></footer>
@@ -1077,7 +1271,7 @@ $$('table.gloss tr').forEach((r,i)=>{{if(!i)return;r.style.display=r.textContent
         initials = "".join(w[0] for w in re.sub(r"[^A-Za-z0-9 ]", "", b["title"]).split()[:2]).upper()
         bp = f"""<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>{html.escape(b['title'])} — Overview — CICD BY Nabawy</title>{seo_tags(b['title'] + " — Overview — CICD BY Nabawy", b.get("description", ""), f"{SITE_URL}/book/{b['id']}.html", image=f"{SITE_URL}/og/{b['id']}.svg")}<link rel="prefetch" href="../read/{b['id']}.html"><style>{BASE_CSS}</style>
 {f'<script type="application/ld+json">{json.dumps({"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":SITE_URL + "/"},{"@type":"ListItem","position":2,"name":b["title"],"item":SITE_URL + "/book/" + b["id"] + ".html"}]})}</script>'}></head>
-<body><header class="top"><div class="wrap"><a class="logo" href="../index.html" style="color:inherit">CICD<span> BY Nabawy</span></a><nav class="crumbs"><span class="sep">/</span><span class="here">{html.escape(b['title'])}</span></nav><div class="search"></div><a class="btn" href="../index.html">Library</a><button class="btn" id="themebtn">☀</button></div></header>
+<body><header class="top"><div class="wrap"><a class="logo" href="../index.html" style="color:inherit">CICD<span> BY Nabawy</span></a><nav class="crumbs"><span class="sep">/</span><span class="here">{html.escape(b['title'])}</span></nav><div class="search"></div><a class="btn" href="../index.html">Library</a><a class="btn" href="../map.html">Map</a><button class="btn" id="themebtn">☀</button></div></header>
 <div class="wrap"><div class="bookhero"><div class="coverart" data-cat="{html.escape(b['category'])}"><b>{initials}</b></div><div style="flex:1;min-width:260px"><span class="num">{html.escape(b['category'])} · {b['difficulty']} · {b.get('time_minutes', 30)} min · v{b.get('version', '2.0')} · Updated {html.escape(b.get('updated', ''))}</span><h1 style="font-size:34px;margin:6px 0">{html.escape(b['title'])}</h1><p class="sub">{html.escape(b.get('description', ''))}</p>
 <div class="chiprow"><a id="startbtn" href="../read/{b['id']}.html">Start reading →</a><a href="../pdf/{b['file']}">Open print HTML</a><a href="../read/{b['id']}.html">Reader</a></div>
 <div class="chiprow"><span>Prereqs:</span>{preq}</div></div></div>
@@ -1101,7 +1295,7 @@ try{{const p=getP('cicdlib:prog:{b['id']}',null);if(p&&p.pct>0&&p.pct<100)$('#st
     # --- SEO: sitemap + robots ---
     from datetime import date as _d
     today = _d.today().isoformat()
-    urls = [SITE_URL + "/", SITE_URL + "/glossary.html", SITE_URL + "/roadmap/", SITE_URL + "/updates.html"]
+    urls = [SITE_URL + "/", SITE_URL + "/glossary.html", SITE_URL + "/roadmap/", SITE_URL + "/map.html", SITE_URL + "/updates.html"]
     for b in books:
         urls.append(f"{SITE_URL}/read/{b['id']}.html")
         urls.append(f"{SITE_URL}/book/{b['id']}.html")
