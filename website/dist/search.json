@@ -1163,8 +1163,8 @@
  },
  {
   "id": "jenkins-lab-docker",
-  "title": "Lab 02: Docker Build & Push with Jenkins",
-  "desc": "Build a Docker image in Jenkins, push it to Docker Hub, and deploy through the pipeline flow.",
+  "title": "Lab 02: Container Delivery",
+  "desc": "Design, secure, and verify container delivery from build architecture through authenticated registry release.",
   "cat": "Labs",
   "dif": "Intermediate",
   "tags": [
@@ -1175,24 +1175,24 @@
   ],
   "time": 50,
   "sections": [
-   "Cover — DOCKERBUILD &amp; PUSH",
-   "1 Architecture",
-   "1.1 01 / Two Views of the Same Pipeline",
-   "1.1.1 Core Build-Push Flow (Image 2)",
-   "1.1.2 Extended 7-Stage Flow with FLOCI (Image 3)",
-   "1.2 02 / Stage Lane — Where Each Stage Runs",
-   "1.2.1 CONTINUITY",
-   "2 Pre-Flight & Setup",
-   "2.1 03 / Step 0 — Pre-Flight Check",
-   "2.1.1 ASK IN ONE BATCH — BEFORE STEP 1",
-   "2.2 04 / Steps 1–2 — Repository &amp; Credentials",
-   "2.2.1 01 — Prepare the Repository",
-   "2.2.2 02 — Add Docker Hub Credentials to Jenkins",
-   "2.2.3 NEVER — Hardcoded in Jenkinsfile",
-   "2.2.4 ALWAYS — withCredentials Binding",
-   "3 Pipeline as Code"
+   "Cover — Page 1",
+   "1 01 / The Container Lifecycle",
+   "1.0.1 WHAT",
+   "1.0.2 WHY",
+   "1.0.3 WHEN",
+   "1.0.4 WHAT CHANGES",
+   "1.0.5 WHY THIS EXISTS",
+   "2 02 / Build Architecture & Pre-Flight",
+   "2.1 Execution Architecture",
+   "2.2 Pre-Flight Verification",
+   "2.2.1 GOTCHA",
+   "3 03 / Registry Authentication",
+   "3.1 Credential Configuration",
+   "3.1.1 PIPELINE SNIPPET",
+   "3.1.2 EXECUTION RESULT",
+   "3.1.3 GOTCHA"
   ],
-  "body": "Lab 02 — Docker Build & Push | Jenkins Labs CI/CD Systems  ·  Pipeline Control Room  ·  Jenkins Labs LAB 02 DOCKER BUILD & PUSH From repository to registry to runtime. Jenkins pulls source, builds an immutable image, authenticates with vaulted credentials, tags by build number, pushes to Docker Hub, and optionally runs the same artifact inside a FLOCI simulated AWS environment. IMAGE_NAME:LOCAL → TAG:BUILD-N → PUSH → FLOCI DEPLOY  ·  withCredentials · BUILD_NUMBER 01 — ENVIRONMENT SETUP Load config · env IMAGE_NAME / IMAGE_TAG 02 — CODE CHECKOUT checkout scm · hello.py + Dockerfile + Jenkinsfile 03 — DOCKER BUILD docker build -t app:local . 04 — AUTHENTICATION withCredentials · docker login --password-stdin 05 — IMAGE TAGGING docker tag app:local → myusername/app:build-N 06 — IMAGE PUSH docker push myusername/app:build-N → Docker Hub 07 — APPLICATION DEPLOYMENT when DEPLOY_TO_FLOCI → run hello.py in FLOCI simulation 7 Stages 1 Immutable Tag / Build 0 Hardcoded Secrets 2 Flows: Core + Extended LAB 02 · DOCKER BUILD · PUSH · FLOCI  ·  01 / 07 Nabawy CI/CD Systems   Lab 02 — Docker Build & Push Architecture Core build-push & extended 7-stage with FLOCI 01 / Two Views of the Same Pipeline The core flow is four operations (Build → Login & Tag → Push) fed by a Git source and the Jenkins credentials store. The extended flow is the seven numbered stages that Jenkins actually executes, ending with an optional deployment into FLOCI's simulated AWS — not real cloud. Core Build-Push Flow (Image 2) Git Source Repository hello.py · requirements.txt · Dockerfile · Jenkinsfile ↓ git clone Jenkins CI/CD Pipeline Orchestrator Pull Code — git clone [repo_url] Build Setup — tool configure (docker, build-env) Docker Build — docker build -t app:local Login & Tag — docker login + docker tag app:local → build-123 Docker Push — docker push myusername/app:build-123 ↓ upload Docker Hub Registry User Repositories · Image Tiers Jenkins Credentials Store — fetch dockerhub-creds → feeds Login & T"
+  "body": "CI/CD Engineering Manual - Container Delivery CI/CD ENGINEERING Container Artifacts & Delivery: From Source to Registry Continuous Integration Container Delivery Simulated Deployment Nabawy SOURCE Github repository BUILD Docker image TAG build-123 PUSH Docker hub registry DEPLOY Floci simulation CI/CD SYSTEMS CONTAINER DELIVERY 01 / The Container Lifecycle Moving from source code to a running application requires a deterministic path. The code must be compiled, packaged with its dependencies, and shipped as an immutable artifact. In modern CI/CD, this artifact is a Docker image. 01 SOURCE Git checkout PASSED 02 BUILD docker build RUNNING 03 ARTIFACT Image tagged PUSHING 04 REGISTRY Docker Hub WAITING 05 DEPLOY FLOCI Env WAITING WHAT A pipeline that pulls source code, builds a Docker image, tags it with a unique build identifier, pushes it to a central registry, and optionally deploys it to a target environment. WHY Containerizing the application ensures environment parity. The exact artifact that passed CI is the one deployed, eliminating \"it works on my machine\" discrepancies. WHEN On every commit or merge to the main branch. The pipeline triggers automatically via webhook, executing the build and push sequence. WHAT CHANGES The release unit shifts from raw source code to a versioned, immutable container image. The registry becomes the source of truth for deployable software. WHY THIS EXISTS Without a standardized packaging format, deployment scripts must understand the application's dependency tree. A Docker image bundles the OS, libraries, and code into a single, static unit, radically simplifying the deployment target. CI/CD ENGINEERING MANUAL CH 02  |  02 / 08 CI/CD SYSTEMS BUILD ARCHITECTURE 02 / Build Architecture & Pre-Flight The pipeline requires specific tools to be available on the Jenkins agent before execution. Verifying these dependencies upfront prevents silent failures during the Docker build or push stages. Execution Architecture GITHUB SOURCE JENKI"
  },
  {
   "id": "jenkins-lab-multibranch",

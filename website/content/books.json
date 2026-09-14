@@ -1070,11 +1070,11 @@
   },
   {
     "id": "jenkins-lab-docker",
-    "title": "Lab 02: Docker Build & Push with Jenkins",
+    "title": "Lab 02: Container Delivery",
     "file": "pdf-jenkins-lab-02-docker.html",
     "category": "Labs",
     "difficulty": "Intermediate",
-    "description": "Build a Docker image in Jenkins, push it to Docker Hub, and deploy through the pipeline flow.",
+    "description": "Design, secure, and verify container delivery from build architecture through authenticated registry release.",
     "time_minutes": 50,
     "prereqs": ["jenkins-lab-webhook", "artifacts"],
     "outcomes": ["Build Docker images", "Push to Docker Hub", "Deploy from a Jenkins pipeline"],
