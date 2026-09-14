@@ -95,3 +95,8 @@ Keep the workflow — every later lab extends it.
 ## What This Proved
 
 Triggers fire pipelines, runners execute jobs, checks gate merges. Continue with [Lab 02](02-build-and-test.md).
+
+## Interview Notes
+
+- What the green check actually proves — and which misconfiguration lets red code merge anyway.
+- Why breaking the test on purpose is the real verification, not the green run.

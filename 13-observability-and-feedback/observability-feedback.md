@@ -84,7 +84,7 @@ v1.4.2 deploys to production (SHA-labeled)
 |--------|-----------|----------|
 | Deploy frequency | On demand, multiple/day | Small batches, trunk discipline, fast PR pipeline |
 | Lead time (commit→prod) | < 1 day | Same, plus approval automation |
-| Change-fail rate | < 15% | Better PR gates, canary, flags |
+| Change-fail rate | < 15% | Better PR gates, [canary](../10-deployment-strategies/deployment-strategies.md), flags |
 | MTTR | < 1 hour | Version labels, practiced rollback, clear on-call |
 
 Measure monthly, review with leads, improve one signal at a time. DORA classifies; it doesn't fix — the pipeline changes in §4 do.

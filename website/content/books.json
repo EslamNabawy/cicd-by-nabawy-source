@@ -357,7 +357,7 @@
     "title": "Lab 02: Build & Test",
     "file": "pdf-29-lab-build-test.html",
     "category": "Labs",
-    "difficulty": "Beginner",
+    "difficulty": "Intermediate",
     "description": "DAG jobs, caching, hermetic proof.",
     "time_minutes": 45,
     "prereqs": [
@@ -756,7 +756,7 @@
     "title": "Groovy Cheatsheet",
     "file": "pdf-11-groovy-cheatsheet.html",
     "category": "Jenkins",
-    "difficulty": "Beginner",
+    "difficulty": "Intermediate",
     "description": "Only the Groovy Jenkinsfiles need: strings, closures, idioms, sandbox rules.",
     "time_minutes": 20,
     "prereqs": [

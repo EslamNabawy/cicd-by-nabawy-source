@@ -84,3 +84,8 @@ Keep environments; Lab 05 breaks production on purpose.
 ## What This Proved
 
 Promotion paths, environment gates, digest discipline. Continue with [Lab 05](05-rollback.md).
+
+## Interview Notes
+
+- What the production approval gate actually blocks — and where reviewers are configured.
+- Tag vs digest promotion: how you prove both environments ran identical bytes.

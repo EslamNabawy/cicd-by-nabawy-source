@@ -90,3 +90,8 @@ Keep the postmortem in the repo (`docs/postmortems/`).
 ## What This Proved
 
 Recovery as a practiced path. General labs complete — Jenkins track starts at [Lab 06](06-jenkins-controller.md).
+
+## Interview Notes
+
+- Rollback vs forward-fix: which failure forces expand-contract instead of reverting.
+- Why the deployed digest must be recorded — what "previous digest unknown" costs you mid-incident.

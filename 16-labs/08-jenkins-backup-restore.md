@@ -88,3 +88,8 @@ Store one backup off-machine; delete the rest.
 ## What This Proved
 
 Recovery measured, not assumed. Labs complete — return to the [Topic Index](../TOPIC_INDEX.md).
+
+## Interview Notes
+
+- The restore proof: which pipeline you run post-restore and what green actually verifies.
+- Plugin drift and UID ownership — the two restore failures and their one-line fixes.

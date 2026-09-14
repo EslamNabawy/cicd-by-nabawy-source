@@ -67,6 +67,7 @@ CI still builds, tests, scans, signs (everything upstream unchanged). The handof
 
 - [Continuous Delivery](../07-continuous-delivery/continuous-delivery.md)
 - [Deployment Strategies](../10-deployment-strategies/deployment-strategies.md)
+- [Artifact Management](../05-artifacts-and-packaging/artifact-management.md)
 - [GitLab CI](gitlab-ci.md)
 
 GitOps declares app state — but environments themselves are infrastructure. Continue in **[IaC for Environments](../12-infrastructure-and-configuration/iac-environments.md)**.

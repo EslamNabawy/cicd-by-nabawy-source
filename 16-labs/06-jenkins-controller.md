@@ -93,3 +93,8 @@ The minimal pipeline that proves scheduling, execution, and visualization all wo
 ## What This Proved
 
 Controller/agent split hands-on. Continue with [Lab 07](07-jenkins-shared-library.md).
+
+## Interview Notes
+
+- `down` vs `down -v`: which one wipes `jenkins_home` and why that distinction is the whole lesson.
+- Zero executors on the controller — what you check to prove no build ever ran there.

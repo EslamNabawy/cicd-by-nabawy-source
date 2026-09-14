@@ -30,7 +30,7 @@ Picking up from **[CI/CD Security](../11-security/cicd-security.md)**, where def
 | Feature flag | Toggle off | Instant |
 | Recreate | Redeploy previous digest | Slowest — avoid where recovery matters |
 
-Rollback deploys a **previous known-good digest** — never a fresh build. Fresh builds during incidents add untested variables to a fire.
+Rollback deploys a **previous known-good digest** ([Artifact Management](../05-artifacts-and-packaging/artifact-management.md)) — never a fresh build. Fresh builds during incidents add untested variables to a fire.
 
 ## 3. Rollback vs Forward-Fix Decision
 
@@ -63,6 +63,7 @@ Blameless, owner-assigned, pipeline-linked: every action item becomes a test, ch
 ## Related Topics
 
 - [Deployment Strategies](../10-deployment-strategies/deployment-strategies.md)
+- [Artifact Management](../05-artifacts-and-packaging/artifact-management.md)
 - [Observability & Feedback](../13-observability-and-feedback/observability-feedback.md)
 - [Jenkins Advanced](../15-platforms-and-tools/jenkins/jenkins-advanced.md)
 

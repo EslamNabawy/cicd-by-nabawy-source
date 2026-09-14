@@ -50,6 +50,12 @@ junit:1300.v07d6c232e1c3
 - Missing plugin step error (`No such DSL method 'docker'`) → the owning plugin isn't installed.
 - Core/plugin version skew → cryptic startup failures; keep LTS core + compatible plugin set.
 
+## 4. Interview Notes
+
+- Pinning vs update-all: why `plugins.txt` with versions beats UI installs for reproducible controllers.
+- `No such DSL method` — which layer is actually missing and how you prove it.
+- Core/plugin skew: why LTS core + compatible set matters more than latest-everything.
+
 ## Related Topics
 
 - [Jenkins Setup](jenkins-setup.md)

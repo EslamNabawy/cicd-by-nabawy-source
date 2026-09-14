@@ -49,4 +49,10 @@ If a paragraph would be true for GitHub Actions too, it belongs in the generic d
 
 Canonical comparison lives in [GitHub Actions](../github-actions.md#9-github-actions-vs-jenkins): Actions trades control for convenience (hosted, YAML, repo-local); Jenkins trades convenience for control (self-hosted, Groovy, controller/agents).
 
+## Interview Notes
+
+- Controller vs agents in one sentence each — where scheduling, secrets, and execution actually live.
+- The Golden Rule test: which paragraph in a Jenkins doc proves it belongs in the generic docs instead.
+- Jenkins vs GitHub Actions tradeoff in one line — what you gain and what you pay for self-hosting.
+
 Begin the implementation path in **[Jenkins Architecture](jenkins-architecture.md)** — controller, agents, and executors first, because every later doc assumes them.

@@ -75,6 +75,12 @@ environment: production     # approval gate
 
 See [GitHub Actions](../15-platforms-and-tools/github-actions.md).
 
+## Interview Notes
+
+- Reproduce any pipeline in this file from memory: trigger, build, gate, promote, rollback.
+- Which snippet pins versions — and what breaks first when nothing is pinned.
+- Where the approval gate lives in each platform's snippet, and what happens without it.
+
 ## Related Topics
 
 - [Topic Index](../TOPIC_INDEX.md)

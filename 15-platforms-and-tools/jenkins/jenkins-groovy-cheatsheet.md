@@ -108,6 +108,12 @@ catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
 
 Rule: if Groovy fights you, push the logic into `sh` (shell) and keep Groovy as glue — Declarative + shell covers 95% of pipelines.
 
+## Interview Notes
+
+- Sandbox vs Script Approval: why `new File()` dies in sandbox and which step replaces it.
+- `env.X` vs `System.getenv()` — the one-line difference between working and blocked.
+- When logic belongs in `sh` instead of Groovy, and what "Groovy as glue" costs you in testability.
+
 ## Related Topics
 
 - [Jenkins Pipelines](jenkins-pipelines.md)

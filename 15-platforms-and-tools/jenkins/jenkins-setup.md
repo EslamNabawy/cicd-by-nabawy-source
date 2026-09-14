@@ -121,6 +121,12 @@ Green build → image in registry → staging deployed → approve → productio
 - Stuck on Unlock screen → read the password from `secrets/initialAdminPassword` inside the container, not the host.
 - Port 50000 blocked → inbound agents can't connect; open it or use WebSocket agents.
 
+## 8. Interview Notes
+
+- Why zero executors on the controller — what breaks when builds run where scheduling and secrets live.
+- What `JENKINS_HOME` must persist across a container recreate, and what is safe to lose (workspaces).
+- Webhook vs polling triggers; which port inbound agents need and why WebSocket agents exist.
+
 ## Related Topics
 
 - [Jenkins Architecture](jenkins-architecture.md)
