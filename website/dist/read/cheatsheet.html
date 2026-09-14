@@ -522,7 +522,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
 </head>
 <body data-book="cheatsheet">
 <header class="top"><div class="wrap">
-<button class="btn tocbtn" id="tocbtn" aria-label="Open table of contents">☰ Contents · 0</button>
+<button class="btn tocbtn" id="tocbtn" aria-label="Open table of contents">☰ Contents · 9</button>
 <nav class="crumbs"><a class="logo" href="../index.html" style="color:inherit"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="5" cy="12" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="6" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="18" r="2.6" stroke="#18E299" stroke-width="2"/><path d="M7.6 12h5.2m0 0-2.6-2.6m2.6 2.6-2.6 2.6M13.4 7.4l2.8-1M13.4 16.6l2.8 1" stroke="#18E299" stroke-width="2" stroke-linecap="round"/></svg>CICD<span> BY Nabawy</span></a>
 <span class="sep">/</span>
 <span class="here">Command Cheatsheet</span></nav>
@@ -540,13 +540,26 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
 </header>
 <div class="readcontext" data-testid="reader-context"><div class="wrap"><a href="../shelf.html">Browse</a><span>›</span><a href="../shelf.html#path-reference">Reference</a><span>›</span><span class="here">Command Cheatsheet</span><span class="pathpos">1 of 1 in Reference</span><span class="prereq">Prereq: None — start here</span></div></div>
 <div class="rlayout">
-<aside class="toc"><h4>CONTENTS · 0 PAGES · 0 SECTIONS</h4>
+<aside class="toc"><h4>CONTENTS · 3 PAGES · 9 SECTIONS</h4><a href="#p1" class="toc-l1" aria-label="Cover — Command Cheatsheet">Cover — Command Cheatsheet</a><a href="#p2" class="toc-l2" aria-label="1 Git">1 Git</a><a href="#p2" class="toc-l2" aria-label="2 npm / Builds">2 npm / Builds</a><a href="#p2" class="toc-l2" aria-label="3 Docker / GHCR">3 Docker / GHCR</a><a href="#p2" class="toc-l2" aria-label="4 Jenkins (Compose lab)">4 Jenkins (Compose lab)</a><a href="#p2" class="toc-l2" aria-label="5 Jenkins backup">5 Jenkins backup</a><a href="#p2" class="toc-l2" aria-label="6 GitHub Actions snippets">6 GitHub Actions snippets</a><a href="#p3" class="toc-l2" aria-label="7 Interview Notes">7 Interview Notes</a><a href="#p3" class="toc-l2" aria-label="8 Related Topics">8 Related Topics</a>
 <div style="margin-top:14px"><a href="../pdf/pdf-36-command-cheatsheet.html">⭳ Open print HTML</a></div>
 </aside>
 <main class="read"><div class="readbody">
 
 
-
+<div id="p1" class="page cover"><div class="brand">CI/CD ENGINEERING · KNOWLEDGE BASE</div><h1>Command Cheatsheet</h1><p class="sub">CICD BY Nabawy</p><div class="cover foot"><span>Reader edition</span><span class="sig">Nabawy</span></div></div><div id="p2" class="page"><p class="body"><em>Every command used across the labs and guides, grouped by tool. Copy-paste ready; details live in the linked chapters.</em></p><h3 class="sec">Git</h3><div class="terminal">git checkout -b feat/x      # short branch, merge daily
+git push -u origin feat/x
+gh pr create --fill         # PR with CI gate</div><p class="body">See Git, Branching &amp; Pull Requests.</p><h3 class="sec">npm / Builds</h3><div class="terminal">npm ci                      # lockfile-exact install (CI only)
+npm test
+./gradlew build             # wrapper pins toolchain</div><p class="body">See Build Systems.</p><h3 class="sec">Docker / GHCR</h3><div class="terminal">docker build -t ghcr.io/OWNER/APP:sha-SHORT .
+docker push ghcr.io/OWNER/APP:sha-SHORT
+docker pull ghcr.io/OWNER/APP:sha-SHORT   # same digest everywhere</div><p class="body">See Artifact Management.</p><h3 class="sec">Jenkins (Compose lab)</h3><div class="terminal">docker compose up -d
+docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
+docker compose stop jenkins          # before backup
+docker compose down -v               # destroy everything</div><p class="body">See Lab 06, Lab 08.</p><h3 class="sec">Jenkins backup</h3><div class="terminal">docker run --rm -v LAB_jenkins_home:/data -v &quot;$PWD&quot;:/out alpine \
+  tar czf /out/jenkins-backup.tar.gz -C /data .</div><p class="body">See Jenkins Advanced.</p><h3 class="sec">GitHub Actions snippets</h3><div class="terminal">runs-on: ubuntu-latest
+needs: build                # DAG edge
+permissions: { packages: write }
+environment: production     # approval gate</div><p class="body">See GitHub Actions.</p></div><div id="p3" class="page"><h3 class="sec">Interview Notes</h3><ul class="tight"><li>Reproduce any pipeline in this file from memory: trigger, build, gate, promote, rollback.</li><li>Which snippet pins versions — and what breaks first when nothing is pinned.</li><li>Where the approval gate lives in each platform's snippet, and what happens without it.</li></ul><h3 class="sec">Related Topics</h3><ul class="tight"><li>Topic Index</li><li>Glossary</li></ul></div>
 
 <div class="relatedbox"><h4>Related books</h4><ul class="relgrid"><li class="relcard" data-cat="Platforms" style="--cat:#F97316"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 4-8 4-8-4z"/><path d="M4 10l8 4 8-4"/><path d="M4 14l8 4 8-4"/><path d="M4 18l8 4 8-4" opacity=".4"/></svg></span><span class="rel-main"><a href="argocd.html">ArgoCD and GitOps</a><span class="rel-meta">40 min · <span class="difbadge adv">Adv</span></span><span class="rel-why">→ More to explore</span></span></li><li class="relcard" data-cat="CI/CD" style="--cat:#5B8DEF"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5" cy="12" r="1.9"/><circle cx="19" cy="6" r="1.9"/><circle cx="19" cy="18" r="1.9"/><path d="M7.2 12h5M13.4 7.4l3-1M13.4 16.6l3 1"/><path d="M9 8l-2 4 2 4M15 8l2 4-2 4" opacity=".7"/></svg></span><span class="rel-main"><a href="artifacts.html">Artifact Management</a><span class="rel-meta">35 min · <span class="difbadge int">Int</span></span><span class="rel-why">→ More to explore</span></span></li><li class="relcard" data-cat="Build" style="--cat:#F5A524"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 6l3.5 3.5-8 8H6v-4l8.5-8z"/><path d="M11 9l3 3"/><path d="M13 6l3-3 3 3-3 3-3-3z" opacity=".5"/></svg></span><span class="rel-main"><a href="build.html">Build Systems</a><span class="rel-meta">30 min · <span class="difbadge int">Int</span></span><span class="rel-why">→ More to explore</span></span></li><li class="relcard" data-cat="Roadmap" style="--cat:#18E299"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3L4 5v14l5-2 6 2 5-2V3l-5 2z"/><path d="M9 5v14M15 7v14"/></svg></span><span class="rel-main"><a href="cicd-decision-guide.html">CI/CD Decision Guide: Jenkins vs GitHub Actions</a><span class="rel-meta">30 min · <span class="difbadge int">Int</span></span><span class="rel-why">→ More to explore</span></span></li></ul></div>
 <div class="chapnav"><span></span><span></span></div>

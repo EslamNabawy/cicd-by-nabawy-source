@@ -176,8 +176,24 @@ def reader_chrome():
             flag(f"{name}: expected one Back control")
         for stale in ('id="ratebox"', 'id="rateup"', 'id="ratedown"',
                       'feedback-widget', 'suggest-edit-widget'):
-            if stale in h:
-                flag(f"{name}: removed reader widget reintroduced: {stale}")
+                if stale in h:
+                    flag(f"{name}: removed reader widget reintroduced: {stale}")
+
+
+def reader_content():
+    """Ensure every manifest reader has real article content, not a print shell."""
+    books = json.load(open(os.path.join(ROOT, "website/content/books.json"), encoding="utf-8"))
+    for b in books:
+        path = os.path.join(ROOT, "website/dist/read", b["id"] + ".html")
+        if not os.path.exists(path):
+            continue
+        h = open(path, encoding="utf-8").read()
+        m = re.search(r'<main class="readbody">(.*?)</main>', h, re.S)
+        body = m.group(1) if m else ""
+        text = re.sub(r"<[^>]+>", " ", html.unescape(body))
+        text = re.sub(r"\s+", " ", text).strip()
+        if len(text) < 500 or not re.search(r"<h[234][ >]", body):
+            flag(f"{b['id']}: reader content is empty or missing headings")
 
 
 if __name__ == "__main__":
@@ -189,5 +205,6 @@ if __name__ == "__main__":
     icons()
     dist()
     reader_chrome()
+    reader_content()
     print("QC:", "FAIL" if fails else "ALL GREEN", f"({len(fails)} findings)")
     sys.exit(1 if fails else 0)

@@ -206,7 +206,16 @@
    "docker"
   ],
   "time": 30,
-  "sections": [],
+  "sections": [
+   "Cover — Build Systems",
+   "1 1. What Is It?",
+   "2 2. Hermetic Builds",
+   "3 3. Caching Done Right",
+   "4 4. Tool Notes",
+   "5 5. Failure Modes",
+   "6 6. Interview Notes",
+   "7 Related Topics"
+  ],
   "body": "Build Systems A build system turns source into runnable output deterministically: dependency resolution, compilation, bundling — the same inputs must always produce the same outputs. 1. What Is It? Picking up from CI/CD Pipelines ../06-ci-cd-pipelines/pipelines.md , where the build stage was defined — here is what actually runs inside it: Maven/Gradle JVM , npm JS , Go modules, Cargo — each resolving declared dependencies into a compiled/bundled artifact. 2. Hermetic Builds Hermetic = sealed from the ambient machine see glossary . Concretely: pinned dependency versions lockfiles: package-lock.json , pom.xml versions, go.sum , clean container per build, no latest tags, no host-installed toolchains. Violation symptom: \"works in CI, fails locally\" in reverse — the build drank something from its environment. 3. Caching Done Right Cache layers, fastest first: dependency cache keyed on lockfiles → remote build cache Gradle remote, BuildKit registry cache → artifact reuse skip rebuild when inputs unchanged . Golden rule: the cache key must include every input; a stale key ships stale code silently. 4. Tool Notes - Maven/Gradle: standard layouts, wrapper scripts mvnw , gradlew pin the toolchain itself — commit them. - npm: npm ci lockfile-exact in CI, never npm install ; cache ~/.npm . - Docker builds: BuildKit with --secret mounts and registry cache see pipelines BuildKit section ../06-ci-cd-pipelines/pipelines.md ; multi-stage so SDKs never ship in runtime images. 5. Failure Modes - Unpinned deps → \"it built yesterday\"; fix with lockfiles + dependabot-style updates as PRs. - Bloated images SDK in prod → slow pulls, huge attack surface; fix with multi-stage builds. - Cache poisoning stale key → phantom green; fix by keying on lockfiles + periodic cache-bust verification. 6. Interview Notes - Hermetic vs reproducible: sealed environment vs byte-identical output reproducible is stricter . - Why npm ci over npm install in CI. - Multi-stage Docker: what ships vs what builds. R"
  },
  {
@@ -221,7 +230,16 @@
    "flaky"
   ],
   "time": 30,
-  "sections": [],
+  "sections": [
+   "Cover — Testing Strategy",
+   "1 1. What Is It?",
+   "2 2. The Pyramid in Pipelines",
+   "3 3. Placement Rules",
+   "4 4. Flaky Policy",
+   "5 5. Failure Modes",
+   "6 6. Interview Notes",
+   "7 Related Topics"
+  ],
   "body": "Testing Strategy Testing strategy decides which tests run where : fast unit tests gate every PR, slow E2E proves staging — the pyramid keeps feedback fast without losing coverage. 1. What Is It? Picking up from Build Systems ../03-build-systems/build-systems.md , where output became deterministic — now prove it's correct, at the right stage, at the right cost. 2. The Pyramid in Pipelines Layer Speed Runs in Guards ------- ------- --------- -------- Unit ms each, minutes total Every PR Logic correctness Contract seconds Every PR provider + consumer API compatibility between services Integration minutes Post-merge / staging Wiring, DBs, queues E2E / smoke minutes–tens of minutes Staging, post-deploy Real user journeys Many unit, fewer E2E: an inverted pyramid all Selenium, no units is slow, flaky, and tells you nothing a unit test couldn't in milliseconds. 3. Placement Rules - PR pipeline: unit + contract + fast integration < 10 min total . Anything slower moves post-merge. - Staging: full integration + E2E + smoke after deploy; failures block promotion, not merges. - Post-deploy: synthetic smoke probes continuously — the pipeline's last test never ends. 4. Flaky Policy Flaky test protocol: quarantine to a non-blocking suite immediately same day , assign an owner, fix-or-delete deadline of one sprint. A flaky gate teaches developers that red is meaningless — the most expensive test debt there is. 5. Failure Modes - Testing pyramid inverted → 40-minute PR suites developers ignore; rebalance toward units. - E2E in PR → queue pileups; move to staging. - No contract tests in microservices → integration surprises at deploy; add consumer-driven contracts. - Coverage % as a target → gaming assert-free tests ; treat coverage as smoke signal, not goal. 6. Interview Notes - Why contract tests exist microservice API drift . - Flaky quarantine protocol, step by step. - What runs in PR vs staging vs post-deploy, and why. Related Topics - CI/CD Pipelines ../06-ci-cd-pipelines/pipel"
  },
  {
@@ -236,7 +254,15 @@
    "automation"
   ],
   "time": 30,
-  "sections": [],
+  "sections": [
+   "Cover — Continuous Deployment",
+   "1 1. What Is It?",
+   "2 2. Prerequisites (All Non-Negotiable)",
+   "3 3. Failure Modes",
+   "4 4. Delivery vs Deployment: When Each",
+   "5 5. Interview Notes",
+   "6 Related Topics"
+  ],
   "body": "Continuous Deployment Continuous Deployment removes the last human gate: every change passing all automated checks reaches production by itself. Freedom bought with automation rigor most teams haven't built yet. 1. What Is It? Picking up from Continuous Delivery ../07-continuous-delivery/continuous-delivery.md , where a human approved production — here the pipeline approves itself. Delivery asks \"could we ship?\"; Deployment ships. 2. Prerequisites All Non-Negotiable - Full automation: build, test, scan, staging deploy, smoke, promotion — zero manual steps. Any human errand becomes the bottleneck that breaks the model. - Progressive delivery: canary or flags on every release see Deployment Strategies ../10-deployment-strategies/deployment-strategies.md — automation needs a small blast radius to be safe. - Kill criteria: automated halt conditions error-budget burn, p99 regression, business KPI drop that stop and roll back without asking. - Observability: version-labeled everything, SLOs with burn alerts, on-call that trusts the automation see Observability ../13-observability-and-feedback/observability-feedback.md . - Trunk discipline + flags: unfinished work hides behind flags, never branches — main is always shippable. 3. Failure Modes - Automating a flaky pipeline → auto-shipping bugs at machine speed; fix gates first, automate second. - No kill criteria → bad release reaches 100% \"successfully\"; every auto-promotion needs an automated halt. - Database migrations without expand-contract → auto-deploy corrupts state; migrations must be backward-compatible across versions. - On-call distrusts automation → humans re-add manual gates; fix with practiced, boring rollbacks that build confidence. 4. Delivery vs Deployment: When Each - Delivery human gate : regulated industries, data migrations, marketing-coordinated launches, teams still building gate maturity. - Deployment no gate : SaaS with progressive delivery, strong SLOs, practiced rollback, and trunk discipline. St"
  },
  {
@@ -251,7 +277,16 @@
    "release"
   ],
   "time": 30,
-  "sections": [],
+  "sections": [
+   "Cover — Environments &amp; Release",
+   "1 1. What Is It?",
+   "2 2. Environment Topology",
+   "3 3. Config vs Code",
+   "4 4. Release Trains &amp; Promotion Paths",
+   "5 5. Failure Modes",
+   "6 6. Interview Notes",
+   "7 Related Topics"
+  ],
   "body": "Environments & Release Environments are runtime contexts with different data, scale, and risk; release is the discipline of moving one artifact across them safely — same binary, different config, explicit promotion paths. 1. What Is It? Picking up from Continuous Deployment ../08-continuous-deployment/continuous-deployment.md , where automation needed safe landing zones — here is how those zones are built and governed. 2. Environment Topology Env Purpose Data Deploys ----- --------- ------ --------- Dev Individual velocity Fake/local Continuous, anything Preview per-PR Review the actual change Sanitized snapshot Auto per PR, destroyed on merge Staging Prod rehearsal Sanitized/anonymized prod-like Auto on main Production Real users Real Gated delivery or automated deployment Preview environments are the highest-leverage addition: reviewers click the change instead of imagining it. 3. Config vs Code The artifact never changes between environments; everything else does via config: env vars for simple values, secret stores for credentials, config maps/files for structured settings. Twelve-factor discipline: a diff between staging and production behavior must be explainable by config diff alone — never by \"we built it differently.\" 4. Release Trains & Promotion Paths - Release train: scheduled departures e.g. Tuesdays/Thursdays ; whatever is green and approved rides, the rest waits for the next train. Predictable for stakeholders, calming for on-call. - Promotion path: dev → preview → staging → production, each gate explicit checks + approvals + signals . Skipping environments is the process smell that precedes incidents. - Hotfix lane: a documented fast path fewer approvals, same checks for production fires — used rarely, reviewed always. 5. Failure Modes - Snowflake environments hand-configured staging → \"works in staging\" lies; environments are code IaC , rebuilt identically. - Real prod data in staging → breach waiting to happen; sanitize/anonymize with production-li"
  },
  {
@@ -266,7 +301,17 @@
    "supply-chain"
   ],
   "time": 40,
-  "sections": [],
+  "sections": [
+   "Cover — CI/CD Security",
+   "1 1. What Is It?",
+   "2 2. Secrets Discipline",
+   "3 3. Signing, SBOM &amp; Provenance",
+   "4 4. Least Privilege Everywhere",
+   "5 5. Supply-Chain Gates",
+   "6 6. Failure Modes",
+   "7 7. Interview Notes",
+   "8 Related Topics"
+  ],
   "body": "CI/CD Security The pipeline is production infrastructure with production secrets and the power to ship code — attack it like one: least privilege, signed artifacts, verified supply chain. 1. What Is It? Picking up from Environments & Release ../09-environments-and-release/environments-release.md , whose zones carry real credentials — the pipeline itself is the highest-value target in the estate: it holds deploy keys, signs releases, and runs attacker-influenced PR code. 2. Secrets Discipline - Store in managers Vault, cloud KMS, Jenkins credentials store, GitHub environments — never in repos, images, logs, or chat. - Scope narrowly per-env, per-job , rotate on schedule and on any leak, audit every access. - PR builds from forks get zero production secrets — credential-free sandboxes only see Jenkins Agents ../15-platforms-and-tools/jenkins/jenkins-agents.md trust boundary . 3. Signing, SBOM & Provenance Build once, then: sign the digest cosign , generate the SBOM Syft/Trivy , attest provenance SLSA: who built, from which commit, in which pipeline . Deploy policies admit only signed, attested images — see Artifact Management ../05-artifacts-and-packaging/artifact-management.md . When the next CVE lands, query SBOMs to find affected digests in minutes. 4. Least Privilege Everywhere - CI tokens: per-repo, minimal scopes, short TTL OIDC federation beats long-lived keys — workloads mint credentials, nobody stores them . - Pipeline permissions: GITHUB_TOKEN minimal scopes; Jenkins agents can't read other jobs' secrets agent→controller deny . - Humans: matrix authorization, SSO + MFA, no shared admin accounts, no standing prod access without review. 5. Supply-Chain Gates Pin everything: action SHAs not @v4 tags , base image digests not :latest , plugin versions, lockfiles. Verify checksums on download. Each PR that bumps a dependency re-runs the full gate — Dependabot PRs are untrusted code until proven otherwise. 6. Failure Modes - Secret in git history → rotate immediate"
  },
  {
@@ -281,7 +326,17 @@
    "mttr"
   ],
   "time": 30,
-  "sections": [],
+  "sections": [
+   "Cover — Rollback &amp; Recovery",
+   "1 1. What Is It?",
+   "2 2. Rollback per Strategy",
+   "3 3. Rollback vs Forward-Fix Decision",
+   "4 4. Recovery Drills (MTTR Practice)",
+   "5 5. Postmortems That Prevent Recurrence",
+   "6 6. Failure Modes",
+   "7 7. Interview Notes",
+   "8 Related Topics"
+  ],
   "body": "Rollback & Recovery Rollback is a feature, not an apology: a practiced, boring path from bad production back to good — decided by signals, executed in minutes, reviewed afterward. 1. What Is It? Picking up from CI/CD Security ../11-security/cicd-security.md , where defenses were hardened — defenses still fail, so recovery must be engineered with the same rigor as release. 2. Rollback per Strategy Strategy Rollback move Time ---------- -------------- ------ Rolling Roll back batch by batch or rollout undo Minutes Blue/Green Flip router back to Blue Seconds Canary Drain canary, 100% to stable Seconds–minutes Feature flag Toggle off Instant Recreate Redeploy previous digest Slowest — avoid where recovery matters Rollback deploys a previous known-good digest Artifact Management ../05-artifacts-and-packaging/artifact-management.md — never a fresh build. Fresh builds during incidents add untested variables to a fire. 3. Rollback vs Forward-Fix Decision - Rollback when: cause unknown, blast radius growing, error budget burning fast, or the fix is uncertain. Default for Sev1. - Forward-fix when: cause known, fix tiny and verified, rollback itself risky migrations already applied — data can't \"roll back,\" only migrate forward . - Decider: on-call with pre-agreed thresholds, not a committee. Decide in minutes; review in the postmortem. 4. Recovery Drills MTTR Practice - Game days: inject failure in staging kill pods, expire certs, break the pipeline , time the recovery, fix the gaps found. - Rollback rehearsal: each service rolls back on staging quarterly until MTTR is measured, not guessed. - Jenkins/server recovery: restore JENKINS_HOME backup to fresh infra, replay smoke pipeline see Jenkins Advanced ../15-platforms-and-tools/jenkins/jenkins-advanced.md . 5. Postmortems That Prevent Recurrence Blameless, owner-assigned, pipeline-linked: every action item becomes a test, check, alert, or runbook — or it will recur. Track repeat-incident rate; a postmortem without a merged p"
  },
  {
@@ -295,7 +350,24 @@
    "pipeline"
   ],
   "time": 45,
-  "sections": [],
+  "sections": [
+   "Cover — Lab 01: First Pipeline",
+   "1 Objective",
+   "2 Prerequisites",
+   "3 Architecture",
+   "4 Setup",
+   "5 Step 1 — Add the workflow",
+   "6 Execute",
+   "7 Expected Result",
+   "8 Why",
+   "9 Step 2 — Require the check",
+   "10 Execute",
+   "11 Expected Result",
+   "12 Why",
+   "13 Verification",
+   "14 Failure Scenarios",
+   "15 Cleanup"
+  ],
   "body": "Lab 01 — First Pipeline Objective Ship a green CI pipeline on GitHub Actions: push → build → test → status check on the PR. Prerequisites - A GitHub repo you own; Node 20+ locally any tiny JS project works, even package.json + one test file . - Concepts: CI/CD Pipelines ../06-ci-cd-pipelines/pipelines.md , GitHub Actions ../15-platforms-and-tools/github-actions.md . Architecture Push → GitHub webhook → hosted runner ubuntu-latest → checkout → setup-node → npm ci → npm test → green check on PR. Setup Repo with package.json containing a test script even \"test\": \"node --test\" . Step 1 — Add the workflow Execute Create .github/workflows/ci.yml : Push to a branch, open a PR. Expected Result Actions tab shows the run green; the PR shows a green check. Why This is the smallest closed loop: trigger → runner → job → feedback on the PR see pipeline anatomy ../06-ci-cd-pipelines/pipelines.md . Step 2 — Require the check Execute Repo Settings → Branches → protect main → require build status check. Push a breaking change to a PR. Expected Result Merge button blocked until green. Why An unenforced gate is decoration; branch protection makes CI a rule see PR gates ../02-continuous-integration/continuous-integration.md . Verification - PR shows green check from the workflow. - Merging to main without green is blocked. - Breaking the test turns the PR red. Failure Scenarios - npm ci fails: lockfile missing or out of sync — run npm install locally, commit the lockfile. - Runner queues long: free-tier concurrency; retry, or shrink the job. Cleanup Keep the workflow — every later lab extends it. What This Proved Triggers fire pipelines, runners execute jobs, checks gate merges. Continue with Lab 02 02-build-and-test.md . Interview Notes - What the green check actually proves — and which misconfiguration lets red code merge anyway. - Why breaking the test on purpose is the real verification, not the green run."
  },
  {
@@ -309,7 +381,24 @@
    "build"
   ],
   "time": 45,
-  "sections": [],
+  "sections": [
+   "Cover — Lab 02: Build &amp; Test",
+   "1 Objective",
+   "2 Prerequisites",
+   "3 Architecture",
+   "4 Setup",
+   "5 Step 1 — Split and cache",
+   "6 Execute",
+   "7 Expected Result",
+   "8 Why",
+   "9 Step 2 — Prove hermeticity",
+   "10 Execute",
+   "11 Expected Result",
+   "12 Why",
+   "13 Verification",
+   "14 Failure Scenarios",
+   "15 Cleanup"
+  ],
   "body": "Lab 02 — Build and Test Objective Split Lab 01's single job into a fast, cached PR pipeline: hermetic build job → unit test job, total under 10 minutes. Prerequisites - Lab 01 green; concepts: Build Systems ../03-build-systems/build-systems.md , Testing Strategy ../04-testing/testing-strategy.md . Architecture PR → job build npm ci , cache on lockfile → job test needs: build , unit suite → combined status check. Setup Add a second test file so the suite has something real to run. Step 1 — Split and cache Execute Expected Result Two jobs, test waits for build ; reruns are faster warm npm cache . Why needs: is the DAG edge; cache keyed on the lockfile is the hermetic speedup see pipelines DAG ../06-ci-cd-pipelines/pipelines.md . Step 2 — Prove hermeticity Execute Delete node_modules locally, run npm ci && npm test — same result as CI. Expected Result Identical pass/fail locally and on the runner. Why Lockfile-exact install means the runner builds what you built — no ambient-machine surprises. Verification - Two jobs visible, ordered by needs . - Cache hit shown on rerun. - Local npm ci reproduces CI result. Failure Scenarios - Cache never hits: lockfile not committed or key inputs changed — verify package-lock.json is tracked. - test runs before build finishes: missing needs: — add the edge. Cleanup Keep; Lab 03 packages this build's output. What This Proved DAG ordering, hermetic installs, lockfile caching. Continue with Lab 03 03-artifacts.md . Interview Notes - What needs: actually guarantees — and the failure you get when the edge is missing. - Why the cache key includes the lockfile, and what \"cache never hits\" tells you about the repo."
  },
  {
@@ -323,7 +412,24 @@
    "artifacts"
   ],
   "time": 45,
-  "sections": [],
+  "sections": [
+   "Cover — Lab 03: Artifacts",
+   "1 Objective",
+   "2 Prerequisites",
+   "3 Architecture",
+   "4 Setup",
+   "5 Step 1 — Build once, tag SHA",
+   "6 Execute",
+   "7 Expected Result",
+   "8 Why",
+   "9 Step 2 — Attach SBOM",
+   "10 Execute",
+   "11 Expected Result",
+   "12 Why",
+   "13 Verification",
+   "14 Failure Scenarios",
+   "15 Cleanup"
+  ],
   "body": "Lab 03 — Artifacts Objective Build a Docker image once, tag it by commit SHA, push to GHCR, attach an SBOM — then prove staging and prod would run the same digest. Prerequisites - Lab 02 green; a Dockerfile multi-stage, node:20-slim runtime ; concepts: Artifact Management ../05-artifacts-and-packaging/artifact-management.md . Architecture Merge to main → build image → tag ghcr.io/<you /<app :sha-<short → push GHCR → generate SBOM → print digest the deployable identity . Setup Enable GitHub Packages GHCR on the repo; workflow needs packages: write permission. Step 1 — Build once, tag SHA Execute Expected Result GHCR shows sha-<short tag; logs print the digest. Why SHA tag = immutable identity; the digest not :latest is what every environment deploys see versioning ../05-artifacts-and-packaging/artifact-management.md . Step 2 — Attach SBOM Execute Add after push: anchore/sbom-action@v0 on the pushed image; inspect the artifact. Expected Result SBOM artifact lists every package inside the image. Why The ingredient list that makes the next CVE answerable in minutes, not days. Verification - GHCR holds an immutable SHA tag. - Same digest referenced twice = same bytes. - SBOM artifact present. Failure Scenarios - 403 on push: missing packages: write — add the permission block. - latest deployed somewhere: retag nothing; fix consumers to pin the digest. Cleanup Keep images; they are small and prove immutability. What This Proved Build-once identity, SHA discipline, SBOM habit. Continue with Lab 04 04-deployment.md . Interview Notes - Digest vs tag: why redeploying latest can silently change what's running. - The 403 on push — which single permission block fixes it and why least privilege demands it."
  },
  {
@@ -337,7 +443,24 @@
    "deployment"
   ],
   "time": 60,
-  "sections": [],
+  "sections": [
+   "Cover — Lab 04: Deployment",
+   "1 Objective",
+   "2 Prerequisites",
+   "3 Architecture",
+   "4 Setup",
+   "5 Step 1 — Staging auto-deploys",
+   "6 Execute",
+   "7 Expected Result",
+   "8 Why",
+   "9 Step 2 — Production needs a human",
+   "10 Execute",
+   "11 Expected Result",
+   "12 Why",
+   "13 Verification",
+   "14 Failure Scenarios",
+   "15 Cleanup"
+  ],
   "body": "Lab 04 — Deployment Objective Promote Lab 03's digest through staging to production with an explicit approval gate — same digest, two environments. Prerequisites - Lab 03 digest in GHCR; concepts: Continuous Delivery ../07-continuous-delivery/continuous-delivery.md , Environments & Release ../09-environments-and-release/environments-release.md . Architecture main → deploy digest to staging auto → smoke check → GitHub Environment production required reviewer → deploy same digest → verify. Setup Repo Settings → Environments → create staging and production ; set a required reviewer on production . Step 1 — Staging auto-deploys Execute Expected Result Every main merge deploys staging without human action. Why Staging proves the artifact continuously; automation here is safe because users never see it. Step 2 — Production needs a human Execute Add deploy-prod with environment: production and needs: deploy-staging ; merge, then approve the pending deployment. Expected Result Production waits for approval; after approval it runs the same digest. Why This is Continuous Delivery's one gate: releasable always, deployed by decision see delivery vs deployment ../07-continuous-delivery/continuous-delivery.md . Verification - Staging deploys on every merge, no clicks. - Production blocks until approved. - Both environments ran the identical digest. Failure Scenarios - Approval never arrives: check environment reviewers and notifications. - Digests differ between envs: promotion passed a tag, not a digest — pass ${{ outputs.digest }} explicitly. Cleanup Keep environments; Lab 05 breaks production on purpose. What This Proved Promotion paths, environment gates, digest discipline. Continue with Lab 05 05-rollback.md . Interview Notes - What the production approval gate actually blocks — and where reviewers are configured. - Tag vs digest promotion: how you prove both environments ran identical bytes."
  },
  {
@@ -351,7 +474,24 @@
    "rollback"
   ],
   "time": 45,
-  "sections": [],
+  "sections": [
+   "Cover — Lab 05: Rollback",
+   "1 Objective",
+   "2 Prerequisites",
+   "3 Architecture",
+   "4 Setup",
+   "5 Step 1 — Cause the incident",
+   "6 Execute",
+   "7 Expected Result",
+   "8 Why",
+   "9 Step 2 — Roll back, don't rebuild",
+   "10 Execute",
+   "11 Expected Result",
+   "12 Why",
+   "13 Step 3 — Postmortem with teeth",
+   "14 Execute",
+   "15 Expected Result"
+  ],
   "body": "Lab 05 — Rollback Objective Break production deliberately, then recover by redeploying the previous known-good digest — and write the postmortem. Prerequisites - Lab 04 green with two successful production deploys you need a previous good digest ; concepts: Rollback & Recovery ../14-reliability-and-recovery/rollback-recovery.md . Architecture Bad merge → staging green-but-wrong tests miss it → approved to prod → incident → redeploy previous digest → postmortem with a pipeline action item. Setup Note the current production digest; keep its value handy. Step 1 — Cause the incident Execute Merge a change that passes tests but breaks the app's visible output e.g. wrong port, broken route . Promote to production. Expected Result Production is broken despite a green pipeline. Why Green ≠ correct: tests cover what you thought of. This is why recovery must be engineered, not improvised. Step 2 — Roll back, don't rebuild Execute Redeploy the previous digest to production re-run the old deploy-prod or dispatch with the saved digest . Time yourself. Expected Result Production healthy in minutes; no fresh build involved. Why Old digests are proven; fresh builds add untested variables to a fire see rollback rule ../14-reliability-and-recovery/rollback-recovery.md . Step 3 — Postmortem with teeth Execute Write: timeline, root cause, and one action item that becomes a pipeline change a new test, check, or alert — then implement it. Expected Result A merged pipeline change that would have caught this incident. Why Postmortems without merged changes are diary entries. Verification - Recovery time measured aim: minutes . - Previous digest redeployed, not a fresh build. - One preventive pipeline change merged. Failure Scenarios - Previous digest unknown: promotion didn't record digests — log every deployed digest from now on. - Rollback also broken: data migrated forward — forward-fix with expand-contract instead. Cleanup Keep the postmortem in the repo docs/postmortems/ . What This P"
  },
  {
@@ -365,7 +505,24 @@
    "jenkins"
   ],
   "time": 60,
-  "sections": [],
+  "sections": [
+   "Cover — Lab 06: Jenkins Live",
+   "1 Objective",
+   "2 Prerequisites",
+   "3 Architecture",
+   "4 Setup",
+   "5 Step 1 — Connect the agent",
+   "6 Execute",
+   "7 Expected Result",
+   "8 Why",
+   "9 Step 2 — Run the canonical pipeline",
+   "10 Execute",
+   "11 Expected Result",
+   "12 Why",
+   "13 Verification",
+   "14 Failure Scenarios",
+   "15 Cleanup"
+  ],
   "body": "Lab 06 — Jenkins Controller & First Pipeline Objective Run a real controller + agent with Docker Compose, connect them, and execute the canonical three-stage Jenkinsfile. Prerequisites - Docker; concepts: Jenkins Setup ../15-platforms-and-tools/jenkins/jenkins-setup.md , Jenkins Pipelines ../15-platforms-and-tools/jenkins/jenkins-pipelines.md . Architecture Compose: jenkins controller, port 8080, volume jenkins_home + agent inbound, label docker-agent → Multibranch or Pipeline job → Build/Test/Deploy stages. Setup Get the admin password: docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword . Step 1 — Connect the agent Execute Manage Jenkins → Nodes → create node agent-1 , labels docker-agent , launch via inbound; run the agent container with the secret + controller URL. Install suggested plugins. Expected Result Node page shows agent-1 online with 2–4 executors. Why Controller schedules, agents execute — this split is the whole architecture see Jenkins Architecture ../15-platforms-and-tools/jenkins/jenkins-architecture.md . Step 2 — Run the canonical pipeline Execute New Pipeline job, agent docker-agent , script: Expected Result Stage View shows three green boxes on agent-1 . Why The minimal pipeline that proves scheduling, execution, and visualization all work. Verification - Agent online, labeled, executors idle after run. - Three green stages in Stage View. - Controller ran zero builds check: no executors on master . Failure Scenarios - Agent offline: wrong secret/URL or controller unreachable — check container logs, use http://jenkins:8080 in-Compose. - No executors on controller is correct — never enable them in prod. Cleanup docker compose down keeps jenkins_home volume; down -v wipes everything. What This Proved Controller/agent split hands-on. Continue with Lab 07 07-jenkins-shared-library.md . Interview Notes - down vs down -v : which one wipes jenkins_home and why that distinction is the whole lesson. - Zero executors on the controller — "
  },
  {
@@ -379,7 +536,24 @@
    "shared-library"
   ],
   "time": 60,
-  "sections": [],
+  "sections": [
+   "Cover — Lab 07: Shared Library",
+   "1 Objective",
+   "2 Prerequisites",
+   "3 Architecture",
+   "4 Setup",
+   "5 Step 1 — Register the library",
+   "6 Execute",
+   "7 Expected Result",
+   "8 Why",
+   "9 Step 2 — Consume from two pipelines",
+   "10 Execute",
+   "11 Expected Result",
+   "12 Why",
+   "13 Verification",
+   "14 Failure Scenarios",
+   "15 Cleanup"
+  ],
   "body": "Lab 07 — Jenkins Shared Library Objective Extract a duplicated pipeline step into a versioned shared library consumed by two pipelines — reuse without copy-paste. Prerequisites - Lab 06 running; a second pipeline job; a git repo to host the library. Architecture Library repo vars/notifySlack.groovy -style step → Global Pipeline Libraries → two Jenkinsfiles call the same step → one fix propagates to both. Setup Create repo pipeline-library with vars/standardTest.groovy : Step 1 — Register the library Execute Manage Jenkins → System → Global Pipeline Libraries → add my-lib , default version main , source pointing at the repo. Expected Result Library listed, HEAD resolved. Why Versioned libraries are dependencies: pinned, reviewed, rollback-able — unlike copy-pasted steps. Step 2 — Consume from two pipelines Execute In both Jenkinsfiles: Expected Result Both pipelines green, both calling the shared step. Why One definition, N consumers — the DRY payoff, with the version pin as the safety rail. Verification - Both pipelines call the library step. - Breaking the library breaks both proves sharing ; reverting fixes both. - Library change went through PR review on its own repo. Failure Scenarios - Library my-lib not found : name mismatch or version unresolvable — check Global config + repo branch. - Untrusted library on sandbox: approve signatures or restrict to trusted source. Cleanup Keep the library repo — it is the seed of pipeline governance. What This Proved Reusable pipeline code with versioning. Continue with Lab 08 08-jenkins-backup-restore.md . Interview Notes - Library not found : the two causes name vs version and where each is configured. - Why library changes go through PR review on their own repo — what unreviewed shared code risks."
  },
  {
@@ -394,7 +568,24 @@
    "dr"
   ],
   "time": 60,
-  "sections": [],
+  "sections": [
+   "Cover — Lab 08: Backup &amp; Restore",
+   "1 Objective",
+   "2 Prerequisites",
+   "3 Architecture",
+   "4 Setup",
+   "5 Step 1 — Back up",
+   "6 Execute",
+   "7 Expected Result",
+   "8 Why",
+   "9 Step 2 — Destroy and restore",
+   "10 Execute",
+   "11 Expected Result",
+   "12 Why",
+   "13 Verification",
+   "14 Failure Scenarios",
+   "15 Cleanup"
+  ],
   "body": "Lab 08 — Jenkins Backup & Restore Objective Prove disaster recovery: back up JENKINS_HOME , destroy the controller, restore on fresh infra, replay the smoke pipeline. Prerequisites - Lab 06 controller with job history; concepts: Jenkins Advanced ../15-platforms-and-tools/jenkins/jenkins-advanced.md backup section. Architecture Running controller → stop → archive jenkins_home volume → wipe → fresh controller → restore archive → verify jobs, credentials, history → run smoke pipeline. Setup Note one job's last build number and one credential ID — these are what you will verify after restore. Step 1 — Back up Execute Expected Result jenkins-backup.tar.gz exists, timestamped; controller restarts normally. Why Offline backup = consistent snapshot; live copies risk half-written state. Step 2 — Destroy and restore Execute Expected Result Jobs, build history, credentials, and plugins all present; recorded build number matches. Why Backup untested = backup imaginary. This drill is the quarterly DR practice from the advanced doc. Verification - Job list + history identical check the recorded build number . - Credential ID present and usable. - Smoke pipeline Lab 06's runs green on the restored controller. Failure Scenarios - Plugin version drift: restore on a different image tag — pin jenkins:lts digests for controller + backup. - Permission errors: volume owned by wrong UID — chown -R 1000:1000 on the volume. Cleanup Store one backup off-machine; delete the rest. What This Proved Recovery measured, not assumed. Labs complete — return to the Topic Index ../TOPIC_INDEX.md . Interview Notes - The restore proof: which pipeline you run post-restore and what green actually verifies. - Plugin drift and UID ownership — the two restore failures and their one-line fixes."
  },
  {
@@ -408,7 +599,17 @@
    "commands"
   ],
   "time": 15,
-  "sections": [],
+  "sections": [
+   "Cover — Command Cheatsheet",
+   "1 Git",
+   "2 npm / Builds",
+   "3 Docker / GHCR",
+   "4 Jenkins (Compose lab)",
+   "5 Jenkins backup",
+   "6 GitHub Actions snippets",
+   "7 Interview Notes",
+   "8 Related Topics"
+  ],
   "body": "Command Cheatsheet Every command used across the labs and guides, grouped by tool. Copy-paste ready; details live in the linked chapters. Git See Git, Branching & Pull Requests ../01-source-control/git-branching-pull-requests.md . npm / Builds See Build Systems ../03-build-systems/build-systems.md . Docker / GHCR See Artifact Management ../05-artifacts-and-packaging/artifact-management.md . Jenkins Compose lab See Lab 06 ../16-labs/06-jenkins-controller.md , Lab 08 ../16-labs/08-jenkins-backup-restore.md . Jenkins backup See Jenkins Advanced ../15-platforms-and-tools/jenkins/jenkins-advanced.md . GitHub Actions snippets See GitHub Actions ../15-platforms-and-tools/github-actions.md . Interview Notes - Reproduce any pipeline in this file from memory: trigger, build, gate, promote, rollback. - Which snippet pins versions — and what breaks first when nothing is pinned. - Where the approval gate lives in each platform's snippet, and what happens without it. Related Topics - Topic Index ../TOPIC_INDEX.md - Glossary ../GLOSSARY.md"
  },
  {
@@ -422,7 +623,17 @@
    "runners"
   ],
   "time": 30,
-  "sections": [],
+  "sections": [
+   "Cover — GitLab CI",
+   "1 1. What Is It?",
+   "2 2. Pipeline Anatomy (GitLab Vocabulary)",
+   "3 3. Runners &amp; Tags",
+   "4 4. Environments, Review Apps &amp; Merge Trains",
+   "5 5. GitLab vs the Sisters",
+   "6 6. Failure Modes",
+   "7 7. Interview Notes",
+   "8 Related Topics"
+  ],
   "body": "GitLab CI GitLab CI is the pipeline engine inside GitLab: one YAML file in the repo .gitlab-ci.yml driving stages, runners, and environments — the same concepts as Jenkins and Actions, with GitLab's own vocabulary. 1. What Is It? Picking up from GitHub Actions ../15-platforms-and-tools/github-actions.md , where workflows lived beside the code — GitLab goes further: repo, pipeline, registry, and environments are one product, so the pipeline natively knows about merge requests, environments, and review apps. 2. Pipeline Anatomy GitLab Vocabulary - Stages run in order; jobs in the same stage run in parallel. - needs: builds a DAG like Actions , skipping stage waits. - rules: decides when jobs run merge request only, main only, paths changed — replaces the older only/except . - artifacts: passes files between jobs reports, coverage, JUnit ; cache: speeds reruns lockfile-keyed, same discipline as everywhere . 3. Runners & Tags Runner scope Use -------------- ----- Shared Fleet managed by the instance; default for most jobs Group / project specific GPU, private network, compliance isolation Tags tags: gpu Route jobs to capable runners One job = one runner by default; scale = more runners. Self-managed runners need the same patching/scaling discipline as any self-hosted fleet. 4. Environments, Review Apps & Merge Trains - Environments environment: staging/production track what's deployed where; production gates add manual approvals — the same delivery-vs-deployment line as everywhere. - Review apps on_stop: teardown spin a live environment per merge request and destroy it on merge — GitLab's built-in preview environments. - Merge trains serialize merges onto latest green main with re-verification — the same race the merge queue solves elsewhere. 5. GitLab vs the Sisters GitLab CI GitHub Actions Jenkins --- --- --- --- Config lives .gitlab-ci.yml in repo .github/workflows/ Jenkinsfile in repo Runners Shared fleet + tags Hosted + ARC Controller + agents Environments Built-in"
  },
  {
@@ -436,7 +647,16 @@
    "argocd"
   ],
   "time": 40,
-  "sections": [],
+  "sections": [
+   "Cover — ArgoCD and GitOps",
+   "1 1. What Is It?",
+   "2 2. Push vs Pull",
+   "3 3. Core Objects",
+   "4 4. Where It Fits",
+   "5 5. Failure Modes",
+   "6 6. Interview Notes",
+   "7 Related Topics"
+  ],
   "body": "ArgoCD & GitOps GitOps: git is the desired state, an in-cluster operator pulls reality toward it. ArgoCD is that operator for Kubernetes — the pipeline stops pushing to prod and starts committing to git. 1. What Is It? Picking up from GitLab CI gitlab-ci.md , where pipelines pushed artifacts outward — ArgoCD inverts the last mile: the CI pipeline builds the image and commits the new digest to a manifests repo; ArgoCD running inside the cluster notices and syncs. Cluster credentials never leave the cluster. 2. Push vs Pull Push classic CD Pull GitOps --- --- --- Actor External pipeline holds cluster creds In-cluster agent, creds stay inside Source of truth Pipeline run history Git commit Rollback Redeploy old digest git revert Drift Silent until noticed Detected + optionally auto-healed 3. Core Objects - Application: what repo+path+revision goes where cluster+namespace . - Sync waves + hooks: order resources CRDs before CRs, migrations before app — the deployment strategy's sequencing, declaratively. - ApplicationSet: one template → N environments/tenants; preview environments become a generator, not a script. - Image Updater optional : tracks new digests and commits them — automation with git as the audit trail. 4. Where It Fits CI still builds, tests, scans, signs everything upstream unchanged . The handoff changes: instead of kubectl apply from CI, CI commits image: sha-9f3a to the ops repo. Promotion = pull request between env branches/folders — reviewable, revertable, auditable. 5. Failure Modes - Auto-sync + bad commit → bad state propagates at machine speed; gate with manual sync on prod or automated kill criteria. - Secrets in the manifests repo → use external secret operators External Secrets, Sealed Secrets ; git holds references, never values. - selfHeal fighting hotfixes → emergency kubectl edits get reverted; declare a break-glass procedure pause sync, fix, commit . - Monorepo scale → thousands of Applications; shard by team/cluster with ApplicationSets."
  },
  {
@@ -450,7 +670,16 @@
    "iac"
   ],
   "time": 30,
-  "sections": [],
+  "sections": [
+   "Cover — IaC for Environments",
+   "1 1. What Is It?",
+   "2 2. Structure That Scales",
+   "3 3. IaC in the Pipeline",
+   "4 4. Preview Environments, Automated",
+   "5 5. Failure Modes",
+   "6 6. Interview Notes",
+   "7 Related Topics"
+  ],
   "body": "IaC for Environments Environments are too important to be clicked into existence: Terraform or equivalent declares every environment's infrastructure so staging and production differ only by config — never by history. 1. What Is It? Picking up from ArgoCD & GitOps ../15-platforms-and-tools/argocd-gitops.md , where app state became declarative — IaC does the same for everything underneath: VPCs, clusters, databases, DNS, IAM. Same modules, different inputs per environment. 2. Structure That Scales - State per environment never shared : one blast radius per state file; remote backend with locking. - Modules pinned by version — floating module sources are :latest with extra steps. - Env diff = input diff: instance sizes, counts, secrets references. A behavioral difference not explainable by inputs is a bug. 3. IaC in the Pipeline - terraform plan on every PR touching envs/ — the plan is the review. - apply gated like any production deployment approvals on prod, auto on dev . - Drift detection on schedule: plan nightly, alert on unexpected diffs — the IaC equivalent of ArgoCD's self-heal. - Jenkins controller itself can be code too JCasC — see Jenkins Advanced ../15-platforms-and-tools/jenkins/jenkins-advanced.md . 4. Preview Environments, Automated Combine the pieces: PR → pipeline runs a Terraform workspace or ArgoCD ApplicationSet → ephemeral env with sanitized data → destroy on merge. The highest-leverage environment pattern, fully automated, zero snowflakes. 5. Failure Modes - Shared state across envs → dev apply deletes prod tables; separate states, separate credentials. - Unreviewed apply on prod → treat IaC changes like code: PR, plan output, approval. - Secrets in state files → state holds secrets in plaintext; encrypt backends, restrict access, prefer external secret stores. - ClickOps drift → someone \"fixes\" prod in the console; drift alerts + periodic apply reconciliation. 6. Interview Notes - Why state-per-environment blast radius . - Plan-as-review: what m"
  },
  {

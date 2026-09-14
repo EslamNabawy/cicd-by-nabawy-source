@@ -715,6 +715,94 @@ class PageGrabber(HTMLParser):
             self._buf.append(f"&#{name};")
 
 
+def md_inline(text):
+    """Render the small Markdown inline subset used by the knowledge base."""
+    text = html.escape(text, quote=False)
+    text = re.sub(r"`([^`]+)`", r'<code>\1</code>', text)
+    text = re.sub(r"\*\*([^*]+)\*\*", r"<b>\1</b>", text)
+    text = re.sub(r"\[([^]]+)\]\([^)]*\)", r"\1", text)
+    return text
+
+
+def markdown_pages(path, title):
+    """Build readable print/reader pages when a legacy PDF shell is empty."""
+    raw = open(path, encoding="utf-8").read()
+    raw = re.sub(r"^---.*?---\s*", "", raw, flags=re.S)
+    raw = re.sub(r"<!--.*?-->\s*", "", raw, flags=re.S)
+    lines = raw.replace("\r\n", "\n").split("\n")
+    pages = []
+    current = []
+    in_code = False
+    code = []
+
+    def flush():
+        nonlocal current
+        if current:
+            pages.append("".join(current))
+            current = []
+
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+        if line.startswith("```"):
+            if in_code:
+                current.append('<div class="terminal">' + html.escape("\n".join(code)) + '</div>')
+                code = []
+                in_code = False
+            else:
+                in_code = True
+            i += 1
+            continue
+        if in_code:
+            code.append(line)
+            i += 1
+            continue
+        if not line.strip():
+            i += 1
+            continue
+        m = re.match(r"^(#{1,4})\s+(.+)$", line)
+        if m:
+            if len(m.group(1)) == 1:
+                i += 1
+                continue
+            if len(current) and len(current) > 18:
+                flush()
+            current.append(f'<h3 class="sec">{md_inline(m.group(2))}</h3>')
+            i += 1
+            continue
+        if line.startswith("> "):
+            current.append(f'<p class="body"><em>{md_inline(line[2:])}</em></p>')
+            i += 1
+            continue
+        if re.match(r"^[-*]\s+", line):
+            items = []
+            while i < len(lines) and re.match(r"^[-*]\s+", lines[i]):
+                items.append("<li>" + md_inline(re.sub(r"^[-*]\s+", "", lines[i])) + "</li>")
+                i += 1
+            current.append('<ul class="tight">' + "".join(items) + "</ul>")
+            continue
+        if re.match(r"^\d+[.)]\s+", line):
+            items = []
+            while i < len(lines) and re.match(r"^\d+[.)]\s+", lines[i]):
+                items.append("<li>" + md_inline(re.sub(r"^\d+[.)]\s+", "", lines[i])) + "</li>")
+                i += 1
+            current.append('<ol class="tight">' + "".join(items) + "</ol>")
+            continue
+        paragraph = [line.strip()]
+        i += 1
+        while i < len(lines) and lines[i].strip() and not re.match(r"^(#{1,4})\s+|^>\s|^[-*]\s+|^\d+[.)]\s+|^```", lines[i]):
+            paragraph.append(lines[i].strip())
+            i += 1
+        current.append('<p class="body">' + md_inline(" ".join(paragraph)) + '</p>')
+    if in_code and code:
+        current.append('<div class="terminal">' + html.escape("\n".join(code)) + '</div>')
+    flush()
+    cover = (f'<div class="page cover"><div class="brand">CI/CD ENGINEERING · KNOWLEDGE BASE</div>'
+             f'<h1>{html.escape(title)}</h1><p class="sub">CICD BY Nabawy</p>'
+             f'<div class="cover foot"><span>Reader edition</span><span class="sig">Nabawy</span></div></div>')
+    return [cover] + [f'<div class="page">{p}<div class="pfoot"><span>CICD BY Nabawy</span><span>{i + 2}</span></div></div>' for i, p in enumerate(pages)]
+
+
 def parse_book(path):
     src = open(path, encoding="utf-8").read()
     css = re.findall(r"<style>(.*?)</style>", src, re.S)
@@ -1219,6 +1307,13 @@ def build():
     all_body = {}
     for idx, b in enumerate(books):
         css, pages = parse_book(os.path.join(PDF, b["file"]))
+        # Some older print files are shells with a cover but no article body.
+        # The canonical Markdown source is the authoritative fallback so those
+        # books and labs remain readable instead of silently rendering empty.
+        source_path = MD_MAP.get(b["id"])
+        page_text = re.sub(r"<[^>]+>", " ", "".join(pages))
+        if source_path and os.path.exists(os.path.join(KB, source_path)) and len(page_text.strip()) < 500:
+            pages = markdown_pages(os.path.join(KB, source_path), b["title"])
         toc = toc_of(pages)
         all_sections[b["id"]] = [t for _, t, _ in toc][:16]
         # body text for section-level search: md source preferred (full), pdf fallback
