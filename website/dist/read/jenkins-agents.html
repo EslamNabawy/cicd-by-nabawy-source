@@ -319,7 +319,7 @@ table.gloss th{background:var(--bg2)}
 .readcontext .pathpos{font-family:var(--mono);font-size:11px;background:var(--acc-soft);color:var(--brand);border-radius:9999px;padding:3px 12px;white-space:nowrap}
 .readcontext .prereq{font-size:12px}
 .readcontext .prereq a{border:1px solid var(--line);border-radius:9999px;padding:2px 10px;margin-left:6px;white-space:nowrap}
-@media(max-width:700px){.readcontext{padding:8px 14px;font-size:12px}}
+@media(max-width:700px){.readcontext{padding:8px 14px;font-size:12px}.readcontext .wrap{gap:7px}.readback{order:-1}.readcontext .here{flex-basis:100%;overflow-wrap:anywhere}.readcontext .pathpos,.readcontext .prereq{max-width:100%;white-space:normal}.upnext{align-items:flex-start;flex-wrap:wrap;padding:12px 14px}.upnext a{overflow-wrap:anywhere}}
 /* P2.4: mobile icon-chain reflow (≤480px only, desktop untouched) */
 @media(max-width:480px){
 .readbody .life{flex-direction:column;gap:0}
@@ -339,9 +339,8 @@ table.gloss th{background:var(--bg2)}
 body[data-font=serif] .readbody{font-family:Georgia,'Times New Roman',serif}
 body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[data-font=serif] .readbody .terminal{font-family:var(--mono)}
 .readbody{line-height:var(--lh,1.7)}
-.ratebox{display:flex;gap:8px;align-items:center;background:var(--card);border:1px solid var(--line-soft);border-radius:12px;padding:12px 18px;margin-top:22px;font-size:14px}
-.ratebox button{background:transparent;border:1px solid var(--line);border-radius:9999px;font-size:14px;padding:4px 14px;cursor:pointer;color:var(--ink)}
-.ratebox button.on{background:var(--acc-soft);border-color:var(--brand)}
+.readback{display:inline-flex;align-items:center;gap:6px;color:var(--mut);text-decoration:none;font-size:13px;font-weight:600;border:1px solid var(--line-soft);border-radius:9999px;padding:5px 12px;white-space:nowrap}
+.readback:hover{color:var(--ink);border-color:var(--line);background:var(--bg2)}
 .popsearch{font-size:12px;color:var(--mut);margin-top:6px}
 .popsearch a{color:var(--mut);text-decoration:underline;cursor:pointer}
 /* Structure Map — pseudo-3D isometric (B1.2/B2/B3) */
@@ -552,9 +551,9 @@ ul.tight li{margin-bottom:4px}
 </div>
 <div class="prog" style="height:3px;background:var(--line)"><b id="pbar" style="display:block;height:100%;width:0;background:var(--acc)"></b></div>
 </header>
-<div class="readcontext" data-testid="reader-context"><div class="wrap"><a href="../shelf.html">Browse</a><span>›</span><a href="../shelf.html#path-jenkins-core">Jenkins Core</a><span>›</span><span class="here">Jenkins Agents</span><span class="pathpos">5 of 5 in Jenkins Core</span><span class="prereq">Prereq:<a href="jenkins-architecture.html">Jenkins Architecture</a></span></div></div>
+<div class="readcontext" data-testid="reader-context"><div class="wrap"><a class="readback" id="backbtn" href="../book/jenkins-agents.html">← Back</a><a href="../shelf.html">Browse</a><span>›</span><a href="../shelf.html#path-jenkins-core">Jenkins Core</a><span>›</span><span class="here">Jenkins Agents</span><span class="pathpos">5 of 5 in Jenkins Core</span><span class="prereq">Prereq:<a href="jenkins-architecture.html">Jenkins Architecture</a></span></div></div>
 <div class="rlayout">
-<aside class="toc"><h4>CONTENTS · 3 PAGES · 8 SECTIONS</h4><a href="#pp1" class="toc-l1" aria-label="Cover — JENKINSAGENTS">Cover — JENKINSAGENTS</a><a href="#pp2" class="toc-l1" aria-label="1 Fleet">1 Fleet</a><a href="#pp2" class="toc-l2" aria-label="1.1 01 / Three Kinds">1.1 01 / Three Kinds</a><a href="#pp2" class="toc-l2" aria-label="1.2 02 / Labels &amp;amp; Executors">1.2 02 / Labels &amp;amp; Executors</a><a href="#pp3" class="toc-l1" aria-label="2 Wiring">2 Wiring</a><a href="#pp3" class="toc-l2" aria-label="2.1 03 / Connection &amp;amp; Trust">2.1 03 / Connection &amp;amp; Trust</a><a href="#pp3" class="toc-l3" aria-label="2.1.1 TRUST BOUNDARY">2.1.1 TRUST BOUNDARY</a><a href="#pp3" class="toc-l2" aria-label="2.2 04 / Handoff">2.2 04 / Handoff</a>
+<aside class="toc"><h4>CONTENTS · 3 PAGES · 8 SECTIONS</h4><a href="#p1" class="toc-l1" aria-label="Cover — JENKINSAGENTS">Cover — JENKINSAGENTS</a><a href="#p2" class="toc-l1" aria-label="1 Fleet">1 Fleet</a><a href="#p2" class="toc-l2" aria-label="1.1 01 / Three Kinds">1.1 01 / Three Kinds</a><a href="#p2" class="toc-l2" aria-label="1.2 02 / Labels &amp;amp; Executors">1.2 02 / Labels &amp;amp; Executors</a><a href="#p3" class="toc-l1" aria-label="2 Wiring">2 Wiring</a><a href="#p3" class="toc-l2" aria-label="2.1 03 / Connection &amp;amp; Trust">2.1 03 / Connection &amp;amp; Trust</a><a href="#p3" class="toc-l3" aria-label="2.1.1 TRUST BOUNDARY">2.1.1 TRUST BOUNDARY</a><a href="#p3" class="toc-l2" aria-label="2.2 04 / Handoff">2.2 04 / Handoff</a>
 <div style="margin-top:14px"><a href="../pdf/pdf-12-jenkins-agents.html">⭳ Open print HTML</a></div>
 </aside>
 <main class="read"><div class="readbody">
@@ -600,7 +599,6 @@ agent none                           <span class="c">// each stage picks</span><
 </div>
 
 <div class="relatedbox"><h4>Related books</h4><ul class="relgrid"><li class="relcard" data-cat="Jenkins" style="--cat:#22B8CF"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 8h10M7 12h10M7 16h10"/><circle cx="12" cy="12" r="9" opacity=".35"/></svg></span><span class="rel-main"><a href="jenkins-architecture.html">Jenkins Architecture</a><span class="rel-meta">25 min · <span class="difbadge beg">Beg</span></span><span class="rel-why">→ Prerequisite</span></span></li><li class="relcard" data-cat="Jenkins" style="--cat:#22B8CF"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 8h10M7 12h10M7 16h10"/><circle cx="12" cy="12" r="9" opacity=".35"/></svg></span><span class="rel-main"><a href="jenkins-advanced.html">Jenkins Advanced</a><span class="rel-meta">45 min · <span class="difbadge adv">Adv</span></span><span class="rel-why">→ Follow-up</span></span></li><li class="relcard" data-cat="Jenkins" style="--cat:#22B8CF"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 8h10M7 12h10M7 16h10"/><circle cx="12" cy="12" r="9" opacity=".35"/></svg></span><span class="rel-main"><a href="jenkins-pipelines.html">Jenkins Pipelines</a><span class="rel-meta">35 min · <span class="difbadge int">Int</span></span><span class="rel-why">→ Previous in path</span></span></li><li class="relcard" data-cat="Jenkins" style="--cat:#22B8CF"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 8h10M7 12h10M7 16h10"/><circle cx="12" cy="12" r="9" opacity=".35"/></svg></span><span class="rel-main"><a href="jenkins-troubleshooting.html">Jenkins Troubleshooting</a><span class="rel-meta">30 min · <span class="difbadge int">Int</span></span><span class="rel-why">→ Follow-up</span></span></li></ul></div>
-<div class="ratebox" id="ratebox"><span>Was this book useful?</span><button id="rateup" aria-label="Mark useful">👍 Yes</button><button id="ratedown" aria-label="Mark not useful">👎 No</button><span id="ratethanks" style="color:var(--mut)"></span></div>
 <div class="chapnav"><a id="prevbook" href="jenkins-pipelines.html"><small>← Jenkins Core</small>Jenkins Pipelines</a><span></span></div>
 </div></main>
 <div id="lightbox" role="dialog" aria-label="Diagram viewer"><img alt="Enlarged diagram"></div>
@@ -659,12 +657,6 @@ function tocUpdate(){const secs=$$('.readbody .page');let cur=secs[0]&&secs[0].i
   secs.forEach(s=>{if(s.getBoundingClientRect().top<160)cur=s.id});
   window._cur=cur;
   $$('aside.toc a').forEach(a=>a.classList.toggle('cur',a.getAttribute('href')==='#'+cur));}
-const RATEKEY='cicdlib:rate:'+BID;
-function syncRate(){const v=getP(RATEKEY,null);const u=$('#rateup'),d=$('#ratedown'),t=$('#ratethanks');if(u)u.classList.toggle('on',v==='up');if(d)d.classList.toggle('on',v==='down');if(t)t.textContent=v?'Thanks for the feedback!':'';}
-const _ru=$('#rateup'),_rd=$('#ratedown');
-if(_ru)_ru.onclick=()=>{setP(RATEKEY,getP(RATEKEY,null)==='up'?null:'up');syncRate();};
-if(_rd)_rd.onclick=()=>{setP(RATEKEY,getP(RATEKEY,null)==='down'?null:'down');syncRate();};
-syncRate();
 window.addEventListener('scroll',()=>{tocUpdate();
   const h=document.documentElement,p=Math.min(100,Math.round(100*(h.scrollTop)/(h.scrollHeight-h.clientHeight||1)));
   setP(PKEY,{pct:p,ts:Date.now()});const bar=$('#pbar');if(bar)bar.style.width=p+'%';},{passive:true});
@@ -689,6 +681,14 @@ $('#setbtn').onclick=()=>$('#drawer').classList.add('open');
 $('#drawer .scrim').onclick=()=>$('#drawer').classList.remove('open');
 $('#tocbtn').onclick=()=>$('aside.toc').classList.toggle('open');
 $$('aside.toc a').forEach(a=>a.onclick=()=>{if(innerWidth<=900)$('aside.toc').classList.remove('open')});
+const back=$('#backbtn');
+if(back)back.addEventListener('click',e=>{
+  let sameOrigin=false;
+  try{sameOrigin=!!document.referrer&&new URL(document.referrer,location.href).origin===location.origin;}catch(err){}
+  if(sameOrigin&&history.length>1){e.preventDefault();history.back();}
+});
+window.addEventListener('hashchange',tocUpdate);
+window.addEventListener('pageshow',tocUpdate);
 applyPref();tocUpdate();
 </script>
 </body>
