@@ -32,6 +32,7 @@
 - Filenames: lowercase kebab-case, stable (website + PDF share them).
 - Generic icons inherit CSS color (`currentColor`); brand logos keep official colors (do not recolor Jenkins/Git/Docker marks).
 - Dark glyphs as `<img>` can't follow theme via CSS, so `build.py` scopes `filter:invert(1)` to dark surfaces only (`:is([data-theme="dark"],[data-theme="dim"],[data-theme="contrast"])`); light/sepia render the native dark SVG.
+- `currentColor` line glyphs (Lucide) resolve via OS CanvasText when loaded as `<img>` — unreliable across OS/site theme combos — so `build.py` forces `filter:brightness(0)` (black strokes) on light/sepia. Never blanket-filter brand fills (git red diamond etc. stay untouched in both themes).
 - Before adding an icon: reuse from this registry → else Simple Icons (brands) / Lucide (concepts) → verify license → download SVG → register here.
 - Every icon must render in print (A4) and survive grayscale (never color-alone semantics).
 
