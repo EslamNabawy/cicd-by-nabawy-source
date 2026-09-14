@@ -34,8 +34,6 @@
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/book/rollback.html</loc><lastmod>2026-09-15</lastmod></url>
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/read/lab-01.html</loc><lastmod>2026-09-15</lastmod></url>
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/book/lab-01.html</loc><lastmod>2026-09-15</lastmod></url>
-  <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/read/lab-02.html</loc><lastmod>2026-09-15</lastmod></url>
-  <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/book/lab-02.html</loc><lastmod>2026-09-15</lastmod></url>
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/read/lab-03.html</loc><lastmod>2026-09-15</lastmod></url>
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/book/lab-03.html</loc><lastmod>2026-09-15</lastmod></url>
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/read/lab-04.html</loc><lastmod>2026-09-15</lastmod></url>
@@ -129,8 +127,7 @@
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/pdf/pdf-25-environments-release.html</loc><lastmod>2026-09-15</lastmod></url>
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/pdf/pdf-26-cicd-security.html</loc><lastmod>2026-09-15</lastmod></url>
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/pdf/pdf-27-rollback-recovery.html</loc><lastmod>2026-09-15</lastmod></url>
-  <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/pdf/pdf-28-lab-first-pipeline.html</loc><lastmod>2026-09-15</lastmod></url>
-  <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/pdf/pdf-29-lab-build-test.html</loc><lastmod>2026-09-15</lastmod></url>
+  <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/pdf/pdf-28-pipeline-labs.html</loc><lastmod>2026-09-15</lastmod></url>
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/pdf/pdf-30-lab-artifacts.html</loc><lastmod>2026-09-15</lastmod></url>
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/pdf/pdf-31-lab-deployment.html</loc><lastmod>2026-09-15</lastmod></url>
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/pdf/pdf-32-lab-rollback.html</loc><lastmod>2026-09-15</lastmod></url>

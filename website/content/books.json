@@ -329,55 +329,32 @@
   },
   {
     "id": "lab-01",
-    "title": "Lab 01 · Core: First Pipeline",
-    "file": "pdf-28-lab-first-pipeline.html",
+    "title": "Lab 01-02 · Core: Pipeline Labs",
+    "file": "pdf-28-pipeline-labs.html",
     "category": "Labs",
     "difficulty": "Beginner",
-    "description": "Push to green check with branch protection.",
-    "time_minutes": 45,
+    "description": "First pipeline to hermetic build and test: green checks, gates, DAG, caching.",
+    "time_minutes": 90,
     "prereqs": [
       "foundations"
     ],
     "outcomes": [
       "Push to green check",
-      "Protect main branch",
-      "Read pipeline logs"
+      "Enforce gates with branch protection",
+      "Build DAG jobs with caching",
+      "Prove hermetic build"
     ],
     "tags": [
       "lab",
-      "pipeline"
+      "pipeline",
+      "build"
     ],
     "path": "labs",
     "lab_env": "GitHub + Actions",
     "updated": "2026-09-01",
     "version": "2.0"
   },
-  {
-    "id": "lab-02",
-    "title": "Lab 02 · Core: Build & Test",
-    "file": "pdf-29-lab-build-test.html",
-    "category": "Labs",
-    "difficulty": "Intermediate",
-    "description": "DAG jobs, caching, hermetic proof.",
-    "time_minutes": 45,
-    "prereqs": [
-      "lab-01",
-      "build"
-    ],
-    "outcomes": [
-      "Build DAG jobs",
-      "Cache deps",
-      "Prove hermetic build"
-    ],
-    "tags": [
-      "lab",
-      "build"
-    ],
-    "path": "labs",
-    "lab_env": "GitHub + Docker",
-    "updated": "2026-09-01",
-    "version": "2.0"
-  },
+  
   {
     "id": "lab-03",
     "title": "Lab 03 · Core: Artifacts",
@@ -387,7 +364,7 @@
     "description": "SHA tags, GHCR, SBOM.",
     "time_minutes": 45,
     "prereqs": [
-      "lab-02",
+      "lab-01",
       "artifacts"
     ],
     "outcomes": [
