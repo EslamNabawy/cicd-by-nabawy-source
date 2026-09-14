@@ -283,6 +283,7 @@ table.gloss th{background:var(--bg2)}
 .imgfallback{display:none;background:var(--bg2);border:1px dashed var(--line);border-radius:8px;padding:12px;font-size:13px;color:var(--mut)}
 @media(max-width:900px){header.top .wrap{gap:10px}.crumbs .here{max-width:110px} .search kbd{display:none}}
 @media(max-width:600px){header.top .wrap{gap:4px}}
+@media(max-width:380px){header.top .wrap>a[href$="glossary.html"]{display:none}}
 
 
 /* icon: dark glyphs (github #181717 + currentColor line icons) invert ONLY on dark surfaces; light/sepia keep native dark svg */
