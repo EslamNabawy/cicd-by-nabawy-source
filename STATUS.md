@@ -21,8 +21,8 @@ Branch: `levelup/ui-ux-content` | Manifest: `tasks.yaml` | QC: `python scripts/q
 | P3.5 | Vendor-neutral generics check | passed | Kaniko snippet moved generic→jenkins-pipelines; 3 judged clean. Committed f29f588. |
 | P3.gate | Content phase rebuild | passed | Build green (exit 0). Dist committed e89ff91. |
 | P4.1 | Full QC + rebuild diff summary | waived | 33 pre-existing (identical to main); waived per approval to proceed. |
-| P4.2 | Regression spot-check | in-progress | 5 books: frontmatter, anchors, icons + mapping 23/23. |
-| P4.3 | Deploy | pending | |
+| P4.2 | Regression spot-check | passed | Checklist confirmed 2026-09-14. Frontmatter 5/5, anchors match main, icons 0 unmapped. |
+| P4.3 | Deploy | blocked-on-human | Pushed + PR #1 open. Awaiting human merge → auto-deploy. |
 | P4.4 | Live verification | pending | |
 
 Resume: `Read STATUS.md and tasks.yaml, continue from first non-passed task.`
