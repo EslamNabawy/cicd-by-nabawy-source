@@ -334,6 +334,14 @@ table.gloss{width:100%;border-collapse:collapse;font-size:14px;margin:16px 0}
 table.gloss td,table.gloss th{border:1px solid var(--line);padding:9px 11px;text-align:left}
 table.gloss th{background:var(--bg2)}
 table.gloss .upd{color:var(--brand);font-weight:700;font-size:11px;white-space:nowrap}
+.gtbar{position:sticky;top:57px;z-index:15;background:var(--bg);padding:10px 0 6px}
+.gtbar input{width:100%;background:var(--card);border:1px solid var(--line);color:var(--ink);border-radius:9999px;padding:9px 14px;font-size:14px}
+.az{display:flex;gap:4px;overflow-x:auto;padding:8px 2px 2px;-webkit-overflow-scrolling:touch}
+.az a,.az span.dim{flex:none;min-width:34px;height:34px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:8px;font-family:var(--mono);font-size:13px;color:var(--ink)}
+.az a{background:var(--card)}
+.az span.dim{opacity:.3}
+table.gloss tr{scroll-margin-top:150px}
+@media(max-width:600px){table.gloss,table.gloss tbody{display:block;width:100%;overflow:visible}table.gloss tr:first-child{display:none}table.gloss tr{display:block;background:var(--card);border:1px solid var(--line-soft);border-radius:12px;margin:0 0 10px;padding:12px 14px}table.gloss td{display:block;border:none;padding:3px 0}table.gloss td:first-child{font-size:16px}table.gloss td:last-child a{display:inline-block;padding:10px 16px;border:1px solid var(--line);border-radius:9999px}.gtbar input{min-height:44px;font-size:16px}.az a,.az span.dim{min-width:44px;height:44px}}
 /* P0: sepia theme + light leak guards + covers + filters + a11y */
 [data-theme=sepia]{--bg:#F6F1E7;--bg2:#EDE3CC;--card:#FFFBF0;--ink:#3B2F1E;--mut:#6F665A;--line:rgba(59,47,30,.16);--line-soft:rgba(59,47,30,.09);--acc:#0B9B68;--acc-soft:rgba(11,155,104,.11);--brand:#0B9B68;--shadow:rgba(59,47,30,.08) 0px 2px 8px;--shadow-btn:rgba(59,47,30,.10) 0px 1px 3px;--shadow-lift:rgba(59,47,30,.16) 0px 16px 32px -10px}
 [data-theme=sepia] .readbody{--paper:#FFFBF0;--white:#FFFBF0;--ink:#3B2F1E;--muted:#6F665A;--line:rgba(59,47,30,.14);--panel:#EDE3CC;--text-light:#3B2F1E}
@@ -1837,12 +1845,16 @@ try{{const cats=[...new Set($$('.book[data-id]').map(c=>c.dataset.cat))].sort();
     seen = set()
     MD_INV = {v: k for k, v in MD_MAP.items()}
     grows = ""
+    first_by_letter = {}
     for t, d, r in rows:
         t = t.strip()
         if "Term" in t or "---" in t or t.lower() in seen:
             continue
         seen.add(t.lower())
         slug = re.sub(r"[^a-z0-9]+", "-", t.lower()).strip("-")
+        _L = re.sub(r"^[^A-Za-z0-9]*", "", t).strip()[:1].upper() or "#"
+        if _L not in first_by_letter:
+            first_by_letter[_L] = slug
         rm = re.match(r"\[([^]]+)\]\(([^)]+)\)", r.strip())
         if rm:
             rlabel, rpath = rm.group(1), rm.group(2)
@@ -1851,6 +1863,7 @@ try{{const cats=[...new Set($$('.book[data-id]').map(c=>c.dataset.cat))].sort();
         else:
             topic = md_inline(r.strip())
         grows += f'<tr id="g-{slug}"><td><b>{html.escape(t)}</b></td><td>{html.escape(d.strip())}</td><td>{topic}</td><td><a href="#g-{slug}" title="Permalink">¶</a></td></tr>'
+    _az = "".join(f'<a href="#g-{first_by_letter[L]}">{L}</a>' if L in first_by_letter else f'<span class="dim">{L}</span>' for L in [chr(c) for c in range(65, 91)])
     gloss = f"""<!DOCTYPE html>
 <html lang="en">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1861,11 +1874,13 @@ try{{const cats=[...new Set($$('.book[data-id]').map(c=>c.dataset.cat))].sort();
 <header class="top"><div class="wrap"><a class="logo" href="index.html" style="text-decoration:none;color:inherit"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="5" cy="12" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="6" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="18" r="2.6" stroke="#18E299" stroke-width="2"/><path d="M7.6 12h5.2m0 0-2.6-2.6m2.6 2.6-2.6 2.6M13.4 7.4l2.8-1M13.4 16.6l2.8 1" stroke="#18E299" stroke-width="2" stroke-linecap="round"/></svg>CICD<span> BY Nabawy</span></a>
 <div class="search"><input id="q" type="search" placeholder="Filter terms…"></div><a class="btn" href="index.html" style="text-decoration:none">Map</a><a class="btn" href="shelf.html" style="text-decoration:none">Browse</a><a class="btn" href="roadmap/" style="text-decoration:none">Roadmap</a><button class="btn" id="themebtn">☀</button></div></header>
 <div class="wrap"><h2 class="sec">Glossary</h2><p class="sub">{len(re.findall('<tr ', grows))} terms · shared by books, reader and search</p>
+<div class="gtbar"><input id="q2" type="search" placeholder="Filter terms…" aria-label="Filter glossary terms"><nav class="az" aria-label="Jump to letter">{_az}</nav></div>
 <table class="gloss"><tr><th>Term</th><th>Definition</th><th>Topic</th><th>Link</th></tr>{grows}</table></div>
 <footer><div class="wrap">CICD BY Nabawy</div></footer>
 <script>{BASE_JS}
-$('#q').addEventListener('input',e=>{{const q=e.target.value.toLowerCase();
-$$('table.gloss tr').forEach((r,i)=>{{if(!i)return;r.style.display=r.textContent.toLowerCase().includes(q)?'':'none'}})}});
+function gfilter(el){{const q=(el.value||'').toLowerCase();
+$$('table.gloss tr').forEach((r,i)=>{{if(!i)return;r.style.display=r.textContent.toLowerCase().includes(q)?'':'none'}});}};
+$('#q').addEventListener('input',e=>gfilter(e.target));const _q2=$('#q2');if(_q2)_q2.addEventListener('input',e=>gfilter(e.target));
 const THS=['sepia','dark','light'],THI={{dark:'☀',light:'☾',sepia:'◐'}};
 function syncTheme(){{const p=getP('cicdlib:pref',{{theme:'sepia'}});const th=THS.includes(p.theme)?p.theme:'sepia';document.documentElement.dataset.theme=th;const t=$('#themebtn');if(t)t.textContent=THI[th]||'☀'}}
 syncTheme();
