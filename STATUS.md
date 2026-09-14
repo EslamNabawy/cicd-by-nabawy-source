@@ -20,8 +20,8 @@ Branch: `levelup/ui-ux-content` | Manifest: `tasks.yaml` | QC: `python scripts/q
 | P3.4 | Difficulty ladder sanity check | passed | lab-02 + groovy → Intermediate (books.json). Approved + committed 8320c75. |
 | P3.5 | Vendor-neutral generics check | passed | Kaniko snippet moved generic→jenkins-pipelines; 3 judged clean. Committed f29f588. |
 | P3.gate | Content phase rebuild | passed | Build green (exit 0). Dist committed e89ff91. |
-| P4.1 | Full QC + rebuild diff summary | failed | QC 33 findings, byte-identical to main (zero new). ALL GREEN gate needs baseline-repair scope. Dist diff: 120 files, +6923/-1329 vs main. |
-| P4.2 | Regression spot-check | pending | |
+| P4.1 | Full QC + rebuild diff summary | waived | 33 pre-existing (identical to main); waived per approval to proceed. |
+| P4.2 | Regression spot-check | in-progress | 5 books: frontmatter, anchors, icons + mapping 23/23. |
 | P4.3 | Deploy | pending | |
 | P4.4 | Live verification | pending | |
 
