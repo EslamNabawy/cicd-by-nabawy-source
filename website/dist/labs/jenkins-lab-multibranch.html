@@ -3,19 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lab 03: Jenkins Multibranch Pipeline with Git — CICD BY Nabawy</title>
+<title>Lab 03: Multibranch Foundations — CICD BY Nabawy</title>
 <link rel="icon" type="image/svg+xml" href="https://eslamnabawy.github.io/cicd-by-nabawy/favicon.svg">
-<meta name="description" content="Create a Jenkins multibranch pipeline that discovers Git branches and applies branch-aware flow.">
+<meta name="description" content="Create a branch-aware Jenkins flow that discovers branches, applies filters, and verifies isolated pipeline behavior.">
 <meta name="theme-color" content="#0B0D10">
 <link rel="canonical" href="https://eslamnabawy.github.io/cicd-by-nabawy/read/jenkins-lab-multibranch.html">
-<meta property="og:title" content="Lab 03: Jenkins Multibranch Pipeline with Git — CICD BY Nabawy">
-<meta property="og:description" content="Create a Jenkins multibranch pipeline that discovers Git branches and applies branch-aware flow.">
+<meta property="og:title" content="Lab 03: Multibranch Foundations — CICD BY Nabawy">
+<meta property="og:description" content="Create a branch-aware Jenkins flow that discovers branches, applies filters, and verifies isolated pipeline behavior.">
 <meta property="og:url" content="https://eslamnabawy.github.io/cicd-by-nabawy/read/jenkins-lab-multibranch.html">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="CICD BY Nabawy">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Lab 03: Jenkins Multibranch Pipeline with Git — CICD BY Nabawy">
-<meta name="twitter:description" content="Create a Jenkins multibranch pipeline that discovers Git branches and applies branch-aware flow.">
+<meta name="twitter:title" content="Lab 03: Multibranch Foundations — CICD BY Nabawy">
+<meta name="twitter:description" content="Create a branch-aware Jenkins flow that discovers branches, applies filters, and verifies isolated pipeline behavior.">
 <meta property="og:image" content="https://eslamnabawy.github.io/cicd-by-nabawy/og/jenkins-lab-multibranch.svg">
 <link rel="prefetch" href="jenkins-lab-shared-library.html">
 <style>
@@ -509,125 +509,601 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
   .map-preview{transition:none !important}
 }
 </style><script>try{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}catch(e){document.documentElement.dataset.theme='sepia'}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Lab 03: Jenkins Multibranch Pipeline with Git", "description": "Create a Jenkins multibranch pipeline that discovers Git branches and applies branch-aware flow.", "url": "https://eslamnabawy.github.io/cicd-by-nabawy/read/jenkins-lab-multibranch.html", "author": {"@type": "Person", "name": "Nabawy"}, "isPartOf": {"@type": "CollectionPage", "name": "CICD BY Nabawy", "url": "https://eslamnabawy.github.io/cicd-by-nabawy"}}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Library", "item": "https://eslamnabawy.github.io/cicd-by-nabawy/"}, {"@type": "ListItem", "position": 2, "name": "Lab 03: Jenkins Multibranch Pipeline with Git", "item": "https://eslamnabawy.github.io/cicd-by-nabawy/read/jenkins-lab-multibranch.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Lab 03: Multibranch Foundations", "description": "Create a branch-aware Jenkins flow that discovers branches, applies filters, and verifies isolated pipeline behavior.", "url": "https://eslamnabawy.github.io/cicd-by-nabawy/read/jenkins-lab-multibranch.html", "author": {"@type": "Person", "name": "Nabawy"}, "isPartOf": {"@type": "CollectionPage", "name": "CICD BY Nabawy", "url": "https://eslamnabawy.github.io/cicd-by-nabawy"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Library", "item": "https://eslamnabawy.github.io/cicd-by-nabawy/"}, {"@type": "ListItem", "position": 2, "name": "Lab 03: Multibranch Foundations", "item": "https://eslamnabawy.github.io/cicd-by-nabawy/read/jenkins-lab-multibranch.html"}]}</script>
 <style>
-.readbody{--paper:#f5f6f4;--white:#fff;--ink:#161a19;--muted:#68706d;--line:#d5dad7;--panel:#111614;--panel-2:#1a201d;--text-light:#e8eeeb;--text-muted:#9ca8a3;--accent:#00b87c;--accent-dark:#008f61;--blue:#4387ff;--amber:#d99a24;--red:#d94b4b;--artifact:#8b6cff}
-*{box-sizing:border-box;margin:0;padding:0}
-.readbody{font-family:Inter,"Segoe UI",Arial,sans-serif;color:var(--ink);-webkit-print-color-adjust:exact;print-color-adjust:exact}
-@page{size:A4;margin:0}
-.page{width:210mm;min-height:297mm;padding:16mm 16mm 19mm;margin:8mm auto;position:relative;background:var(--paper);page-break-after:always;overflow:hidden;display:flex;flex-direction:column}
-@media print{.readbody{}.page{margin:0;box-shadow:none}h3.sec,.phead h2{break-after:avoid}.terminal,.step,.callout,.kv,.pipeline,.lanes,.vflow,.arch,table.cmp{break-inside:avoid}}
-.phead{font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase}
-.phead .ch{color:var(--accent-dark);font-weight:700}
-.phead h2{font-size:22px;letter-spacing:1px;color:var(--ink);margin:2px 0 6px;text-transform:uppercase}
-.phead hr{border:none;border-top:1.5px solid var(--ink);margin-bottom:10px}
-.pfoot{margin-top:auto;padding-top:8px;font-size:9px;color:var(--muted);display:flex;justify-content:space-between;border-top:1px solid var(--line);letter-spacing:1px}
-h3.sec{font-size:17px;margin:14px 0 8px;text-transform:uppercase;letter-spacing:.5px;break-after:avoid}
-h3.sec .n{color:var(--accent-dark);font-family:"Cascadia Code",Consolas,monospace;font-size:12px;margin-right:10px}
-p.body{font-size:11px;line-height:1.65;margin:7px 0}
-code,.mono{font-family:"SFMono-Regular","Cascadia Code",Consolas,monospace}
-/* cover */
-.cover{background:var(--panel);color:var(--text-light);justify-content:flex-start;padding-top:14mm}
-.cover .brand{font-size:9px;letter-spacing:4px;color:var(--text-muted)}
-.cover h1{font-size:42px;line-height:.95;margin:10px 0 6px;letter-spacing:1px}
-.cover h1 span{color:var(--accent)}
-.cover .lab-no{font-size:10px;letter-spacing:4px;color:var(--accent);margin-bottom:2px}
-.cover .sub{font-size:12px;color:var(--text-muted);line-height:1.6;margin-bottom:12px;max-width:165mm}
-.cover .tri{font-size:8.5px;letter-spacing:2.2px;color:var(--accent);margin-bottom:14px;line-height:1.9}
-.cover .dark-panel{background:var(--panel-2);border:1px solid #26302c;border-radius:10px;padding:14px 16px;margin:8px 0 10px}
-.cover .dark-panel h4{font-size:9px;letter-spacing:2px;color:var(--accent);margin-bottom:10px}
-.cover .foot{font-size:9px;color:var(--text-muted);letter-spacing:2px;margin-top:auto;padding-top:16px;display:flex;align-items:baseline;justify-content:space-between;gap:12px;border-top:1px solid #26302c}
-.cover .sig{font-family:"Brush Script MT","Segoe Script","Snell Roundhand",cursive;font-size:26px;color:var(--accent);transform:rotate(-4deg);text-shadow:0 0 14px rgba(0,184,124,.45);white-space:nowrap}
-.vpipe{display:flex;flex-direction:column;margin:6px 0}
-.vnode{display:flex;align-items:center;gap:10px}
-.vnode .dot{width:11px;height:11px;border-radius:50%;border:2px solid var(--accent);box-shadow:0 0 10px rgba(0,184,124,.45);flex:none}
+        .readbody {
+            --paper: #f5f6f4;
+            --white: #ffffff;
+            --ink: #161a19;
+            --muted: #68706d;
+            --line: #d5dad7;
+            --panel: #111614;
+            --panel-2: #1a201d;
+            --text-light: #e8eeeb;
+            --text-muted: #9ca8a3;
+            --accent: #00b87c;
+            --accent-dark: #008f61;
+            --blue: #4387ff;
+            --amber: #d99a24;
+            --red: #d94b4b;
+            --artifact: #8b6cff;
+        }
 
-.cover .vnode img{filter:drop-shadow(0 0 0.9px #18E299) drop-shadow(0 0 4px rgba(24,226,153,.22));}
-.cover .vnode img[src*="github"]{background:none;border-radius:0;padding:0;box-shadow:none;filter:drop-shadow(0 0 0.9px #18E299) drop-shadow(0 0 5px rgba(24,226,153,.28));}
-.cover .vnode img[src*="github"]{background:none;border-radius:0;padding:0;box-shadow:none;filter:drop-shadow(1px 0 0 white) drop-shadow(-1px 0 0 white) drop-shadow(0 1px 0 white) drop-shadow(0 -1px 0 white) drop-shadow(0.7px 0.7px 0 white) drop-shadow(-0.7px -0.7px 0 white) drop-shadow(-0.7px 0.7px 0 white) drop-shadow(0.7px -0.7px 0 white);}
-/* icon: github white on dark, black on light — no halo */
-.cover .vnode img[src*="github"]{filter:invert(1) brightness(1.05);background:none;box-shadow:none;border-radius:0;padding:0;}
-.cover .vnode img:not([src*="github"]){filter:none;}
-/* icon: outline/black icons white on dark covers */
-.cover .vnode img[src*="github"], .cover .vnode img[src*="workflow"], .cover .vnode img[src*="hammer"], .cover .vnode img[src*="package"], .cover .vnode img[src*="database"], .cover .vnode img[src*="puzzle"], .cover .vnode img[src*="server"], .cover .vnode img[src*="terminal"], .cover .vnode img[src*="shield"], .cover .vnode img[src*="activity"], .cover .vnode img[src*="webhook"], .cover .vnode img[src*="wrench"], .cover .vnode img[src*="flask"], .cover .vnode img[src*="rocket"]{filter:invert(1) brightness(1.05);}
-.vnode img{width:20px;height:20px;flex:none;object-fit:contain}
-.vnode b{font-size:10.5px;letter-spacing:1.6px}
-.vnode small{font-size:9px;color:var(--text-muted)}
-.vline{width:2px;height:14px;background:#2c3531;margin-left:4.5px}
-.key-concept{background:#eef0ee;border:1px solid var(--line);border-left:3px solid var(--accent);padding:10px 12px;margin:10px 0}
-.key-concept h4{font-size:9px;letter-spacing:2px;color:var(--accent-dark);margin-bottom:4px}
-.key-concept p{font-size:10.5px;line-height:1.6;margin:3px 0}
-.key-concept .mono{font-size:10px}
-.opener .bignum{font-size:56px;font-weight:800;line-height:1}
-.opener .ctitle{font-size:26px;letter-spacing:3px;margin:2px 0 8px}
-.opener .lede{font-size:12.5px;line-height:1.6;max-width:155mm;margin:6px 0}
-.opener .lede em{color:var(--accent-dark);font-style:normal;font-weight:700}
-.step{background:var(--white);border:1px solid var(--line);padding:9px 11px;margin:6px 0;font-size:11px;line-height:1.6}
-.step h4{font-size:10.5px;letter-spacing:.6px;margin-bottom:2px}
-.step h4 .tag{color:var(--accent-dark);font-family:"Cascadia Code",Consolas,monospace;font-size:10px}
-.terminal{background:#101413;color:#d6e2dc;border-radius:8px;padding:10px 12px;font-family:"SFMono-Regular","Cascadia Code",Consolas,monospace;font-size:9.2px;line-height:1.6;margin:7px 0;overflow-x:auto;white-space:pre}
-.terminal .c{color:#8b9a94}
-.terminal .g{color:var(--accent)}
-.terminal .a{color:var(--amber)}
-.terminal .r{color:var(--red)}
-.terminal .b{color:var(--blue)}
-ul.tight{font-size:11px;line-height:1.6;margin:5px 0 5px 18px}
-ul.tight li{margin-bottom:2px}
-table.cmp{width:100%;border-collapse:collapse;font-size:10.5px;margin:8px 0}
-table.cmp th{background:var(--panel);color:var(--text-light);font-size:8.5px;letter-spacing:1px;padding:6px 7px;text-align:left}
-table.cmp td{border:1px solid var(--line);padding:6px 7px;background:var(--white);line-height:1.5}
-table.cmp td:first-child{font-weight:700;background:#eef0ee}
-.kv{background:var(--white);border:1px solid var(--line);padding:9px 11px;margin:7px 0;font-size:11px;line-height:1.6}
-.kv b{color:var(--accent-dark)}
-.callout{border-left:3px solid var(--accent);background:var(--white);padding:9px 11px;margin:8px 0}
-.callout h4{font-size:8.5px;letter-spacing:1.8px;color:var(--accent-dark);margin-bottom:3px}
-.callout p{font-size:11px;line-height:1.6}
-.callout.amber{border-left-color:var(--amber)}
-.callout.amber h4{color:var(--amber)}
-.callout.red{border-left-color:var(--red)}
-.callout.red h4{color:var(--red)}
-.callout.blue{border-left-color:var(--blue)}
-.callout.blue h4{color:var(--blue)}
-.pipeline{display:flex;align-items:center;gap:6px;margin:8px 0;flex-wrap:wrap}
-.pipeline .stage{background:var(--white);border:1px solid var(--line);border-left:3px solid var(--accent);padding:7px 9px;min-width:84px;flex:1}
-.pipeline .stage.fail{border-left-color:var(--red)}
-.pipeline .stage.wait{border-left-color:var(--amber)}
-.pipeline .stage.artifact{border-left-color:var(--artifact)}
-.pipeline .stage strong{font-size:9.5px;letter-spacing:1px;display:block}
-.pipeline .stage small{font-size:8.5px;color:var(--muted)}
-.pipeline .stage .no{font-family:"Cascadia Code",Consolas,monospace;font-size:7.5px;color:var(--muted);letter-spacing:1px}
-.pipeline .conn{width:16px;height:2px;background:var(--line);position:relative;flex:none}
-.pipeline .conn:after{content:"›";position:absolute;right:-6px;top:-8px;color:var(--muted);font-size:12px}
-.lanes{margin:8px 0}
-.lanes .lane{display:flex;align-items:center;gap:8px;padding:7px 10px;border:1px solid var(--line);background:var(--white);margin-bottom:5px;font-size:10.5px}
-.lanes .lane .env{font-weight:700;font-size:9px;letter-spacing:1.4px;min-width:68px}
-.lanes .lane.dev{border-left:3px solid var(--blue)}
-.lanes .lane.stg{border-left:3px solid var(--amber)}
-.lanes .lane.prod{border-left:3px solid var(--accent)}
-.lanes .lane .branch{font-family:"Cascadia Code",Consolas,monospace;font-size:10px}
-.badge{font-size:7.5px;letter-spacing:1.1px;padding:3px 7px;border-radius:10px;border:1px solid var(--line);background:var(--white);font-weight:700}
-.badge.green{border-color:var(--accent);color:var(--accent-dark)}
-.badge.amber{border-color:var(--amber);color:#8a6a10}
-.badge.blue{border-color:var(--blue);color:var(--blue)}
-.badge.purple{border-color:var(--artifact);color:var(--artifact)}
-.status{display:inline-flex;align-items:center;gap:5px;font-size:10px;letter-spacing:.8px;font-weight:700}
-.status .dot{width:8px;height:8px;border-radius:50%}
-.status.pass{color:var(--accent-dark)}
-.status.pass .dot{background:var(--accent)}
-.status.fail{color:var(--red)}
-.status.fail .dot{background:var(--red)}
-.status.wait{color:var(--amber)}
-.status.wait .dot{background:var(--amber)}
-.status.run{color:var(--blue)}
-.status.run .dot{background:var(--blue)}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0}
-.card{background:var(--white);border:1px solid var(--line);padding:9px 10px}
-.card h4{font-size:9px;letter-spacing:1.2px;margin-bottom:4px}
-.card p{font-size:10.5px;line-height:1.55;color:var(--muted)}
-/* m-reflow: screen-only mobile reflow; print unaffected */
-@media screen and (max-width:700px){.page{width:auto;min-height:0;margin:0 auto;padding:14px 12px 18px}h3.sec{font-size:15px}.cover h1{font-size:28px}.grid2{grid-template-columns:1fr}}
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        .readbody{
+            font-family: Inter, "Segoe UI", Arial, sans-serif;
+            
+            color: var(--ink);
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+            line-height: 1.5;
+        }
+
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 16mm 16mm 19mm;
+            margin: 8mm auto;
+            position: relative;
+            background: var(--paper);
+            page-break-after: always;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .page:last-child { page-break-after: auto; }
+
+        /* HEADER & FOOTER */
+        .page-header {
+            display: flex;
+            align-items: center;
+            font-size: 9px;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 20px;
+        }
+        .h-chip { font-weight: 700; color: var(--ink); }
+        .h-rule { flex: 1; height: 1px; background: var(--line); margin: 0 12px; }
+        .h-title { font-weight: 500; }
+
+        .page-footer {
+            position: absolute;
+            bottom: 10mm;
+            left: 16mm;
+            right: 16mm;
+            display: flex;
+            align-items: center;
+            font-size: 9px;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .f-left { font-weight: 700; color: var(--ink); }
+        .f-rule { flex: 1; height: 1px; background: var(--line); margin: 0 12px; }
+        .f-right { font-weight: 500; }
+
+        /* CONTENT */
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h2.section-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--ink);
+            display: flex;
+            align-items: baseline;
+        }
+        h2.section-title .n {
+            font-size: 14px;
+            color: var(--blue);
+            font-weight: 600;
+            margin-right: 8px;
+            letter-spacing: 1px;
+        }
+        h3.sub-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            margin-top: 10px;
+            color: var(--ink);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        p { font-size: 11.5px; color: var(--ink); margin-bottom: 10px; line-height: 1.6; }
+        strong { font-weight: 600; }
+        code { font-family: "SFMono-Regular", "Cascadia Code", "Consolas", monospace; background: rgba(0,0,0,0.05); padding: 1px 4px; border-radius: 3px; font-size: 10.5px; }
+        
+        /* COVER */
+        .cover {
+            background: var(--panel);
+            color: var(--text-light);
+            padding: 0;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+        }
+        .cover-left { padding: 30mm 25mm; display: flex; flex-direction: column; justify-content: space-between; }
+        .cover-right { background: var(--panel-2); display: flex; align-items: center; justify-content: center; border-left: 1px solid #2a2f2d; padding: 40mm 20mm; }
+
+        .cover-title { font-size: 48px; font-weight: 700; line-height: 1.05; letter-spacing: -1.5px; margin-bottom: 15px; }
+        .cover-sub { font-size: 18px; color: var(--text-muted); font-weight: 400; margin-bottom: 40px; line-height: 1.4; }
+        .cover-meta { font-size: 10px; letter-spacing: 3px; color: var(--blue); text-transform: uppercase; font-weight: 600; border-top: 1px solid #2a2f2d; padding-top: 15px; }
+        .cover-footer { display: flex; justify-content: flex-end; align-items: center; }
+
+        .sig {
+            font-family: "Brush Script MT", "Segoe Script", "Snell Roundhand", cursive;
+            font-size: 32px; 
+            color: var(--accent); 
+            transform: rotate(-4deg);
+            text-shadow: 0 0 14px rgba(0,184,124,.45); 
+            white-space: nowrap;
+            margin-top: 20px;
+        }
+
+        /* VERTICAL PIPELINE (COVER) */
+        .v-pipeline {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0;
+            width: 100%;
+        }
+        .v-stage {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 14px 20px;
+            width: 100%;
+            position: relative;
+        }
+        .v-dot {
+            width: 10px; height: 10px; border-radius: 50%;
+            background: var(--blue);
+            box-shadow: 0 0 12px var(--blue);
+            flex-shrink: 0;
+        }
+        .v-stage.idle .v-dot { background: var(--muted); box-shadow: none; }
+        .v-stage.running .v-dot { background: var(--blue); box-shadow: 0 0 12px var(--blue); }
+        .v-stage.amber .v-dot { background: var(--amber); box-shadow: 0 0 12px var(--amber); }
+        .v-info strong { display: block; color: var(--text-light); font-size: 14px; font-weight: 600; letter-spacing: 1px; }
+        .v-info small { display: block; color: var(--text-muted); font-size: 10px; }
+        .v-line {
+            width: 2px; height: 24px; background: var(--text-muted); margin-left: 24px;
+            opacity: 0.3;
+        }
+
+        /* HORIZONTAL PIPELINE */
+        .pipeline {
+            display: flex;
+            align-items: stretch;
+            margin: 20px 0;
+            width: 100%;
+        }
+        .stage {
+            flex: 1;
+            background: var(--white);
+            border: 1px solid var(--line);
+            padding: 12px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            border-left-width: 3px;
+        }
+        .stage-no { font-size: 9px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+        .stage strong { font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--ink); }
+        .stage small { font-size: 10px; color: var(--muted); display: block; margin-bottom: 4px; }
+        
+        .stage.passed { border-left-color: var(--accent); }
+        .stage.passed .stage-no { color: var(--accent-dark); }
+        .stage.running { border-left-color: var(--blue); }
+        .stage.running .stage-no { color: var(--blue); }
+        .stage.failed { border-left-color: var(--red); }
+        .stage.failed .stage-no { color: var(--red); }
+        .stage.waiting { border-left-color: var(--amber); }
+        .stage.waiting .stage-no { color: var(--amber); }
+        .stage.artifact { border-left-color: var(--artifact); }
+        .stage.artifact .stage-no { color: var(--artifact); }
+        .stage.skipped { border-left-color: var(--muted); opacity: 0.6; }
+        .stage.skipped .stage-no { color: var(--muted); }
+
+        .connector {
+            width: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            flex-shrink: 0;
+        }
+        .connector::before {
+            content: '';
+            width: 100%;
+            height: 2px;
+            background: var(--line);
+        }
+        .connector::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            width: 0; height: 0;
+            border-left: 6px solid var(--line);
+            border-top: 4px solid transparent;
+            border-bottom: 4px solid transparent;
+        }
+
+        .status-pill {
+            font-size: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 700;
+            display: inline-block;
+            margin-top: auto;
+            align-self: flex-start;
+        }
+        .status-pill.passed { background: rgba(0,184,124,0.15); color: var(--accent-dark); }
+        .status-pill.running { background: rgba(67,135,255,0.15); color: var(--blue); }
+        .status-pill.waiting { background: rgba(217,154,36,0.15); color: var(--amber); }
+        .status-pill.failed { background: rgba(217,75,75,0.15); color: var(--red); }
+        .status-pill.skipped { background: rgba(104,112,109,0.15); color: var(--muted); }
+
+        /* TERMINAL */
+        .terminal {
+            background: var(--panel);
+            color: var(--text-light);
+            border-radius: 6px;
+            padding: 14px 16px;
+            font-family: "SFMono-Regular", "Cascadia Code", "Consolas", monospace;
+            font-size: 10.5px;
+            line-height: 1.65;
+            margin: 10px 0;
+            border: 1px solid #2a2f2d;
+        }
+        .term-line { display: block; }
+        .term-prompt { color: var(--accent); }
+        .term-out { color: var(--text-muted); }
+        .term-ok { color: var(--accent); }
+        .term-warn { color: var(--amber); }
+        .term-err { color: var(--red); }
+        .term-blue { color: var(--blue); }
+        .term-artifact { color: var(--artifact); }
+
+        /* COMMAND + RESULT */
+        .cmdres {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        .cmdres > div { display: flex; flex-direction: column; }
+        .cmdres h4 { font-size: 9px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; font-weight: 700; letter-spacing: 1px; }
+        .cmdres .term-box {
+            border: 1px solid var(--line);
+            padding: 10px;
+            background: var(--panel);
+            color: var(--text-light);
+            font-family: "SFMono-Regular", "Cascadia Code", "Consolas", monospace;
+            font-size: 10px;
+            flex: 1;
+            border-radius: 4px;
+        }
+
+        /* CONCEPT GRID */
+        .concept-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 15px 0;
+        }
+        .concept-block h4 { font-size: 10px; text-transform: uppercase; color: var(--blue); margin-bottom: 6px; font-weight: 700; letter-spacing: 1px; }
+        .concept-block p { font-size: 11px; line-height: 1.5; color: var(--ink); }
+
+        /* CALLOUTS */
+        .callout {
+            border-left: 3px solid var(--accent);
+            background: rgba(0, 184, 124, 0.05);
+            padding: 12px 16px;
+            margin: 15px 0;
+        }
+        .callout h4 { font-size: 10px; text-transform: uppercase; color: var(--accent-dark); margin-bottom: 4px; font-weight: 700; letter-spacing: 1px; }
+        .callout p { font-size: 11.5px; color: var(--ink); line-height: 1.5; margin: 0; }
+
+        .gotcha { border-left-color: var(--amber); background: rgba(217, 154, 36, 0.05); }
+        .gotcha h4 { color: var(--amber); }
+        
+        .interview { border-left-color: var(--blue); background: rgba(67, 135, 255, 0.05); }
+        .interview h4 { color: var(--blue); }
+        .interview p { margin-bottom: 5px; }
+        .interview strong { color: var(--ink); }
+
+        /* DECISION DIAGRAM */
+        .dec-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0;
+            font-size: 11px;
+        }
+        .dec-q { 
+            border: 1px solid var(--ink); 
+            padding: 8px 20px; 
+            font-weight: 600; 
+            text-transform: uppercase;
+            background: var(--white);
+            position: relative;
+        }
+        .dec-q::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            width: 2px;
+            height: 20px;
+            background: var(--ink);
+        }
+        .dec-branches {
+            display: flex;
+            justify-content: space-around;
+            width: 80%;
+            margin-top: 20px;
+            position: relative;
+        }
+        .dec-branches::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 10%;
+            width: 80%;
+            height: 20px;
+            border-top: 2px solid var(--ink);
+            border-left: 2px solid var(--ink);
+            border-right: 2px solid var(--ink);
+        }
+        .dec-branch {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        .dec-label { font-weight: 700; text-transform: uppercase; font-size: 10px; }
+        .dec-branch.yes .dec-label { color: var(--accent-dark); }
+        .dec-branch.no .dec-label { color: var(--red); }
+        .dec-val { 
+            border: 1px dashed var(--muted); 
+            padding: 8px 12px; 
+            text-align: center; 
+            background: var(--white);
+            font-size: 10px;
+            line-height: 1.4;
+        }
+        .dec-val span { display: block; font-family: monospace; color: var(--blue); margin-top: 4px; }
+
+        /* LAB FORMAT */
+        .lab-step {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px dashed var(--line);
+        }
+        .lab-step:last-child { border-bottom: none; }
+        .step-no { 
+            font-size: 10px; 
+            font-weight: 700; 
+            color: var(--blue); 
+            text-transform: uppercase; 
+            width: 70px; 
+            flex-shrink: 0; 
+            letter-spacing: 1px;
+            padding-top: 2px;
+        }
+        .lab-content p { margin: 0; font-size: 11.5px; }
+
+        /* ARCHITECTURE DIAGRAM */
+        .arch-diagram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0;
+            font-size: 11px;
+        }
+        .arch-row { display: flex; justify-content: center; align-items: center; gap: 20px; }
+        .arch-node {
+            border: 1px solid var(--line);
+            padding: 10px 15px;
+            background: var(--white);
+            text-align: center;
+            width: 180px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 10px;
+            letter-spacing: 1px;
+            position: relative;
+        }
+        .arch-node.highlight { border-color: var(--accent); color: var(--accent-dark); background: rgba(0,184,124,0.05); }
+        .arch-node.blue { border-color: var(--blue); color: var(--blue); background: rgba(67,135,255,0.05); }
+        .arch-node.amber { border-color: var(--amber); color: var(--amber); background: rgba(217,154,36,0.05); }
+        .arch-node.artifact { border-color: var(--artifact); color: var(--artifact); background: rgba(139,108,255,0.05); }
+        .arch-arrow {
+            height: 24px;
+            width: 2px;
+            background: var(--line);
+            position: relative;
+        }
+        .arch-arrow::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -4px;
+            width: 0; height: 0;
+            border-top: 6px solid var(--line);
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+        }
+        .arch-arrow.h { width: 40px; height: 2px; }
+        .arch-arrow.h::after {
+            top: -4px;
+            left: auto;
+            right: -4px;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            border-left: 6px solid var(--line);
+            border-right: none;
+        }
+        .arch-arrow.labeled::before {
+            content: attr(data-label);
+            position: absolute;
+            left: 10px;
+            top: 4px;
+            font-size: 9px;
+            color: var(--muted);
+            text-transform: uppercase;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        
+        /* FOLDER TREE */
+        .folder-tree {
+            border: 1px solid var(--line);
+            background: var(--white);
+            padding: 15px;
+            font-family: "SFMono-Regular", "Cascadia Code", "Consolas", monospace;
+            font-size: 11px;
+            margin: 15px 0;
+        }
+        .ft-item { margin: 4px 0; color: var(--ink); }
+        .ft-item.parent { font-weight: 700; color: var(--blue); }
+        .ft-item.child { margin-left: 20px; color: var(--muted); }
+        .ft-item.deleted { text-decoration: line-through; color: var(--red); }
+        .ft-status { float: right; font-size: 9px; padding: 2px 6px; border-radius: 3px; font-weight: 700; text-transform: uppercase; }
+        .ft-status.active { background: rgba(0,184,124,0.15); color: var(--accent-dark); }
+        .ft-status.orphan { background: rgba(217,75,75,0.15); color: var(--red); }
+
+        /* ENVIRONMENT LANES */
+        .lanes { margin: 20px 0; }
+        .lane {
+            border: 1px solid var(--line);
+            margin-bottom: 10px;
+            background: var(--white);
+            display: flex;
+            align-items: stretch;
+        }
+        .lane-header { 
+            background: var(--panel-2); 
+            color: var(--text-light); 
+            padding: 10px 15px; 
+            font-size: 10px; 
+            text-transform: uppercase; 
+            font-weight: 700; 
+            letter-spacing: 1px; 
+            width: 100px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            text-align: center;
+        }
+        .lane-body { 
+            padding: 10px 15px; 
+            flex: 1; 
+            display: flex; 
+            flex-direction: column;
+            gap: 8px;
+        }
+        .lane-stage { 
+            font-size: 10px; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            color: var(--muted); 
+        }
+        .lane-stage.active { color: var(--ink); font-weight: 600; }
+        .lane-stage .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--muted); }
+        .lane-stage.active .dot { background: var(--accent); }
+        .lane-stage.skipped .dot { background: var(--muted); }
+
+        /* TABLES */
+        table.cmp {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+            margin: 15px 0;
+            background: var(--white);
+        }
+        table.cmp th, table.cmp td {
+            border: 1px solid var(--line);
+            padding: 8px 10px;
+            text-align: left;
+        }
+        table.cmp th {
+            background: var(--panel-2);
+            color: var(--text-light);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 9px;
+            letter-spacing: 1px;
+        }
+        table.cmp td:first-child { font-weight: 600; color: var(--muted); }
+
+        /* SYSTEM MAP */
+        .sys-map {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            margin: 20px 0;
+        }
+        .map-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+        }
+        .map-box {
+            border: 1px solid var(--ink);
+            padding: 12px 20px;
+            background: var(--white);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+            min-width: 140px;
+        }
+        .map-box.artifact { border-color: var(--artifact); color: var(--artifact); }
+        .map-box.blue { border-color: var(--blue); color: var(--blue); }
+        .map-box.green { border-color: var(--accent); color: var(--accent-dark); }
+        .map-arr { color: var(--muted); font-size: 14px; }
+        .map-line { width: 2px; height: 15px; background: var(--line); margin: 0 auto; }
+        .map-feedback {
+            border: 1px dashed var(--accent);
+            padding: 10px;
+            color: var(--accent-dark);
+            font-size: 10px;
+            text-align: center;
+            margin-top: 10px;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        @media print {
+            .readbody{  }
+            .page { margin: 0; box-shadow: none; border: none; }
+        }
+    
 /* reader overrides */
 .readbody .page:not(.cover){width:auto !important;min-height:0 !important;margin:0 auto !important;padding:10px 26px !important;background:transparent !important;border-radius:0;page-break-after:auto !important;overflow:visible}
 .readbody .page.cover{align-items:flex-start !important;border-radius:16px;padding:48px 34px !important;margin:0 auto 30px !important}
@@ -640,10 +1116,10 @@ table.cmp td:first-child{font-weight:700;background:#eef0ee}
 </head>
 <body data-book="jenkins-lab-multibranch">
 <header class="top"><div class="wrap">
-<button class="btn tocbtn" id="tocbtn" aria-label="Open table of contents">☰ Contents · 42</button>
+<button class="btn tocbtn" id="tocbtn" aria-label="Open table of contents">☰ Contents · 23</button>
 <nav class="crumbs"><a class="logo" href="../index.html" style="color:inherit"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="5" cy="12" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="6" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="18" r="2.6" stroke="#18E299" stroke-width="2"/><path d="M7.6 12h5.2m0 0-2.6-2.6m2.6 2.6-2.6 2.6M13.4 7.4l2.8-1M13.4 16.6l2.8 1" stroke="#18E299" stroke-width="2" stroke-linecap="round"/></svg>CICD<span> BY Nabawy</span></a>
 <span class="sep">/</span>
-<span class="here">Lab 03: Jenkins Multibranch Pipeline with Git</span></nav>
+<span class="here">Lab 03: Multibranch Foundations</span></nav>
 <div class="search"><input id="q" type="search" placeholder="Find in this book…" aria-label="Find in this book"><kbd>⌘K</kbd></div>
 <span id="qcount" style="font-size:12px;color:var(--mut)"></span>
 <button class="markbtn" id="markbtn" aria-label="Bookmark this book">☆ Save</button>
@@ -656,328 +1132,433 @@ table.cmp td:first-child{font-weight:700;background:#eef0ee}
 </div>
 <div class="prog" style="height:3px;background:var(--line)"><b id="pbar" style="display:block;height:100%;width:0;background:var(--acc)"></b></div>
 </header>
-<div class="readcontext" data-testid="reader-context"><div class="wrap"><a href="../shelf.html">Browse</a><span>›</span><a href="../shelf.html#path-labs">Hands-on Labs</a><span>›</span><span class="here">Lab 03: Jenkins Multibranch Pipeline with Git</span><span class="pathpos">11 of 14 in Hands-on Labs</span><span class="prereq">Prereq:<a href="jenkins-lab-docker.html">Lab 02: Docker Build &amp; Push with Jenkins</a><a href="git-branching.html">Git, Branching &amp; Pull Requests</a></span></div></div>
+<div class="readcontext" data-testid="reader-context"><div class="wrap"><a href="../shelf.html">Browse</a><span>›</span><a href="../shelf.html#path-labs">Hands-on Labs</a><span>›</span><span class="here">Lab 03: Multibranch Foundations</span><span class="pathpos">11 of 14 in Hands-on Labs</span><span class="prereq">Prereq:<a href="jenkins-lab-docker.html">Lab 02: Docker Build &amp; Push with Jenkins</a><a href="git-branching.html">Git, Branching &amp; Pull Requests</a></span></div></div>
 <div class="rlayout">
-<aside class="toc"><h4>CONTENTS · 6 PAGES · 42 SECTIONS</h4><a href="#p1" class="toc-l3" aria-label="0.1 MULTIBRANCH = FOLDER OF JOBS — DISCOVERY MODEL">0.1 MULTIBRANCH = FOLDER OF JOBS — DISCOVERY MODEL</a><a href="#p1" class="toc-l3" aria-label="0.2 KEY CONCEPT — FOLDER OF JOBS">0.2 KEY CONCEPT — FOLDER OF JOBS</a><a href="#p2" class="toc-l1" aria-label="1 Concept &amp; Architecture">1 Concept &amp; Architecture</a><a href="#p2" class="toc-l2" aria-label="1.1 01 / Branch as Job">1.1 01 / Branch as Job</a><a href="#p2" class="toc-l3" aria-label="1.1.1 BRANCH SOURCE — GENERIC GIT">1.1.1 BRANCH SOURCE — GENERIC GIT</a><a href="#p2" class="toc-l3" aria-label="1.1.2 PARENT CONTROLS ALL">1.1.2 PARENT CONTROLS ALL</a><a href="#p2" class="toc-l2" aria-label="1.2 02 / Architecture — Scan → Filter → Jenkinsfile → Conditiona">1.2 02 / Architecture — Scan → Filter → Jenkinsfile → Conditiona</a><a href="#p2" class="toc-l2" aria-label="1.3 03 / Step 0 — Pre-Flight (before Step 1)">1.3 03 / Step 0 — Pre-Flight (before Step 1)</a><a href="#p2" class="toc-l3" aria-label="1.3.1 ASK IN ONE BATCH — BEFORE STEP 1">1.3.1 ASK IN ONE BATCH — BEFORE STEP 1</a><a href="#p3" class="toc-l1" aria-label="2 Create, Wire &amp; Scan">2 Create, Wire &amp; Scan</a><a href="#p3" class="toc-l2" aria-label="2.1 04 / Step 1 — Create the Multibranch Pipeline Job">2.1 04 / Step 1 — Create the Multibranch Pipeline Job</a><a href="#p3" class="toc-l3" aria-label="2.1.1 ACTION — Jenkins → New Item">2.1.1 ACTION — Jenkins → New Item</a><a href="#p3" class="toc-l2" aria-label="2.2 05 / Step 2 — Add a Git Branch Source">2.2 05 / Step 2 — Add a Git Branch Source</a><a href="#p3" class="toc-l3" aria-label="2.2.1 ACTION — Branch Sources → Add source → Git">2.2.1 ACTION — Branch Sources → Add source → Git</a><a href="#p3" class="toc-l3" aria-label="2.2.2 WHY GENERIC GIT">2.2.2 WHY GENERIC GIT</a><a href="#p3" class="toc-l2" aria-label="2.3 06 / Step 3 — Configure Branch Filtering &amp; Behaviors">2.3 06 / Step 3 — Configure Branch Filtering &amp; Behaviors</a><a href="#p3" class="toc-l3" aria-label="2.3.1 FILTER — Behaviors → Filter by name (with wildcards)">2.3.1 FILTER — Behaviors → Filter by name (with wildcards)</a><a href="#p3" class="toc-l3" aria-label="2.3.2 BEHAVIORS — Add three more:">2.3.2 BEHAVIORS — Add three more:</a><a href="#p3" class="toc-l2" aria-label="2.4 07 / Step 4 — Save and Observe the Initial Scan">2.4 07 / Step 4 — Save and Observe the Initial Scan</a><a href="#p3" class="toc-l3" aria-label="2.4.1 ACTION — Click Save">2.4.1 ACTION — Click Save</a><a href="#p3" class="toc-l3" aria-label="2.4.2 SCAN LOG IS THE SOURCE OF TRUTH">2.4.2 SCAN LOG IS THE SOURCE OF TRUTH</a><a href="#p4" class="toc-l1" aria-label="3 Jenkinsfile &amp; Branches">3 Jenkinsfile &amp; Branches</a><a href="#p4" class="toc-l2" aria-label="3.1 08 / Step 5 — Add a Jenkinsfile to the Repository">3.1 08 / Step 5 — Add a Jenkinsfile to the Repository</a><a href="#p4" class="toc-l2" aria-label="3.2 09 / Step 6 — Trigger a Rescan (no webhooks)">3.2 09 / Step 6 — Trigger a Rescan (no webhooks)</a><a href="#p4" class="toc-l3" aria-label="3.2.1 ACTION — Multibranch job → Scan Multibranch Pipeline Now">3.2.1 ACTION — Multibranch job → Scan Multibranch Pipeline Now</a><a href="#p4" class="toc-l2" aria-label="3.3 10 / Step 7 — Create the dev and stg Branches">3.3 10 / Step 7 — Create the dev and stg Branches</a><a href="#p5" class="toc-l1" aria-label="4 Conditional &amp; Orphan">4 Conditional &amp; Orphan</a><a href="#p5" class="toc-l2" aria-label="4.1 11 / Step 8 — Branch-Specific Behavior (stg only)">4.1 11 / Step 8 — Branch-Specific Behavior (stg only)</a><a href="#p5" class="toc-l2" aria-label="4.2 12 / What to Verify After Step 8">4.2 12 / What to Verify After Step 8</a><a href="#p5" class="toc-l3" aria-label="4.2.1 STG — STAGE RUNS">4.2.1 STG — STAGE RUNS</a><a href="#p5" class="toc-l3" aria-label="4.2.2 MAIN / DEV — STAGE SKIPPED">4.2.2 MAIN / DEV — STAGE SKIPPED</a><a href="#p5" class="toc-l3" aria-label="4.2.3 WHY env.BRANCH_NAME">4.2.3 WHY env.BRANCH_NAME</a><a href="#p5" class="toc-l2" aria-label="4.3 13 / Step 9 — Merge Back &amp; Orphan Cleanup">4.3 13 / Step 9 — Merge Back &amp; Orphan Cleanup</a><a href="#p5" class="toc-l3" aria-label="4.3.1 MERGE — Check out default branch, merge stg, push.">4.3.1 MERGE — Check out default branch, merge stg, push.</a><a href="#p5" class="toc-l3" aria-label="4.3.2 ORPHAN — Delete a branch remotely, then rescan.">4.3.2 ORPHAN — Delete a branch remotely, then rescan.</a><a href="#p5" class="toc-l3" aria-label="4.3.3 GOTCHA — ORPHANS ONLY ON RESCAN">4.3.3 GOTCHA — ORPHANS ONLY ON RESCAN</a><a href="#p6" class="toc-l1" aria-label="5 System Map &amp; Proofs">5 System Map &amp; Proofs</a><a href="#p6" class="toc-l2" aria-label="5.1 14 / Lab 03 Lifecycle — Discovery to Orphan">5.1 14 / Lab 03 Lifecycle — Discovery to Orphan</a><a href="#p6" class="toc-l2" aria-label="5.2 15 / Proof">5.2 15 / Proof</a><a href="#p6" class="toc-l2" aria-label="5.3 16 / Concept Check — Five Configurations">5.3 16 / Concept Check — Five Configurations</a><a href="#p6" class="toc-l2" aria-label="5.4 17 / Failure → Recovery">5.4 17 / Failure → Recovery</a><a href="#p6" class="toc-l3" aria-label="5.4.1 CONTINUITY">5.4.1 CONTINUITY</a>
+<aside class="toc"><h4>CONTENTS · 7 PAGES · 23 SECTIONS</h4><a href="#p1" class="toc-l1" aria-label="Cover — Page 1">Cover — Page 1</a><a href="#p2" class="toc-l1" aria-label="1 01 / Multibranch Foundations">1 01 / Multibranch Foundations</a><a href="#p2" class="toc-l3" aria-label="1.0.1 WHAT">1.0.1 WHAT</a><a href="#p2" class="toc-l3" aria-label="1.0.2 WHY">1.0.2 WHY</a><a href="#p2" class="toc-l3" aria-label="1.0.3 WHEN">1.0.3 WHEN</a><a href="#p2" class="toc-l3" aria-label="1.0.4 WHAT CHANGES">1.0.4 WHAT CHANGES</a><a href="#p2" class="toc-l3" aria-label="1.0.5 WHY THIS EXISTS">1.0.5 WHY THIS EXISTS</a><a href="#p3" class="toc-l1" aria-label="2 02 / Architecture &amp; Pre-Flight">2 02 / Architecture &amp; Pre-Flight</a><a href="#p3" class="toc-l2" aria-label="2.1 Execution Architecture">2.1 Execution Architecture</a><a href="#p3" class="toc-l2" aria-label="2.2 Pre-Flight Verification">2.2 Pre-Flight Verification</a><a href="#p3" class="toc-l3" aria-label="2.2.1 GOTCHA">2.2.1 GOTCHA</a><a href="#p4" class="toc-l1" aria-label="3 03 / Discovery &amp; Filtering">3 03 / Discovery &amp; Filtering</a><a href="#p4" class="toc-l2" aria-label="3.1 Branch Source Configuration">3.1 Branch Source Configuration</a><a href="#p4" class="toc-l3" aria-label="3.1.1 GOTCHA">3.1.1 GOTCHA</a><a href="#p5" class="toc-l1" aria-label="4 04 / Conditional Execution">4 04 / Conditional Execution</a><a href="#p5" class="toc-l2" aria-label="4.1 Execution Lanes by Branch">4.1 Execution Lanes by Branch</a><a href="#p5" class="toc-l3" aria-label="4.1.1 INTERVIEW CHECK">4.1.1 INTERVIEW CHECK</a><a href="#p6" class="toc-l1" aria-label="5 05 / Lab: Orphan Cleanup">5 05 / Lab: Orphan Cleanup</a><a href="#p6" class="toc-l2" aria-label="5.1 Folder State Transition">5.1 Folder State Transition</a><a href="#p6" class="toc-l3" aria-label="5.1.1 GOTCHA">5.1.1 GOTCHA</a><a href="#p7" class="toc-l1" aria-label="6 06 / System Map &amp; Troubleshooting">6 06 / System Map &amp; Troubleshooting</a><a href="#p7" class="toc-l2" aria-label="6.1 Troubleshooting Flow">6.1 Troubleshooting Flow</a><a href="#p7" class="toc-l3" aria-label="6.1.1 INTERVIEW CHECK">6.1.1 INTERVIEW CHECK</a>
 </aside>
 <main class="read"><div class="readbody">
-<div class="upnext upnext-top">Up next in Hands-on Labs → <a href="jenkins-lab-shared-library.html"><b>Lab 04: Jenkins Shared Library with GitHub</b></a></div>
+<div class="upnext upnext-top">Up next in Hands-on Labs → <a href="jenkins-lab-shared-library.html"><b>Lab 04: Reusable Pipeline Logic</b></a></div>
 <div class="labbanner">🧪 Hands-on lab · 45 min · Env: See book overview · <a href="../book/jenkins-lab-multibranch.html">Overview &amp; prereqs</a> · <a href="../downloads/labs/jenkins-lab-multibranch.pdf" download>Download PDF</a> · <button class="markbtn" id="labreset" style="margin-left:8px">Reset checks</button></div>
 <div id="p1" class="page cover">
-<div class="brand">CI/CD SYSTEMS &nbsp;·&nbsp; PIPELINE CONTROL ROOM &nbsp;·&nbsp; JENKINS LABS</div>
-<div class="lab-no">LAB 03 — MULTIBRANCH PIPELINE</div>
-<h1>MULTIBRANCH<br><span>PIPELINE</span></h1>
-<div class="sub">One job that becomes three. Jenkins discovers branches from a generic Git remote, builds each one from its own <span class="mono">Jenkinsfile</span>, and scopes behavior with <span class="mono">when { BRANCH_NAME }</span>.</div>
-<div class="tri">GENERIC GIT SOURCE &nbsp;·&nbsp; FOLDER OF JOBS &nbsp;·&nbsp; FILTER BY NAME &nbsp;·&nbsp; WHEN BRANCH_NAME</div>
+        <div class="cover-left">
+            <div>
+                <div class="cover-title">CI/CD<br>ENGINEERING</div>
+                <div class="cover-sub">Multibranch Pipelines: Automatic Branch Discovery</div>
+            </div>
+            <div class="cover-meta">
+                Git Integration<br>
+                Branch Scanning<br>
+                Conditional Execution
+            </div>
+            <div class="cover-footer">
+                <span class="sig">Nabawy</span>
+            </div>
+        </div>
+        <div class="cover-right">
+            <div class="v-pipeline">
+                <div class="v-stage idle">
+                    <span class="v-dot"></span>
+                    <div class="v-info">
+                        <strong>GIT REPO</strong>
+                        <small>main, dev, stg</small>
+                    </div>
+                </div>
+                <div class="v-line"></div>
+                <div class="v-stage running">
+                    <span class="v-dot"></span>
+                    <div class="v-info">
+                        <strong>JENKINS SCAN</strong>
+                        <small>Periodic trigger</small>
+                    </div>
+                </div>
+                <div class="v-line"></div>
+                <div class="v-stage amber">
+                    <span class="v-dot"></span>
+                    <div class="v-info">
+                        <strong>DISCOVER</strong>
+                        <small>Locate Jenkinsfile</small>
+                    </div>
+                </div>
+                <div class="v-line"></div>
+                <div class="v-stage">
+                    <span class="v-dot"></span>
+                    <div class="v-info">
+                        <strong>CONDITIONAL</strong>
+                        <small>when: branch == 'stg'</small>
+                    </div>
+                </div>
+                <div class="v-line"></div>
+                <div class="v-stage">
+                    <span class="v-dot"></span>
+                    <div class="v-info">
+                        <strong>EXECUTE</strong>
+                        <small>Per-branch job</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><div id="p2" class="page">
+        <header class="page-header">
+            <span class="h-chip">CI/CD SYSTEMS</span>
+            <span class="h-rule"></span>
+            <span class="h-title">MULTIBRANCH PIPELINES</span>
+        </header>
+        <div class="content">
+            <h2 class="section-title"><span class="n">01 /</span> Multibranch Foundations</h2>
+            <p>A standard pipeline executes a single predefined script. A Multibranch Pipeline is structurally different: it is a folder of individual pipeline jobs, one per discovered branch. Jenkins scans the repository, finds branches, and looks for a Jenkinsfile to build with.</p>
+            
+            <div class="pipeline">
+                <div class="stage passed">
+                    <span class="stage-no">01</span>
+                    <strong>SCAN REPO</strong>
+                    <small>Periodic or manual</small>
+                    <span class="status-pill passed">PASSED</span>
+                </div>
+                <div class="connector"></div>
+                <div class="stage passed">
+                    <span class="stage-no">02</span>
+                    <strong>DISCOVER</strong>
+                    <small>Filter: main dev stg</small>
+                    <span class="status-pill passed">PASSED</span>
+                </div>
+                <div class="connector"></div>
+                <div class="stage running">
+                    <span class="stage-no">03</span>
+                    <strong>JENKINSFILE</strong>
+                    <small>Locate in branch root</small>
+                    <span class="status-pill running">RUNNING</span>
+                </div>
+                <div class="connector"></div>
+                <div class="stage waiting">
+                    <span class="stage-no">04</span>
+                    <strong>EXECUTE</strong>
+                    <small>Create sub-job</small>
+                    <span class="status-pill waiting">WAITING</span>
+                </div>
+                <div class="connector"></div>
+                <div class="stage skipped">
+                    <span class="stage-no">05</span>
+                    <strong>ORPHAN</strong>
+                    <small>Cleanup deleted</small>
+                    <span class="status-pill skipped">SKIPPED</span>
+                </div>
+            </div>
 
+            <div class="concept-grid">
+                <div class="concept-block">
+                    <h4>WHAT</h4>
+                    <p>A Jenkins job type that automatically creates a sub-job for every branch in a Git repository containing a Jenkinsfile.</p>
+                </div>
+                <div class="concept-block">
+                    <h4>WHY</h4>
+                    <p>It eliminates the need to manually create and configure a new Jenkins job every time a developer creates a new branch.</p>
+                </div>
+                <div class="concept-block">
+                    <h4>WHEN</h4>
+                    <p>On a periodic schedule (e.g., every 5 minutes) or manually triggered. This task deliberately ignores webhooks to simulate an air-gapped environment.</p>
+                </div>
+                <div class="concept-block">
+                    <h4>WHAT CHANGES</h4>
+                    <p>The relationship between source code and CI inverts. The repository defines the jobs, not Jenkins. Branch deletion leads to job orphaning.</p>
+                </div>
+            </div>
 
-<div class="dark-panel">
-<h4><img src="../assets/icons/jenkins/jenkins.svg" alt="" style="width:14px;height:14px;vertical-align:-3px;margin-right:6px;filter:brightness(1.2)"> MULTIBRANCH = FOLDER OF JOBS — DISCOVERY MODEL</h4>
-<div style="display:flex;gap:10px;align-items:stretch">
-<div style="flex:1">
-<div class="lanes" style="margin:0">
-<div class="lane prod" style="background:#1e2623;border-color:#2c3531;color:var(--text-light)"><span class="env" style="color:var(--accent)">MAIN</span> <span class="mono" style="color:var(--text-light);font-size:9.5px">Jenkinsfile found → build</span> <span class="badge green" style="margin-left:auto">main</span></div>
-<div class="lane dev" style="background:#1e2623;border-color:#2c3531;color:var(--text-light)"><span class="env" style="color:var(--blue)">DEV</span> <span class="mono" style="color:var(--text-light);font-size:9.5px">Jenkinsfile found → build</span> <span class="badge blue" style="margin-left:auto">dev</span></div>
-<div class="lane stg" style="background:#1e2623;border-color:#2c3531;color:var(--text-light)"><span class="env" style="color:var(--amber)">STG</span> <span class="mono" style="color:var(--text-light);font-size:9.5px">Jenkinsfile + when(stg) runs</span> <span class="badge amber" style="margin-left:auto">stg</span></div>
-</div>
-<div style="font-size:8px;letter-spacing:1.2px;color:var(--text-muted);margin-top:6px;display:flex;gap:12px">
-<span><span style="color:var(--accent)">●</span> SCAN</span><span><span style="color:var(--blue)">●</span> FILTER main dev stg</span><span><span style="color:var(--amber)">●</span> when BRANCH_NAME</span><span><span style="color:var(--red)">●</span> ORPHAN → REMOVE</span>
-</div>
-</div>
-<div style="width:92px;background:#0f1412;border:1px solid #26302c;border-radius:8px;padding:8px 8px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;text-align:center">
-<img src="../assets/icons/git/git.svg" alt="Git" style="width:28px;height:28px">
-<span style="font-size:8px;letter-spacing:1.5px;color:var(--text-muted)">GIT SOURCE</span>
-<span class="mono" style="font-size:8px;color:var(--text-light)">generic Git<br>not GitHub</span>
-<div style="width:100%;height:1px;background:#26302c;margin:4px 0"></div>
-<div style="display:flex;gap:4px"><img src="../assets/icons/ci-cd/workflow.svg" alt="" style="width:14px;height:14px"><img src="../assets/icons/general/terminal.svg" alt="" style="width:14px;height:14px"><img src="../assets/icons/general/server.svg" alt="" style="width:14px;height:14px"></div>
-</div>
-</div>
-</div>
+            <div class="callout">
+                <h4>WHY THIS EXISTS</h4>
+                <p>In dynamic environments with feature branches, manually managing Jenkins jobs is impossible. Multibranch pipelines push job creation down into the repository itself, making the CI configuration version-controlled and branch-specific.</p>
+            </div>
+        </div>
+        <footer class="page-footer">
+            <span class="f-left">CI/CD ENGINEERING MANUAL</span>
+            <span class="f-rule"></span>
+            <span class="f-right">CH 03 &nbsp;|&nbsp; 02 / 08</span>
+        </footer>
+    </div><div id="p3" class="page">
+        <header class="page-header">
+            <span class="h-chip">CI/CD SYSTEMS</span>
+            <span class="h-rule"></span>
+            <span class="h-title">SCAN ARCHITECTURE</span>
+        </header>
+        <div class="content">
+            <h2 class="section-title"><span class="n">02 /</span> Architecture & Pre-Flight</h2>
+            <p>The Multibranch Pipeline relies on the plain Git branch source, not GitHub-specific integration. This ensures compatibility with any Git provider and works perfectly in air-gapped or firewall-restricted networks where inbound webhooks are blocked.</p>
 
+            <h3 class="sub-title">Execution Architecture</h3>
+            <div class="arch-diagram">
+                <div class="arch-row">
+                    <div class="arch-node">GIT REPOSITORY</div>
+                    <div class="arch-arrow h labeled" data-label="1. POLL"></div>
+                    <div class="arch-node blue">JENKINS SCANNER</div>
+                </div>
+                <div style="height: 20px;"></div>
+                <div class="arch-row">
+                    <div class="arch-node highlight">JOB: MAIN</div>
+                    <div class="arch-arrow h" style="transform: rotate(180deg);"></div>
+                    <div class="arch-node blue">FOLDER</div>
+                    <div class="arch-arrow h"></div>
+                    <div class="arch-node highlight">JOB: DEV</div>
+                </div>
+                <div style="height: 20px;"></div>
+                <div class="arch-row">
+                    <div class="arch-node highlight">JOB: STG</div>
+                    <div class="arch-arrow h" style="transform: rotate(180deg);"></div>
+                    <div class="arch-node amber">ORPHAN CLEANUP</div>
+                </div>
+            </div>
 
-<div class="key-concept" style="background:var(--panel-2);border-color:#26302c;border-left-color:var(--accent);color:var(--text-light)">
-<h4 style="color:var(--accent)">KEY CONCEPT — FOLDER OF JOBS</h4>
-<p style="color:var(--text-light)">A <b style="color:var(--accent)">Multibranch Pipeline</b> is a <b>folder of individual pipeline jobs</b> — one per discovered branch. Jenkins <b>scans</b> the generic <b>Git branch source</b>, applies <b>Filter by name</b> (<span class="mono" style="color:var(--accent)">main dev stg</span>), and for each match looks for a <span class="mono" style="color:var(--text-light)">Jenkinsfile</span>. No <span class="mono" style="color:var(--text-light)">Jenkinsfile</span> → skipped in scan log. Branch jobs are <b>not directly configurable</b> — only the parent controls behavior.</p>
-<p style="color:var(--text-muted);font-size:9.5px;margin-top:6px">Behaviors: <b style="color:var(--text-light)">Check out to matching local branch</b> · <b style="color:var(--text-light)">Clean before checkout</b> · <b style="color:var(--text-light)">Clean after checkout</b> &nbsp;|&nbsp; Discovery: <b style="color:var(--text-light)">Scan log</b> · <b style="color:var(--text-light)">Scan Multibranch Pipeline Now</b> &nbsp;|&nbsp; Cleanup: <b style="color:var(--text-light)">orphaned item</b> removed on next scan &nbsp;|&nbsp; Conditional: <span class="mono" style="color:var(--accent)">when { env.BRANCH_NAME == 'stg' }</span></p>
-</div>
+            <h3 class="sub-title">Pre-Flight Verification</h3>
+            <div class="terminal">
+                <span class="term-line"><span class="term-prompt">$</span> git --version</span>
+                <span class="term-line term-out">git version 2.34.1</span>
+                <span class="term-line"><span class="term-prompt">$</span> git ls-remote https://github.com/user/repo.git</span>
+                <span class="term-line term-out">e7f8a9c1d2e3f4g5h6i7j8k9l0m1n2o3        HEAD</span>
+                <span class="term-line term-out">e7f8a9c1d2e3f4g5h6i7j8k9l0m1n2o3        refs/heads/main</span>
+                <span class="term-line term-out">a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6        refs/heads/dev</span>
+                <span class="term-line term-out">f1e2d3c4b5a69870123456789abcdef0        refs/heads/stg</span>
+                <span class="term-line term-ok">Access confirmed.</span>
+            </div>
 
-<div class="foot"><span>CI/CD ENGINEERING MANUAL &nbsp;·&nbsp; LAB 03 &nbsp;·&nbsp; JENKINS MULTIBRANCH WITH GIT</span><span class="sig">Nabawy</span></div>
-</div><div id="p2" class="page">
+            <div class="callout gotcha">
+                <h4>GOTCHA</h4>
+                <p>Individual branch jobs inside the Multibranch folder (e.g., <code>main</code>, <code>dev</code>) are <strong>not directly configurable</strong>. All behavior (branch filtering, checkout, scan triggers) is controlled from the parent Multibranch Pipeline job's configuration only.</p>
+            </div>
+        </div>
+        <footer class="page-footer">
+            <span class="f-left">CI/CD ENGINEERING MANUAL</span>
+            <span class="f-rule"></span>
+            <span class="f-right">CH 03 &nbsp;|&nbsp; 03 / 08</span>
+        </footer>
+    </div><div id="p4" class="page">
+        <header class="page-header">
+            <span class="h-chip">CI/CD SYSTEMS</span>
+            <span class="h-rule"></span>
+            <span class="h-title">JOB CONFIGURATION</span>
+        </header>
+        <div class="content">
+            <h2 class="section-title"><span class="n">03 /</span> Discovery & Filtering</h2>
+            <p>Configure the Multibranch Pipeline job to use a plain Git source. Filter discovery to exactly three branches: <code>main</code>, <code>dev</code>, and <code>stg</code>. Since no webhooks are used, rely on periodic scanning.</p>
 
+            <div class="dec-container">
+                <div class="dec-q">IS INBOUND ACCESS ALLOWED?</div>
+                <div class="dec-branches">
+                    <div class="dec-branch yes">
+                        <div class="dec-label">YES</div>
+                        <div class="dec-val">
+                            USE WEBHOOK
+                            <span>Immediate trigger</span>
+                        </div>
+                    </div>
+                    <div class="dec-branch no">
+                        <div class="dec-label">NO (THIS TASK)</div>
+                        <div class="dec-val">
+                            PERIODIC SCAN
+                            <span>Every 5 minutes</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-<h3 class="sec"><span class="n">01 /</span> Branch as Job</h3>
-<p class="body">Without multibranch, each branch needs its own pipeline job — duplicated config, drift, manual creation. Multibranch inverts this: you configure <b>once</b> at the parent, Jenkins <b>discovers</b> branches that match the filter, and each branch runs the <span class="mono">Jenkinsfile</span> committed on <em>that</em> branch. One file, three behaviors — controlled by <span class="mono">env.BRANCH_NAME</span>.</p>
+            <h3 class="sub-title">Branch Source Configuration</h3>
+            <div class="terminal">
+                <span class="term-line term-out">Jenkins -> New Item -> Multibranch Pipeline</span>
+                <span class="term-line"><span class="term-prompt">></span> Branch Source: <span class="term-blue">Git</span> (Plain Git, not GitHub)</span>
+                <span class="term-line"><span class="term-prompt">></span> Project Repository: <span class="term-blue">https://github.com/user/repo.git</span></span>
+                <span class="term-line"><span class="term-prompt">></span> Behaviors -> Filter by name (with wildcards)</span>
+                <span class="term-line"><span class="term-prompt">></span>   Include: <span class="term-ok">main dev stg</span></span>
+                <span class="term-line"><span class="term-prompt">></span>   Exclude: (blank)</span>
+                <span class="term-line"><span class="term-prompt">></span> Additional Behaviors:</span>
+                <span class="term-line"><span class="term-prompt">></span>   - Check out to matching local branch</span>
+                <span class="term-line"><span class="term-prompt">></span>   - Clean before/after checkout</span>
+                <span class="term-line"><span class="term-prompt">></span> Scan Multibranch Pipeline Triggers: <span class="term-ok">Every 5 minutes</span></span>
+            </div>
 
-<div class="pipeline">
-<div class="stage"><span class="no">SCAN</span><strong>DISCOVER</strong><small>Git branches</small></div><div class="conn"></div>
-<div class="stage"><span class="no">FILTER</span><strong>MATCH</strong><small>main dev stg</small></div><div class="conn"></div>
-<div class="stage"><span class="no">CHECK</span><strong>JENKINSFILE?</strong><small>found / skip</small></div><div class="conn"></div>
-<div class="stage"><span class="no">CREATE</span><strong>BRANCH JOB</strong><small>folder item</small></div><div class="conn"></div>
-<div class="stage"><span class="no">RUN</span><strong>WHEN</strong><small>BRANCH_NAME</small></div><div class="conn"></div>
-<div class="stage artifact"><span class="no">CLEAN</span><strong>ORPHAN</strong><small>on rescan</small></div>
-</div>
+            <div class="callout gotcha">
+                <h4>GOTCHA</h4>
+                <p>Ensure "Check out to matching local branch" is enabled. Without it, Jenkins checks out a detached commit. While builds may succeed, Git metadata within the pipeline won't reflect the actual branch name, breaking <code>when { branch 'stg' }</code> conditionals.</p>
+            </div>
+        </div>
+        <footer class="page-footer">
+            <span class="f-left">CI/CD ENGINEERING MANUAL</span>
+            <span class="f-rule"></span>
+            <span class="f-right">CH 03 &nbsp;|&nbsp; 04 / 08</span>
+        </footer>
+    </div><div id="p5" class="page">
+        <header class="page-header">
+            <span class="h-chip">CI/CD SYSTEMS</span>
+            <span class="h-rule"></span>
+            <span class="h-title">PIPELINE LOGIC</span>
+        </header>
+        <div class="content">
+            <h2 class="section-title"><span class="n">04 /</span> Conditional Execution</h2>
+            <p>A single shared Jenkinsfile must adapt its behavior based on the branch it is building. The <code>env.BRANCH_NAME</code> variable, injected by the Multibranch plugin, enables this via <code>when</code> conditionals.</p>
 
-<div class="grid2">
-<div class="card"><h4><img src="../assets/icons/git/git.svg" alt="" style="width:12px;height:12px;vertical-align:-2px;margin-right:4px"> BRANCH SOURCE — GENERIC GIT</h4><p>This lab deliberately uses <b>Git</b> (not GitHub) as the branch source, even if the remote is hosted on GitHub. Proves Jenkins works with any Git URL. No webhook — periodic / manual scans only.</p></div>
-<div class="card"><h4><img src="../assets/icons/jenkins/jenkins.svg" alt="" style="width:12px;height:12px;vertical-align:-2px;margin-right:4px"> PARENT CONTROLS ALL</h4><p>Individual branch jobs (<span class="mono">main / dev / stg</span>) cannot be reconfigured directly. Filter, checkout behavior, scan triggers, and orphan strategy live only on the parent Multibranch job.</p></div>
-</div>
+            <div class="terminal">
+                <span class="term-line">pipeline {</span>
+                <span class="term-line">    agent any</span>
+                <span class="term-line">    stages {</span>
+                <span class="term-line">        stage(<span class="term-blue">'Build'</span>) { steps { echo <span class="term-ok">'Building...'</span> } }</span>
+                <span class="term-line">        </span>
+                <span class="term-line">        stage(<span class="term-blue">'Staging Verification'</span>) {</span>
+                <span class="term-line">            when { expression { return env.BRANCH_NAME == <span class="term-ok">'stg'</span> } }</span>
+                <span class="term-line">            steps { sh <span class="term-ok">'cat README.md'</span> }</span>
+                <span class="term-line">        }</span>
+                <span class="term-line">    }</span>
+                <span class="term-line">}</span>
+            </div>
 
-<h3 class="sec"><span class="n">02 /</span> Architecture — Scan → Filter → Jenkinsfile → Conditional</h3>
-<div class="lanes">
-<div class="lane" style="border-left:3px solid var(--ink)"><span class="env">REMOTE GIT</span> <span class="mono">https://…/repo.git — branches main / dev / stg / (others ignored)</span> <img src="../assets/icons/git/git.svg" alt="Git" style="width:18px;height:18px;margin-left:auto"></div>
-<div class="lane" style="border-left:3px solid var(--accent)"><span class="env">PARENT JOB</span> <span class="mono">Multibranch Pipeline — Branch Source: Git · Filter: main dev stg · Behaviors: matching branch + clean</span> <img src="../assets/icons/jenkins/jenkins.svg" alt="Jenkins" style="width:18px;height:18px;margin-left:auto"></div>
-<div class="lane dev"><span class="env">MAIN</span> <span class="mono">checkout → Hello → <span style="color:var(--muted)">Staging Verification skipped</span></span> <span class="status pass" style="margin-left:auto"><span class="dot"></span>PASSED</span></div>
-<div class="lane dev"><span class="env">DEV</span> <span class="mono">checkout → Hello → <span style="color:var(--muted)">Staging Verification skipped</span></span> <span class="status pass" style="margin-left:auto"><span class="dot"></span>PASSED</span></div>
-<div class="lane stg"><span class="env">STG</span> <span class="mono">checkout → Hello → Staging Verification (sh cat README.md)</span> <span class="status pass" style="margin-left:auto"><span class="dot"></span>PASSED</span></div>
-</div>
+            <h3 class="sub-title">Execution Lanes by Branch</h3>
+            <div class="lanes">
+                <div class="lane">
+                    <div class="lane-header" style="background: var(--accent-dark);">MAIN</div>
+                    <div class="lane-body">
+                        <div class="lane-stage active"><span class="dot"></span> Build</div>
+                        <div class="lane-stage skipped"><span class="dot"></span> Staging Verification (SKIPPED by when)</div>
+                    </div>
+                </div>
+                <div class="lane">
+                    <div class="lane-header" style="background: var(--blue);">DEV</div>
+                    <div class="lane-body">
+                        <div class="lane-stage active"><span class="dot"></span> Build</div>
+                        <div class="lane-stage skipped"><span class="dot"></span> Staging Verification (SKIPPED by when)</div>
+                    </div>
+                </div>
+                <div class="lane">
+                    <div class="lane-header" style="background: var(--amber);">STG</div>
+                    <div class="lane-body">
+                        <div class="lane-stage active"><span class="dot"></span> Build</div>
+                        <div class="lane-stage active"><span class="dot"></span> Staging Verification (cat README.md)</div>
+                    </div>
+                </div>
+            </div>
 
-<h3 class="sec"><span class="n">03 /</span> Step 0 — Pre-Flight (before Step 1)</h3>
-<p class="body">Gather everything <b>before</b> mutating. No mid-flow stall.</p>
-<table class="cmp"><tr><th>Check</th><th>Command / Location</th><th>Decision</th></tr>
-<tr><td>Tools</td><td><span class="mono">curl -s -o /dev/null -w "%{http_code}" http://localhost:8080</span> · <span class="mono">git --version</span> · Plugins: <b>Git</b> + <b>Pipeline: Multibranch</b></td><td>Air-gapped? → periodic / manual scans, not webhooks</td></tr>
-<tr><td>Credentials</td><td>Public repo → none · Private → <b>Manage Jenkins → Credentials</b> · Test <span class="mono">git ls-remote &lt;url&gt;</span></td><td>Reuse existing credential; create only if missing</td></tr>
-<tr><td>Repo state</td><td>Branches <span class="mono">main / dev / stg</span> exist? <span class="mono">Jenkinsfile</span> on any branch? Existing job name?</td><td>Confirm default branch (<span class="mono">main</span> vs <span class="mono">master</span>) — never assume</td></tr>
-</table>
-<div class="callout amber"><h4>ASK IN ONE BATCH — BEFORE STEP 1</h4><p>Repo URL + public/private, private credential if needed, multibranch job name (same as repo for clarity), branch set <span class="mono">main dev stg</span> confirmed, desired <span class="mono">when</span> behavior (default: <span class="mono">stg</span> extra stage), and which Additional Behaviors to enable (default: <b>Check out to matching local branch</b> + <b>Clean before/after</b>).</p></div>
+            <div class="callout interview">
+                <h4>INTERVIEW CHECK</h4>
+                <p><strong>Q: How does a single Jenkinsfile adapt to different branches?</strong></p>
+                <p>A: The Multibranch plugin injects <code>env.BRANCH_NAME</code>. The <code>when</code> directive evaluates this variable before executing a stage, allowing branch-specific logic (like deployment or extra tests) to reside safely in the same file.</p>
+            </div>
+        </div>
+        <footer class="page-footer">
+            <span class="f-left">CI/CD ENGINEERING MANUAL</span>
+            <span class="f-rule"></span>
+            <span class="f-right">CH 03 &nbsp;|&nbsp; 05 / 08</span>
+        </footer>
+    </div><div id="p6" class="page">
+        <header class="page-header">
+            <span class="h-chip">CI/CD SYSTEMS</span>
+            <span class="h-rule"></span>
+            <span class="h-title">LAB: LIFECYCLE MANAGEMENT</span>
+        </header>
+        <div class="content">
+            <h2 class="section-title"><span class="n">05 /</span> Lab: Orphan Cleanup</h2>
+            <p>Branches are not permanent. When a branch is deleted upstream in Git, the corresponding Jenkins job must be removed to prevent clutter. This process does not happen instantly; it requires a scan.</p>
 
+            <div class="lab-step">
+                <div class="step-no">OBSERVE</div>
+                <div class="lab-content"><p>A feature branch <code>test-branch</code> was merged and deleted from the remote Git repository. The Jenkins folder still shows the job.</p></div>
+            </div>
+            <div class="lab-step">
+                <div class="step-no">EXECUTE</div>
+                <div class="lab-content"><p>Trigger a manual scan ("Scan Multibranch Pipeline Now") or wait for the periodic scan to execute.</p></div>
+            </div>
+            <div class="lab-step">
+                <div class="step-no">VERIFY</div>
+                <div class="lab-content"><p>Check the scan log. It will report <code>test-branch</code> as an orphaned item. The job will be removed from the Jenkins folder view.</p></div>
+            </div>
+            <div class="lab-step">
+                <div class="step-no">PROOF</div>
+                <div class="lab-content"><p>Jenkins state perfectly mirrors the Git repository state. No stale jobs remain.</p></div>
+            </div>
 
-</div><div id="p3" class="page">
+            <h3 class="sub-title">Folder State Transition</h3>
+            <div class="folder-tree">
+                <div class="ft-item parent">📁 multibranch-job <span class="ft-status active">SCANNED</span></div>
+                <div class="ft-item child">├── main <span class="ft-status active">ACTIVE</span></div>
+                <div class="ft-item child">├── dev <span class="ft-status active">ACTIVE</span></div>
+                <div class="ft-item child">├── stg <span class="ft-status active">ACTIVE</span></div>
+                <div class="ft-item child deleted">└── test-branch <span class="ft-status orphan">ORPHANED</span></div>
+            </div>
 
+            <div class="callout gotcha">
+                <h4>GOTCHA</h4>
+                <p>Orphaned branch cleanup only happens <strong>after a rescan</strong>. Deleting a remote branch does not immediately remove its Jenkins job. The next scan evaluates the repository state and removes orphaned items.</p>
+            </div>
+        </div>
+        <footer class="page-footer">
+            <span class="f-left">CI/CD ENGINEERING MANUAL</span>
+            <span class="f-rule"></span>
+            <span class="f-right">CH 03 &nbsp;|&nbsp; 06 / 08</span>
+        </footer>
+    </div><div id="p7" class="page">
+        <header class="page-header">
+            <span class="h-chip">CI/CD SYSTEMS</span>
+            <span class="h-rule"></span>
+            <span class="h-title">SYSTEM MAP</span>
+        </header>
+        <div class="content">
+            <h2 class="section-title"><span class="n">06 /</span> System Map & Troubleshooting</h2>
+            <p>The Multibranch Pipeline acts as an automated job manager. Understanding its scan and filter logic is critical for resolving issues where branches are missed or jobs are not created.</p>
 
-<h3 class="sec"><span class="n">04 /</span> Step 1 — Create the Multibranch Pipeline Job</h3>
-<div class="step"><h4><span class="tag">ACTION —</span> Jenkins → <b>New Item</b></h4> Name it to match the repository (mapping clarity). Select <b>Multibranch Pipeline</b> → <b>OK</b>. Skip/reuse if the job already exists (per Step 0.3).</div>
-<div class="terminal"><span class="c"># Jenkins home</span>
-Dashboard → New Item → <span class="g">Multibranch Pipeline</span> → Name: <span class="b">&lt;repo-name&gt;</span> → OK</div>
+            <div class="sys-map">
+                <div class="map-row">
+                    <div class="map-box">GIT REPO</div>
+                    <div class="map-arr">→</div>
+                    <div class="map-box blue">SCAN</div>
+                    <div class="map-arr">→</div>
+                    <div class="map-box green">FILTER</div>
+                    <div class="map-arr">→</div>
+                    <div class="map-box artifact">JENKINSFILE</div>
+                </div>
+                <div class="map-feedback">FEEDBACK: ORPHAN CLEANUP & JOB CREATION</div>
+            </div>
 
-<h3 class="sec"><span class="n">05 /</span> Step 2 — Add a Git Branch Source</h3>
-<div class="step"><h4><span class="tag">ACTION —</span> Branch Sources → <b>Add source → Git</b></h4> Not the GitHub-specific source — this lab uses the <b>generic Git</b> source even if hosted on GitHub. <b>Project Repository:</b> paste clone URL (HTTPS or SSH). <b>Credentials:</b> <span class="mono">None</span> if public, else the credential confirmed in Step 0. Leave other defaults.</div>
-<div class="callout blue"><h4>WHY GENERIC GIT</h4><p>It decouples Jenkins from GitHub's API. Any Git remote works — GitHub, GitLab, Bitbucket, or internal — and forces explicit branch filtering via wildcards rather than GitHub's org/repo integration.</p></div>
-<div class="terminal"><span class="c"># branch source config</span>
-Branch Sources → Add source → <span class="g">Git</span>
-  Project Repository: <span class="b">https://github.com/&lt;user&gt;/&lt;repo&gt;.git</span>
-  Credentials:       <span class="b">None</span> <span class="c">(public) / &lt;ssh-or-token&gt; (private)</span></div>
+            <h3 class="sub-title">Troubleshooting Flow</h3>
+            <table class="cmp">
+                <thead>
+                    <tr>
+                        <th>Symptom</th>
+                        <th>Root Cause</th>
+                        <th>Recovery</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="color: var(--red);">Branch not discovered</td>
+                        <td>Filter mismatch</td>
+                        <td>Check "Include" wildcard in Branch Source config</td>
+                    </tr>
+                    <tr>
+                        <td style="color: var(--red);">Branch found, no job</td>
+                        <td>Jenkinsfile missing</td>
+                        <td>Commit a Jenkinsfile to the root of that branch</td>
+                    </tr>
+                    <tr>
+                        <td style="color: var(--red);">when condition fails</td>
+                        <td>Detached HEAD checkout</td>
+                        <td>Enable "Check out to matching local branch"</td>
+                    </tr>
+                    <tr>
+                        <td style="color: var(--amber);">Stale jobs remain</td>
+                        <td>No scan executed</td>
+                        <td>Trigger manual scan or wait for periodic interval</td>
+                    </tr>
+                </tbody>
+            </table>
 
-<h3 class="sec"><span class="n">06 /</span> Step 3 — Configure Branch Filtering & Behaviors</h3>
-<div class="step"><h4><span class="tag">FILTER —</span> Behaviors → <b>Filter by name (with wildcards)</b></h4> <b>Include:</b> <span class="mono">main dev stg</span> (space-separated exact names — no wildcards needed for three fixed branches). <b>Exclude:</b> blank — anything not included is automatically excluded.</div>
-<div class="step"><h4><span class="tag">BEHAVIORS —</span> Add three more:</h4>
-<ul class="tight">
-<li><b>Check out to matching local branch</b> — build checks out the actual branch HEAD, not a detached commit.</li>
-<li><b>Clean before checkout</b> — wipe workspace before pulling.</li>
-<li><b>Clean after checkout</b> — clean after (keeps agents tidy).</li>
-</ul>
-Leave <b>Build strategies</b> at defaults unless a specific need arises.</div>
-<table class="cmp"><tr><th>Behavior</th><th>What it does</th><th>Why</th></tr>
-<tr><td>Filter by name</td><td>Include <span class="mono">main dev stg</span></td><td>Only wanted branches become jobs</td></tr>
-<tr><td>Check out to matching local branch</td><td>Creates local branch tracking remote HEAD</td><td>Makes <span class="mono">BRANCH_NAME</span> reliable + visible in log</td></tr>
-<tr><td>Clean before / after checkout</td><td>Removes untracked files pre/post build</td><td>No stale artifacts leak between branch builds</td></tr>
-</table>
-
-<h3 class="sec"><span class="n">07 /</span> Step 4 — Save and Observe the Initial Scan</h3>
-<div class="step"><h4><span class="tag">ACTION —</span> Click <b>Save</b></h4> This triggers an automatic scan. Open <b>Scan Multibranch Pipeline Log</b> (left nav). If no <span class="mono">Jenkinsfile</span> exists yet on any branch, the folder shows empty — scan log reports <b>Jenkinsfile not found</b> per branch. This is <b>expected</b> at this point.</div>
-<div class="terminal"><span class="c"># Scan Multibranch Pipeline Log — before Jenkinsfile exists</span>
-&gt; git ls-remote --symref https://github.com/&lt;user&gt;/&lt;repo&gt;.git
-  <span class="a">Checking branch main</span>   → Jenkinsfile not found  <span class="c">(no build)</span>
-  <span class="a">Checking branch dev</span>    → Jenkinsfile not found
-  <span class="a">Checking branch stg</span>    → Jenkinsfile not found
-<span class="c">Finished: 0 branches built, 3 discovered, 0 with Jenkinsfile</span></div>
-<div class="callout"><h4>SCAN LOG IS THE SOURCE OF TRUTH</h4><p>Every discovery, filter decision, and <span class="mono">Jenkinsfile</span> check is logged there. When the folder is empty, the scan log tells you why — no guessing.</p></div>
-
-
-</div><div id="p4" class="page">
-
-
-<h3 class="sec"><span class="n">08 /</span> Step 5 — Add a Jenkinsfile to the Repository</h3>
-<p class="body">On the default branch (<span class="mono">main</span>), create a minimal pipeline, commit, and push.</p>
-<div class="terminal">pipeline {
-    agent { label 'linux' }
-    options {
-        buildDiscarder(logRotator(numToKeepStr: '5'))
-        disableConcurrentBuilds()
-    }
-    stages {
-        stage('Hello') {
-            steps { echo 'hello' }
-        }
-    }
-}</div>
-<div class="terminal"><span class="c"># commit on main</span>
-$ git checkout main
-$ cat > Jenkinsfile <<'EOF'
-<span class="c">... pipeline above ...</span>
-EOF
-$ git add Jenkinsfile && git commit -m "Add Jenkinsfile" && git push
-<span class="g">→ origin/main updated</span></div>
-
-<h3 class="sec"><span class="n">09 /</span> Step 6 — Trigger a Rescan (no webhooks)</h3>
-<p class="body">No inbound webhook is configured — intentionally, to simulate an air-gapped Jenkins. Jenkins won't know about the new commit until scanned.</p>
-<div class="step"><h4><span class="tag">ACTION —</span> Multibranch job → <b>Scan Multibranch Pipeline Now</b></h4> Confirm scan log now shows <span class="mono">Jenkinsfile found</span> on the default branch and a build was auto-triggered. Optionally configure a <b>periodic scan interval</b> (e.g. every 2–5 min) so this happens without manual clicks.</div>
-<div class="terminal"><span class="c"># Scan log after Jenkinsfile added to main</span>
-  <span class="g">Checking branch main</span>  → Jenkinsfile found → <span class="g">Met criteria → build triggered (#1)</span>
-  <span class="c">Checking branch dev</span>   → Jenkinsfile not found  <span class="c">(still empty — branch not yet created)</span>
-  <span class="c">Checking branch stg</span>   → Jenkinsfile not found
-
-<span class="c"># Build #1 — main — console</span>
-[Hello] echo 'hello'
-<span class="g">hello</span>
-<span class="g">Finished: SUCCESS</span></div>
-<div class="kv"><b>VERIFY —</b> Branch <span class="mono">main</span> now appears as a buildable job inside the Multibranch folder. Stage view shows <b>Hello</b> <span class="status pass"><span class="dot"></span>PASSED</span>. Without <span class="mono">Jenkinsfile</span> on <span class="mono">dev / stg</span>, they don't appear yet — correct.</div>
-
-<h3 class="sec"><span class="n">10 /</span> Step 7 — Create the <span class="mono">dev</span> and <span class="mono">stg</span> Branches</h3>
-<p class="body">Branch both from the default branch that already has the <span class="mono">Jenkinsfile</span>, so each inherits it. Skip any that already exist (Step 0.3).</p>
-<div class="terminal"><span class="c"># create + push both branches</span>
-$ git checkout main && git pull
-$ git checkout -b dev && git push -u origin dev
-$ git checkout -b stg && git push -u origin stg
-<span class="g">→ origin/dev  new branch</span>
-<span class="g">→ origin/stg  new branch</span>
-
-<span class="c"># rescan</span>
-Jenkins → Scan Multibranch Pipeline Now</div>
-<div class="terminal"><span class="c"># Scan log after dev + stg pushed</span>
-  <span class="g">Checking branch main</span> → Jenkinsfile found → build
-  <span class="g">Checking branch dev</span>  → Jenkinsfile found → build
-  <span class="g">Checking branch stg</span>  → Jenkinsfile found → build
-<span class="g">Finished: 3 branches built, 3 discovered, 3 with Jenkinsfile</span></div>
-<div class="lanes">
-<div class="lane prod"><span class="env">MAIN</span> <span class="mono">Hello</span> <span class="status pass" style="margin-left:auto"><span class="dot"></span>PASSED</span> <span class="badge green">main</span></div>
-<div class="lane dev"><span class="env">DEV</span> <span class="mono">Hello</span> <span class="status pass" style="margin-left:auto"><span class="dot"></span>PASSED</span> <span class="badge blue">dev</span></div>
-<div class="lane stg"><span class="env">STG</span> <span class="mono">Hello</span> <span class="status pass" style="margin-left:auto"><span class="dot"></span>PASSED</span> <span class="badge amber">stg</span></div>
-</div>
-<div class="kv"><b>PROOF —</b> All three jobs now live inside the parent folder — one parent config created three branch pipelines. <span class="badge green">● DISCOVERY PROVED</span></div>
-
-
-</div><div id="p5" class="page">
-
-
-<h3 class="sec"><span class="n">11 /</span> Step 8 — Branch-Specific Behavior (<span class="mono">stg</span> only)</h3>
-<p class="body">On <span class="mono">stg</span>, add a stage that only runs there via <span class="mono">when { BRANCH_NAME }</span> — the core mechanism that lets one shared file behave as three pipelines. Also edit <span class="mono">README.md</span> so checkout correctness is visible.</p>
-<div class="terminal"><span class="c"># on branch stg — add when-guarded stage</span>
-stage('Staging Verification (stg only)') {
-    when {
-        expression { return env.BRANCH_NAME == 'stg' }
-    }
-    steps {
-        sh 'cat README.md'
-    }
-}</div>
-<div class="terminal"><span class="c"># full Jenkinsfile on stg after edit</span>
-pipeline {
-    agent { label 'linux' }
-    options { buildDiscarder(logRotator(numToKeepStr: '5')); disableConcurrentBuilds() }
-    stages {
-        stage('Hello') { steps { echo 'hello' } }
-        stage('Staging Verification (stg only)') {
-            when { expression { return env.BRANCH_NAME == 'stg' } }
-            steps { sh 'cat README.md' }
-        }
-    }
-}</div>
-<div class="terminal"><span class="c"># commit on stg</span>
-$ git checkout stg
-$ <span class="c">edit Jenkinsfile + README.md</span>
-$ git add Jenkinsfile README.md && git commit -m "stg: add conditional stage + readme" && git push
-<span class="c"># trigger</span>
-Jenkins → branch <span class="b">stg</span> → Build Now <span class="c">(or Scan Multibranch Pipeline Now)</span></div>
-
-<h3 class="sec"><span class="n">12 /</span> What to Verify After Step 8</h3>
-<div class="grid2">
-<div class="card" style="border-left:3px solid var(--amber)"><h4>STG — STAGE RUNS</h4><p>Console shows checkout of <span class="mono">stg</span> (not detached), then <b>Staging Verification</b> executes and prints <span class="mono">README.md</span>.</p>
-<div class="terminal" style="margin:6px 0 0;font-size:8.5px">Checking out <span class="g">stg</span> → origin/stg
-[Staging Verification] <span class="g">● RUN</span>
-cat README.md → <span class="g"># stg readme …</span></div>
-</div>
-<div class="card" style="border-left:3px solid var(--muted)"><h4>MAIN / DEV — STAGE SKIPPED</h4><p>Run each job again. Console shows <b>Skipped due to when conditional</b>. The stage definition is inherited but not executed — exactly the intended behavior.</p>
-<div class="terminal" style="margin:6px 0 0;font-size:8.5px">[Staging Verification] <span class="a">○ SKIPPED</span>
-<span class="c">when BRANCH_NAME == 'stg' → false</span></div>
-</div>
-</div>
-<div class="callout"><h4>WHY <span class="mono">env.BRANCH_NAME</span></h4><p>Jenkins injects <span class="mono">BRANCH_NAME</span> per branch job. <span class="mono">when { expression { env.BRANCH_NAME == 'stg' } }</span> is evaluated <b>before</b> the stage's steps run — no extra Jenkinsfile per branch needed.</p></div>
-<div class="pipeline">
-<div class="stage"><span class="no">CHECKOUT</span><strong>BRANCH HEAD</strong><small>matching local</small></div><div class="conn"></div>
-<div class="stage"><span class="no">HELLO</span><strong>ALWAYS</strong><small>all branches</small></div><div class="conn"></div>
-<div class="stage wait"><span class="no">WHEN</span><strong>BRANCH_NAME?</strong><small>== 'stg'</small></div><div class="conn"></div>
-<div class="stage artifact"><span class="no">STG ONLY</span><strong>VERIFY</strong><small>sh cat README</small></div><div class="conn"></div>
-<div class="stage"><span class="no">SKIP</span><strong>OTHER</strong><small>main / dev</small></div>
-</div>
-
-<h3 class="sec"><span class="n">13 /</span> Step 9 — Merge Back & Orphan Cleanup</h3>
-<div class="step"><h4><span class="tag">MERGE —</span> Check out default branch, merge <span class="mono">stg</span>, push.</h4> <span class="mono">git checkout main && git merge stg && git push</span>. Run <span class="mono">main</span> again: it now contains the <b>Staging Verification</b> stage definition, but the stage is <span class="status wait"><span class="dot"></span>SKIPPED</span> (since <span class="mono">main != stg</span>).</div>
-<div class="step"><h4><span class="tag">ORPHAN —</span> Delete a branch remotely, then rescan.</h4> <span class="mono">git push origin --delete dev</span> (or delete via UI). Then <b>Scan Multibranch Pipeline Now</b>. Scan log reports <b>orphaned item</b> and the Jenkins job for that branch is removed — while <span class="mono">main / stg</span> remain.</div>
-<div class="terminal"><span class="c"># delete + rescan</span>
-$ git push origin --delete dev  <span class="c">or: GitHub → Branches → delete</span>
-<span class="c">Jenkins → Scan Multibranch Pipeline Now</span>
-→ Will remove PR-... / <span class="r">orphaned item: dev</span> → <span class="g">removed</span>
-<span class="c">Remaining: main, stg (2 branches)</span>
-
-<span class="c"># main after merge — stage present but skipped</span>
-[Hello]                      <span class="g">● PASSED</span>
-[Staging Verification]       <span class="a">○ SKIPPED</span>  <span class="c">when → false on main</span></div>
-<div class="callout amber"><h4>GOTCHA — ORPHANS ONLY ON RESCAN</h4><p>Deleting a remote branch does <b>not</b> instantly remove its Jenkins job. Only the <b>next scan</b> (manual, periodic, or webhook-triggered) evaluates orphans. No webhook here is intentional — this lab is air-gapped by design.</p></div>
-
-
-</div><div id="p6" class="page">
-
-
-<h3 class="sec"><span class="n">14 /</span> Lab 03 Lifecycle — Discovery to Orphan</h3>
-<div class="pipeline">
-<div class="stage"><span class="no">01</span><strong>CREATE</strong><small>Multibranch job</small></div><div class="conn"></div>
-<div class="stage"><span class="no">02</span><strong>SOURCE</strong><small>Git URL</small></div><div class="conn"></div>
-<div class="stage"><span class="no">03</span><strong>FILTER</strong><small>main dev stg</small></div><div class="conn"></div>
-<div class="stage"><span class="no">04</span><strong>SCAN</strong><small>log</small></div><div class="conn"></div>
-<div class="stage"><span class="no">05</span><strong>JENKINSFILE</strong><small>on branch</small></div><div class="conn"></div>
-<div class="stage artifact"><span class="no">06</span><strong>WHEN</strong><small>BRANCH_NAME</small></div><div class="conn"></div>
-<div class="stage fail"><span class="no">07</span><strong>ORPHAN</strong><small>on rescan</small></div>
-</div>
-
-<div class="lanes">
-<div class="lane" style="border-left:3px solid var(--ink)"><span class="env">END STATE</span> <span class="mono">Parent folder → main (Hello, stg-stage skipped) · stg (Hello + Verification runs) · dev or orphaned</span> <span class="badge green" style="margin-left:auto">PROVED</span></div>
-</div>
-
-<h3 class="sec"><span class="n">15 /</span> Proof</h3>
-<div class="kv"><b>PROOF —</b> One <span class="mono">Jenkinsfile</span>, discovered per-branch, conditional via <span class="mono">BRANCH_NAME</span>, orphan removed on rescan. <span class="badge green">● MULTIBRANCH PROVED</span> <span class="badge blue">● FILTER PROVED</span> <span class="badge amber">● WHEN PROVED</span> <span class="badge purple">● ORPHAN PROVED</span></div>
-<ul class="tight">
-<li>Parent job with <b>generic Git</b> source builds only <span class="mono">main / dev / stg</span> (filtered by name).</li>
-<li><b>Check out to matching local branch</b> proves correct branch checkout in logs (not detached HEAD).</li>
-<li><b>Clean before/after checkout</b> prevents workspace bleed between branch builds.</li>
-<li><span class="mono">stg</span> runs <b>Staging Verification</b>; <span class="mono">main / dev</span> skip it — <span class="mono">when</span> works.</li>
-<li>After merge, <span class="mono">main</span> contains the stage but correctly skips it.</li>
-<li>Deleting a remote branch → next scan marks it <b>orphaned</b> and removes the folder item.</li>
-</ul>
-
-<h3 class="sec"><span class="n">16 /</span> Concept Check — Five Configurations</h3>
-<table class="cmp"><tr><th>Config</th><th>Value in this lab</th><th>Where</th></tr>
-<tr><td>Branch Source</td><td><b>Git</b> (generic, not GitHub)</td><td>Branch Sources → Add source</td></tr>
-<tr><td>Filter</td><td>Include <span class="mono">main dev stg</span>, Exclude blank</td><td>Behaviors → Filter by name</td></tr>
-<tr><td>Checkout</td><td>Check out to matching local branch</td><td>Behaviors</td></tr>
-<tr><td>Clean</td><td>Clean before + Clean after checkout</td><td>Behaviors</td></tr>
-<tr><td>Conditional</td><td><span class="mono">when { env.BRANCH_NAME == 'stg' }</span></td><td>Jenkinsfile stage</td></tr>
-<tr><td>Discovery</td><td>Scan log · Scan Multibranch Pipeline Now · periodic scan</td><td>Job left nav + config</td></tr>
-<tr><td>Orphan</td><td>Removed on next scan after remote delete</td><td>Scan log: orphaned item</td></tr>
-</table>
-
-<h3 class="sec"><span class="n">17 /</span> Failure → Recovery</h3>
-<table class="cmp"><tr><th>Failure</th><th>Where to look</th><th>Fix</th></tr>
-<tr><td>Folder empty</td><td>Scan log: <span class="mono">Jenkinsfile not found</span></td><td>Commit Jenkinsfile to the branch, then rescan</td></tr>
-<tr><td>Branch not discovered</td><td>Scan log: filtered / excluded</td><td>Check Filter by name include list — exact names <span class="mono">main dev stg</span></td></tr>
-<tr><td>Detached checkout</td><td>Console: detached HEAD</td><td>Enable <b>Check out to matching local branch</b></td></tr>
-<tr><td>Wrong BRANCH_NAME</td><td>Console: env dump</td><td>Use <span class="mono">env.BRANCH_NAME</span> (not <span class="mono">GIT_BRANCH</span>)</td></tr>
-<tr><td>Orphan not removed</td><td>Scan log: still listed</td><td>Trigger <b>Scan Multibranch Pipeline Now</b>; check orphan strategy</td></tr>
-<tr><td>Auth failed (private)</td><td>Scan log: credentials error</td><td>Verify credential + <span class="mono">git ls-remote</span> outside Jenkins</td></tr>
-</table>
-
-<div class="callout blue"><h4>CONTINUITY</h4><p>Lab 01 wired the trigger (webhook). Lab 02 built the artifact. This lab multiplied the pipeline across branches. Next, <b>Lab 04</b> extracts shared logic into a <b>Shared Library</b> so the same <span class="mono">when</span> or verification step is reused — not duplicated — across all branch jobs.</p></div>
-
-<div class="terminal"><span class="c"># quick reference</span>
-$ git ls-remote https://github.com/&lt;user&gt;/&lt;repo&gt;.git
-$ git checkout -b stg && git push -u origin stg
-$ git push origin --delete dev   <span class="c"># then: Scan Multibranch Pipeline Now → orphan removed</span>
-<span class="c">Jenkinsfile when:</span>  when { expression { return env.BRANCH_NAME == 'stg' } }</div>
-
-
-</div>
-<div class="upnext">Up next in Hands-on Labs → <a href="jenkins-lab-shared-library.html"><b>Lab 04: Jenkins Shared Library with GitHub</b></a></div>
-<div class="relatedbox"><h4>Related books</h4><ul class="relgrid"><li class="relcard" data-cat="Labs" style="--cat:#EAB308"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6v6l3 5a3 3 0 01-3 4H9a3 3 0 01-3-4l3-5V3z"/><path d="M8 14h8" opacity=".6"/></svg></span><span class="rel-main"><a href="jenkins-lab-shared-library.html">Lab 04: Jenkins Shared Library with GitHub</a><span class="rel-meta">55 min · <span class="difbadge adv">Adv</span></span><span class="rel-why">→ Next in path</span></span></li><li class="relcard" data-cat="Labs" style="--cat:#EAB308"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6v6l3 5a3 3 0 01-3 4H9a3 3 0 01-3-4l3-5V3z"/><path d="M8 14h8" opacity=".6"/></svg></span><span class="rel-main"><a href="jenkins-lab-docker.html">Lab 02: Docker Build &amp; Push with Jenkins</a><span class="rel-meta">50 min · <span class="difbadge int">Int</span></span><span class="rel-why">→ Previous in path</span></span></li><li class="relcard" data-cat="Labs" style="--cat:#EAB308"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6v6l3 5a3 3 0 01-3 4H9a3 3 0 01-3-4l3-5V3z"/><path d="M8 14h8" opacity=".6"/></svg></span><span class="rel-main"><a href="jenkins-lab-webhook.html">Lab 01: GitHub Webhook Trigger for Jenkins</a><span class="rel-meta">45 min · <span class="difbadge int">Int</span></span><span class="rel-why">→ Shared tags</span></span></li><li class="relcard" data-cat="Labs" style="--cat:#EAB308"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6v6l3 5a3 3 0 01-3 4H9a3 3 0 01-3-4l3-5V3z"/><path d="M8 14h8" opacity=".6"/></svg></span><span class="rel-main"><a href="jenkins-lab-terraform-floci.html">Lab 05: Terraform on FLOCI with Jenkins</a><span class="rel-meta">60 min · <span class="difbadge adv">Adv</span></span><span class="rel-why">→ Shared tags</span></span></li></ul></div>
-<div class="chapnav"><a id="prevbook" href="jenkins-lab-docker.html"><small>← Hands-on Labs</small>Lab 02: Docker Build &amp; Push with Jenkins</a><a id="nextbook" class="r" href="jenkins-lab-shared-library.html"><small>Hands-on Labs →</small>Lab 04: Jenkins Shared Library with GitHub</a></div>
+            <div class="callout interview">
+                <h4>INTERVIEW CHECK</h4>
+                <p><strong>Q: Why use plain Git branch source instead of GitHub-specific integration?</strong></p>
+                <p>A: The plain Git source works with any Git provider (GitLab, Bitbucket, etc.) and functions in air-gapped environments where inbound webhooks are blocked. It relies on periodic polling, prioritizing compatibility over immediate trigger speed.</p>
+            </div>
+        </div>
+        <footer class="page-footer">
+            <span class="f-left">CI/CD ENGINEERING MANUAL</span>
+            <span class="f-rule"></span>
+            <span class="f-right">CH 03 &nbsp;|&nbsp; 07 / 08</span>
+        </footer>
+    </div>
+<div class="upnext">Up next in Hands-on Labs → <a href="jenkins-lab-shared-library.html"><b>Lab 04: Reusable Pipeline Logic</b></a></div>
+<div class="relatedbox"><h4>Related books</h4><ul class="relgrid"><li class="relcard" data-cat="Labs" style="--cat:#EAB308"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6v6l3 5a3 3 0 01-3 4H9a3 3 0 01-3-4l3-5V3z"/><path d="M8 14h8" opacity=".6"/></svg></span><span class="rel-main"><a href="jenkins-lab-shared-library.html">Lab 04: Reusable Pipeline Logic</a><span class="rel-meta">55 min · <span class="difbadge adv">Adv</span></span><span class="rel-why">→ Next in path</span></span></li><li class="relcard" data-cat="Labs" style="--cat:#EAB308"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6v6l3 5a3 3 0 01-3 4H9a3 3 0 01-3-4l3-5V3z"/><path d="M8 14h8" opacity=".6"/></svg></span><span class="rel-main"><a href="jenkins-lab-docker.html">Lab 02: Docker Build &amp; Push with Jenkins</a><span class="rel-meta">50 min · <span class="difbadge int">Int</span></span><span class="rel-why">→ Previous in path</span></span></li><li class="relcard" data-cat="Labs" style="--cat:#EAB308"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6v6l3 5a3 3 0 01-3 4H9a3 3 0 01-3-4l3-5V3z"/><path d="M8 14h8" opacity=".6"/></svg></span><span class="rel-main"><a href="jenkins-lab-webhook.html">Lab 01: Automated Integration Foundations</a><span class="rel-meta">45 min · <span class="difbadge int">Int</span></span><span class="rel-why">→ Shared tags</span></span></li><li class="relcard" data-cat="Labs" style="--cat:#EAB308"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6v6l3 5a3 3 0 01-3 4H9a3 3 0 01-3-4l3-5V3z"/><path d="M8 14h8" opacity=".6"/></svg></span><span class="rel-main"><a href="jenkins-lab-terraform-floci.html">Lab 05: The Infrastructure Pipeline</a><span class="rel-meta">60 min · <span class="difbadge adv">Adv</span></span><span class="rel-why">→ Shared tags</span></span></li></ul></div>
+<div class="chapnav"><a id="prevbook" href="jenkins-lab-docker.html"><small>← Hands-on Labs</small>Lab 02: Docker Build &amp; Push with Jenkins</a><a id="nextbook" class="r" href="jenkins-lab-shared-library.html"><small>Hands-on Labs →</small>Lab 04: Reusable Pipeline Logic</a></div>
 </div></main>
 <div id="lightbox" role="dialog" aria-label="Diagram viewer"><img alt="Enlarged diagram"></div>
 </div>

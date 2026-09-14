@@ -3,19 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lab 01: GitHub Webhook Trigger for Jenkins — CICD BY Nabawy</title>
+<title>Lab 01: Automated Integration Foundations — CICD BY Nabawy</title>
 <link rel="icon" type="image/svg+xml" href="https://eslamnabawy.github.io/cicd-by-nabawy/favicon.svg">
-<meta name="description" content="Wire GitHub webhook delivery into a Jenkins pipeline and verify the trigger chain end to end.">
+<meta name="description" content="Build a reliable automated integration trigger from source change through Jenkins verification and feedback.">
 <meta name="theme-color" content="#0B0D10">
 <link rel="canonical" href="https://eslamnabawy.github.io/cicd-by-nabawy/read/jenkins-lab-webhook.html">
-<meta property="og:title" content="Lab 01: GitHub Webhook Trigger for Jenkins — CICD BY Nabawy">
-<meta property="og:description" content="Wire GitHub webhook delivery into a Jenkins pipeline and verify the trigger chain end to end.">
+<meta property="og:title" content="Lab 01: Automated Integration Foundations — CICD BY Nabawy">
+<meta property="og:description" content="Build a reliable automated integration trigger from source change through Jenkins verification and feedback.">
 <meta property="og:url" content="https://eslamnabawy.github.io/cicd-by-nabawy/read/jenkins-lab-webhook.html">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="CICD BY Nabawy">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Lab 01: GitHub Webhook Trigger for Jenkins — CICD BY Nabawy">
-<meta name="twitter:description" content="Wire GitHub webhook delivery into a Jenkins pipeline and verify the trigger chain end to end.">
+<meta name="twitter:title" content="Lab 01: Automated Integration Foundations — CICD BY Nabawy">
+<meta name="twitter:description" content="Build a reliable automated integration trigger from source change through Jenkins verification and feedback.">
 <meta property="og:image" content="https://eslamnabawy.github.io/cicd-by-nabawy/og/jenkins-lab-webhook.svg">
 <link rel="prefetch" href="jenkins-lab-docker.html">
 <style>
@@ -509,127 +509,556 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
   .map-preview{transition:none !important}
 }
 </style><script>try{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}catch(e){document.documentElement.dataset.theme='sepia'}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Lab 01: GitHub Webhook Trigger for Jenkins", "description": "Wire GitHub webhook delivery into a Jenkins pipeline and verify the trigger chain end to end.", "url": "https://eslamnabawy.github.io/cicd-by-nabawy/read/jenkins-lab-webhook.html", "author": {"@type": "Person", "name": "Nabawy"}, "isPartOf": {"@type": "CollectionPage", "name": "CICD BY Nabawy", "url": "https://eslamnabawy.github.io/cicd-by-nabawy"}}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Library", "item": "https://eslamnabawy.github.io/cicd-by-nabawy/"}, {"@type": "ListItem", "position": 2, "name": "Lab 01: GitHub Webhook Trigger for Jenkins", "item": "https://eslamnabawy.github.io/cicd-by-nabawy/read/jenkins-lab-webhook.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Lab 01: Automated Integration Foundations", "description": "Build a reliable automated integration trigger from source change through Jenkins verification and feedback.", "url": "https://eslamnabawy.github.io/cicd-by-nabawy/read/jenkins-lab-webhook.html", "author": {"@type": "Person", "name": "Nabawy"}, "isPartOf": {"@type": "CollectionPage", "name": "CICD BY Nabawy", "url": "https://eslamnabawy.github.io/cicd-by-nabawy"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Library", "item": "https://eslamnabawy.github.io/cicd-by-nabawy/"}, {"@type": "ListItem", "position": 2, "name": "Lab 01: Automated Integration Foundations", "item": "https://eslamnabawy.github.io/cicd-by-nabawy/read/jenkins-lab-webhook.html"}]}</script>
 <style>
-.readbody{--paper:#f5f6f4;--white:#fff;--ink:#161a19;--muted:#68706d;--line:#d5dad7;--panel:#111614;--panel-2:#1a201d;--text-light:#e8eeeb;--text-muted:#9ca8a3;--accent:#00b87c;--accent-dark:#008f61;--blue:#4387ff;--amber:#d99a24;--red:#d94b4b;--artifact:#8b6cff}
-*{box-sizing:border-box;margin:0;padding:0}
-.readbody{font-family:Inter,"Segoe UI",Arial,sans-serif;color:var(--ink);-webkit-print-color-adjust:exact;print-color-adjust:exact}
-@page{size:A4;margin:0}
-.page{width:210mm;min-height:297mm;padding:14mm 15mm 17mm;margin:7mm auto;position:relative;background:var(--paper);page-break-after:always;overflow:hidden;display:flex;flex-direction:column}
-.page:last-child{page-break-after:auto}
-@media print{.readbody{}.page{margin:0;box-shadow:none}h3.sec,.phead h2{break-after:avoid}.terminal,.step,.callout,.kv,.pipeline,.lanes,.arch,.cmp,.whatwhy,.grid2{break-inside:avoid}}
-.phead{font-size:8.5px;letter-spacing:2.2px;color:var(--muted);text-transform:uppercase;line-height:1.2}
-.phead .ch{color:var(--accent-dark);font-weight:800}
-.phead h2{font-size:20px;letter-spacing:1px;color:var(--ink);margin:3px 0 6px;text-transform:uppercase;line-height:1.1}
-.phead hr{border:none;border-top:1.5px solid var(--ink);margin-bottom:9px}
-.phead .subh{font-size:9px;letter-spacing:1.4px;color:var(--muted);text-transform:uppercase;margin-top:-2px}
-.pfoot{margin-top:auto;padding-top:8px;font-size:8.5px;color:var(--muted);display:flex;justify-content:space-between;border-top:1px solid var(--line);letter-spacing:1px}
-h3.sec{font-size:16.5px;margin:13px 0 7px;text-transform:uppercase;letter-spacing:.4px;break-after:avoid;line-height:1.2}
-h3.sec .n{color:var(--accent-dark);font-family:"Cascadia Code",Consolas,monospace;font-size:12px;margin-right:8px;font-weight:700}
-p.body{font-size:11.2px;line-height:1.65;margin:7px 0;color:#222}
-p.body b{color:var(--ink)}
-code,.mono{font-family:"SFMono-Regular","Cascadia Code",Consolas,monospace;font-size:10px}
-.cover{background:var(--panel);color:var(--text-light);justify-content:center;padding:18mm 16mm 14mm}
-.cover .brand{font-size:8px;letter-spacing:4px;color:var(--text-muted);text-transform:uppercase}
-.cover .labid{font-size:9px;letter-spacing:4px;color:var(--accent);font-weight:800;margin-top:14px}
-.cover h1{font-size:44px;line-height:.95;margin:6px 0 6px;letter-spacing:1px;font-weight:800}
-.cover h1 span{color:var(--accent)}
-.cover .sub{font-size:12px;color:#9ca8a3;line-height:1.65;max-width:150mm;margin-bottom:10px}
-.cover .tri{font-size:8.5px;letter-spacing:2.3px;color:var(--accent);margin-bottom:16px;line-height:1.9}
-.cover .foot{font-size:8.5px;color:var(--text-muted);letter-spacing:2px;margin-top:auto;padding-top:18px;display:flex;align-items:baseline;justify-content:space-between;gap:12px;border-top:1px solid #1f2a26}
-.cover .sig{font-family:"Brush Script MT","Segoe Script","Snell Roundhand",cursive;font-size:26px;color:var(--accent);transform:rotate(-4deg);text-shadow:0 0 14px rgba(0,184,124,.45);white-space:nowrap}
-.vpipe{display:flex;flex-direction:column;margin:8px 0 10px;gap:0}
-.vnode{display:flex;align-items:center;gap:10px}
-.vnode .dot{width:11px;height:11px;border-radius:50%;border:2px solid var(--accent);box-shadow:0 0 10px rgba(0,184,124,.45);flex:none;background:transparent}
-.vnode .dot.amber{border-color:var(--amber);box-shadow:0 0 10px rgba(217,154,36,.4)}
-.vnode .dot.blue{border-color:var(--blue);box-shadow:0 0 10px rgba(67,135,255,.4)}
-.vnode .dot.red{border-color:var(--red);box-shadow:none}
+        .readbody {
+            --paper: #f5f6f4;
+            --white: #ffffff;
+            --ink: #161a19;
+            --muted: #68706d;
+            --line: #d5dad7;
+            --panel: #111614;
+            --panel-2: #1a201d;
+            --text-light: #e8eeeb;
+            --text-muted: #9ca8a3;
+            --accent: #00b87c;
+            --accent-dark: #008f61;
+            --blue: #4387ff;
+            --amber: #d99a24;
+            --red: #d94b4b;
+            --artifact: #8b6cff;
+        }
 
-.cover .vnode img{filter:drop-shadow(0 0 0.9px #18E299) drop-shadow(0 0 4px rgba(24,226,153,.22));}
-.cover .vnode img[src*="github"]{background:none;border-radius:0;padding:0;box-shadow:none;filter:drop-shadow(0 0 0.9px #18E299) drop-shadow(0 0 5px rgba(24,226,153,.28));}
-.cover .vnode img[src*="github"]{background:none;border-radius:0;padding:0;box-shadow:none;filter:drop-shadow(1px 0 0 white) drop-shadow(-1px 0 0 white) drop-shadow(0 1px 0 white) drop-shadow(0 -1px 0 white) drop-shadow(0.7px 0.7px 0 white) drop-shadow(-0.7px -0.7px 0 white) drop-shadow(-0.7px 0.7px 0 white) drop-shadow(0.7px -0.7px 0 white);}
-/* icon: github white on dark, black on light — no halo */
-.cover .vnode img[src*="github"]{filter:invert(1) brightness(1.05);background:none;box-shadow:none;border-radius:0;padding:0;}
-.cover .vnode img:not([src*="github"]){filter:none;}
-/* icon: outline/black icons white on dark covers */
-.cover .vnode img[src*="github"], .cover .vnode img[src*="workflow"], .cover .vnode img[src*="hammer"], .cover .vnode img[src*="package"], .cover .vnode img[src*="database"], .cover .vnode img[src*="puzzle"], .cover .vnode img[src*="server"], .cover .vnode img[src*="terminal"], .cover .vnode img[src*="shield"], .cover .vnode img[src*="activity"], .cover .vnode img[src*="webhook"], .cover .vnode img[src*="wrench"], .cover .vnode img[src*="flask"], .cover .vnode img[src*="rocket"]{filter:invert(1) brightness(1.05);}
-.vnode img{width:22px;height:22px;flex:none;object-fit:contain}
-.vnode b{font-size:10.5px;letter-spacing:1.6px;line-height:1}
-.vnode small{font-size:8.5px;color:var(--text-muted);letter-spacing:.3px}
-.vline{width:2px;height:14px;background:#22302c;margin-left:4.5px}
-.opener .bignum{font-size:56px;font-weight:800;line-height:1;color:var(--ink)}
-.opener .ctitle{font-size:24px;letter-spacing:3px;margin:2px 0 8px;line-height:1.1}
-.opener .lede{font-size:12.2px;line-height:1.65;max-width:152mm;margin:6px 0;color:#2a2f2d}
-.opener .lede em{color:var(--accent-dark);font-style:normal;font-weight:700}
-.kv{background:var(--white);border:1px solid var(--line);padding:9px 11px;margin:7px 0;font-size:11px;line-height:1.6}
-.kv b{color:var(--accent-dark)}
-.callout{border-left:3px solid var(--accent);background:var(--white);padding:9px 11px;margin:8px 0}
-.callout h4{font-size:8.5px;letter-spacing:2px;color:var(--accent-dark);margin-bottom:4px}
-.callout p{font-size:11px;line-height:1.6;color:#222}
-.callout.amber{border-left-color:var(--amber)} .callout.amber h4{color:var(--amber)}
-.callout.red{border-left-color:var(--red)} .callout.red h4{color:var(--red)}
-.callout.blue{border-left-color:var(--blue)} .callout.blue h4{color:var(--blue)}
-.callout.purple{border-left-color:var(--artifact)} .callout.purple h4{color:var(--artifact)}
-.terminal{background:#101413;color:#d6e2dc;border-radius:8px;padding:10px 12px;font-family:"SFMono-Regular","Cascadia Code",Consolas,monospace;font-size:9.2px;line-height:1.65;margin:7px 0;overflow-x:auto;white-space:pre;border:1px solid #1f2a26}
-.terminal .c{color:#8b9a94} .terminal .g{color:var(--accent)} .terminal .a{color:var(--amber)} .terminal .r{color:var(--red)} .terminal .b{color:var(--blue)}
-.terminal .dim{color:#6b7a75}
-.step{background:var(--white);border:1px solid var(--line);padding:9px 11px;margin:6px 0;font-size:11px;line-height:1.6}
-.step h4{font-size:10px;letter-spacing:.8px;margin-bottom:2px;line-height:1.4}
-.step h4 .tag{color:var(--accent-dark);font-family:"Cascadia Code",Consolas,monospace}
-table.cmp{width:100%;border-collapse:collapse;font-size:10.5px;margin:8px 0}
-table.cmp th{background:var(--panel);color:var(--text-light);font-size:8.5px;letter-spacing:1px;padding:6px 7px;text-align:left;font-weight:700}
-table.cmp td{border:1px solid var(--line);padding:6px 7px;background:var(--white);line-height:1.5;vertical-align:top}
-table.cmp td:first-child{font-weight:700;background:#eef0ee}
-.pipeline{display:flex;align-items:center;gap:5px;margin:9px 0;flex-wrap:wrap}
-.pipeline .stage{background:var(--white);border:1px solid var(--line);border-left:3px solid var(--accent);padding:7px 9px;min-width:78px;flex:1}
-.pipeline .stage.fail{border-left-color:var(--red)}
-.pipeline .stage.wait{border-left-color:var(--amber)}
-.pipeline .stage.info{border-left-color:var(--blue)}
-.pipeline .stage strong{font-size:9px;letter-spacing:1px;display:block;line-height:1.2}
-.pipeline .stage small{font-size:8.5px;color:var(--muted);line-height:1.3}
-.pipeline .stage .no{font-family:"Cascadia Code",Consolas,monospace;font-size:7.5px;color:var(--muted);letter-spacing:1px}
-.pipeline .conn{width:16px;height:2px;background:var(--line);position:relative;flex:none}
-.pipeline .conn:after{content:"›";position:absolute;right:-6px;top:-8px;color:var(--muted);font-size:12px}
-.lanes{margin:8px 0}
-.lanes .lane{display:flex;align-items:center;gap:8px;padding:7px 10px;border:1px solid var(--line);background:var(--white);margin-bottom:5px;font-size:10.5px}
-.lanes .lane .env{font-weight:800;font-size:8.5px;letter-spacing:1.4px;min-width:68px}
-.lanes .lane.dev{border-left:3px solid var(--blue)}
-.lanes .lane.stg{border-left:3px solid var(--amber)}
-.lanes .lane.prod{border-left:3px solid var(--accent)}
-.arch{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:6px;align-items:center;margin:8px 0}
-.arch .box{background:var(--white);border:1px solid var(--line);padding:8px 8px;text-align:center}
-.arch .box b{font-size:9.5px;letter-spacing:1px;display:block;line-height:1.2}
-.arch .box small{font-size:8.5px;color:var(--muted);line-height:1.4}
-.arch .arrow{color:var(--muted);font-size:16px;text-align:center}
-.status{display:inline-flex;align-items:center;gap:5px;font-size:9.5px;letter-spacing:.8px;font-weight:800}
-.status .dot{width:7px;height:7px;border-radius:50%}
-.status.pass{color:var(--accent-dark)} .status.pass .dot{background:var(--accent)}
-.status.fail{color:var(--red)} .status.fail .dot{background:var(--red)}
-.status.wait{color:var(--amber)} .status.wait .dot{background:var(--amber)}
-.status.run{color:var(--blue)} .status.run .dot{background:var(--blue)}
-.badge{font-size:7.5px;letter-spacing:1.1px;padding:3px 7px;border-radius:10px;border:1px solid var(--line);background:var(--white);font-weight:800;display:inline-flex;align-items:center;gap:4px}
-.badge.green{border-color:var(--accent);color:var(--accent-dark)} .badge.amber{border-color:var(--amber);color:#7a5a12} .badge.blue{border-color:var(--blue);color:var(--blue)} .badge.red{border-color:var(--red);color:var(--red)}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0}
-.card{background:var(--white);border:1px solid var(--line);padding:9px 10px}
-.card h4{font-size:9px;letter-spacing:1.1px;margin-bottom:3px;color:var(--ink)}
-.card p{font-size:10.5px;line-height:1.6;color:var(--muted)}
-.whatwhy{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:8px 0}
-.whatwhy .ww{background:var(--white);border:1px solid var(--line);padding:9px 10px}
-.whatwhy .ww b{font-size:9px;letter-spacing:1.4px;display:block;margin-bottom:3px}
-.whatwhy .ww p{font-size:10.5px;line-height:1.55;color:#333}
-.whatwhy .ww:nth-child(1){border-left:3px solid var(--blue)}
-.whatwhy .ww:nth-child(2){border-left:3px solid var(--accent)}
-.whatwhy .ww:nth-child(3){border-left:3px solid var(--amber)}
-.obsgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:8px 0}
-.obsgrid .ob{background:var(--white);border:1px solid var(--line);padding:9px 10px;text-align:center}
-.obsgrid .ob b{font-size:9px;letter-spacing:1.3px;display:block;margin-bottom:2px}
-.obsgrid .ob small{font-size:9px;color:var(--muted);line-height:1.4}
-.obsgrid .ob.observe{border-top:3px solid var(--blue)} .obsgrid .ob.execute{border-top:3px solid var(--accent)} .obsgrid .ob.verify{border-top:3px solid var(--amber)}
-.printnote{font-size:8.5px;color:var(--muted);border:1px dashed var(--line);padding:7px 9px;margin-top:8px;line-height:1.6}
-/* m-reflow: screen-only mobile reflow; print unaffected */
-@media screen and (max-width:700px){.page{width:auto;min-height:0;margin:0 auto;padding:16px 14px 20px}h3.sec{font-size:14px}.opener .bignum{font-size:40px}.cover h1{font-size:30px}.grid2,.whatwhy,.obsgrid{grid-template-columns:1fr}.arch{grid-template-columns:1fr}.arch .arrow{transform:rotate(90deg)}}
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        .readbody{
+            font-family: Inter, "Segoe UI", Arial, sans-serif;
+            
+            color: var(--ink);
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+            line-height: 1.5;
+        }
+
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 16mm 16mm 19mm;
+            margin: 8mm auto;
+            position: relative;
+            background: var(--paper);
+            page-break-after: always;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .page:last-child { page-break-after: auto; }
+
+        /* HEADER & FOOTER */
+        .page-header {
+            display: flex;
+            align-items: center;
+            font-size: 9px;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 20px;
+        }
+        .h-chip { font-weight: 700; color: var(--ink); }
+        .h-rule { flex: 1; height: 1px; background: var(--line); margin: 0 12px; }
+        .h-title { font-weight: 500; }
+
+        .page-footer {
+            position: absolute;
+            bottom: 10mm;
+            left: 16mm;
+            right: 16mm;
+            display: flex;
+            align-items: center;
+            font-size: 9px;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .f-left { font-weight: 700; color: var(--ink); }
+        .f-rule { flex: 1; height: 1px; background: var(--line); margin: 0 12px; }
+        .f-right { font-weight: 500; }
+
+        /* CONTENT */
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h2.section-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--ink);
+            display: flex;
+            align-items: baseline;
+        }
+        h2.section-title .n {
+            font-size: 14px;
+            color: var(--accent);
+            font-weight: 600;
+            margin-right: 8px;
+            letter-spacing: 1px;
+        }
+        h3.sub-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--ink);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        p { font-size: 11.5px; color: var(--ink); margin-bottom: 10px; line-height: 1.6; }
+        strong { font-weight: 600; }
+        
+        /* COVER */
+        .cover {
+            background: var(--panel);
+            color: var(--text-light);
+            padding: 0;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+        }
+        .cover-left { padding: 30mm 25mm; display: flex; flex-direction: column; justify-content: space-between; }
+        .cover-right { background: var(--panel-2); display: flex; align-items: center; justify-content: center; border-left: 1px solid #2a2f2d; padding: 40mm 20mm; }
+
+        .cover-title { font-size: 48px; font-weight: 700; line-height: 1.05; letter-spacing: -1.5px; margin-bottom: 15px; }
+        .cover-sub { font-size: 18px; color: var(--text-muted); font-weight: 400; margin-bottom: 40px; line-height: 1.4; }
+        .cover-meta { font-size: 10px; letter-spacing: 3px; color: var(--accent); text-transform: uppercase; font-weight: 600; border-top: 1px solid #2a2f2d; padding-top: 15px; }
+        .cover-footer { display: flex; justify-content: flex-end; align-items: center; }
+
+        .sig {
+            font-family: "Brush Script MT", "Segoe Script", "Snell Roundhand", cursive;
+            font-size: 32px; 
+            color: var(--accent); 
+            transform: rotate(-4deg);
+            text-shadow: 0 0 14px rgba(0,184,124,.45); 
+            white-space: nowrap;
+            margin-top: 20px;
+        }
+
+        /* VERTICAL PIPELINE (COVER) */
+        .v-pipeline {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0;
+            width: 100%;
+        }
+        .v-stage {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 14px 20px;
+            width: 100%;
+            position: relative;
+        }
+        .v-dot {
+            width: 10px; height: 10px; border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 12px var(--accent);
+            flex-shrink: 0;
+        }
+        .v-stage.idle .v-dot { background: var(--muted); box-shadow: none; }
+        .v-stage.running .v-dot { background: var(--blue); box-shadow: 0 0 12px var(--blue); }
+        .v-info strong { display: block; color: var(--text-light); font-size: 14px; font-weight: 600; letter-spacing: 1px; }
+        .v-info small { display: block; color: var(--text-muted); font-size: 10px; }
+        .v-line {
+            width: 2px; height: 24px; background: var(--text-muted); margin-left: 24px;
+            opacity: 0.3;
+        }
+
+        /* HORIZONTAL PIPELINE */
+        .pipeline {
+            display: flex;
+            align-items: stretch;
+            margin: 20px 0;
+            width: 100%;
+        }
+        .stage {
+            flex: 1;
+            background: var(--white);
+            border: 1px solid var(--line);
+            padding: 12px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            border-left-width: 3px;
+        }
+        .stage-no { font-size: 9px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+        .stage strong { font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--ink); }
+        .stage small { font-size: 10px; color: var(--muted); display: block; margin-bottom: 4px; }
+        
+        .stage.passed { border-left-color: var(--accent); }
+        .stage.passed .stage-no { color: var(--accent-dark); }
+        .stage.running { border-left-color: var(--blue); }
+        .stage.running .stage-no { color: var(--blue); }
+        .stage.failed { border-left-color: var(--red); }
+        .stage.failed .stage-no { color: var(--red); }
+        .stage.waiting { border-left-color: var(--amber); }
+        .stage.waiting .stage-no { color: var(--amber); }
+        .stage.artifact { border-left-color: var(--artifact); }
+        .stage.artifact .stage-no { color: var(--artifact); }
+
+        .connector {
+            width: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            flex-shrink: 0;
+        }
+        .connector::before {
+            content: '';
+            width: 100%;
+            height: 2px;
+            background: var(--line);
+        }
+        .connector::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            width: 0; height: 0;
+            border-left: 6px solid var(--line);
+            border-top: 4px solid transparent;
+            border-bottom: 4px solid transparent;
+        }
+
+        .status-pill {
+            font-size: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 700;
+            display: inline-block;
+            margin-top: auto;
+            align-self: flex-start;
+        }
+        .status-pill.passed { background: rgba(0,184,124,0.15); color: var(--accent-dark); }
+        .status-pill.running { background: rgba(67,135,255,0.15); color: var(--blue); }
+        .status-pill.waiting { background: rgba(217,154,36,0.15); color: var(--amber); }
+        .status-pill.failed { background: rgba(217,75,75,0.15); color: var(--red); }
+
+        /* TERMINAL */
+        .terminal {
+            background: var(--panel);
+            color: var(--text-light);
+            border-radius: 6px;
+            padding: 14px 16px;
+            font-family: "SFMono-Regular", "Cascadia Code", "Consolas", monospace;
+            font-size: 10.5px;
+            line-height: 1.65;
+            margin: 10px 0;
+            border: 1px solid #2a2f2d;
+        }
+        .term-line { display: block; }
+        .term-prompt { color: var(--accent); }
+        .term-out { color: var(--text-muted); }
+        .term-ok { color: var(--accent); }
+        .term-warn { color: var(--amber); }
+        .term-err { color: var(--red); }
+        .term-blue { color: var(--blue); }
+
+        /* COMMAND + RESULT */
+        .cmdres {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        .cmdres > div { display: flex; flex-direction: column; }
+        .cmdres h4 { font-size: 9px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; font-weight: 700; letter-spacing: 1px; }
+        .cmdres .term-box {
+            border: 1px solid var(--line);
+            padding: 10px;
+            background: var(--panel);
+            color: var(--text-light);
+            font-family: "SFMono-Regular", "Cascadia Code", "Consolas", monospace;
+            font-size: 10px;
+            flex: 1;
+            border-radius: 4px;
+        }
+
+        /* CONCEPT GRID */
+        .concept-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 15px 0;
+        }
+        .concept-block h4 { font-size: 10px; text-transform: uppercase; color: var(--accent-dark); margin-bottom: 6px; font-weight: 700; letter-spacing: 1px; }
+        .concept-block p { font-size: 11px; line-height: 1.5; color: var(--ink); }
+
+        /* CALLOUTS */
+        .callout {
+            border-left: 3px solid var(--accent);
+            background: rgba(0, 184, 124, 0.05);
+            padding: 12px 16px;
+            margin: 15px 0;
+        }
+        .callout h4 { font-size: 10px; text-transform: uppercase; color: var(--accent-dark); margin-bottom: 4px; font-weight: 700; letter-spacing: 1px; }
+        .callout p { font-size: 11.5px; color: var(--ink); line-height: 1.5; margin: 0; }
+
+        .gotcha { border-left-color: var(--amber); background: rgba(217, 154, 36, 0.05); }
+        .gotcha h4 { color: var(--amber); }
+        
+        .interview { border-left-color: var(--blue); background: rgba(67, 135, 255, 0.05); }
+        .interview h4 { color: var(--blue); }
+        .interview p { margin-bottom: 5px; }
+        .interview strong { color: var(--ink); }
+
+        /* DECISION DIAGRAM */
+        .dec-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0;
+            font-size: 11px;
+        }
+        .dec-q { 
+            border: 1px solid var(--ink); 
+            padding: 8px 20px; 
+            font-weight: 600; 
+            text-transform: uppercase;
+            background: var(--white);
+            position: relative;
+        }
+        .dec-q::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            width: 2px;
+            height: 20px;
+            background: var(--ink);
+        }
+        .dec-branches {
+            display: flex;
+            justify-content: space-around;
+            width: 80%;
+            margin-top: 20px;
+            position: relative;
+        }
+        .dec-branches::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 10%;
+            width: 80%;
+            height: 20px;
+            border-top: 2px solid var(--ink);
+            border-left: 2px solid var(--ink);
+            border-right: 2px solid var(--ink);
+        }
+        .dec-branch {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        .dec-label { font-weight: 700; text-transform: uppercase; font-size: 10px; }
+        .dec-branch.yes .dec-label { color: var(--accent-dark); }
+        .dec-branch.no .dec-label { color: var(--red); }
+        .dec-val { 
+            border: 1px dashed var(--muted); 
+            padding: 8px 12px; 
+            text-align: center; 
+            background: var(--white);
+            font-size: 10px;
+            line-height: 1.4;
+        }
+        .dec-val span { display: block; font-family: monospace; color: var(--blue); margin-top: 4px; }
+
+        /* LAB FORMAT */
+        .lab-step {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px dashed var(--line);
+        }
+        .lab-step:last-child { border-bottom: none; }
+        .step-no { 
+            font-size: 10px; 
+            font-weight: 700; 
+            color: var(--accent); 
+            text-transform: uppercase; 
+            width: 70px; 
+            flex-shrink: 0; 
+            letter-spacing: 1px;
+            padding-top: 2px;
+        }
+        .lab-content p { margin: 0; font-size: 11.5px; }
+
+        /* ARCHITECTURE DIAGRAM */
+        .arch-diagram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0;
+            font-size: 11px;
+        }
+        .arch-node {
+            border: 1px solid var(--line);
+            padding: 10px 20px;
+            background: var(--white);
+            text-align: center;
+            width: 260px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 10px;
+            letter-spacing: 1px;
+            position: relative;
+        }
+        .arch-node.highlight { border-color: var(--accent); color: var(--accent-dark); background: rgba(0,184,124,0.05); }
+        .arch-node.blue { border-color: var(--blue); color: var(--blue); background: rgba(67,135,255,0.05); }
+        .arch-node.amber { border-color: var(--amber); color: var(--amber); background: rgba(217,154,36,0.05); }
+        .arch-arrow {
+            height: 24px;
+            width: 2px;
+            background: var(--line);
+            position: relative;
+        }
+        .arch-arrow::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -4px;
+            width: 0; height: 0;
+            border-top: 6px solid var(--line);
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+        }
+        .arch-arrow.labeled::before {
+            content: attr(data-label);
+            position: absolute;
+            left: 10px;
+            top: 4px;
+            font-size: 9px;
+            color: var(--muted);
+            text-transform: uppercase;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        /* ENVIRONMENT LANES */
+        .lanes { margin: 20px 0; }
+        .lane {
+            border: 1px solid var(--line);
+            margin-bottom: 10px;
+            background: var(--white);
+            display: flex;
+            align-items: stretch;
+        }
+        .lane-header { 
+            background: var(--panel-2); 
+            color: var(--text-light); 
+            padding: 10px 15px; 
+            font-size: 10px; 
+            text-transform: uppercase; 
+            font-weight: 700; 
+            letter-spacing: 1px; 
+            width: 100px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            text-align: center;
+        }
+        .lane-body { 
+            padding: 10px 15px; 
+            flex: 1; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            font-size: 11px;
+        }
+        .lane-status { margin-left: auto; font-size: 9px; font-weight: 700; text-transform: uppercase; padding: 2px 6px; border-radius: 3px; }
+        
+        /* TABLES */
+        table.cmp {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+            margin: 15px 0;
+            background: var(--white);
+        }
+        table.cmp th, table.cmp td {
+            border: 1px solid var(--line);
+            padding: 8px 10px;
+            text-align: left;
+        }
+        table.cmp th {
+            background: var(--panel-2);
+            color: var(--text-light);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 9px;
+            letter-spacing: 1px;
+        }
+        table.cmp td:first-child { font-weight: 600; color: var(--muted); }
+
+        /* SYSTEM MAP */
+        .sys-map {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            margin: 20px 0;
+        }
+        .map-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+        }
+        .map-box {
+            border: 1px solid var(--ink);
+            padding: 12px 20px;
+            background: var(--white);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+            min-width: 140px;
+        }
+        .map-box.artifact { border-color: var(--artifact); color: var(--artifact); }
+        .map-box.blue { border-color: var(--blue); color: var(--blue); }
+        .map-box.green { border-color: var(--accent); color: var(--accent-dark); }
+        .map-arr { color: var(--muted); font-size: 14px; }
+        .map-line { width: 2px; height: 15px; background: var(--line); margin: 0 auto; }
+        .map-feedback {
+            border: 1px dashed var(--accent);
+            padding: 10px;
+            color: var(--accent-dark);
+            font-size: 10px;
+            text-align: center;
+            margin-top: 10px;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        @media print {
+            .readbody{  }
+            .page { margin: 0; box-shadow: none; border: none; }
+        }
+    
 /* reader overrides */
 .readbody .page:not(.cover){width:auto !important;min-height:0 !important;margin:0 auto !important;padding:10px 26px !important;background:transparent !important;border-radius:0;page-break-after:auto !important;overflow:visible}
 .readbody .page.cover{align-items:flex-start !important;border-radius:16px;padding:48px 34px !important;margin:0 auto 30px !important}
@@ -642,10 +1071,10 @@ table.cmp td:first-child{font-weight:700;background:#eef0ee}
 </head>
 <body data-book="jenkins-lab-webhook">
 <header class="top"><div class="wrap">
-<button class="btn tocbtn" id="tocbtn" aria-label="Open table of contents">☰ Contents · 41</button>
+<button class="btn tocbtn" id="tocbtn" aria-label="Open table of contents">☰ Contents · 33</button>
 <nav class="crumbs"><a class="logo" href="../index.html" style="color:inherit"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="5" cy="12" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="6" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="18" r="2.6" stroke="#18E299" stroke-width="2"/><path d="M7.6 12h5.2m0 0-2.6-2.6m2.6 2.6-2.6 2.6M13.4 7.4l2.8-1M13.4 16.6l2.8 1" stroke="#18E299" stroke-width="2" stroke-linecap="round"/></svg>CICD<span> BY Nabawy</span></a>
 <span class="sep">/</span>
-<span class="here">Lab 01: GitHub Webhook Trigger for Jenkins</span></nav>
+<span class="here">Lab 01: Automated Integration Foundations</span></nav>
 <div class="search"><input id="q" type="search" placeholder="Find in this book…" aria-label="Find in this book"><kbd>⌘K</kbd></div>
 <span id="qcount" style="font-size:12px;color:var(--mut)"></span>
 <button class="markbtn" id="markbtn" aria-label="Bookmark this book">☆ Save</button>
@@ -658,218 +1087,589 @@ table.cmp td:first-child{font-weight:700;background:#eef0ee}
 </div>
 <div class="prog" style="height:3px;background:var(--line)"><b id="pbar" style="display:block;height:100%;width:0;background:var(--acc)"></b></div>
 </header>
-<div class="readcontext" data-testid="reader-context"><div class="wrap"><a href="../shelf.html">Browse</a><span>›</span><a href="../shelf.html#path-labs">Hands-on Labs</a><span>›</span><span class="here">Lab 01: GitHub Webhook Trigger for Jenkins</span><span class="pathpos">9 of 14 in Hands-on Labs</span><span class="prereq">Prereq:<a href="jenkins-setup.html">Jenkins Setup</a><a href="jenkins-pipelines.html">Jenkins Pipelines</a></span></div></div>
+<div class="readcontext" data-testid="reader-context"><div class="wrap"><a href="../shelf.html">Browse</a><span>›</span><a href="../shelf.html#path-labs">Hands-on Labs</a><span>›</span><span class="here">Lab 01: Automated Integration Foundations</span><span class="pathpos">9 of 14 in Hands-on Labs</span><span class="prereq">Prereq:<a href="jenkins-setup.html">Jenkins Setup</a><a href="jenkins-pipelines.html">Jenkins Pipelines</a></span></div></div>
 <div class="rlayout">
-<aside class="toc"><h4>CONTENTS · 6 PAGES · 41 SECTIONS</h4><a href="#p1" class="toc-l1" aria-label="Cover — WEBHOOKTRIGGER">Cover — WEBHOOKTRIGGER</a><a href="#p2" class="toc-l1" aria-label="1 Lab 01">1 Lab 01</a><a href="#p2" class="toc-l2" aria-label="1.1 01 / What / Why / When">1.1 01 / What / Why / When</a><a href="#p2" class="toc-l3" aria-label="1.1.1 WHY THIS EXISTS">1.1.1 WHY THIS EXISTS</a><a href="#p2" class="toc-l2" aria-label="1.2 02 / Architecture — The Three Hops">1.2 02 / Architecture — The Three Hops</a><a href="#p2" class="toc-l2" aria-label="1.3 03 / Lab Loop — Observe · Execute · Verify">1.3 03 / Lab Loop — Observe · Execute · Verify</a><a href="#p3" class="toc-l1" aria-label="2 Pre-Flight &amp; Reachability">2 Pre-Flight &amp; Reachability</a><a href="#p3" class="toc-l2" aria-label="2.1 04 / Step 0 — Pre-Flight Check">2.1 04 / Step 0 — Pre-Flight Check</a><a href="#p3" class="toc-l3" aria-label="2.1.1 ASK IN ONE BATCH — BEFORE STEP 1">2.1.1 ASK IN ONE BATCH — BEFORE STEP 1</a><a href="#p3" class="toc-l3" aria-label="2.1.2 GOTCHA — WSL / LOCALHOST IS INVISIBLE TO GITHUB">2.1.2 GOTCHA — WSL / LOCALHOST IS INVISIBLE TO GITHUB</a><a href="#p4" class="toc-l1" aria-label="3 Job · Credentials · Checkout">3 Job · Credentials · Checkout</a><a href="#p4" class="toc-l2" aria-label="3.1 05 / Step 1 — Create or Reuse a Pipeline Job">3.1 05 / Step 1 — Create or Reuse a Pipeline Job</a><a href="#p4" class="toc-l3" aria-label="3.1.1 OBSERVE — Browse Jenkins dashboard for an existing pipeline ">3.1.1 OBSERVE — Browse Jenkins dashboard for an existing pipeline </a><a href="#p4" class="toc-l3" aria-label="3.1.2 EXECUTE — Otherwise New Item → Pipeline → name github-webhoo">3.1.2 EXECUTE — Otherwise New Item → Pipeline → name github-webhoo</a><a href="#p4" class="toc-l3" aria-label="3.1.3 VERIFY — Save → Build Now → build is PASSED before any Git i">3.1.3 VERIFY — Save → Build Now → build is PASSED before any Git i</a><a href="#p4" class="toc-l2" aria-label="3.2 06 / Step 2 — Repository URL">3.2 06 / Step 2 — Repository URL</a><a href="#p4" class="toc-l3" aria-label="3.2.1 EXECUTE — In GitHub → repo → Code → HTTPS → copy clone URL:">3.2.1 EXECUTE — In GitHub → repo → Code → HTTPS → copy clone URL:</a><a href="#p4" class="toc-l2" aria-label="3.3 07 / Steps 3–4 — PAT + Jenkins Credentials + Checkout">3.3 07 / Steps 3–4 — PAT + Jenkins Credentials + Checkout</a><a href="#p4" class="toc-l3" aria-label="3.3.1 WHY CREDENTIALS LIVE IN JENKINS, NOT IN GIT">3.3.1 WHY CREDENTIALS LIVE IN JENKINS, NOT IN GIT</a><a href="#p4" class="toc-l3" aria-label="3.3.2 OBSERVE — Step 0 already confirmed or collected the PAT. Nev">3.3.2 OBSERVE — Step 0 already confirmed or collected the PAT. Nev</a><a href="#p4" class="toc-l3" aria-label="3.3.3 EXECUTE — Manage Jenkins → Credentials (or inside the job: P">3.3.3 EXECUTE — Manage Jenkins → Credentials (or inside the job: P</a><a href="#p4" class="toc-l3" aria-label="3.3.4 VERIFY — Build Now → Console Output shows Cloning the remote">3.3.4 VERIFY — Build Now → Console Output shows Cloning the remote</a><a href="#p5" class="toc-l1" aria-label="4 Wire Both Sides">4 Wire Both Sides</a><a href="#p5" class="toc-l2" aria-label="4.1 08 / Step 5 — GitHub Webhook">4.1 08 / Step 5 — GitHub Webhook</a><a href="#p5" class="toc-l3" aria-label="4.1.1 OBSERVE — Repo → Settings → Webhooks. If a webhook already p">4.1.1 OBSERVE — Repo → Settings → Webhooks. If a webhook already p</a><a href="#p5" class="toc-l3" aria-label="4.1.2 EXECUTE — Add webhook:">4.1.2 EXECUTE — Add webhook:</a><a href="#p5" class="toc-l3" aria-label="4.1.3 VERIFY — Webhook list shows a green checkmark on the initial">4.1.3 VERIFY — Webhook list shows a green checkmark on the initial</a><a href="#p5" class="toc-l2" aria-label="4.2 09 / Step 6 — Jenkins Trigger">4.2 09 / Step 6 — Jenkins Trigger</a><a href="#p5" class="toc-l3" aria-label="4.2.1 OBSERVE — Open the job → Configure → Build Triggers. Is GitH">4.2.1 OBSERVE — Open the job → Configure → Build Triggers. Is GitH</a><a href="#p5" class="toc-l3" aria-label="4.2.2 EXECUTE — Check GitHub hook trigger for GITScm polling → Sav">4.2.2 EXECUTE — Check GitHub hook trigger for GITScm polling → Sav</a><a href="#p5" class="toc-l3" aria-label="4.2.3 VERIFY — Job config now lists the trigger; no other trigger ">4.2.3 VERIFY — Job config now lists the trigger; no other trigger </a><a href="#p5" class="toc-l3" aria-label="4.2.4 WHY TWO SIDES?">4.2.4 WHY TWO SIDES?</a><a href="#p6" class="toc-l1" aria-label="5 Prove It">5 Prove It</a><a href="#p6" class="toc-l2" aria-label="5.1 10 / Step 7 — End-to-End Automatic Trigger">5.1 10 / Step 7 — End-to-End Automatic Trigger</a><a href="#p6" class="toc-l3" aria-label="5.1.1 EXECUTE — Make a small commit on the configured branch:">5.1.1 EXECUTE — Make a small commit on the configured branch:</a><a href="#p6" class="toc-l3" aria-label="5.1.2 OBSERVE — Watch Jenkins Build History for ~5–15 s. A new bui">5.1.2 OBSERVE — Watch Jenkins Build History for ~5–15 s. A new bui</a><a href="#p6" class="toc-l3" aria-label="5.1.3 VERIFY — Three signals, all must hold:">5.1.3 VERIFY — Three signals, all must hold:</a><a href="#p6" class="toc-l2" aria-label="5.2 11 / Failure → Recovery Map">5.2 11 / Failure → Recovery Map</a><a href="#p6" class="toc-l2" aria-label="5.3 12 / Proof — What This Lab Proved">5.3 12 / Proof — What This Lab Proved</a><a href="#p6" class="toc-l3" aria-label="5.3.1 INTERVIEW CHECK">5.3.1 INTERVIEW CHECK</a><a href="#p6" class="toc-l3" aria-label="5.3.2 CONSISTENCY RULE">5.3.2 CONSISTENCY RULE</a>
+<aside class="toc"><h4>CONTENTS · 9 PAGES · 33 SECTIONS</h4><a href="#p1" class="toc-l1" aria-label="Cover — Page 1">Cover — Page 1</a><a href="#p2" class="toc-l1" aria-label="1 01 / Automated Integration Foundations">1 01 / Automated Integration Foundations</a><a href="#p2" class="toc-l3" aria-label="1.0.1 WHAT">1.0.1 WHAT</a><a href="#p2" class="toc-l3" aria-label="1.0.2 WHY">1.0.2 WHY</a><a href="#p2" class="toc-l3" aria-label="1.0.3 WHEN">1.0.3 WHEN</a><a href="#p2" class="toc-l3" aria-label="1.0.4 WHAT CHANGES">1.0.4 WHAT CHANGES</a><a href="#p2" class="toc-l3" aria-label="1.0.5 WHY THIS EXISTS">1.0.5 WHY THIS EXISTS</a><a href="#p3" class="toc-l1" aria-label="2 02 / Pre-Flight Analysis">2 02 / Pre-Flight Analysis</a><a href="#p3" class="toc-l2" aria-label="2.1 Environment Verification">2.1 Environment Verification</a><a href="#p3" class="toc-l2" aria-label="2.2 Dependency Check">2.2 Dependency Check</a><a href="#p3" class="toc-l3" aria-label="2.2.1 GOTCHA">2.2.1 GOTCHA</a><a href="#p4" class="toc-l1" aria-label="3 03 / Reachability &amp; Network Paths">3 03 / Reachability &amp; Network Paths</a><a href="#p4" class="toc-l2" aria-label="3.1 Establishing the Tunnel">3.1 Establishing the Tunnel</a><a href="#p4" class="toc-l3" aria-label="3.1.1 COMMAND">3.1.1 COMMAND</a><a href="#p4" class="toc-l3" aria-label="3.1.2 RESULT">3.1.2 RESULT</a><a href="#p4" class="toc-l3" aria-label="3.1.3 INTERVIEW CHECK">3.1.3 INTERVIEW CHECK</a><a href="#p5" class="toc-l1" aria-label="4 04 / Job &amp; Credential Setup">4 04 / Job &amp; Credential Setup</a><a href="#p5" class="toc-l2" aria-label="4.1 Step 1: Create Pipeline Job">4.1 Step 1: Create Pipeline Job</a><a href="#p5" class="toc-l2" aria-label="4.2 Step 2: Configure Secure Credentials">4.2 Step 2: Configure Secure Credentials</a><a href="#p5" class="toc-l3" aria-label="4.2.1 GOTCHA">4.2.1 GOTCHA</a><a href="#p5" class="toc-l3" aria-label="4.2.2 INTERVIEW CHECK">4.2.2 INTERVIEW CHECK</a><a href="#p6" class="toc-l1" aria-label="5 05 / Lab: Secure Checkout">5 05 / Lab: Secure Checkout</a><a href="#p6" class="toc-l2" aria-label="5.1 Generated Groovy Snippet">5.1 Generated Groovy Snippet</a><a href="#p7" class="toc-l1" aria-label="6 06 / The Webhook Bridge">6 06 / The Webhook Bridge</a><a href="#p7" class="toc-l2" aria-label="6.1 Architecture Flow">6.1 Architecture Flow</a><a href="#p7" class="toc-l2" aria-label="6.2 Step 5: GitHub Configuration">6.2 Step 5: GitHub Configuration</a><a href="#p7" class="toc-l3" aria-label="6.2.1 GOTCHA">6.2.1 GOTCHA</a><a href="#p7" class="toc-l2" aria-label="6.3 Step 6: Jenkins Trigger Configuration">6.3 Step 6: Jenkins Trigger Configuration</a><a href="#p8" class="toc-l1" aria-label="7 07 / Lab: End-to-End Trigger">7 07 / Lab: End-to-End Trigger</a><a href="#p8" class="toc-l3" aria-label="7.0.1 COMMAND">7.0.1 COMMAND</a><a href="#p8" class="toc-l3" aria-label="7.0.2 RESULT">7.0.2 RESULT</a><a href="#p9" class="toc-l1" aria-label="8 08 / System Map &amp; Troubleshooting">8 08 / System Map &amp; Troubleshooting</a><a href="#p9" class="toc-l2" aria-label="8.1 Troubleshooting Flow">8.1 Troubleshooting Flow</a>
 </aside>
 <main class="read"><div class="readbody">
 <div class="upnext upnext-top">Up next in Hands-on Labs → <a href="jenkins-lab-docker.html"><b>Lab 02: Docker Build &amp; Push with Jenkins</b></a></div>
 <div class="labbanner">🧪 Hands-on lab · 45 min · Env: See book overview · <a href="../book/jenkins-lab-webhook.html">Overview &amp; prereqs</a> · <a href="../downloads/labs/jenkins-lab-webhook.pdf" download>Download PDF</a> · <button class="markbtn" id="labreset" style="margin-left:8px">Reset checks</button></div>
 <div id="p1" class="page cover">
-  <div class="brand">CI/CD Systems &nbsp;·&nbsp; Pipeline Control Room &nbsp;·&nbsp; Jenkins Labs</div>
-  <div class="labid">LAB 01 — JENKINS LABS</div>
-  <h1>WEBHOOK<br><span>TRIGGER</span></h1>
-  <div class="sub">Push to build — with no human in between. Wire GitHub to Jenkins so every <span class="mono" style="color:var(--accent)">git push</span> delivers a webhook, matches a branch, and starts a build automatically.</div>
-  <div class="tri">GITHUB &nbsp;·&nbsp; WEBHOOK &nbsp;·&nbsp; JENKINS &nbsp;·&nbsp; GITSCM POLLING &nbsp;·&nbsp; VERIFY</div>
-  <div class="vpipe">
-    <div class="vnode"><span class="dot"></span><img src="../assets/icons/git/github.svg" alt="GitHub"><b>SOURCE — GITHUB PUSH</b><small>commit to branch · HTTPS clone URL</small></div><div class="vline"></div>
-    <div class="vnode"><span class="dot amber"></span><img src="../assets/icons/jenkins/webhook.svg" alt="Webhook"><b>WEBHOOK — /github-webhook/</b><small>POST · application/json · trailing slash matters</small></div><div class="vline"></div>
-    <div class="vnode"><span class="dot blue"></span><img src="../assets/icons/jenkins/jenkins.svg" alt="Jenkins"><b>TRIGGER — GITSCM POLLING</b><small>Build Triggers · GitHub hook trigger for GITScm polling</small></div><div class="vline"></div>
-    <div class="vnode"><span class="dot"></span><img src="../assets/icons/general/terminal.svg" alt="Terminal"><b>CHECKOUT — PAT + BRANCH</b><small>checkout scm · github-token · Branch to build</small></div><div class="vline"></div>
-    <div class="vnode"><span class="dot"></span><img src="../assets/icons/security/shield.svg" alt="Shield"><b>VERIFY — PROOF</b><small>Recent Deliveries 200 · Console SHA · auto build</small></div>
-  </div>
-  <div style="display:flex;gap:6px;margin-top:2px;flex-wrap:wrap">
-    <span class="badge green">● LAB 01</span><span class="badge blue">PUSH → BUILD</span><span class="badge amber">NO MANUAL BUILD NOW</span>
-  </div>
-  <div class="foot"><span>01 / 06 &nbsp;·&nbsp; COVER &nbsp;·&nbsp; LAB 01 WEBHOOK TRIGGER</span><span class="sig">Nabawy</span></div>
-</div><div id="p2" class="page opener">
-  </div>
-  <div class="bignum">01</div>
-  <div class="ctitle">GITHUB WEBHOOK TRIGGER</div>
-  <p class="lede">One commit should be enough. <em>Push once — Jenkins builds without anyone clicking Build Now.</em> This lab closes the loop <b>commit → webhook → trigger → checkout</b> and proves all three failure points are knowable.</p>
+        <div class="cover-left">
+            <div>
+                <div class="cover-title">CI/CD<br>ENGINEERING</div>
+                <div class="cover-sub">From Commit to Production:<br>Automated Triggering & Webhooks</div>
+            </div>
+            <div class="cover-meta">
+                Continuous Integration<br>
+                Continuous Delivery<br>
+                Continuous Deployment
+            </div>
+            <div class="cover-footer">
+                <span class="sig">Nabawy</span>
+            </div>
+        </div>
+        <div class="cover-right">
+            <div class="v-pipeline">
+                <div class="v-stage idle">
+                    <span class="v-dot"></span>
+                    <div class="v-info">
+                        <strong>SOURCE</strong>
+                        <small>Git repository</small>
+                    </div>
+                </div>
+                <div class="v-line"></div>
+                <div class="v-stage running">
+                    <span class="v-dot"></span>
+                    <div class="v-info">
+                        <strong>WEBHOOK</strong>
+                        <small>Push event delivery</small>
+                    </div>
+                </div>
+                <div class="v-line"></div>
+                <div class="v-stage">
+                    <span class="v-dot"></span>
+                    <div class="v-info">
+                        <strong>JENKINS</strong>
+                        <small>Trigger received</small>
+                    </div>
+                </div>
+                <div class="v-line"></div>
+                <div class="v-stage">
+                    <span class="v-dot"></span>
+                    <div class="v-info">
+                        <strong>CHECKOUT</strong>
+                        <small>Pull latest code</small>
+                    </div>
+                </div>
+                <div class="v-line"></div>
+                <div class="v-stage">
+                    <span class="v-dot"></span>
+                    <div class="v-info">
+                        <strong>BUILD</strong>
+                        <small>Execute pipeline</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><div id="p2" class="page">
+        <header class="page-header">
+            <span class="h-chip">CI/CD SYSTEMS</span>
+            <span class="h-rule"></span>
+            <span class="h-title">AUTOMATED TRIGGERING</span>
+        </header>
+        <div class="content">
+            <h2 class="section-title"><span class="n">01 /</span> Automated Integration Foundations</h2>
+            <p>A pipeline is not magic. It is a deterministic sequence of machines making decisions about your code. However, for this sequence to be truly continuous, the transition between a developer's commit and the pipeline execution must be automatic. This is achieved through webhooks.</p>
+            
+            <div class="pipeline">
+                <div class="stage passed">
+                    <span class="stage-no">01</span>
+                    <strong>COMMIT</strong>
+                    <small>git push origin main</small>
+                    <span class="status-pill passed">PASSED</span>
+                </div>
+                <div class="connector"></div>
+                <div class="stage running">
+                    <span class="stage-no">02</span>
+                    <strong>WEBHOOK</strong>
+                    <small>HTTP POST payload</small>
+                    <span class="status-pill running">RUNNING</span>
+                </div>
+                <div class="connector"></div>
+                <div class="stage waiting">
+                    <span class="stage-no">03</span>
+                    <strong>JENKINS</strong>
+                    <small>Trigger detected</small>
+                    <span class="status-pill waiting">WAITING</span>
+                </div>
+                <div class="connector"></div>
+                <div class="stage">
+                    <span class="stage-no">04</span>
+                    <strong>CHECKOUT</strong>
+                    <small>Pull repository</small>
+                    <span class="status-pill waiting">WAITING</span>
+                </div>
+                <div class="connector"></div>
+                <div class="stage">
+                    <span class="stage-no">05</span>
+                    <strong>BUILD</strong>
+                    <small>Execute pipeline</small>
+                    <span class="status-pill waiting">WAITING</span>
+                </div>
+            </div>
 
-  <h3 class="sec"><span class="n">01 /</span> What / Why / When</h3>
-  <div class="whatwhy">
-    <div class="ww"><b style="color:var(--blue)">WHAT</b><p>A GitHub webhook POSTs a push event to <span class="mono">/github-webhook/</span>. Jenkins matches repo + branch and starts the job that has <b>GitHub hook trigger for GITScm polling</b> enabled.</p></div>
-    <div class="ww"><b style="color:var(--accent-dark)">WHY</b><p>Without it, Jenkins only learns about pushes on poll or manual click — minutes late. Webhook moves discovery to <b>seconds</b> and removes the human gate.</p></div>
-    <div class="ww"><b style="color:var(--amber)">WHEN</b><p>Every push to the configured branch. The job must already have a valid checkout (PAT + branch match) or the triggered build will fail fast.</p></div>
-  </div>
+            <div class="concept-grid">
+                <div class="concept-block">
+                    <h4>WHAT</h4>
+                    <p>A webhook is a custom HTTP callback triggered by an event, such as a git push. When the event occurs, the source system (GitHub) sends an HTTP POST request to the target system (Jenkins).</p>
+                </div>
+                <div class="concept-block">
+                    <h4>WHY</h4>
+                    <p>Polling (Jenkins constantly asking GitHub "any changes?") is inefficient and introduces latency. Webhooks provide instant, event-driven execution with zero wasted resources.</p>
+                </div>
+                <div class="concept-block">
+                    <h4>WHEN</h4>
+                    <p>Whenever a change is pushed to the repository. This includes commits to main, feature branches, or tagged releases, depending on the configured filter.</p>
+                </div>
+                <div class="concept-block">
+                    <h4>WHAT CHANGES</h4>
+                    <p>The development loop tightens. Feedback on a broken commit returns in minutes, not hours. The integration of code becomes a continuous, automatic flow rather than a manual chore.</p>
+                </div>
+            </div>
 
-  <div class="callout blue"><h4>WHY THIS EXISTS</h4><p>Before this lab, delivery depends on a person remembering to click. A broken change can sit unbuilt for hours. The webhook turns <b>intent</b> (push) into <b>execution</b> (build) deterministically — CI starts where the developer already works: Git.</p></div>
+            <div class="callout">
+                <h4>WHY THIS EXISTS</h4>
+                <p>Without automated triggering, a developer must manually notify the CI system that new code exists. This context switch breaks flow and inevitably leads to forgotten builds and integration delays. The webhook closes the gap between intent and execution.</p>
+            </div>
+        </div>
+        <footer class="page-footer">
+            <span class="f-left">CI/CD ENGINEERING MANUAL</span>
+            <span class="f-rule"></span>
+            <span class="f-right">CH 01 &nbsp;|&nbsp; 02 / 09</span>
+        </footer>
+    </div><div id="p3" class="page">
+        <header class="page-header">
+            <span class="h-chip">CI/CD SYSTEMS</span>
+            <span class="h-rule"></span>
+            <span class="h-title">CONFIGURATION PRE-FLIGHT</span>
+        </header>
+        <div class="content">
+            <h2 class="section-title"><span class="n">02 /</span> Pre-Flight Analysis</h2>
+            <p>Before configuring a single setting, verify that all tools, credentials, and network paths are operational. A failure in webhook delivery is silent—Jenkins simply never runs. Resolve all dependencies in this phase before executing the setup.</p>
 
-  <h3 class="sec"><span class="n">02 /</span> Architecture — The Three Hops</h3>
-  <div class="arch">
-    <div class="box" style="border-left:3px solid var(--ink)"><img src="../assets/icons/git/github.svg" alt="GitHub" style="width:22px;height:22px"><b>GITHUB</b><small>push to <span class="mono">main</span><br>Settings → Webhooks</small></div><div class="arrow">→</div>
-    <div class="box" style="border-left:3px solid var(--amber)"><img src="../assets/icons/jenkins/webhook.svg" alt="Webhook" style="width:22px;height:22px"><b>WEBHOOK</b><small><span class="mono">/github-webhook/</span><br>application/json</small></div><div class="arrow">→</div>
-    <div class="box" style="border-left:3px solid var(--accent)"><img src="../assets/icons/jenkins/jenkins.svg" alt="Jenkins" style="width:22px;height:22px"><b>JENKINS JOB</b><small>GitHub hook trigger<br>checkout with PAT</small></div>
-  </div>
-  <p class="body">GitHub is the <b>event source</b>, the webhook URL is the <b>delivery contract</b> (public reachability + trailing slash), Jenkins trigger is the <b>listener</b>, and the stored PAT is the <b>gate to the repo</b>. Failure in any hop has a distinct signal — see the Failure Map on the last page.</p>
+            <h3 class="sub-title">Environment Verification</h3>
+            <div class="terminal">
+                <span class="term-line"><span class="term-prompt">$</span> curl -s -o /dev/null -w "%{http_code}" http://localhost:8080</span>
+                <span class="term-line term-ok">200</span>
+                <span class="term-line"><span class="term-prompt">$</span> gh auth status</span>
+                <span class="term-line term-out">Logged in to github.com as dev-user</span>
+                <span class="term-line"><span class="term-prompt">$</span> ngrok http 8080</span>
+                <span class="term-line term-out">Session Status                online</span>
+                <span class="term-line term-out">Forwarding                    http://1a2b-3c4d.ngrok.io -> http://localhost:8080</span>
+            </div>
 
-  <h3 class="sec"><span class="n">03 /</span> Lab Loop — Observe · Execute · Verify</h3>
-  <div class="obsgrid">
-    <div class="ob observe"><img src="../assets/icons/general/terminal.svg" alt="" style="width:18px;height:18px;opacity:.8"><b style="color:var(--blue)">OBSERVE</b><small>What is happening now?<br>Reachability, creds, branch, webhook status</small></div>
-    <div class="ob execute"><img src="../assets/icons/jenkins/jenkins.svg" alt="" style="width:18px;height:18px;opacity:.8"><b style="color:var(--accent-dark)">EXECUTE</b><small>Precise action<br>Create job · add creds · save webhook · push</small></div>
-    <div class="ob verify"><img src="../assets/icons/security/shield.svg" alt="" style="width:18px;height:18px;opacity:.8"><b style="color:var(--amber)">VERIFY</b><small>What proves it worked?<br>Green check · 200 · new build · SHA match</small></div>
-  </div>
-  <p class="body">Every step below is written as <b>OBSERVE → EXECUTE → VERIFY</b>. No step mutates the system before its pre-flight is understood. Each ends with <b>PROOF</b>.</p>
+            <h3 class="sub-title">Dependency Check</h3>
+            <table class="cmp">
+                <thead>
+                    <tr>
+                        <th>Requirement</th>
+                        <th>Status</th>
+                        <th>Action if Missing</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Jenkins Admin Access</td>
+                        <td style="color: var(--accent-dark); font-weight: 700;">CONFIRMED</td>
+                        <td>Request access from Jenkins admin</td>
+                    </tr>
+                    <tr>
+                        <td>GitHub PAT (repo scope)</td>
+                        <td style="color: var(--accent-dark); font-weight: 700;">CONFIRMED</td>
+                        <td>Generate in GitHub Developer Settings</td>
+                    </tr>
+                    <tr>
+                        <td>Public Jenkins URL</td>
+                        <td style="color: var(--accent-dark); font-weight: 700;">CONFIRMED</td>
+                        <td>Start ngrok or configure reverse proxy</td>
+                    </tr>
+                    <tr>
+                        <td>Target Repository URL</td>
+                        <td style="color: var(--accent-dark); font-weight: 700;">CONFIRMED</td>
+                        <td>Identify repo and default branch (main/master)</td>
+                    </tr>
+                </tbody>
+            </table>
 
-  <div class="pipeline">
-    <div class="stage info"><span class="no">01</span><strong>SOURCE</strong><small>Git push</small></div><div class="conn"></div>
-    <div class="stage wait"><span class="no">02</span><strong>WEBHOOK</strong><small>POST event</small></div><div class="conn"></div>
-    <div class="stage"><span class="no">03</span><strong>TRIGGER</strong><small>GITScm hook</small></div><div class="conn"></div>
-    <div class="stage"><span class="no">04</span><strong>CHECKOUT</strong><small>PAT + branch</small></div><div class="conn"></div>
-    <div class="stage"><span class="no">05</span><strong>OBSERVE</strong><small>build log</small></div>
-  </div>
+            <div class="callout gotcha">
+                <h4>GOTCHA</h4>
+                <p>If Jenkins is running locally (WSL, Docker, or localhost), GitHub cannot reach it. A tunneling tool like <code>ngrok</code> is mandatory to expose Jenkins to the public internet. Do not proceed to webhook configuration without a public URL.</p>
+            </div>
+        </div>
+        <footer class="page-footer">
+            <span class="f-left">CI/CD ENGINEERING MANUAL</span>
+            <span class="f-rule"></span>
+            <span class="f-right">CH 01 &nbsp;|&nbsp; 03 / 09</span>
+        </footer>
+    </div><div id="p4" class="page">
+        <header class="page-header">
+            <span class="h-chip">CI/CD SYSTEMS</span>
+            <span class="h-rule"></span>
+            <span class="h-title">NETWORK REACHABILITY</span>
+        </header>
+        <div class="content">
+            <h2 class="section-title"><span class="n">03 /</span> Reachability & Network Paths</h2>
+            <p>The webhook requires a clear HTTP path from GitHub's servers to your Jenkins instance. This is the most common point of failure in CI/CD automation. Determine your network topology before setting the Payload URL.</p>
 
-  
-</div><div id="p3" class="page">
-  </div>
+            <div class="dec-container">
+                <div class="dec-q">IS JENKINS PUBLICLY REACHABLE?</div>
+                <div class="dec-branches">
+                    <div class="dec-branch yes">
+                        <div class="dec-label">YES</div>
+                        <div class="dec-val">
+                            USE DIRECT URL
+                            <span>https://jenkins.company.com</span>
+                        </div>
+                    </div>
+                    <div class="dec-branch no">
+                        <div class="dec-label">NO</div>
+                        <div class="dec-val">
+                            USE TUNNEL
+                            <span>ngrok http 8080</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-  <h3 class="sec"><span class="n">04 /</span> Step 0 — Pre-Flight Check</h3>
-  <p class="body">This section runs <b>before Step 1</b>. Webhook reachability and token scope are painful to debug mid-flow — verify them now while nothing is half-configured.</p>
+            <h3 class="sub-title">Establishing the Tunnel</h3>
+            <p>If Jenkins is behind a NAT or local firewall, route traffic through a tunnel. This provides a temporary public URL that forwards incoming HTTP requests directly to your local port.</p>
 
-  <table class="cmp">
-    <tr><th style="width:18%">Check</th><th>Command / Location</th><th>What Good Looks Like</th></tr>
-    <tr><td>Tools</td><td><span class="mono">curl -s -o /dev/null -w "%{http_code}" http://localhost:8080</span><br><span class="mono">gh --version</span> · <span class="mono">gh auth status</span><br><span class="mono">ngrok --version</span> (if localhost/WSL)</td><td><span class="mono">200</span> from Jenkins · <span class="mono">gh</span> optional — web UI works if absent</td></tr>
-    <tr><td>Credentials</td><td>GitHub → <b>Settings → Developer settings → Personal access tokens</b> (<span class="mono">repo</span> scope)<br>Jenkins → <b>Manage Jenkins → Credentials</b></td><td>Non-expired PAT exists; matching Jenkins credential re-usable — PAT creation is <b>browser-only</b>, never scriptable</td></tr>
-    <tr><td>Repo state</td><td>Jenkins dashboard — job exists?<br>Repo <b>Settings → Webhooks</b> — webhook exists + green?<br><span class="mono">git branch -r</span> / GitHub branch dropdown</td><td>Real default branch known (<span class="mono">main</span> vs <span class="mono">master</span>) — never assume</td></tr>
-    <tr><td>Reachability</td><td>Jenkins URL as GitHub will call it: <span class="mono">http(s)://&lt;host&gt;/github-webhook/</span></td><td>Public URL or tunnel already chosen — decision belongs <b>here</b>, not at Step 5</td></tr>
-  </table>
+            <div class="cmdres">
+                <div class="cmd-block">
+                    <h4>COMMAND</h4>
+                    <div class="term-box">
+                        <span class="term-line"><span class="term-prompt">$</span> ngrok http 8080</span>
+                    </div>
+                </div>
+                <div class="res-block">
+                    <h4>RESULT</h4>
+                    <div class="term-box">
+                        <span class="term-line term-out">Forwarding</span>
+                        <span class="term-line term-ok">https://1a2b-3c4d.ngrok.io</span>
+                        <span class="term-line term-out">-> http://localhost:8080</span>
+                    </div>
+                </div>
+            </div>
 
-  <div class="terminal"><span class="c"># 0.1 — is Jenkins listening?</span>
-curl -s -o /dev/null -w "%{http_code}" http://localhost:8080
-<span class="g">200</span>
+            <div class="callout interview">
+                <h4>INTERVIEW CHECK</h4>
+                <p><strong>Q: Why can't I just use my local IP for the webhook?</strong></p>
+                <p>A: GitHub's webhooks are sent from their public cloud infrastructure. Your local machine's IP (e.g., 192.168.x.x) is not routable from the public internet. A tunnel or public IP is required to bridge the connection.</p>
+            </div>
+        </div>
+        <footer class="page-footer">
+            <span class="f-left">CI/CD ENGINEERING MANUAL</span>
+            <span class="f-rule"></span>
+            <span class="f-right">CH 01 &nbsp;|&nbsp; 04 / 09</span>
+        </footer>
+    </div><div id="p5" class="page">
+        <header class="page-header">
+            <span class="h-chip">CI/CD SYSTEMS</span>
+            <span class="h-rule"></span>
+            <span class="h-title">PIPELINE CONSTRUCTION</span>
+        </header>
+        <div class="content">
+            <h2 class="section-title"><span class="n">04 /</span> Job & Credential Setup</h2>
+            <p>Build the Jenkins pipeline structure and configure authenticated access to the GitHub repository. Never use raw GitHub passwords; always use a Personal Access Token (PAT) stored securely in Jenkins.</p>
 
-<span class="c"># 0.1 — public reachability requires a tunnel if Jenkins is on localhost/WSL</span>
-ngrok --version  <span class="c"># if missing → decide in Step 0 whether to install ngrok / localhost.run / reverse proxy</span>
-gh --version && gh auth status  <span class="c"># optional; web UI is the fallback</span></div>
+            <h3 class="sub-title">Step 1: Create Pipeline Job</h3>
+            <div class="terminal">
+                <span class="term-line term-out">Jenkins Dashboard -> New Item</span>
+                <span class="term-line"><span class="term-prompt">></span> Name: <span class="term-blue">github-webhook-pipeline</span></span>
+                <span class="term-line"><span class="term-prompt">></span> Type: <span class="term-blue">Pipeline</span></span>
+                <span class="term-line term-out">Pipeline Definition: Pipeline script</span>
+                <span class="term-line term-out">Initial Script:</span>
+                <span class="term-line">pipeline {</span>
+                <span class="term-line">    agent any</span>
+                <span class="term-line">    stages { stage('Test') { steps { echo 'Build OK' } } }</span>
+                <span class="term-line">}</span>
+            </div>
 
-  <div class="callout amber"><h4>ASK IN ONE BATCH — BEFORE STEP 1</h4><p>Only ask for what checks proved missing. Typical batch: <b>(1)</b> target repo URL + branch, <b>(2)</b> valid PAT or browser generation, <b>(3)</b> Jenkins public URL / tunnel choice, <b>(4)</b> desired job name. Then run Steps 1–7 uninterrupted.</p></div>
+            <h3 class="sub-title">Step 2: Configure Secure Credentials</h3>
+            <p>Navigate to <strong>Pipeline Syntax -> checkout: Check out from version control</strong>. Generate the Groovy snippet using a new credential of type <strong>Username with password</strong>. Use your GitHub username as the username, and the PAT as the password.</p>
 
-  <div class="callout red"><h4>GOTCHA — WSL / LOCALHOST IS INVISIBLE TO GITHUB</h4><p>GitHub delivers webhooks over the public internet. A Jenkins on <span class="mono">localhost</span> or inside WSL has no public address — GitHub's POST will time out with <span class="mono">—</span> or <span class="mono">5xx</span> in <b>Recent Deliveries</b>. Fix: expose Jenkins via <span class="mono">ngrok http 8080</span>, <span class="mono">localhost.run</span>, or a reverse proxy with a domain — and use <b>that</b> URL as the webhook Payload URL. Decide <b>now</b> in Step 0, or Step 5 will fail silently.</p></div>
+            <div class="callout gotcha">
+                <h4>GOTCHA</h4>
+                <p>GitHub has deprecated password authentication for Git operations. Using your account password will result in a 403 Forbidden error during checkout. The PAT acts as a scoped, revocable proxy for your password.</p>
+            </div>
 
-  <div class="kv"><b>OBSERVE in Step 0 →</b> All four rows green? Then <span class="badge green">● PRE-FLIGHT PASSED</span> — proceed. Any red row → resolve it before creating a job.</div>
+            <div class="callout interview">
+                <h4>INTERVIEW CHECK</h4>
+                <p><strong>Q: What is the difference between a PAT and a password?</strong></p>
+                <p>A: A password grants full access to an account. A PAT is a scoped token that limits access to specific repositories and actions, can have an expiration date, and can be revoked without changing the account password.</p>
+            </div>
+        </div>
+        <footer class="page-footer">
+            <span class="f-left">CI/CD ENGINEERING MANUAL</span>
+            <span class="f-rule"></span>
+            <span class="f-right">CH 01 &nbsp;|&nbsp; 05 / 09</span>
+        </footer>
+    </div><div id="p6" class="page">
+        <header class="page-header">
+            <span class="h-chip">CI/CD SYSTEMS</span>
+            <span class="h-rule"></span>
+            <span class="h-title">LAB 01: AUTHENTICATED CHECKOUT</span>
+        </header>
+        <div class="content">
+            <h2 class="section-title"><span class="n">05 /</span> Lab: Secure Checkout</h2>
+            <p>Execute the authenticated checkout configuration. This lab verifies that Jenkins can securely access the private repository using the generated PAT credentials.</p>
 
-  
-</div><div id="p4" class="page">
-  </div>
+            <div class="lab-step">
+                <div class="step-no">OBSERVE</div>
+                <div class="lab-content"><p>The pipeline needs to pull source code from a private repository. Anonymous access is disabled. We need to verify the credential binding works.</p></div>
+            </div>
+            <div class="lab-step">
+                <div class="step-no">EXECUTE</div>
+                <div class="lab-content"><p>In Jenkins Job Configuration, paste the generated Groovy <code>checkout</code> snippet into the Pipeline script block. Ensure the <code>credentialsId</code> matches the ID of the created PAT credential (e.g., <code>github-token</code>).</p></div>
+            </div>
+            <div class="lab-step">
+                <div class="step-no">VERIFY</div>
+                <div class="lab-content"><p>Save the job and click "Build Now". Check the Console Output for the git fetch commands succeeding without authentication errors.</p></div>
+            </div>
+            <div class="lab-step">
+                <div class="step-no">EXPLAIN</div>
+                <div class="lab-content"><p>Jenkins injected the PAT into the Git command environment, allowing the fetch to succeed over HTTPS. The workspace now contains the repository files.</p></div>
+            </div>
 
-  <h3 class="sec"><span class="n">05 /</span> Step 1 — Create or Reuse a Pipeline Job</h3>
-  <div class="step"><h4><span class="tag">OBSERVE —</span> Browse Jenkins dashboard for an existing pipeline job that should own this trigger. Reuse it if it exists.</h4></div>
-  <div class="step"><h4><span class="tag">EXECUTE —</span> Otherwise <b>New Item → Pipeline</b> → name <span class="mono">github-webhook-pipeline</span> → <b>Pipeline → Pipeline script</b> → paste a minimal placeholder:</h4></div>
-  <div class="terminal">pipeline {
-  agent any
-  stages { stage('Hello') { steps { echo 'hello from webhook lab' } } }
-}</div>
-  <div class="step"><h4><span class="tag">VERIFY —</span> Save → <b>Build Now</b> → build is <span class="status pass"><span class="dot"></span>PASSED</span> before any Git integration. A red job here means the agent/label is wrong — fix before Step 4.</h4></div>
+            <h3 class="sub-title">Generated Groovy Snippet</h3>
+            <div class="terminal">
+                <span class="term-line">checkout([</span>
+                <span class="term-line">    $class: 'GitSCM', </span>
+                <span class="term-line">    branches: [[name: '<span class="term-blue">*/main</span>']], </span>
+                <span class="term-line">    userRemoteConfigs: [[</span>
+                <span class="term-line">        url: '<span class="term-blue">https://github.com/user/repo.git</span>', </span>
+                <span class="term-line">        credentialsId: '<span class="term-ok">github-token</span>'</span>
+                <span class="term-line">    ]]</span>
+                <span class="term-line">])</span>
+            </div>
 
-  <h3 class="sec"><span class="n">06 /</span> Step 2 — Repository URL</h3>
-  <div class="step"><h4><span class="tag">EXECUTE —</span> In GitHub → repo → <b>Code → HTTPS</b> → copy clone URL:</h4></div>
-  <div class="terminal">https://github.com/&lt;username&gt;/&lt;repo&gt;.git</div>
-  <p class="body">Use HTTPS (PAT-based) — GitHub has deprecated password auth for Git operations.</p>
+            <div class="pipeline">
+                <div class="stage passed">
+                    <span class="stage-no">01</span>
+                    <strong>CONFIG</strong>
+                    <small>Job created</small>
+                    <span class="status-pill passed">PASSED</span>
+                </div>
+                <div class="connector"></div>
+                <div class="stage passed">
+                    <span class="stage-no">02</span>
+                    <strong>CREDENTIALS</strong>
+                    <small>PAT added</small>
+                    <span class="status-pill passed">PASSED</span>
+                </div>
+                <div class="connector"></div>
+                <div class="stage passed">
+                    <span class="stage-no">03</span>
+                    <strong>CHECKOUT</strong>
+                    <small>Code pulled</small>
+                    <span class="status-pill passed">PASSED</span>
+                </div>
+            </div>
+        </div>
+        <footer class="page-footer">
+            <span class="f-left">CI/CD ENGINEERING MANUAL</span>
+            <span class="f-rule"></span>
+            <span class="f-right">CH 01 &nbsp;|&nbsp; 06 / 09</span>
+        </footer>
+    </div><div id="p7" class="page">
+        <header class="page-header">
+            <span class="h-chip">CI/CD SYSTEMS</span>
+            <span class="h-rule"></span>
+            <span class="h-title">THE WEBHOOK BRIDGE</span>
+        </header>
+        <div class="content">
+            <h2 class="section-title"><span class="n">06 /</span> The Webhook Bridge</h2>
+            <p>With the pipeline ready, establish the automated trigger. This requires configuring the webhook on GitHub and enabling the corresponding listener on Jenkins.</p>
 
-  <h3 class="sec"><span class="n">07 /</span> Steps 3–4 — PAT + Jenkins Credentials + Checkout</h3>
-  <div class="callout blue"><h4>WHY CREDENTIALS LIVE IN JENKINS, NOT IN GIT</h4><p>The pipeline must not contain a raw token. Jenkins stores it as <b>Username with password</b> (username = GitHub user, password = PAT) and injects it at checkout time. The repo history never sees the secret.</p></div>
-  <div class="step"><h4><span class="tag">OBSERVE —</span> Step 0 already confirmed or collected the PAT. Never attempt to generate one programmatically — it requires the browser.</h4></div>
-  <div class="step"><h4><span class="tag">EXECUTE —</span> <b>Manage Jenkins → Credentials</b> (or inside the job: <b>Pipeline Syntax → checkout: Check out from version control → SCM: Git</b>):</h4>
-    <ol class="mono" style="margin:6px 0 0 18px;line-height:1.65;font-size:10px">
-      <li>Paste Repository URL.</li>
-      <li><b>Add → Jenkins → Username with password</b> — Username = GitHub user, Password = PAT, ID = <span class="mono">github-token</span> → Add.</li>
-      <li>Select <span class="mono">github-token</span> from the dropdown.</li>
-      <li><b>Branch to build</b> = the exact branch from Step 0 (e.g. <span class="mono">*/main</span>).</li>
-      <li><b>Generate Pipeline Script</b> → copy snippet → paste into job Pipeline → Save.</li>
-    </ol>
-  </div>
-  <div class="terminal"><span class="c"># generated snippet — use the one Jenkins generates for you</span>
-checkout([$class: 'GitSCM',
-  branches: [[name: '*/main']],
-  userRemoteConfigs: [[url: 'https://github.com/&lt;user&gt;/&lt;repo&gt;.git',
-                       credentialsId: 'github-token']]])</div>
-  <div class="step"><h4><span class="tag">VERIFY —</span> <b>Build Now</b> → Console Output shows <span class="mono">Cloning the remote Git repository</span> → <span class="mono">Checking out Revision &lt;sha&gt;</span> → <span class="status pass"><span class="dot"></span>PASSED</span>. If checkout fails, check PAT scope (<span class="mono">repo</span>), credential ID, and branch spelling first.</h4></div>
+            <h3 class="sub-title">Architecture Flow</h3>
+            <div class="arch-diagram">
+                <div class="arch-node">DEVELOPER (git push)</div>
+                <div class="arch-arrow labeled" data-label="1. PUSH EVENT"></div>
+                <div class="arch-node highlight">GITHUB REPOSITORY</div>
+                <div class="arch-arrow labeled" data-label="2. HTTP POST PAYLOAD"></div>
+                <div class="arch-node blue">JENKINS /github-webhook/</div>
+                <div class="arch-arrow labeled" data-label="3. TRIGGER JOB"></div>
+                <div class="arch-node">PIPELINE EXECUTION</div>
+            </div>
 
-  
-</div><div id="p5" class="page">
-  </div>
+            <h3 class="sub-title">Step 5: GitHub Configuration</h3>
+            <p>In GitHub, navigate to <strong>Repo Settings -> Webhooks -> Add webhook</strong>. Set the Payload URL to the Jenkins endpoint. The trailing slash is critical.</p>
+            
+            <div class="terminal">
+                <span class="term-line term-out">Payload URL:</span>
+                <span class="term-line term-blue">https://<your-jenkins-url>/github-webhook/</span>
+                <span class="term-line term-out">Content type: application/json</span>
+                <span class="term-line term-out">Trigger: Just the push event</span>
+            </div>
 
-  <h3 class="sec"><span class="n">08 /</span> Step 5 — GitHub Webhook</h3>
-  <div class="step"><h4><span class="tag">OBSERVE —</span> Repo → <b>Settings → Webhooks</b>. If a webhook already points at <span class="mono">…/github-webhook/</span> and shows a green checkmark → reuse it, skip to Step 6.</h4></div>
-  <div class="step"><h4><span class="tag">EXECUTE —</span> <b>Add webhook</b>:</h4>
-    <table class="cmp" style="margin:6px 0">
-      <tr><th style="width:28%">Field</th><th>Value</th></tr>
-      <tr><td>Payload URL</td><td><span class="mono">http://&lt;your-jenkins-url&gt;/github-webhook/</span> — <b>trailing slash required</b></td></tr>
-      <tr><td>Content type</td><td><span class="mono">application/json</span></td></tr>
-      <tr><td>Events</td><td><span class="mono">Just the push event</span> (default)</td></tr>
-      <tr><td>Active</td><td>checked</td></tr>
-    </table>
-    Save.
-  </div>
-  <div class="step"><h4><span class="tag">VERIFY —</span> Webhook list shows a green checkmark on the initial <span class="mono">ping</span> delivery. Click the webhook → <b>Recent Deliveries</b> → <span class="mono">200</span> and a JSON payload. A <span class="status fail"><span class="dot"></span>FAILED</span> delivery here is a <b>reachability</b> problem, not a Jenkins config bug — re-check the public URL chosen in Step 0.</h4></div>
+            <div class="callout gotcha">
+                <h4>GOTCHA</h4>
+                <p>The URL <code>/github-webhook/</code> must include the trailing slash. Without it, Jenkins' routing will fail and return a 404, causing GitHub to mark the webhook as failed (red X).</p>
+            </div>
 
-  <div class="terminal"><span class="c"># GitHub → webhook → Recent Deliveries (success)</span>
-Request URL: http://&lt;jenkins-url&gt;/github-webhook/
-Status: <span class="g">200 OK</span>   Event: ping
-<span class="c"># failure looks like:</span>
-Status: <span class="r">—  Could not connect / Timed out</span>  <span class="c">→ Jenkins not publicly reachable (WSL/tunnel)</span></div>
+            <h3 class="sub-title">Step 6: Jenkins Trigger Configuration</h3>
+            <p>In the Jenkins Job configuration, scroll to <strong>Build Triggers</strong>. Enable <strong>GitHub hook trigger for GITScm polling</strong>. This tells Jenkins to react when the webhook payload is received, rather than polling on a schedule.</p>
+        </div>
+        <footer class="page-footer">
+            <span class="f-left">CI/CD ENGINEERING MANUAL</span>
+            <span class="f-rule"></span>
+            <span class="f-right">CH 01 &nbsp;|&nbsp; 07 / 09</span>
+        </footer>
+    </div><div id="p8" class="page">
+        <header class="page-header">
+            <span class="h-chip">CI/CD SYSTEMS</span>
+            <span class="h-rule"></span>
+            <span class="h-title">LAB 02: END-TO-END TRIGGER</span>
+        </header>
+        <div class="content">
+            <h2 class="section-title"><span class="n">07 /</span> Lab: End-to-End Trigger</h2>
+            <p>Test the complete automation loop. A commit pushed to GitHub should automatically trigger the Jenkins pipeline without any manual intervention.</p>
 
-  <h3 class="sec"><span class="n">09 /</span> Step 6 — Jenkins Trigger</h3>
-  <div class="step"><h4><span class="tag">OBSERVE —</span> Open the job → <b>Configure → Build Triggers</b>. Is <b>GitHub hook trigger for GITScm polling</b> already checked? If yes → nothing to do.</h4></div>
-  <div class="step"><h4><span class="tag">EXECUTE —</span> Check <b>GitHub hook trigger for GITScm polling</b> → Save.</h4></div>
-  <div class="step"><h4><span class="tag">VERIFY —</span> Job config now lists the trigger; no other trigger (e.g. Poll SCM) is needed. The webhook and the checkbox are the two halves of one contract — both must be present.</h4></div>
+            <div class="lab-step">
+                <div class="step-no">OBSERVE</div>
+                <div class="lab-content"><p>The webhook is configured, and the Jenkins trigger is enabled. We need to verify the event-driven connection.</p></div>
+            </div>
+            <div class="lab-step">
+                <div class="step-no">EXECUTE</div>
+                <div class="lab-content"><p>Make a trivial change to the repository (e.g., add a comment to a file). Commit and push to the main branch.</p></div>
+            </div>
+            <div class="lab-step">
+                <div class="step-no">VERIFY</div>
+                <div class="lab-content"><p>Watch the Jenkins dashboard. A new build should appear in the Build History within seconds, marked as triggered by "GitHub push".</p></div>
+            </div>
+            <div class="lab-step">
+                <div class="step-no">PROOF</div>
+                <div class="lab-content"><p>The automation loop is closed. Human intervention is no longer required for integration. The pipeline is truly continuous.</p></div>
+            </div>
 
-  <div class="callout"><h4>WHY TWO SIDES?</h4><p>GitHub sends; Jenkins listens. Missing the Payload URL → no event arrives. Missing the trigger checkbox → the event arrives but Jenkins ignores it. <b>Recent Deliveries = 200</b> proves delivery; a new <b>auto build</b> proves the listener reacted.</p></div>
+            <div class="cmdres">
+                <div class="cmd-block">
+                    <h4>COMMAND</h4>
+                    <div class="term-box">
+                        <span class="term-line"><span class="term-prompt">$</span> echo "// update" >> index.html</span>
+                        <span class="term-line"><span class="term-prompt">$</span> git add .</span>
+                        <span class="term-line"><span class="term-prompt">$</span> git commit -m "test trigger"</span>
+                        <span class="term-line"><span class="term-prompt">$</span> git push origin main</span>
+                    </div>
+                </div>
+                <div class="res-block">
+                    <h4>RESULT</h4>
+                    <div class="term-box">
+                        <span class="term-line term-out">Enumerating objects: 5, done.</span>
+                        <span class="term-line term-out">Writing objects: 100% (3/3), 340 bytes.</span>
+                        <span class="term-line term-ok">To github.com:user/repo.git</span>
+                        <span class="term-line term-ok">e7f8a9c..d1c2b3a  main -> main</span>
+                    </div>
+                </div>
+            </div>
 
-  <div class="lanes">
-    <div class="lane dev"><span class="env">DELIVERED</span><span class="mono">Recent Deliveries → 200</span><span class="badge green" style="margin-left:auto">WEBHOOK OK</span></div>
-    <div class="lane prod" style="border-left-color:var(--accent)"><span class="env">TRIGGERED</span><span class="mono">Build history → new build without Build Now</span><span class="badge green" style="margin-left:auto">LISTENER OK</span></div>
-  </div>
+            <div class="pipeline">
+                <div class="stage passed">
+                    <span class="stage-no">01</span>
+                    <strong>GIT PUSH</strong>
+                    <small>Commit sent</small>
+                    <span class="status-pill passed">PASSED</span>
+                </div>
+                <div class="connector"></div>
+                <div class="stage passed">
+                    <span class="stage-no">02</span>
+                    <strong>WEBHOOK</strong>
+                    <small>HTTP POST sent</small>
+                    <span class="status-pill passed">PASSED</span>
+                </div>
+                <div class="connector"></div>
+                <div class="stage running">
+                    <span class="stage-no">03</span>
+                    <strong>JENKINS</strong>
+                    <small>Auto-build started</small>
+                    <span class="status-pill running">RUNNING</span>
+                </div>
+            </div>
+        </div>
+        <footer class="page-footer">
+            <span class="f-left">CI/CD ENGINEERING MANUAL</span>
+            <span class="f-rule"></span>
+            <span class="f-right">CH 01 &nbsp;|&nbsp; 08 / 09</span>
+        </footer>
+    </div><div id="p9" class="page">
+        <header class="page-header">
+            <span class="h-chip">CI/CD SYSTEMS</span>
+            <span class="h-rule"></span>
+            <span class="h-title">SYSTEM MAP</span>
+        </header>
+        <div class="content">
+            <h2 class="section-title"><span class="n">08 /</span> System Map & Troubleshooting</h2>
+            <p>The automated trigger is a critical link in the broader deployment lifecycle. If it fails, the entire pipeline stalls. Use this map to contextualize the webhook and troubleshoot failures.</p>
 
-  
-</div><div id="p6" class="page">
-  </div>
+            <div class="sys-map">
+                <div class="map-row">
+                    <div class="map-box">SOURCE</div>
+                    <div class="map-arr">→</div>
+                    <div class="map-box green">WEBHOOK</div>
+                    <div class="map-arr">→</div>
+                    <div class="map-box blue">JENKINS CI</div>
+                    <div class="map-arr">→</div>
+                    <div class="map-box artifact">ARTIFACT</div>
+                </div>
+                <div class="map-feedback">FEEDBACK LOOP: DEVELOPER NOTIFIED OF BUILD STATUS</div>
+            </div>
 
-  <h3 class="sec"><span class="n">10 /</span> Step 7 — End-to-End Automatic Trigger</h3>
-  <div class="step"><h4><span class="tag">EXECUTE —</span> Make a small commit on the configured branch:</h4></div>
-  <div class="terminal">$ echo "&lt;!-- webhook trigger $(date -Iseconds) --&gt;" >> index.html
-$ git commit -am "trigger: verify webhook" && git push
-<span class="c"># then — do NOT click Build Now</span></div>
-  <div class="step"><h4><span class="tag">OBSERVE —</span> Watch Jenkins <b>Build History</b> for ~5–15 s. A new build should appear with cause <span class="mono">Started by GitHub push by &lt;user&gt;</span>.</h4></div>
-  <div class="step"><h4><span class="tag">VERIFY —</span> Three signals, all must hold:</h4>
-    <ul style="font-size:10.5px;line-height:1.6;margin:4px 0 0 18px">
-      <li>Build History shows an <b>automatic</b> build (not manual) — <span class="status pass"><span class="dot"></span>PASSED</span>.</li>
-      <li>Console Output → checkout SHA equals <span class="mono">git log -1 --oneline</span> of the pushed commit.</li>
-      <li>GitHub → <b>Settings → Webhooks → Recent Deliveries</b> for this push → <span class="mono">200</span>.</li>
-    </ul>
-  </div>
-  <div class="terminal"><span class="c"># Jenkins console — proof the new commit arrived</span>
-Started by GitHub push by eslamn
-Checking out Revision <span class="b">a3f9c1e</span> (refs/heads/main)
- &gt; git rev-parse refs/remotes/origin/main^{commit}  <span class="g"># matches pushed SHA</span>
-Finished: <span class="g">SUCCESS</span></div>
+            <h3 class="sub-title">Troubleshooting Flow</h3>
+            <table class="cmp">
+                <thead>
+                    <tr>
+                        <th>Symptom</th>
+                        <th>Root Cause</th>
+                        <th>Recovery</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="color: var(--red);">Jenkins never triggers</td>
+                        <td>Webhook not delivered</td>
+                        <td>Check GitHub Webhook "Recent Deliveries" for HTTP errors</td>
+                    </tr>
+                    <tr>
+                        <td style="color: var(--red);">GitHub shows 404</td>
+                        <td>Missing trailing slash</td>
+                        <td>Ensure URL ends with <code>/github-webhook/</code></td>
+                    </tr>
+                    <tr>
+                        <td style="color: var(--red);">Checkout fails (403)</td>
+                        <td>Invalid PAT or expired</td>
+                        <td>Regenerate PAT in GitHub, update Jenkins Credentials</td>
+                    </tr>
+                    <tr>
+                        <td style="color: var(--red);">Checkout fails (branch)</td>
+                        <td>Wrong branch name</td>
+                        <td>Verify default branch (<code>main</code> vs <code>master</code>)</td>
+                    </tr>
+                </tbody>
+            </table>
 
-  <h3 class="sec"><span class="n">11 /</span> Failure → Recovery Map</h3>
-  <table class="cmp">
-    <tr><th style="width:26%">Failure</th><th style="width:30%">Where to Look</th><th>Fix</th></tr>
-    <tr><td><span class="status fail"><span class="dot"></span>Webhook — / timed out</span></td><td>GitHub → <b>Recent Deliveries</b> → no response</td><td>Jenkins not public — add <span class="mono">ngrok</span> / <span class="mono">localhost.run</span> / reverse proxy (Step 0 trap)</td></tr>
-    <tr><td><span class="status fail"><span class="dot"></span>Webhook 301 / 302</span></td><td>Recent Deliveries → redirect</td><td>Missing trailing slash on <span class="mono">/github-webhook/</span> — add the <span class="mono">/</span></td></tr>
-    <tr><td><span class="status fail"><span class="dot"></span>Checkout failed</span></td><td>Jenkins Console → <span class="mono">authentication failed</span></td><td>PAT scope <span class="mono">repo</span>; credential ID <span class="mono">github-token</span>; not the GitHub password</td></tr>
-    <tr><td><span class="status wait"><span class="dot"></span>Push didn't trigger</span></td><td>No auto build; Recent Deliveries = <span class="mono">200</span></td><td>Trigger checkbox off; branch pattern mismatch (<span class="mono">main</span> vs <span class="mono">master</span>); verify <span class="mono">Branch to build</span></td></tr>
-    <tr><td><span class="status wait"><span class="dot"></span>Build on wrong SHA</span></td><td>Console SHA ≠ <span class="mono">git log</span> HEAD</td><td>Pipeline still using placeholder script — replace with generated <span class="mono">checkout</span> snippet</td></tr>
-  </table>
-
-  <h3 class="sec"><span class="n">12 /</span> Proof — What This Lab Proved</h3>
-  <div class="kv"><b>PROOF —</b> A file edit + <span class="mono">git push</span> started a Jenkins build <b>without Build Now</b>. The loop <b>commit → webhook → trigger → checkout → build</b> is closed. Reachability + credentials + branch match are the only three invariants. <span class="badge green">● WEBHOOK PROVED</span></div>
-
-  <div class="grid2">
-    <div class="card"><h4>INTERVIEW CHECK</h4><p><b>Why does <span class="mono">/github-webhook/</span> need a trailing slash?</b><br>Jenkins registers that exact path. Without the slash GitHub follows a redirect that Jenkins does not treat as a delivery — Recent Deliveries shows a <span class="mono">3xx</span> not a <span class="mono">200</span>.</p></div>
-    <div class="card"><h4>CONSISTENCY RULE</h4><p>Every pipeline state uses <b>color + symbol + label</b> — it remains readable when printed in grayscale. Green = passed/deployed, blue = running/info, amber = waiting, red = failed/blocked.</p></div>
-  </div>
-
-  
-
-  
-</div>
+            <div class="lanes">
+                <div class="lane">
+                    <div class="lane-header" style="background: var(--accent-dark);">DEV</div>
+                    <div class="lane-body">
+                        <span>Automated CI Trigger</span>
+                        <span class="lane-status" style="background: rgba(0,184,124,0.15); color: var(--accent-dark);">PASSED</span>
+                    </div>
+                </div>
+                <div class="lane">
+                    <div class="lane-header" style="background: var(--blue);">STAGING</div>
+                    <div class="lane-body">
+                        <span>Auto-Deploy on Success</span>
+                        <span class="lane-status" style="background: rgba(67,135,255,0.15); color: var(--blue);">RUNNING</span>
+                    </div>
+                </div>
+                <div class="lane">
+                    <div class="lane-header" style="background: var(--amber);">PROD</div>
+                    <div class="lane-body">
+                        <span>Manual Approval Gate</span>
+                        <span class="lane-status" style="background: rgba(217,154,36,0.15); color: var(--amber);">BLOCKED</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="page-footer">
+            <span class="f-left">CI/CD ENGINEERING MANUAL</span>
+            <span class="f-rule"></span>
+            <span class="f-right">CH 01 &nbsp;|&nbsp; 09 / 09</span>
+        </footer>
+    </div>
 <div class="upnext">Up next in Hands-on Labs → <a href="jenkins-lab-docker.html"><b>Lab 02: Docker Build &amp; Push with Jenkins</b></a></div>
-<div class="relatedbox"><h4>Related books</h4><ul class="relgrid"><li class="relcard" data-cat="Labs" style="--cat:#EAB308"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6v6l3 5a3 3 0 01-3 4H9a3 3 0 01-3-4l3-5V3z"/><path d="M8 14h8" opacity=".6"/></svg></span><span class="rel-main"><a href="jenkins-lab-docker.html">Lab 02: Docker Build &amp; Push with Jenkins</a><span class="rel-meta">50 min · <span class="difbadge int">Int</span></span><span class="rel-why">→ Next in path</span></span></li><li class="relcard" data-cat="Labs" style="--cat:#EAB308"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6v6l3 5a3 3 0 01-3 4H9a3 3 0 01-3-4l3-5V3z"/><path d="M8 14h8" opacity=".6"/></svg></span><span class="rel-main"><a href="lab-08.html">Lab 08: Backup &amp; Restore</a><span class="rel-meta">60 min · <span class="difbadge adv">Adv</span></span><span class="rel-why">→ Previous in path</span></span></li><li class="relcard" data-cat="Labs" style="--cat:#EAB308"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6v6l3 5a3 3 0 01-3 4H9a3 3 0 01-3-4l3-5V3z"/><path d="M8 14h8" opacity=".6"/></svg></span><span class="rel-main"><a href="jenkins-labs.html">Jenkins Labs</a><span class="rel-meta">180 min · <span class="difbadge adv">Adv</span></span><span class="rel-why">→ Shared tags</span></span></li><li class="relcard" data-cat="Labs" style="--cat:#EAB308"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6v6l3 5a3 3 0 01-3 4H9a3 3 0 01-3-4l3-5V3z"/><path d="M8 14h8" opacity=".6"/></svg></span><span class="rel-main"><a href="jenkins-lab-multibranch.html">Lab 03: Jenkins Multibranch Pipeline with Git</a><span class="rel-meta">45 min · <span class="difbadge int">Int</span></span><span class="rel-why">→ Shared tags</span></span></li></ul></div>
+<div class="relatedbox"><h4>Related books</h4><ul class="relgrid"><li class="relcard" data-cat="Labs" style="--cat:#EAB308"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6v6l3 5a3 3 0 01-3 4H9a3 3 0 01-3-4l3-5V3z"/><path d="M8 14h8" opacity=".6"/></svg></span><span class="rel-main"><a href="jenkins-lab-docker.html">Lab 02: Docker Build &amp; Push with Jenkins</a><span class="rel-meta">50 min · <span class="difbadge int">Int</span></span><span class="rel-why">→ Next in path</span></span></li><li class="relcard" data-cat="Labs" style="--cat:#EAB308"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6v6l3 5a3 3 0 01-3 4H9a3 3 0 01-3-4l3-5V3z"/><path d="M8 14h8" opacity=".6"/></svg></span><span class="rel-main"><a href="lab-08.html">Lab 08: Backup &amp; Restore</a><span class="rel-meta">60 min · <span class="difbadge adv">Adv</span></span><span class="rel-why">→ Previous in path</span></span></li><li class="relcard" data-cat="Labs" style="--cat:#EAB308"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6v6l3 5a3 3 0 01-3 4H9a3 3 0 01-3-4l3-5V3z"/><path d="M8 14h8" opacity=".6"/></svg></span><span class="rel-main"><a href="jenkins-labs.html">Jenkins Labs</a><span class="rel-meta">180 min · <span class="difbadge adv">Adv</span></span><span class="rel-why">→ Shared tags</span></span></li><li class="relcard" data-cat="Labs" style="--cat:#EAB308"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6v6l3 5a3 3 0 01-3 4H9a3 3 0 01-3-4l3-5V3z"/><path d="M8 14h8" opacity=".6"/></svg></span><span class="rel-main"><a href="jenkins-lab-multibranch.html">Lab 03: Multibranch Foundations</a><span class="rel-meta">45 min · <span class="difbadge int">Int</span></span><span class="rel-why">→ Shared tags</span></span></li></ul></div>
 <div class="chapnav"><a id="prevbook" href="lab-08.html"><small>← Hands-on Labs</small>Lab 08: Backup &amp; Restore</a><a id="nextbook" class="r" href="jenkins-lab-docker.html"><small>Hands-on Labs →</small>Lab 02: Docker Build &amp; Push with Jenkins</a></div>
 </div></main>
 <div id="lightbox" role="dialog" aria-label="Diagram viewer"><img alt="Enlarged diagram"></div>
