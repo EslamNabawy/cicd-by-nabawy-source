@@ -167,8 +167,6 @@ aside.toc.open{transform:none}
 .tocbtn{display:inline-block}
 main.read{padding:20px 14px 90px}
 .crumbs .here{max-width:140px}
-header.top .wrap{flex-wrap:wrap}
-.search{max-width:none;flex-basis:100%;order:5}
 .hero{padding:36px 0 6px}
 .chapnav{flex-direction:column}
 .readbody table,.readbody .terminal,table.gloss{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
@@ -181,6 +179,28 @@ main.read{padding:16px 10px 90px}
 .readbody .page{padding:18px !important}
 .btn{min-height:40px}
 .readbody pre,.readbody .terminal{font-size:11px}}
+@media(max-width:480px){
+header.top .wrap{height:56px;min-height:56px;padding:8px 10px;gap:7px;flex-wrap:nowrap}
+header.top .crumbs{flex:1;min-width:0;gap:5px;font-size:12px}
+header.top .crumbs .logo{font-size:13px;gap:4px}
+header.top .crumbs .logo svg{width:17px;height:17px}
+header.top .crumbs .sep,header.top .crumbs .here{display:none}
+header.top .search,header.top #qcount,header.top #markbtn,header.top .reader-nav{display:none}
+header.top .mobilemenu{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;padding:0;font-size:19px}
+header.top #tocbtn{display:inline-flex;order:2;width:38px;height:38px;padding:0;overflow:hidden;font-size:0;align-items:center;justify-content:center}
+header.top #tocbtn::before{content:'☰';font-size:18px}
+.readcontext{padding:6px 12px}
+.readcontext .wrap{gap:5px}
+.readcontext .readback{display:none}
+.readcontext .wrap>a:not(.readback),.readcontext .wrap>span:not(.here):not(.pathpos):not(.prereq){display:none}
+.readcontext .here{display:block;flex-basis:100%;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.readcontext .pathpos,.readcontext .prereq{font-size:11px;padding:2px 7px}
+.readcontext .prereq a{padding:1px 6px}
+.topbtn{right:12px;bottom:14px}
+.mobile-controls,.mobile-search{display:flex;gap:8px;flex-wrap:wrap}
+.mobile-controls .btn{min-height:38px}
+.mobile-search{display:block}.mobile-search label{display:block;font-family:var(--mono);font-size:11px;text-transform:uppercase;color:var(--mut);margin-bottom:7px}.mobile-search input{width:100%;background:var(--bg);border:1px solid var(--line);color:var(--ink);border-radius:9999px;padding:9px 12px}
+}
 
 
 /* icon: dark glyphs (github #181717 + currentColor line icons) invert ONLY on dark surfaces; light/sepia keep native dark svg */
@@ -341,6 +361,12 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
 .readbody{line-height:var(--lh,1.7)}
 .readback{display:inline-flex;align-items:center;gap:6px;color:var(--mut);text-decoration:none;font-size:13px;font-weight:600;border:1px solid var(--line-soft);border-radius:9999px;padding:5px 12px;white-space:nowrap}
 .readback:hover{color:var(--ink);border-color:var(--line);background:var(--bg2)}
+.topbtn{position:fixed;right:20px;bottom:20px;z-index:40;width:42px;height:42px;border:1px solid var(--line);border-radius:50%;background:var(--card);color:var(--ink);box-shadow:var(--shadow-lift);font-size:19px;cursor:pointer;opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .2s ease,transform .2s ease,visibility .2s ease}
+.topbtn.on{opacity:1;visibility:visible;transform:none}
+.mobilemenu{display:none}
+.reader-nav{display:flex;align-items:center;gap:8px}
+.mobile-controls,.mobile-search{display:none}
+@media(prefers-reduced-motion:reduce){.topbtn{transition:none}}
 .popsearch{font-size:12px;color:var(--mut);margin-top:6px}
 .popsearch a{color:var(--mut);text-decoration:underline;cursor:pointer}
 /* Structure Map — pseudo-3D isometric (B1.2/B2/B3) */
@@ -484,14 +510,16 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
 <div class="search"><input id="q" type="search" placeholder="Find in this book…" aria-label="Find in this book"><kbd>⌘K</kbd></div>
 <span id="qcount" style="font-size:12px;color:var(--mut)"></span>
 <button class="markbtn" id="markbtn" aria-label="Bookmark this book">☆ Save</button>
-<a class="btn" href="../index.html" style="text-decoration:none">Map</a>
+<a class="readback btn reader-nav" id="backbtn" href="../book/rollback.html">← Back</a>
+<nav class="reader-nav" aria-label="Reader navigation"><a class="btn" href="../index.html" style="text-decoration:none">Map</a>
 <a class="btn" href="../shelf.html" style="text-decoration:none">Browse</a>
-<a class="btn" href="../book/rollback.html" style="text-decoration:none">Overview</a>
+<a class="btn" href="../book/rollback.html" style="text-decoration:none">Overview</a></nav>
 <button class="btn" id="setbtn" aria-label="Reading settings">⚙ A⁺</button>
+<button class="btn mobilemenu" id="mobilemenubtn" aria-label="Open reader menu" aria-expanded="false">☰</button>
 </div>
 <div class="prog" style="height:3px;background:var(--line)"><b id="pbar" style="display:block;height:100%;width:0;background:var(--acc)"></b></div>
 </header>
-<div class="readcontext" data-testid="reader-context"><div class="wrap"><a class="readback" id="backbtn" href="../book/rollback.html">← Back</a><a href="../shelf.html">Browse</a><span>›</span><a href="../shelf.html#path-delivery">Delivery &amp; Deployment</a><span>›</span><span class="here">Rollback &amp; Recovery</span><span class="pathpos">6 of 7 in Delivery &amp; Deployment</span><span class="prereq">Prereq:<a href="strategies.html">Deployment Strategies</a><a href="observability.html">Observability &amp; Feedback</a></span></div></div>
+<div class="readcontext" data-testid="reader-context"><div class="wrap"><a href="../shelf.html">Browse</a><span>›</span><a href="../shelf.html#path-delivery">Delivery &amp; Deployment</a><span>›</span><span class="here">Rollback &amp; Recovery</span><span class="pathpos">6 of 7 in Delivery &amp; Deployment</span><span class="prereq">Prereq:<a href="strategies.html">Deployment Strategies</a><a href="observability.html">Observability &amp; Feedback</a></span></div></div>
 <div class="rlayout">
 <aside class="toc"><h4>CONTENTS · 0 PAGES · 0 SECTIONS</h4>
 <div style="margin-top:14px"><a href="../pdf/pdf-27-rollback-recovery.html">⭳ Open print HTML</a></div>
@@ -506,8 +534,11 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
 </div></main>
 <div id="lightbox" role="dialog" aria-label="Diagram viewer"><img alt="Enlarged diagram"></div>
 </div>
+<button class="topbtn" id="topbtn" aria-label="Back to top" title="Back to top">↑</button>
 <div class="drawer" id="drawer"><div class="scrim"></div><div class="panel">
 <h3>Reading settings</h3>
+<div class="setrow mobile-controls"><a class="readback btn" href="../book/rollback.html">← Back</a> <button class="btn" id="mobilemarkbtn">☆ Save</button><a class="btn" href="../index.html">Map</a><a class="btn" href="../shelf.html">Browse</a><a class="btn" href="../book/rollback.html">Overview</a></div>
+<div class="setrow mobile-search"><label for="mobileq">Find in this book</label><input id="mobileq" type="search" placeholder="Search this book…"></div>
 <div class="setrow"><h5>THEME</h5><div class="opts">
 <button class="btn" data-k="theme" data-set="dark" onclick="setOpt('theme','dark')">Dark</button>
 <button class="btn" data-k="theme" data-set="light" onclick="setOpt('theme','light')">Light</button>
@@ -590,6 +621,16 @@ if(back)back.addEventListener('click',e=>{
   try{sameOrigin=!!document.referrer&&new URL(document.referrer,location.href).origin===location.origin;}catch(err){}
   if(sameOrigin&&history.length>1){e.preventDefault();history.back();}
 });
+const menuBtn=$('#mobilemenubtn');
+if(menuBtn)menuBtn.onclick=()=>{const d=$('#drawer'),open=!d.classList.contains('open');d.classList.toggle('open',open);menuBtn.setAttribute('aria-expanded',String(open));};
+const mobileMark=$('#mobilemarkbtn');
+if(mobileMark)mobileMark.onclick=()=>{if(_mb)_mb.click();mobileMark.textContent=_mb?.textContent||'☆ Save';};
+const mobileQ=$('#mobileq'),bookQ=$('#q');
+if(mobileQ&&bookQ){mobileQ.addEventListener('input',()=>{bookQ.value=mobileQ.value;});mobileQ.addEventListener('keydown',e=>{if(e.key==='Enter'){bookQ.value=mobileQ.value;bookQ.dispatchEvent(new KeyboardEvent('keydown',{key:'Enter'}));}});}
+const topBtn=$('#topbtn');let topTimer;
+function syncTop(){if(!topBtn)return;const eligible=scrollY>innerHeight*.9;topBtn.classList.toggle('on',eligible);clearTimeout(topTimer);if(eligible)topTimer=setTimeout(()=>topBtn.classList.remove('on'),2800);}
+window.addEventListener('scroll',syncTop,{passive:true});
+if(topBtn)topBtn.onclick=()=>window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
 window.addEventListener('hashchange',tocUpdate);
 window.addEventListener('pageshow',tocUpdate);
 applyPref();tocUpdate();
