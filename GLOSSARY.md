@@ -11,8 +11,6 @@
 | Continuous Deployment | Every good change reaches production automatically | [Continuous Deployment](08-continuous-deployment/continuous-deployment.md) |
 | CI | Continuous Integration: frequent merges verified by automated build+test | [CI/CD Overview](00-foundations/cicd-overview.md) |
 | CI Trigger | Event that starts a pipeline (push, PR, schedule, manual) | [Git, Branching & Pull Requests](01-source-control/git-branching-pull-requests.md) |
-| Continuous Delivery | Every good change is releasable; deployment is a decision | [Continuous Delivery](07-continuous-delivery/continuous-delivery.md) |
-| Continuous Deployment | Every good change reaches production automatically | [Continuous Delivery](07-continuous-delivery/continuous-delivery.md) |
 | Canary Deployment | Release to a small subset first, expand on success | [Deployment Strategies](10-deployment-strategies/deployment-strategies.md) |
 | Contract Test | Verifies API compatibility between provider and consumer services | [Testing Strategy](04-testing/testing-strategy.md) |
 | Deployment | Installing/running a release in an environment | [Continuous Delivery](07-continuous-delivery/continuous-delivery.md) |

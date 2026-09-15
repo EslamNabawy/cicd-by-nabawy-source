@@ -130,7 +130,7 @@ main.read{flex:1;min-width:0;padding:32px 32px 90px}
 .readbody .cover .sig{white-space:normal !important}
 .readbody .page,.readbody .cover,.readbody .cover-left,.readbody .cover-right{max-width:100%}
 .readbody pre,.readbody .terminal{position:relative;overflow-x:auto;max-width:100%;scrollbar-width:thin;white-space:pre}
-.readbody code,.readbody .mono{overflow-wrap:anywhere}
+.readbody code,.readbody .mono{overflow-wrap:anywhere}.readbody .step .mono{overflow-wrap:break-word}
 .readbody .md-fallback{font-size:18px;line-height:var(--lh,1.75)}
 .readbody .md-fallback .body{font-size:18px;line-height:inherit;margin:14px 0}
 .readbody .md-fallback .sec{font-size:27px;line-height:1.25;margin:30px 0 12px}
@@ -184,8 +184,8 @@ body.fs main.read{padding-top:24px}
 body.fs .topbtn,body.lock .topbtn{display:none !important}
 .toc-head{display:flex;align-items:center;gap:8px;margin-bottom:12px}.toc-head h4{flex:1;min-width:0;margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.drawerx{position:static;flex:0 0 auto;width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;background:transparent;border:1px solid var(--line);border-radius:10px;color:var(--mut);font-size:20px;cursor:pointer}
 .drawerx:hover{color:var(--ink);border-color:var(--brand)}
-.readbody li.step{list-style:none;display:flex;gap:10px;align-items:flex-start;margin:8px 0}
-.readbody li.step input[type=checkbox]{width:22px;height:22px;flex:none;margin-top:2px;accent-color:var(--brand)}
+.readbody .step{list-style:none;display:flex;gap:10px;align-items:flex-start;margin:8px 0}
+.readbody .step input[type=checkbox]{width:22px;height:22px;flex:none;margin-top:2px;accent-color:var(--brand);cursor:pointer;flex:none}.readbody .stephit{display:inline-flex;padding:11px;margin:-11px;cursor:pointer;flex:none}
 .readbody pre,.readbody .terminal{background-image:linear-gradient(to left,rgba(127,127,127,.28),transparent 16px);background-position:right center;background-size:16px 100%;background-repeat:no-repeat;background-attachment:scroll}
 @media(max-width:600px){
 .wrap{padding:16px 14px}
