@@ -5,6 +5,22 @@ Deployment Automation.pdf`, ~194k words, read in full via three parallel passes 
 Site state at analysis time: 44 books (the prompt's "48" predates the four lab merges), 9 learning paths.
 All notes below are paraphrased; no sentences from the book are reproduced.
 
+## Application status (execution pass, 2026-09-15)
+
+- Phase 1 (P0): report contained no P0 items — nothing to fix.
+- Phase 2 (P1) applied in `41dbb4b`: data-migration section in `14-reliability-and-recovery`
+  (+ interview Q), migration bullets in `10-deployment-strategies` (.md + `pdf-20` callouts for
+  migration sequencing and branch by abstraction), capacity-testing section in `04-testing`.
+- Phase 3 (P2) applied in `2466c21`: glossary CD split; deployment-auto trunk wording softened;
+  test doubles + executable acceptance specs in `04-testing`; preflight/build-master/ratcheting in
+  `02-continuous-integration` (.md + `pdf-21` callout); release checklist + injection timing in
+  `09-environments-and-release`; integration-pipeline callout in `pdf-03`; walking-skeleton phrase in
+  labs path desc; ROADMAP rows updated. Build + `qc-check` ALL GREEN after each phase; 0 dead anchors.
+- Judgment calls: full-manual books (`pdf-03/20/21`) got unnumbered `.kv` callout mirrors instead of new
+  numbered sections, so no section renumbering and no TOC churn; `.md` edits carry the full prose.
+- Deferred: governance appendix (optional P2 — needs a new book; flagging back instead of creating it).
+- Skipped: everything under "Not recommended for action," per instructions.
+
 ## Summary
 
 The site holds up well against this source. Its core spine — build once and promote the same digest,
