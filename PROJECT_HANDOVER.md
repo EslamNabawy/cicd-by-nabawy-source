@@ -74,3 +74,4 @@ taxonomy — no separate "Quick topics" grouping.
 - New book: md → TOPIC_INDEX/ROADMAP/GLOSSARY/CONTENT_MAP → pdf-NN.html (copy nearest template, keep sig/footers/m-reflow) → books.json → build → QC → deploy ×2.
 - New series: add entry in `scripts/build_series.py` SERIES → run it → rebuild site.
 - New icon: content-first (ICON_ASSET_SPEC.md), Lucide ISC / Simple Icons CC0, register in assets/icons/README.md.
+- Post-hoc insertion: shell books (reader built from .md fallback) get real numbered sections; full-manual books (reader built from pdf/pdf-NN.html) get unnumbered `.kv` callout mirrors instead. Why: manual pages carry hardcoded `CH NN · X / Y` print footers and `NN /` section numbers, so a new numbered section forces footer-denominator + renumber churn across every later page; callouts avoid it with zero TOC/anchor impact (verified 2026-09: no deep-anchor or textual section refs exist in sources). Full prose always lands in the .md canonical source regardless.
