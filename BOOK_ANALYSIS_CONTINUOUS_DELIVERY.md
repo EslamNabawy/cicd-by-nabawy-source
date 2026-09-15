@@ -18,7 +18,7 @@ All notes below are paraphrased; no sentences from the book are reproduced.
   labs path desc; ROADMAP rows updated. Build + `qc-check` ALL GREEN after each phase; 0 dead anchors.
 - Judgment calls: full-manual books (`pdf-03/20/21`) got unnumbered `.kv` callout mirrors instead of new
   numbered sections, so no section renumbering and no TOC churn; `.md` edits carry the full prose.
-- Deferred: governance appendix (optional P2 — needs a new book; flagging back instead of creating it).
+- Governance appendix: resolved without a new book — scoped at ~30 lines (maturity ladder, pipeline-as-evidence, change control, risk one-liner, value-stream mapping), closest fit is `11-security/cicd-security.md` (approvals, audit trails, separation of duties already live there), added as section 6. A standalone book would be one thin section; not recommended.
 - Skipped: everything under "Not recommended for action," per instructions.
 
 ## Summary

@@ -40,18 +40,29 @@ Build once, then: sign the digest (cosign), generate the SBOM (Syft/Trivy), atte
 
 Pin everything: action SHAs (not `@v4` tags), base image digests (not `:latest`), plugin versions, lockfiles. Verify checksums on download. Each PR that bumps a dependency re-runs the full gate — Dependabot PRs are untrusted code until proven otherwise.
 
-## 6. Failure Modes
+## 6. Governance & Change Evidence
+
+Regulated or not, every team answers "who shipped what, approved by whom, proven how" — the pipeline is the evidence:
+
+- Maturity ladder: manual releases → versioned + automated → gated + attested → measured + continuously improved. Assess per area, fix the most painful gap first.
+- Pipeline as audit trail: every production change maps to a commit, a built digest, stage results, approver identity, and target environment — automation beats paper because scripts must actually work to pass.
+- Change control that scales: ticketed approvals for production, access-controlled environments, remediation plan + success criteria on every privileged change; low-risk paths auto-approve via policy gates.
+- Risk in one line: severity ≈ impact × likelihood; compare against mitigation cost before adding ceremony.
+- Value-stream mapping: when delivery feels slow, map commit-to-production steps with wait times — fix the longest wait first, not the loudest complaint.
+
+## 7. Failure Modes
 
 - Secret in git history → rotate immediately; history rewrites don't unsee it (it's cloned everywhere).
 - Floating tags (`:latest`, `@v4`) → silent supply-chain swaps; pin digests/SHAs.
 - Over-permissioned CI token → one compromised workflow owns the org; scope to the repo, expire fast.
 - Unsigned images admitted → provenance theater; enforce admission, don't just generate attestations.
 
-## 7. Interview Notes
+## 8. Interview Notes
 
 - OIDC federation vs long-lived keys for CI auth.
 - Design fork-PR isolation for a public repo with deploy secrets.
 - SBOM in incident response: CVE lands at 2am, what do you query first?
+- Prove a production deploy was authorized: which five pipeline records do you pull?
 
 ## Related Topics
 
