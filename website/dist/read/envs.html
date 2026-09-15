@@ -183,7 +183,7 @@ mark{background:var(--acc-soft);color:var(--ink);border-radius:3px;padding:0 2px
 .crumbs .here{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:280px}
 .crumbs .sep{color:var(--mut)}
 @media(max-width:900px){aside.toc{position:fixed;left:0;top:0;bottom:0;background:var(--card);z-index:60;transform:translateX(-105%);transition:transform .2s;height:100vh;height:100dvh}
-aside.toc.open{transform:none}
+aside.toc.open{transform:none}.tocscrim{display:none}@media(max-width:900px){body.toc-open .tocscrim{display:block;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:55}}
 aside.toc a{padding:11px 12px;font-size:15px}
 .tocbtn{display:inline-block}
 main.read{padding:20px 14px 90px}
@@ -422,7 +422,7 @@ table.gloss tr{scroll-margin-top:150px}
 .readbody .life .lnode{display:flex;align-items:center;gap:10px;text-align:left;padding:8px 12px}
 .readbody .life .lnode img{margin:0;flex:none}
 .readbody .life .lnode b{font-size:11px}
-.readbody .two{grid-template-columns:1fr}
+.readbody .two{grid-template-columns:1fr}.readbody .timeline{flex-wrap:wrap;row-gap:6px}
 .readbody .fnode{font-size:13px}
 .readbody .vflow{margin:8px 0}
 }
@@ -594,7 +594,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
 <div class="readcontext" data-testid="reader-context"><div class="wrap"><a href="../shelf.html">Browse</a><span>›</span><a href="../shelf.html#path-delivery">Delivery &amp; Deployment</a><span>›</span><span class="here">Environments &amp; Release</span><span class="pathpos">4 of 7 in Delivery &amp; Deployment</span><span class="prereq">Prereq:<a href="delivery.html">Continuous Delivery</a></span></div></div>
 <div class="rlayout">
 <aside class="toc" role="dialog" aria-modal="false" aria-label="Table of contents"><div class="toc-head"><h4>CONTENTS · 2 PAGES · 8 SECTIONS</h4><button class="drawerx" id="tocx" aria-label="Close contents">×</button></div><a href="#p1" class="toc-l1" aria-label="Cover — Environments &amp;amp; Release">Cover — Environments &amp;amp; Release</a><a href="#p2-h1" class="toc-l2" aria-label="1 1. What Is It?">1 1. What Is It?</a><a href="#p2-h2" class="toc-l2" aria-label="2 2. Environment Topology">2 2. Environment Topology</a><a href="#p2-h3" class="toc-l2" aria-label="3 3. Config vs Code">3 3. Config vs Code</a><a href="#p2-h4" class="toc-l2" aria-label="4 4. Release Trains &amp;amp; Promotion Paths">4 4. Release Trains &amp;amp; Promotion Paths</a><a href="#p2-h5" class="toc-l2" aria-label="5 5. Failure Modes">5 5. Failure Modes</a><a href="#p2-h6" class="toc-l2" aria-label="6 6. Interview Notes">6 6. Interview Notes</a><a href="#p2-h7" class="toc-l2" aria-label="7 Related Topics">7 Related Topics</a>
-</aside>
+</aside><div class="tocscrim" id="tocscrim" aria-hidden="true"></div>
 <main class="read"><div class="readbody">
 <div class="upnext upnext-top">Up next in Delivery &amp; Deployment → <a href="security.html"><b>CI/CD Security</b></a></div>
 
@@ -683,7 +683,7 @@ $('#q').addEventListener('keydown',e=>{if(e.key==='Enter'){const v=e.target.valu
 $('#q').addEventListener('input',e=>{if(!e.target.value)findBook('')});
 document.addEventListener('keydown',e=>{
   if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();$('#q').focus()}
-  if(e.key==='Escape'){if(document.activeElement===$('#q')||document.activeElement===$('#mobileq')){document.activeElement.value='';findBook('');const qc=$('#qcount');if(qc)qc.textContent='';}const _do=$('#drawer').classList.contains('open'),_to=$('aside.toc').classList.contains('open');$('#drawer').classList.remove('open');$('aside.toc').classList.remove('open');if(!_do&&!_to&&document.body.classList.contains('fs'))setFS(false);lockScroll();}
+  if(e.key==='Escape'){if(document.activeElement===$('#q')||document.activeElement===$('#mobileq')){document.activeElement.value='';findBook('');const qc=$('#qcount');if(qc)qc.textContent='';}const _do=$('#drawer').classList.contains('open'),_to=$('aside.toc').classList.contains('open');$('#drawer').classList.remove('open');if($('aside.toc').classList.contains('open')){const tb=$('#tocbtn');if(tb)setTimeout(()=>tb.focus(),0);}$('aside.toc').classList.remove('open');if(!_do&&!_to&&document.body.classList.contains('fs'))setFS(false);lockScroll();}
   if(e.key.toLowerCase()==='t'&&document.activeElement.tagName!=='INPUT'){$('aside.toc').classList.toggle('open')}
   if(e.key==='ArrowRight'&&document.activeElement.tagName!=='INPUT'){const n=$('#nextbook');if(n)location.href=n.href}
   if(e.key==='ArrowLeft'&&document.activeElement.tagName!=='INPUT'){const p=$('#prevbook');if(p)location.href=p.href}
@@ -711,11 +711,11 @@ window.addEventListener('scroll',syncTop,{passive:true});
 if(topBtn)topBtn.onclick=()=>window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
 window.addEventListener('hashchange',tocUpdate);
 window.addEventListener('pageshow',tocUpdate);
-function lockScroll(){const any=$('#drawer').classList.contains('open')||document.querySelector('aside.toc').classList.contains('open');document.body.classList.toggle('lock',any);document.querySelector('aside.toc').setAttribute('aria-modal',document.querySelector('aside.toc').classList.contains('open')?'true':'false');document.querySelector('#drawer .panel').setAttribute('aria-modal',$('#drawer').classList.contains('open')?'true':'false');}
+function lockScroll(){const any=$('#drawer').classList.contains('open')||document.querySelector('aside.toc').classList.contains('open');document.body.classList.toggle('toc-open',document.querySelector('aside.toc').classList.contains('open')&&matchMedia('(max-width:900px)').matches);document.body.classList.toggle('lock',any);document.querySelector('aside.toc').setAttribute('aria-modal',document.querySelector('aside.toc').classList.contains('open')?'true':'false');document.querySelector('#drawer .panel').setAttribute('aria-modal',$('#drawer').classList.contains('open')?'true':'false');}
 new MutationObserver(lockScroll).observe(document.querySelector('aside.toc'),{attributes:true,attributeFilter:['class']});
 new MutationObserver(lockScroll).observe($('#drawer'),{attributes:true,attributeFilter:['class']});
 function tocToggle(){const mob=matchMedia('(max-width:900px)').matches;const toc=document.querySelector('aside.toc');if(mob){toc.classList.toggle('open');}else{document.body.classList.toggle('toc-hide');}lockScroll();const tb=$('#tocbtn');if(tb)tb.setAttribute('aria-expanded',String(!document.body.classList.contains('toc-hide')));}
-const _tocx=$('#tocx');if(_tocx)_tocx.onclick=()=>{document.querySelector('aside.toc').classList.remove('open');document.body.classList.add('toc-hide');lockScroll();};
+const _tocx=$('#tocx');if(_tocx)_tocx.onclick=()=>{document.querySelector('aside.toc').classList.remove('open');document.body.classList.add('toc-hide');lockScroll();const tb=$('#tocbtn');if(tb)tb.focus();};const _ts=$('#tocscrim');if(_ts)_ts.onclick=()=>{document.querySelector('aside.toc').classList.remove('open');lockScroll();const tb=$('#tocbtn');if(tb)tb.focus();};(function(){const toc=document.querySelector('aside.toc');let sx=0;toc.addEventListener('touchstart',e=>{sx=e.touches[0].clientX},{passive:true});toc.addEventListener('touchend',e=>{if(sx-e.changedTouches[0].clientX>60&&matchMedia('(max-width:900px)').matches&&toc.classList.contains('open')){toc.classList.remove('open');lockScroll();const tb=$('#tocbtn');if(tb)tb.focus();}sx=0;},{passive:true});})();
 const _setx=$('#setx');if(_setx)_setx.onclick=()=>{$('#drawer').classList.remove('open');lockScroll();};
 document.addEventListener('keydown',e=>{if(e.key!=='Tab')return;const open=document.querySelector('aside.toc.open')||document.querySelector('#drawer.open');if(!open)return;const f=[...open.querySelectorAll('button,a[href],input,[tabindex]')].filter(el=>el.offsetParent);if(!f.length)return;if(e.shiftKey&&document.activeElement===f[0]){e.preventDefault();f[f.length-1].focus();}else if(!e.shiftKey&&document.activeElement===f[f.length-1]){e.preventDefault();f[0].focus();}});
 // Fullscreen: Fullscreen API where available, CSS-immersive fallback otherwise. Per-session toggle (never auto-restored).

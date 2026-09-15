@@ -175,7 +175,7 @@ mark{background:var(--acc-soft);color:var(--ink);border-radius:3px;padding:0 2px
 .crumbs .here{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:280px}
 .crumbs .sep{color:var(--mut)}
 @media(max-width:900px){aside.toc{position:fixed;left:0;top:0;bottom:0;background:var(--card);z-index:60;transform:translateX(-105%);transition:transform .2s;height:100vh;height:100dvh}
-aside.toc.open{transform:none}
+aside.toc.open{transform:none}.tocscrim{display:none}@media(max-width:900px){body.toc-open .tocscrim{display:block;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:55}}
 aside.toc a{padding:11px 12px;font-size:15px}
 .tocbtn{display:inline-block}
 main.read{padding:20px 14px 90px}
@@ -414,7 +414,7 @@ table.gloss tr{scroll-margin-top:150px}
 .readbody .life .lnode{display:flex;align-items:center;gap:10px;text-align:left;padding:8px 12px}
 .readbody .life .lnode img{margin:0;flex:none}
 .readbody .life .lnode b{font-size:11px}
-.readbody .two{grid-template-columns:1fr}
+.readbody .two{grid-template-columns:1fr}.readbody .timeline{flex-wrap:wrap;row-gap:6px}
 .readbody .fnode{font-size:13px}
 .readbody .vflow{margin:8px 0}
 }
