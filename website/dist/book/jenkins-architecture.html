@@ -138,15 +138,17 @@ main.read{flex:1;min-width:0;padding:32px 32px 90px}
 .readbody .cover-title{font-size:34px !important;letter-spacing:-.5px}
 @media(max-width:700px){.readbody .pipeline,.readbody .map-row,.readbody .arch-row,.readbody .dec-branches,.readbody .lab-step,.readbody .v-stage{flex-wrap:wrap}.readbody .pipeline .stage,.readbody .map-box,.readbody .arch-node{flex:1 1 140px;min-width:0}.readbody .pipeline .connector,.readbody .map-arr{flex-shrink:0}.readbody .lab-step .lab-content,.readbody .lab-step .step-body{min-width:0}.readbody .cmdres{grid-template-columns:1fr !important}.readbody .cmdres .col,.readbody .cmdres .res-block,.readbody .cmdres .term-box,.readbody .cmdres .cmd-block{min-width:0}}
 .readbody .cover-sub{font-size:16px !important;margin-bottom:24px !important}
+.readbody .cover h1{font-size:32px !important}
+.readbody .cover .sig{white-space:normal !important}
 .readbody .page,.readbody .cover,.readbody .cover-left,.readbody .cover-right{max-width:100%}
 .readbody pre,.readbody .terminal{position:relative;overflow-x:auto;max-width:100%;scrollbar-width:thin;white-space:pre}
 .readbody code,.readbody .mono{overflow-wrap:anywhere}
-.readbody .md-fallback{font-size:18px !important;line-height:1.75 !important}
-.readbody .md-fallback .body{font-size:18px !important;line-height:1.75 !important;margin:14px 0 !important}
-.readbody .md-fallback .sec{font-size:27px !important;line-height:1.25 !important;margin:30px 0 12px !important}
-.readbody .md-fallback .tight{font-size:17px !important;line-height:1.7 !important;margin:14px 0 14px 24px !important}
-.readbody .md-fallback .terminal{font-size:15px !important;line-height:1.6 !important;padding:16px !important}
-.readbody .md-fallback.cover h1{font-size:44px !important;line-height:1.1 !important}
+.readbody .md-fallback{font-size:18px;line-height:var(--lh,1.75)}
+.readbody .md-fallback .body{font-size:18px;line-height:inherit;margin:14px 0}
+.readbody .md-fallback .sec{font-size:27px;line-height:1.25;margin:30px 0 12px}
+.readbody .md-fallback .tight{font-size:17px;line-height:1.7;margin:14px 0 14px 24px}
+.readbody .md-fallback .terminal{font-size:15px;line-height:1.6;padding:16px}
+.readbody .md-fallback.cover h1{font-size:32px;line-height:1.1}
 .copybar{display:flex;justify-content:flex-end;margin:0 0 8px}
 .copybtn{position:static;background:var(--bg);border:1px solid rgba(255,255,255,.14);color:var(--ink);border-radius:9999px;font-size:12px;font-weight:500;padding:4px 12px;cursor:pointer}
 [data-theme=light] .copybtn{border-color:rgba(0,0,0,.08)}
