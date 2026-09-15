@@ -115,6 +115,8 @@ ul.tight li{margin-bottom:4px}
 </div>
 <h3 class="sec"><span class="n">03 /</span> Failure Modes</h3>
 <ul class="tight"><li>Rolling without probes → bad version reaches 100% "successfully".</li><li>Blue/Green sharing mutable state → Green writes what Blue can't read; keep schemas backward-compatible.</li><li>Canary without version labels → blended metrics lie.</li><li>Flag sprawl → untestable combinations; every flag gets an owner + expiry.</li></ul>
+<div class="kv"><b>MIGRATION SEQUENCING —</b> version every migration as ordered reversible scripts · ship app code compatible with both schemas first · back up, migrate, then ship schema-dependent code · rehearse restore on staging with production-scale data.</div>
+<div class="kv"><b>BRANCH BY ABSTRACTION —</b> big refactor without a long branch: wrap the target in a seam → build the replacement off the live path → flip delegation → delete the old code. Main stays releasable throughout.</div>
 <div class="pfoot"><span>CI/CD Engineering Manual</span><span>CH 20</span><span>03 / 04</span></div>
 </div>
 

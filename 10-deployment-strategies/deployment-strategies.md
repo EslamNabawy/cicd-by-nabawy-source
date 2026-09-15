@@ -68,6 +68,7 @@ flowchart LR
 - Need production proof before full exposure → **Canary**.
 - Need instant kill-switch or gradual user rollout → **Feature Flags**.
 - Anything stateful (databases, migrations) → strategy is necessary but not sufficient: expand-contract migrations, backward-compatible schemas first.
+- Dual-compatible rollout for stateful changes: new code reads old and new schema during the switch; migrate only after the app proves stable.
 
 ## 6. Failure Modes
 
@@ -83,6 +84,7 @@ flowchart LR
 - Automate promotion *and* halt conditions (error budget burn stops a canary without a human).
 - Practice rollback on staging until it's boring — rollback is a feature, tested like one.
 - Database migrations expand-contract: add (nullable) → migrate → enforce, never drop-then-add.
+- Version migration scripts and verify them in the pipeline: migrate staging on every deploy, rehearse restore quarterly.
 
 ## 8. Common Misconceptions
 

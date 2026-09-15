@@ -48,17 +48,28 @@ Rollback deploys a **previous known-good digest** ([Artifact Management](../05-a
 
 Blameless, owner-assigned, pipeline-linked: every action item becomes a test, check, alert, or runbook — or it will recur. Track repeat-incident rate; a postmortem without a merged pipeline change is a diary entry.
 
-## 6. Failure Modes
+## 6. Data Migration Practice
+
+Data outlives code and can't be discarded on deploy — migrations move forward, never back:
+
+- Version every migration: ordered, reversible scripts run by a migration runner (not hand-applied SQL); each deploy maps to exact schema versions.
+- Expand-contract sequencing: add (nullable) → migrate data → enforce; ship app code compatible with both schemas before migrating.
+- Risky upgrades: deploy dual-compatible app on the old schema, observe, back up, migrate, then ship schema-dependent code.
+- Verify restore, not just backup: rehearse production migration and rollback paths on staging with production-scale data.
+- Test data: construct minimal data per test; never depend on full production dumps (slow, privacy-risky, unreproducible).
+
+## 7. Failure Modes
 
 - No practiced rollback → improvisation during incidents; rehearse until boring.
 - Rolling forward into a migration → data corruption; expand-contract migrations make both directions safe.
 - Rollback untested because "we never need it" → the one time it's needed, it doesn't work. Test the path you pray you never take.
 
-## 7. Interview Notes
+## 8. Interview Notes
 
 - Rollback vs forward-fix: decision criteria in 60 seconds.
 - Why rollback uses old digests, never fresh builds.
 - Design a game day for a canary-deployed service.
+- Rollback vs forward-fix after a migration already applied.
 
 ## Related Topics
 

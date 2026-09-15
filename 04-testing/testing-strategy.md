@@ -41,14 +41,24 @@ Many unit, fewer E2E: an inverted pyramid (all Selenium, no units) is slow, flak
 
 Flaky test protocol: quarantine to a non-blocking suite immediately (same day), assign an owner, fix-or-delete deadline of one sprint. A flaky gate teaches developers that red is meaningless — the most expensive test debt there is.
 
-## 5. Failure Modes
+## 5. Capacity & Performance Placement
+
+Functional tests prove correctness; capacity tests prove survival. Treat performance as a requirement with a number, not a wish:
+
+- Quantify first: convert expected load into thresholds (p99 latency, sustained throughput, concurrent users) — unquantified goals justify unbounded effort.
+- Placement: short performance smoke sentinels in the PR pipeline; full load scenarios post-merge/staging on isolated, production-like hosts (shared or noisy hosts produce phantom regressions).
+- Derive load from reality: adapt acceptance flows into composable load scenarios; warm up caches/JIT before measuring.
+- Ratchet thresholds: start at minimum viable target, raise as headroom proves stable; investigate before lowering.
+- Vocabulary: latency (one transaction's time) vs throughput (transactions per interval) vs capacity (max sustainable throughput within latency budget).
+
+## 6. Failure Modes
 
 - Testing pyramid inverted → 40-minute PR suites developers ignore; rebalance toward units.
 - E2E in PR → queue pileups; move to staging.
 - No contract tests in microservices → integration surprises at deploy; add consumer-driven contracts.
 - Coverage % as a target → gaming (assert-free tests); treat coverage as smoke signal, not goal.
 
-## 6. Interview Notes
+## 7. Interview Notes
 
 - Why contract tests exist (microservice API drift).
 - Flaky quarantine protocol, step by step.
