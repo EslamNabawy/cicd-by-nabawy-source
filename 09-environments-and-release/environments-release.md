@@ -33,13 +33,14 @@ Preview environments are the highest-leverage addition: reviewers click the chan
 
 ## 3. Config vs Code
 
-The artifact never changes between environments; everything else does via config: env vars for simple values, secret stores for credentials, config maps/files for structured settings. Twelve-factor discipline: a diff between staging and production behavior must be explainable by config diff alone — never by "we built it differently."
+The artifact never changes between environments; everything else does via config: env vars for simple values, secret stores for credentials, config maps/files for structured settings. Inject each setting at the latest safe point — build-time injection forces per-environment artifacts and voids test-what-you-ship; deploy- or runtime injection keeps one binary everywhere. Twelve-factor discipline: a diff between staging and production behavior must be explainable by config diff alone — never by "we built it differently."
 
 ## 4. Release Trains & Promotion Paths
 
 - **Release train:** scheduled departures (e.g. Tuesdays/Thursdays); whatever is green and approved rides, the rest waits for the next train. Predictable for stakeholders, calming for on-call.
 - **Promotion path:** dev → preview → staging → production, each gate explicit (checks + approvals + signals). Skipping environments is the process smell that precedes incidents.
 - **Hotfix lane:** a documented fast path (fewer approvals, same checks) for production fires — used rarely, reviewed always.
+- **Release readiness checklist:** owners named, config externalized, environments IaC-built, approvals + monitors + data migration + back-out plan + support handoff. No checklist, no release.
 
 ## 5. Failure Modes
 

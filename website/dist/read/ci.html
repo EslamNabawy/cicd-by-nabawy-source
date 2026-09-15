@@ -690,6 +690,7 @@ ul.tight li{margin-bottom:4px}
 <div class="kv"><b>RULES —</b> tiny branches, daily merges · flags hide unfinished work, not long branches · <span class="mono">main</span> always releasable · whoever breaks it fixes it first · measure merges per dev per week.</div>
 <ul class="tight"><li>Long branches → merge hell (WIP limits + flags).</li><li>Red main normalized → quality collapse (stop-the-line culture).</li><li>Flaky gates → bypassed checks (quarantine flakes, never disable gates).</li></ul>
 <div class="qa"><span class="qq">Q:</span> CI practice vs CI pipeline?<br><span class="aa">A:</span> Discipline (merge small, verify, fix first) vs machinery (the pipeline that enforces it).</div>
+<div class="kv"><b>DISCIPLINE DETAILS —</b> preflight builds validate diffs before landing on <span class="mono">main</span> · rotating build master reverts lingering breakage on large teams · ratcheting gates fail only when warnings or duplication increase.</div>
 
 </div><div id="p4" class="page">
 

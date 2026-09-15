@@ -27,7 +27,7 @@ Picking up from **[Continuous Delivery](../07-continuous-delivery/continuous-del
 - **Progressive delivery:** canary or flags on every release (see [Deployment Strategies](../10-deployment-strategies/deployment-strategies.md)) — automation needs a small blast radius to be safe.
 - **Kill criteria:** automated halt conditions (error-budget burn, p99 regression, business KPI drop) that stop and roll back without asking.
 - **Observability:** version-labeled everything, SLOs with burn alerts, on-call that trusts the automation (see [Observability](../13-observability-and-feedback/observability-feedback.md)).
-- **Trunk discipline + flags:** unfinished work hides behind flags, never branches — main is always shippable.
+- **Trunk discipline + flags:** unfinished work hides behind flags; branches live hours-to-days, never weeks — main is always shippable.
 
 ## 3. Failure Modes
 

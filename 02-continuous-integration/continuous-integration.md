@@ -32,12 +32,15 @@ Integration pain grows with branch age: two-day branches merge in minutes, two-m
 - **PR gate:** required status checks (green CI + approvals) enforced by branch protection. No green, no merge — no exceptions, no admin overrides "just this once."
 - **Merge queue:** on busy `main`, merges serialize through a queue that rebases each PR onto the latest green `main` and re-verifies before landing. Prevents the "green on branch, red on main" race.
 - **Linear history** (rebase/squash merges) keeps `main` bisectable: any commit builds, any commit reverts cleanly.
+- **Preflight builds:** validate the diff on CI infrastructure *before* it lands on `main` — prevention beats fast reverts on busy branches.
 
 ## 4. Trunk Discipline
 
 - Tiny branches, daily merges; feature flags hide unfinished work instead of long branches.
 - `main` is always releasable — a broken `main` blocks everyone, so whoever breaks it fixes it first.
 - Measure: merge frequency per developer per week. Falling numbers mean branches are growing teeth.
+- **Build master (large teams):** a rotating shepherd who tends the pipeline and reverts lingering breakage — a temporary discipline role, not a title.
+- **Ratcheting gates:** fail the build when warnings, duplication, or style violations *increase* versus the last green commit — quality can only move one direction without a big-bang cleanup.
 
 ## 5. Failure Modes
 

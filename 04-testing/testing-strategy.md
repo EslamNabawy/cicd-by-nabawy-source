@@ -31,11 +31,14 @@ Picking up from **[Build Systems](../03-build-systems/build-systems.md)**, where
 
 Many unit, fewer E2E: an inverted pyramid (all Selenium, no units) is slow, flaky, and tells you nothing a unit test couldn't in milliseconds.
 
+Test doubles, cheapest first: stub (canned answers) → fake (working shortcut, e.g. in-memory store) → mock (verifies interactions). Mock roles and boundaries, never implementation trivia — over-mocked suites shatter on every refactor while missing real regressions.
+
 ## 3. Placement Rules
 
 - PR pipeline: unit + contract + fast integration (< 10 min total). Anything slower moves post-merge.
 - Staging: full integration + E2E + smoke after deploy; failures block promotion, not merges.
 - Post-deploy: synthetic smoke probes continuously — the pipeline's last test never ends.
+- Acceptance criteria as executable specs: analyst + tester + developer agree the criteria before coding, written so the pipeline can run them (Given-When-Then). Docs that can't fail the build drift from behavior.
 
 ## 4. Flaky Policy
 

@@ -1,51 +1,51 @@
 {
-  "order": [
-    "start-here",
-    "ci-core",
-    "delivery",
-    "jenkins-core",
-    "jenkins-advanced",
-    "platforms",
-    "labs",
-    "reference",
-    "roadmap"
-  ],
-  "paths": {
-    "start-here": {
-      "label": "Start Here",
-      "desc": "Foundations first, then Git flow that feeds CI."
-    },
-    "ci-core": {
-      "label": "CI Core",
-      "desc": "Integration discipline, pipelines, builds, tests, artifacts."
-    },
-    "delivery": {
-      "label": "Delivery & Deployment",
-      "desc": "Releasable always, deployed by decision. Strategies, envs, security, recovery."
-    },
-    "jenkins-core": {
-      "label": "Jenkins Core",
-      "desc": "Controller schedules, agents execute. Setup to first pipelines."
-    },
-    "jenkins-advanced": {
-      "label": "Jenkins Advanced",
-      "desc": "Credentials, plugins, webhooks, security, tuning, troubleshooting."
-    },
-    "platforms": {
-      "label": "Platforms",
-      "desc": "GitHub Actions, GitLab, ArgoCD GitOps, IaC envs."
-    },
-    "labs": {
-      "label": "Hands-on Labs",
-      "desc": "Do it: pipeline to rollback to Jenkins live to DR."
-    },
-    "reference": {
-      "label": "Reference",
-      "desc": "Cheatsheet, quick lookups."
-    },
-    "roadmap": {
-      "label": "Platform Roadmaps",
-      "desc": "Where Jenkins and GitHub Actions are headed — and how to choose. Quarterly-verified against official sources."
-    }
+ "order": [
+  "start-here",
+  "ci-core",
+  "delivery",
+  "jenkins-core",
+  "jenkins-advanced",
+  "platforms",
+  "labs",
+  "reference",
+  "roadmap"
+ ],
+ "paths": {
+  "start-here": {
+   "label": "Start Here",
+   "desc": "Foundations first, then Git flow that feeds CI."
+  },
+  "ci-core": {
+   "label": "CI Core",
+   "desc": "Integration discipline, pipelines, builds, tests, artifacts."
+  },
+  "delivery": {
+   "label": "Delivery & Deployment",
+   "desc": "Releasable always, deployed by decision. Strategies, envs, security, recovery."
+  },
+  "jenkins-core": {
+   "label": "Jenkins Core",
+   "desc": "Controller schedules, agents execute. Setup to first pipelines."
+  },
+  "jenkins-advanced": {
+   "label": "Jenkins Advanced",
+   "desc": "Credentials, plugins, webhooks, security, tuning, troubleshooting."
+  },
+  "platforms": {
+   "label": "Platforms",
+   "desc": "GitHub Actions, GitLab, ArgoCD GitOps, IaC envs."
+  },
+  "labs": {
+   "label": "Hands-on Labs",
+   "desc": "Do it: pipeline to rollback to Jenkins live to DR. Walking-skeleton order: thin end-to-end slice first, then depth."
+  },
+  "reference": {
+   "label": "Reference",
+   "desc": "Cheatsheet, quick lookups."
+  },
+  "roadmap": {
+   "label": "Platform Roadmaps",
+   "desc": "Where Jenkins and GitHub Actions are headed — and how to choose. Quarterly-verified against official sources."
   }
+ }
 }

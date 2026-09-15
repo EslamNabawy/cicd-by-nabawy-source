@@ -7,7 +7,8 @@
 | Blue/Green Deployment | Two identical environments, traffic switched from blue to green | [Deployment Strategies](10-deployment-strategies/deployment-strategies.md) |
 | Branch | Independent line of development in Git | [Git, Branching & Pull Requests](01-source-control/git-branching-pull-requests.md) |
 | Build | Compiling/bundling source into a runnable artifact | [CI/CD Pipelines](06-ci-cd-pipelines/pipelines.md) |
-| CD | Continuous Delivery / Continuous Deployment | [CI/CD Overview](00-foundations/cicd-overview.md) |
+| Continuous Delivery | Every good change is releasable; production deploy is a human/policy decision | [Continuous Delivery](07-continuous-delivery/continuous-delivery.md) |
+| Continuous Deployment | Every good change reaches production automatically | [Continuous Deployment](08-continuous-deployment/continuous-deployment.md) |
 | CI | Continuous Integration: frequent merges verified by automated build+test | [CI/CD Overview](00-foundations/cicd-overview.md) |
 | CI Trigger | Event that starts a pipeline (push, PR, schedule, manual) | [Git, Branching & Pull Requests](01-source-control/git-branching-pull-requests.md) |
 | Continuous Delivery | Every good change is releasable; deployment is a decision | [Continuous Delivery](07-continuous-delivery/continuous-delivery.md) |

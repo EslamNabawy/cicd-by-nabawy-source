@@ -24,7 +24,7 @@
 - [x] Runners deep dive (self-hosted vs managed, caching)
 - [x] Parallelism, dependencies, failure handling
 - [x] Build systems: Maven/Gradle/npm, caching, hermetic (03)
-- [x] Testing strategy: pyramid, contract/E2E, flaky policy (04)
+- [x] Testing strategy: pyramid, contract/E2E, flaky policy, capacity placement, test doubles (04)
 
 ## Artifacts
 
@@ -38,7 +38,7 @@
 - [x] Deployment strategies (rolling, blue/green, canary, recreate, feature flags)
 - [x] Continuous deployment: prereqs, kill criteria (08)
 - [x] Environments & release: topology, config vs code, trains (09)
-- [x] Rollback & recovery procedures (14)
+- [x] Rollback & recovery procedures + data migration practice (14)
 
 ## Feedback
 
