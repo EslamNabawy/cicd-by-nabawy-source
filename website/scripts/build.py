@@ -1139,7 +1139,7 @@ def build_map_page(books, output_dir, paths_html=""):
             )
         detail_html += (
             f'<section class="map-detail" id="detail-{slug}" data-cat="{html.escape(cat)}" aria-label="{html.escape(cat)} books" style="--cat:{color}">'
-            f'<button class="map-back" data-back aria-label="Back to map">← Back to map</button>'
+            f'<button class="map-back" data-back aria-label="Back to overview">← Back</button>'
             f'<div class="map-detail-hero" style="--cat:{color}"><div class="map-detail-hero-top">'
             f'<span class="map-icon" aria-hidden="true">{CATEGORY_ICONS.get(cat, CATEGORY_ICONS["Reference"])}</span>'
             f'<h2>{html.escape(cat)}</h2><span class="count">{cnt} {"book" if cnt==1 else "books"}</span></div>'
