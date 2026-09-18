@@ -515,150 +515,284 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Library", "item": "https://eslamnabawy.github.io/cicd-by-nabawy/"}, {"@type": "ListItem", "position": 2, "name": "Platforms & 2026 Roadmaps", "item": "https://eslamnabawy.github.io/cicd-by-nabawy/read/platforms-roadmaps.html"}]}</script>
 <style>
 .readbody{--paper:#f5f6f4;--white:#fff;--ink:#161a19;--muted:#68706d;--line:#d5dad7;--panel:#111614;--panel-2:#1a201d;--text-light:#e8eeeb;--text-muted:#9ca8a3;--accent:#00b87c;--accent-dark:#008f61;--blue:#4387ff;--amber:#d99a24;--red:#d94b4b;--artifact:#8b6cff}
+
 *{box-sizing:border-box;margin:0;padding:0}
+
 .readbody{font-family:Inter,"Segoe UI",Arial,sans-serif;color:var(--ink)}
+
 @page{size:A4;margin:0}
+
 .page{width:210mm;min-height:297mm;padding:16mm 16mm 19mm;margin:8mm auto;position:relative;background:var(--paper);page-break-after:always;overflow:hidden;display:flex;flex-direction:column}
+
 @media print{.readbody{}.page{margin:0;box-shadow:none}h3.sec,.phead h2{break-after:avoid}.terminal,table.cmp,.qa,.kv,.callout{break-inside:avoid}}
-.phead{font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase}
-.phead .ch{color:var(--accent-dark);font-weight:700}
-.phead h2{font-size:22px;letter-spacing:1px;color:var(--ink);margin:2px 0 6px;text-transform:uppercase}
-.phead hr{border:none;border-top:1.5px solid var(--ink);margin-bottom:10px}
-.pfoot{margin-top:auto;padding-top:8px;font-size:9px;color:var(--muted);display:flex;justify-content:space-between;border-top:1px solid var(--line);letter-spacing:1px}
+
 h3.sec{font-size:23px;margin:16px 0 8px;text-transform:uppercase;letter-spacing:.5px;break-after:avoid}
+
 h3.sec .n{color:var(--accent-dark);font-family:"Cascadia Code",Consolas,monospace;font-size:15px;margin-right:10px}
+
 p.body{font-size:14.5px;line-height:1.6;margin:8px 0}
+
 code,.mono{font-family:"SFMono-Regular","Cascadia Code",Consolas,monospace}
-.cover{background:var(--panel);color:var(--text-light);justify-content:center}
-.cover .brand{font-size:10px;letter-spacing:4px;color:var(--text-muted)}
-.cover h1{font-size:44px;line-height:1.08;margin:10px 0 4px;letter-spacing:1px}
-.cover h1 span{color:var(--accent)}
-.cover .sub{font-size:15px;color:var(--text-muted);margin-bottom:18px}
-.cover .tri{font-size:10px;letter-spacing:2.5px;color:var(--accent);margin-bottom:26px;line-height:2}
+
 .vpipe{display:flex;flex-direction:column;margin:6px 0 26px}
+
 .vnode{display:flex;align-items:center;gap:12px}
+
 .vnode .dot{width:14px;height:14px;border-radius:50%;border:2px solid var(--accent);box-shadow:0 0 10px rgba(0,184,124,.55);flex:none}
+
 .vnode.amber .dot{border-color:var(--amber);box-shadow:0 0 10px rgba(217,154,36,.55)}
 
-.cover .vnode img{filter:drop-shadow(0 0 0.9px #18E299) drop-shadow(0 0 4px rgba(24,226,153,.22));}
-.cover .vnode img[src*="github"]{background:none;border-radius:0;padding:0;box-shadow:none;filter:drop-shadow(0 0 0.9px #18E299) drop-shadow(0 0 5px rgba(24,226,153,.28));}
-.cover .vnode img[src*="github"]{background:none;border-radius:0;padding:0;box-shadow:none;filter:drop-shadow(1px 0 0 white) drop-shadow(-1px 0 0 white) drop-shadow(0 1px 0 white) drop-shadow(0 -1px 0 white) drop-shadow(0.7px 0.7px 0 white) drop-shadow(-0.7px -0.7px 0 white) drop-shadow(-0.7px 0.7px 0 white) drop-shadow(0.7px -0.7px 0 white);}
-/* icon: github white on dark, black on light — no halo */
-.cover .vnode img[src*="github"]{filter:invert(1) brightness(1.05);background:none;box-shadow:none;border-radius:0;padding:0;}
-.cover .vnode img:not([src*="github"]){filter:none;}
-/* icon: outline/black icons white on dark covers */
-.cover .vnode img[src*="github"], .cover .vnode img[src*="workflow"], .cover .vnode img[src*="hammer"], .cover .vnode img[src*="package"], .cover .vnode img[src*="database"], .cover .vnode img[src*="puzzle"], .cover .vnode img[src*="server"], .cover .vnode img[src*="terminal"], .cover .vnode img[src*="shield"], .cover .vnode img[src*="activity"], .cover .vnode img[src*="webhook"], .cover .vnode img[src*="wrench"], .cover .vnode img[src*="flask"], .cover .vnode img[src*="rocket"]{filter:invert(1) brightness(1.05);}
 .vnode img{width:22px;height:22px;flex:none}
+
 .vnode b{font-size:12px;letter-spacing:2px}
+
 .vnode small{font-size:10px;color:var(--text-muted)}
+
 .vline{width:2px;height:16px;background:#2c3531;margin-left:6px}
-.cover .foot{font-size:9px;color:var(--text-muted);letter-spacing:2px;margin-top:auto;padding-top:20px;display:flex;align-items:baseline;justify-content:space-between;gap:12px}
-.cover .sig{font-family:"Brush Script MT","Segoe Script","Snell Roundhand",cursive;font-size:26px;color:var(--accent);transform:rotate(-4deg);text-shadow:0 0 14px rgba(0,184,124,.45);white-space:nowrap}
-.opener .bignum{font-size:64px;font-weight:800;line-height:1}
-.opener .ctitle{font-size:30px;letter-spacing:3px;margin:2px 0 12px}
-.opener .lede{font-size:18px;line-height:1.65;max-width:155mm;margin:8px 0}
-.opener .lede em{color:var(--accent-dark);font-style:normal;font-weight:700}
-.terminal{background:var(--panel);color:var(--text-light);border-radius:8px;padding:16px 18px;font-family:"Cascadia Code",Consolas,monospace;font-size:11px;line-height:1.6;margin:12px 0;white-space:pre-wrap}
-.terminal .p{color:var(--accent)}.terminal .c{color:var(--text-muted)}.terminal .g{color:var(--accent)}
-table.cmp{width:100%;border-collapse:collapse;font-size:12px;margin:12px 0}
-table.cmp th{background:var(--panel);color:var(--text-light);font-size:10px;letter-spacing:1px;padding:8px 9px;text-align:left}
-table.cmp td{border:1px solid var(--line);padding:8px 9px;background:var(--white);line-height:1.5}
-table.cmp td:first-child{font-weight:700;background:#eef0ee}
-.kv{background:var(--white);border:1px solid var(--line);padding:10px 12px;margin:8px 0;font-size:13px;line-height:1.65}
-.kv b{color:var(--accent-dark)}
+
 ul.tight{font-size:13px;line-height:1.7;margin:8px 0 8px 20px}
+
 ul.tight li{margin-bottom:4px}
-.qa{background:var(--white);border:1px solid var(--line);padding:10px 14px;margin:8px 0;font-size:13px;line-height:1.65}
-.qa .qq{font-weight:700}.qa .aa{color:var(--accent-dark);font-weight:700}
-.printnote{font-size:10px;color:var(--muted);border:1px dashed var(--line);padding:10px 12px;margin-top:12px;line-height:1.7}
+
 /* m-reflow: screen-only mobile reflow; print unaffected */
 @media screen and (max-width:700px){.page{width:auto;min-height:0;margin:0 auto;padding:16px 14px 20px}h3.sec{font-size:19px}.opener .bignum{font-size:48px}.cover h1{font-size:32px}.cover .tri{font-size:9px}table.cmp{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}.terminal{font-size:10.5px}.vnode b,.fnode b{font-size:11px}.phead h2{font-size:18px}.step{font-size:12.5px}}
 
+
 .readbody{font-family:sans-serif}
+
 @media(max-width:700px){.page{padding:12px}}
 
+
 .readbody{--paper:#f5f6f4;--white:#fff;--ink:#161a19;--muted:#68706d;--line:#d5dad7;--panel:#111614;--panel-2:#1a201d;--text-light:#e8eeeb;--text-muted:#9ca8a3;--accent:#00b87c;--accent-dark:#008f61;--blue:#4387ff;--amber:#d99a24;--red:#d94b4b;--artifact:#8b6cff}
+
 *{box-sizing:border-box;margin:0;padding:0}
+
 .readbody{font-family:Inter,"Segoe UI",Arial,sans-serif;color:var(--ink)}
+
 @page{size:A4;margin:0}
+
 .page{width:210mm;min-height:297mm;padding:16mm 16mm 19mm;margin:8mm auto;position:relative;background:var(--paper);page-break-after:always;overflow:hidden;display:flex;flex-direction:column}
+
 @media print{.readbody{}.page{margin:0;box-shadow:none}h3.sec,.phead h2{break-after:avoid}table.cmp,.qa,.kv,.callout,.terminal,.vflow{break-inside:avoid}}
-.phead{font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase}
-.phead .ch{color:var(--accent-dark);font-weight:700}
-.phead h2{font-size:22px;letter-spacing:1px;color:var(--ink);margin:2px 0 6px;text-transform:uppercase}
-.phead hr{border:none;border-top:1.5px solid var(--ink);margin-bottom:10px}
-.pfoot{margin-top:auto;padding-top:8px;font-size:9px;color:var(--muted);display:flex;justify-content:space-between;border-top:1px solid var(--line);letter-spacing:1px}
+
 h3.sec{font-size:18px;margin:14px 0 8px;text-transform:uppercase;letter-spacing:.5px;break-after:avoid}
+
 h3.sec .n{color:var(--accent-dark);font-family:"Cascadia Code",Consolas,monospace;font-size:13px;margin-right:8px}
+
 p.body{font-size:13px;line-height:1.65;margin:7px 0}
+
 p.small{font-size:12px;line-height:1.6;color:var(--muted);margin:6px 0}
+
 code,.mono{font-family:"SFMono-Regular","Cascadia Code",Consolas,monospace}
-.cover{background:var(--panel);color:var(--text-light);justify-content:center}
-.cover .brand{font-size:10px;letter-spacing:4px;color:var(--text-muted)}
-.cover h1{font-size:42px;line-height:1.05;margin:10px 0 4px;letter-spacing:1px}
-.cover h1 span{color:var(--red)}
-.cover .sub{font-size:14px;color:var(--text-muted);margin-bottom:16px}
-.cover .tri{font-size:10px;letter-spacing:2.5px;color:var(--text-muted);margin-bottom:22px;line-height:1.9}
+
 .vpipe{display:flex;flex-direction:column;margin:6px 0 26px}
+
 .vnode{display:flex;align-items:center;gap:12px}
+
 .vnode .dot{width:14px;height:14px;border-radius:50%;border:2px solid var(--red);box-shadow:0 0 10px rgba(217,75,75,.5);flex:none}
+
 .vnode.g .dot{border-color:var(--accent);box-shadow:0 0 10px rgba(0,184,124,.55)}
+
 .vnode.b .dot{border-color:var(--blue);box-shadow:0 0 10px rgba(67,135,255,.45)}
+
 .vnode.am .dot{border-color:var(--amber);box-shadow:0 0 10px rgba(217,154,36,.45)}
+
 .vnode.p .dot{border-color:var(--artifact);box-shadow:0 0 10px rgba(139,108,255,.45)}
 
-.cover .vnode img{filter:drop-shadow(0 0 0.9px #18E299) drop-shadow(0 0 4px rgba(24,226,153,.22));}
-.cover .vnode img[src*="github"]{background:none;border-radius:0;padding:0;box-shadow:none;filter:drop-shadow(0 0 0.9px #18E299) drop-shadow(0 0 5px rgba(24,226,153,.28));}
-.cover .vnode img[src*="github"]{background:none;border-radius:0;padding:0;box-shadow:none;filter:drop-shadow(1px 0 0 white) drop-shadow(-1px 0 0 white) drop-shadow(0 1px 0 white) drop-shadow(0 -1px 0 white) drop-shadow(0.7px 0.7px 0 white) drop-shadow(-0.7px -0.7px 0 white) drop-shadow(-0.7px 0.7px 0 white) drop-shadow(0.7px -0.7px 0 white);}
-/* icon: github white on dark, black on light — no halo */
-.cover .vnode img[src*="github"]{filter:invert(1) brightness(1.05);background:none;box-shadow:none;border-radius:0;padding:0;}
-.cover .vnode img:not([src*="github"]){filter:none;}
-/* icon: outline/black icons white on dark covers */
-.cover .vnode img[src*="github"], .cover .vnode img[src*="workflow"], .cover .vnode img[src*="hammer"], .cover .vnode img[src*="package"], .cover .vnode img[src*="database"], .cover .vnode img[src*="puzzle"], .cover .vnode img[src*="server"], .cover .vnode img[src*="terminal"], .cover .vnode img[src*="shield"], .cover .vnode img[src*="activity"], .cover .vnode img[src*="webhook"], .cover .vnode img[src*="wrench"], .cover .vnode img[src*="flask"], .cover .vnode img[src*="rocket"]{filter:invert(1) brightness(1.05);}
 .vnode img{width:24px;height:24px;flex:none}
+
 .vnode b{font-size:11px;letter-spacing:2px}
+
 .vnode small{font-size:10px;color:var(--text-muted)}
+
 .vline{width:2px;height:14px;background:#2c3531;margin-left:6px}
-.cover .foot{font-size:9px;color:var(--text-muted);letter-spacing:2px;margin-top:auto;padding-top:20px;display:flex;align-items:baseline;justify-content:space-between;gap:12px}
-.cover .sig{font-family:"Brush Script MT","Segoe Script","Snell Roundhand",cursive;font-size:26px;color:var(--accent);transform:rotate(-4deg);text-shadow:0 0 14px rgba(0,184,124,.45);white-space:nowrap}
-.opener .bignum{font-size:64px;font-weight:800;line-height:1}
-.opener .ctitle{font-size:30px;letter-spacing:3px;margin:2px 0 12px}
-.opener .lede{font-size:15px;line-height:1.6;max-width:155mm;margin:8px 0}
-.opener .lede em{color:var(--accent-dark);font-style:normal;font-weight:700}
-table.cmp{width:100%;border-collapse:collapse;font-size:11.5px;margin:10px 0}
-table.cmp th{background:var(--panel);color:var(--text-light);font-size:9px;letter-spacing:1px;padding:7px 8px;text-align:left}
-table.cmp td{border:1px solid var(--line);padding:7px 8px;background:var(--white);line-height:1.5}
-table.cmp td:first-child{font-weight:700;background:#eef0ee}
+
 .callout{border-left:3px solid var(--red);background:var(--white);padding:10px 12px;margin:10px 0}
+
 .callout.green{border-left-color:var(--accent)}
+
 .callout.amber{border-left-color:var(--amber)}
+
 .callout.blue{border-left-color:var(--blue)}
+
 .callout h4{font-size:10px;letter-spacing:1.5px;margin-bottom:4px}
-.callout.red h4{color:var(--red)}.callout.green h4{color:var(--accent-dark)}.callout.amber h4{color:var(--amber)}.callout.blue h4{color:var(--blue)}
+
+.callout.red h4{color:var(--red)}
+.callout.green h4{color:var(--accent-dark)}
+.callout.amber h4{color:var(--amber)}
+.callout.blue h4{color:var(--blue)}
+
 .callout p{font-size:12px;line-height:1.6}
-.terminal{background:var(--panel);color:var(--text-light);border-radius:8px;padding:14px 16px;font-family:"Cascadia Code",Consolas,monospace;font-size:11px;line-height:1.6;margin:10px 0;white-space:pre-wrap}
-.terminal .g{color:var(--accent)}.terminal .c{color:var(--text-muted)}.terminal .a{color:var(--amber)}.terminal .b{color:var(--blue)}
+
 .vflow{margin:10px 0}
+
 .fnode{background:var(--white);border:1px solid var(--line);padding:10px 14px;font-size:12px;display:flex;align-items:center;gap:10px}
+
 .fnode img{width:22px;height:22px;flex:none}
+
 .fnode b{letter-spacing:1px;font-size:11px}
+
 .fnode small{color:var(--muted);font-size:11px}
+
 .farrow{text-align:center;color:var(--accent-dark);font-weight:700;line-height:1.1;padding:2px 0}
-.kv{background:var(--white);border:1px solid var(--line);padding:10px 12px;margin:8px 0;font-size:12px;line-height:1.6}
-.kv b{color:var(--accent-dark)}
+
 ul.tight{font-size:12.5px;line-height:1.65;margin:7px 0 7px 18px}
+
 ul.tight li{margin-bottom:4px}
-.qa{background:var(--white);border:1px solid var(--line);padding:10px 14px;margin:8px 0;font-size:12px;line-height:1.6}
-.qa .qq{font-weight:700}.qa .aa{color:var(--accent-dark);font-weight:700}
+
 .badge{display:inline-block;font-size:9px;letter-spacing:1px;padding:2px 6px;border-radius:4px;font-weight:700;color:#fff;margin-left:6px}
-.badge-rel{background:var(--accent)}.badge-prev{background:var(--blue)}.badge-cur{background:var(--amber);color:#111}.badge-near{background:#6b7a77}.badge-fut{background:var(--artifact)}
+
+.badge-rel{background:var(--accent)}
+.badge-prev{background:var(--blue)}
+.badge-cur{background:var(--amber);color:#111}
+.badge-near{background:#6b7a77}
+.badge-fut{background:var(--artifact)}
+
 .timeline{display:flex;gap:6px;margin:8px 0}
+
 .timeline .tseg{flex:1;text-align:center;padding:6px 4px;border-radius:6px;font-size:9px;letter-spacing:1px;font-weight:700;color:#fff;line-height:1.4}
-.tseg.rel{background:var(--accent)}.tseg.prev{background:var(--blue)}.tseg.cur{background:var(--amber);color:#111}.tseg.near{background:#6b7a77}.tseg.fut{background:var(--artifact)}
-.printnote{font-size:9px;color:var(--muted);border:1px dashed var(--line);padding:10px 12px;margin-top:12px;line-height:1.6}
+
+.tseg.rel{background:var(--accent)}
+.tseg.prev{background:var(--blue)}
+.tseg.cur{background:var(--amber);color:#111}
+.tseg.near{background:#6b7a77}
+.tseg.fut{background:var(--artifact)}
+
 /* m-reflow: screen-only mobile reflow; print unaffected */
 @media screen and (max-width:700px){.page{width:auto;min-height:0;margin:0 auto;padding:16px 14px 20px}h3.sec{font-size:16px}.opener .bignum{font-size:48px}.cover h1{font-size:30px}.cover .tri{font-size:9px}table.cmp{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}.terminal{font-size:10.5px}.vnode b,.fnode b{font-size:10px}.phead h2{font-size:18px}}
 
+.readbody{
+  --bg:#f2f5f8; --panel:#ffffff; --panel2:#eaf0f4; --ink:#16222e; --dim:#5c6b7a;
+  --line:#dde4ea; --line2:#cbd6de;
+  --teal:#0e7490; --teal-d:#0b5c73; --teal-t:#e3f2f7;
+  --indigo:#4f46e5; --indigo-t:#eef0fd;
+  --ok:#15803d; --ok-t:#e7f5ec;
+  --warn:#b45309; --warn-t:#fdf3e0;
+  --fail:#b91c1c; --fail-t:#fdeaea;
+  --code-bg:#0f1e2b;
+  --shadow:3px 3px 0 rgba(22,34,46,.10);
+}
+*{box-sizing:border-box; -webkit-print-color-adjust:exact; print-color-adjust:exact;}
+.readbody{margin:0;  font-family:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif; color:var(--ink);}
+@page{size:A4; margin:0;}
+.sheet{width:210mm; height:297mm; background:var(--bg); margin:9mm auto; padding:13mm 13mm 20mm; position:relative; border:1px solid var(--line2); page-break-after:always; overflow:hidden;}
+.sheet::before{content:''; position:absolute; top:0; left:0; right:0; height:7px; background:linear-gradient(90deg,var(--teal) 0 55%,var(--indigo) 55% 100%);}
+@media print{ .readbody{} .sheet{margin:0; border:none; box-shadow:none;} }
+.mono{font-family:'Consolas','SF Mono',monospace;}
+.pghead{margin:0 0 10px; border-bottom:2px solid var(--ink); padding-bottom:7px;}
+.hrow{display:flex; align-items:flex-start; gap:10px;}
+.kick{font:800 10px 'Consolas',monospace; letter-spacing:.16em; text-transform:uppercase; color:var(--teal); margin-bottom:3px;}
+h1.t{font:800 21px/1.3 'Segoe UI',sans-serif; margin:0; border-left:5px solid var(--teal); padding-left:11px;}
+.hmeta{margin-left:auto; font:800 9.5px 'Consolas',monospace; border:2px solid var(--teal); color:#fff; background:var(--teal); border-radius:4px; padding:2px 9px; white-space:nowrap;}
+.folio{position:absolute; bottom:6mm; left:13mm; right:13mm; display:flex; align-items:center; gap:8px; font:9.5px 'Consolas',monospace; color:var(--dim);}
+.folio::before,.folio::after{content:''; flex:1; border-top:1px solid var(--line2);}
+.folio .fnum{color:var(--ink); font-weight:700;}
+.folio .by{color:var(--teal); font-weight:800;}
+a.tlink{color:var(--teal-d); font-weight:700; text-decoration:none; border-bottom:2px dotted var(--teal);}
+a.backtoc{color:var(--dim); text-decoration:none; border:1.5px solid var(--line2); border-radius:4px; padding:0 6px; font:800 9px 'Consolas',monospace; background:var(--panel);}
+a.backtoc:hover{color:var(--teal); border-color:var(--teal);}
+.taskhead{display:flex; align-items:baseline; gap:9px; font:700 13px 'Segoe UI',sans-serif; margin:11px 0 5px;}
+.taskhead::before{content:'▪'; color:var(--teal);}
+.taskhead::after{content:''; flex:1; border-bottom:2px dotted var(--line2); transform:translateY(-3px);}
+.taskhead .hst{font:400 9.5px 'Consolas',monospace; color:var(--dim);}
+.mark{border-radius:8px; border-left:4px solid; padding:7px 11px; margin:8px 0; font-size:12px; line-height:1.6; background:var(--panel);}
+.mark .tag{display:inline-block; font:800 9.5px 'Consolas',monospace; letter-spacing:.1em; margin-right:6px; color:var(--dim);}
+.m-key{border-color:var(--indigo); background:var(--indigo-t);} .m-key .tag{color:var(--indigo);}
+.m-ok{border-color:var(--ok); background:var(--ok-t);} .m-ok .tag{color:var(--ok);}
+.m-tip{border-color:var(--teal); background:var(--teal-t);} .m-tip .tag{color:var(--teal);}
+.m-warn{border-color:var(--warn); background:var(--warn-t);} .m-warn .tag{color:var(--warn);}
+.m-fail{border-color:var(--fail); background:var(--fail-t);} .m-fail .tag{color:var(--fail);}
+.m-exam{border:2px solid var(--line2); border-left:5px solid var(--teal); background:var(--panel); border-radius:8px; box-shadow:var(--shadow); padding:6px 10px; margin:8px 0; font-size:12px; line-height:1.6;}
+.m-exam .tag{display:inline-block; font:800 9.5px 'Consolas',monospace; letter-spacing:.1em; color:var(--teal); margin-right:6px;}
+.panel{background:var(--panel); border:2px solid var(--line2); border-radius:8px; box-shadow:var(--shadow); padding:9px 12px;}
+.ptitle{font:700 13.5px 'Segoe UI',sans-serif; margin:0 0 5px; color:var(--teal-d);}
+.blk{display:inline-block; border:2px solid var(--line2); border-radius:6px; padding:7px 11px; font-weight:700; font-size:11.5px; text-align:center; background:var(--panel);}
+.blk small{display:block; font-weight:500; font-size:9.5px; margin-top:2px; color:var(--dim);}
+.chipr{display:inline-flex; align-items:center; background:var(--panel); border:2px solid var(--line2); border-radius:6px; padding:3px 10px; font:700 10.5px 'Consolas',monospace; box-shadow:var(--shadow);}
+.chipr small{color:var(--dim);}
+.pill{display:inline-block; border:2px solid var(--teal); color:var(--teal-d); background:var(--teal-t); border-radius:6px; padding:2px 10px; font:700 11px 'Consolas',monospace;}
+.darr{text-align:center; color:var(--teal); font-size:12px; margin:1px 0;}
+.harrow{color:var(--teal); font-size:12px; align-self:center;}
+.frow{display:flex; align-items:center; justify-content:center; gap:7px; flex-wrap:wrap;}
+.dnote{text-align:center; font-size:11px; color:var(--dim); margin-top:4px;}
+.zone{border:2px solid var(--line2); border-radius:10px; padding:9px 11px; background:var(--panel); box-shadow:var(--shadow);}
+.code{background:var(--code-bg); color:#dbe9f2; border:2px solid var(--line2); border-radius:8px; box-shadow:var(--shadow); padding:9px 12px; font:11px/1.6 'Consolas','SF Mono',monospace; white-space:pre; overflow-x:auto; text-align:left; max-width:100%; margin:6px 0;}
+.code .p{color:#67e8f9;} .code .g{color:#64748b;} .code .s{color:#86efac;} .code .y{color:#fcd34d;} .code .c{color:#93c5fd;}
+.code.mini{font-size:10px; padding:7px 10px; line-height:1.55; margin:4px 0;}
+.tree{background:var(--code-bg); color:#c9d8e4; border:2px solid var(--line2); border-radius:8px; box-shadow:var(--shadow); padding:10px 14px; font:11px/1.7 'Consolas',monospace; white-space:pre; overflow-x:auto; text-align:left;}
+.tree b{color:#67e8f9;} .tree u{color:#86efac; text-decoration:none;} .tree em{color:#f9a8d4; font-style:normal;} .tree i{color:#93c5fd; font-style:normal;} .tree .g{color:#64748b;}
+.tblwrap{overflow-x:auto;}
+table.tb{width:100%; border-collapse:separate; border-spacing:0; border:2px solid var(--line2); border-radius:8px; overflow:hidden; font-size:11.5px; box-shadow:var(--shadow); background:var(--panel);}
+.tb th{background:var(--ink); color:#fff; border-bottom:3px solid var(--teal); padding:6px 10px; text-align:left; font:800 10.5px 'Segoe UI',sans-serif;}
+.tb td{padding:6px 10px; border-bottom:1px solid var(--line); vertical-align:top; line-height:1.55;}
+.tb tr:nth-child(even) td{background:var(--panel2);}
+.tb tr:last-child td{border-bottom:none;}
+.tb.tight{font-size:10.8px;}
+.tb.tight td{padding:4px 9px;}
+.tb.tight th{padding:4px 9px;}
+.tb.rowh td:first-child{font-weight:800; color:var(--teal-d); background:var(--panel2); width:110px;}
+.grid2{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+.grid2>*{min-width:0;}
+.grid3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:9px;}
+.grid3>*{min-width:0;}
+.grid4{display:grid; grid-template-columns:repeat(4,1fr); gap:8px;}
+.grid4>*{min-width:0;}
+h3.sec{font:700 13.5px 'Segoe UI',sans-serif; margin:11px 0 5px;}
+h3.sec .n{color:var(--teal); margin-right:5px; font-family:'Consolas',monospace;}
+p.lead{font-size:12.6px; line-height:1.7; margin:0 0 8px; color:#3d4a56;}
+p.small,li{font-size:11.8px; line-height:1.65;}
+.pillar{border:2px solid var(--line2); border-radius:10px; background:var(--panel); box-shadow:var(--shadow); padding:10px 12px; text-align:center;}
+.pillar .ico{font-size:22px; line-height:1;}
+.pillar b{display:block; font-size:13px; margin:4px 0 2px; color:var(--teal-d);}
+.pillar .q{font-size:10.5px; color:var(--dim); font-style:italic; line-height:1.4;}
+.pillar p{font-size:10.8px; line-height:1.5; margin:5px 0 0; text-align:left;}
+.stbad{display:inline-block; border:2px solid; border-radius:5px; padding:0 8px; font:800 9.5px 'Consolas',monospace;}
+.st-ok{border-color:var(--ok); color:var(--ok); background:var(--ok-t);}
+.st-chg{border-color:var(--warn); color:var(--warn); background:var(--warn-t);}
+.st-fail{border-color:var(--fail); color:var(--fail); background:var(--fail-t);}
+.tocrow{display:flex; align-items:baseline; padding:5px 2px; font-size:12.2px;}
+.tocrow .tnum{font:700 11.5px 'Consolas',monospace; color:var(--teal); width:36px; flex:none;}
+.tocrow .dots{flex:1; border-bottom:2px dotted var(--line2); margin:0 8px 4px;}
+.tocrow .tp{font-weight:800;}
+a.tocrow{color:inherit; text-decoration:none;}
+a.tocrow:hover .tp{color:var(--teal);}
+.tocgrid{display:grid; grid-template-columns:1fr 1fr; gap:0 20px;}
+.lgd{display:flex; flex-wrap:wrap; gap:6px 12px; margin-top:6px;}
+.lgd div{display:flex; align-items:center; gap:6px; font-size:11.5px; font-weight:600;}
+.dot8{width:10px; height:10px; border:2px solid var(--line2); border-radius:3px; display:inline-block; flex:none;}
+.cover{display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:18mm;}
+.cover .band{width:100%; display:flex; justify-content:center; gap:4px; margin-bottom:26px;}
+.cover .bar{width:9px; border-radius:3px 3px 0 0; background:var(--teal); opacity:.85;}
+.cover .ckick{font:800 12px 'Consolas',monospace; letter-spacing:.3em; text-transform:uppercase; color:var(--teal);}
+.cover h1{font:800 44px/1.25 'Segoe UI',sans-serif; margin:12px 0 4px;}
+.cover .sub{font-size:14px; color:var(--dim); max-width:150mm; line-height:1.8;}
+.cover .byline{margin-top:18px; font:800 16px 'Consolas',monospace; color:var(--teal-d); letter-spacing:.08em;}
+.cover .byline small{display:block; font:600 10.5px 'Consolas',monospace; color:var(--dim); margin-top:3px; letter-spacing:.15em;}
+.cover .vols{display:flex; gap:12px; margin-top:22px; flex-wrap:wrap; justify-content:center;}
+.volcard{border:2px solid var(--line2); border-radius:8px; background:var(--panel); box-shadow:var(--shadow); padding:9px 16px; font:800 12.5px 'Segoe UI',sans-serif;}
+.volcard small{display:block; font-weight:600; color:var(--dim); font-size:10px; margin-top:2px;}
+.volcard.on{border-color:var(--teal); background:var(--teal); color:#fff;} .volcard.on small{color:#d3f0f7;}
+.cover .cver{position:absolute; bottom:10mm; left:0; right:0; text-align:center; font:10px 'Consolas',monospace; letter-spacing:.25em; color:var(--dim);}
+.qa{border:2px solid var(--line2); border-radius:6px; background:var(--panel); padding:6px 9px; font-size:10.8px; line-height:1.5;}
+.qa .qn{font:800 10px 'Consolas',monospace; color:var(--teal);}
+.qa .ans{color:#3d4a56;}
+.qa.star{border:2px solid var(--teal); background:var(--teal-t);}
+code{font-family:'Consolas',monospace; background:var(--panel2); border:1px solid var(--line); border-radius:4px; padding:0 5px; font-size:.9em;}
+
+
+@media(max-width:700px){.sheet{padding:10px}.grid2,.grid3,.grid4{grid-template-columns:1fr}}
+/* converted-book compat: old structure, SIGNAL look */
+.sheet .body{font-size:14px;line-height:1.7;margin:9px 0;color:var(--ink)}
+.sheet h2.section-title{font:800 19px/1.3 'Segoe UI',sans-serif;margin:16px 0 7px;color:var(--ink)}
+.sheet h2.section-title .n{color:var(--teal);font-family:'Consolas',monospace;margin-right:6px}
+.sheet h2{font:800 19px/1.3 'Segoe UI',sans-serif;margin:16px 0 7px;color:var(--ink)}
+.sheet ul.tight,.sheet ol.tight{margin:8px 0 8px 22px}
+.sheet .tblwrap{overflow-x:auto;margin:8px 0}
+.sheet .volcard{text-decoration:none}
+.code .term-ok,.code .term-blue{color:#7dd3fc}.code .term-out,.code .term-artifact{color:#c9d8e4}
+.code .term-prompt{color:#67e8f9}.code .term-err,.code .term-fail{color:#f87171}
+@media print{.sheet{page-break-after:always}}
+.readbody{--teal:#F97316;--teal-d:#b35310;--teal-t:#feede1}
 /* reader overrides */
 .readbody .page:not(.cover){width:auto !important;min-height:0 !important;margin:0 auto !important;padding:10px 26px !important;background:transparent !important;border-radius:0;page-break-after:auto !important;overflow:visible}
 .readbody .page.cover{align-items:flex-start !important;border-radius:16px;padding:48px 34px !important;margin:0 auto 30px !important}
@@ -676,7 +810,7 @@ ul.tight li{margin-bottom:4px}
 </head>
 <body data-book="platforms-roadmaps">
 <header class="top"><div class="wrap">
-<button class="btn tocbtn" id="tocbtn" aria-label="Open table of contents">☰ Contents · 91</button>
+<button class="btn tocbtn" id="tocbtn" aria-label="Open table of contents">☰ Contents · 82</button>
 <nav class="crumbs"><a class="logo" href="../index.html" style="color:inherit"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="5" cy="12" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="6" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="18" r="2.6" stroke="#18E299" stroke-width="2"/><path d="M7.6 12h5.2m0 0-2.6-2.6m2.6 2.6-2.6 2.6M13.4 7.4l2.8-1M13.4 16.6l2.8 1" stroke="#18E299" stroke-width="2" stroke-linecap="round"/></svg>CICD<span> BY Nabawy</span></a>
 <span class="sep">/</span>
 <span class="here">Platforms &amp; 2026 Roadmaps</span></nav>
@@ -693,114 +827,107 @@ ul.tight li{margin-bottom:4px}
 <div class="prog" style="height:3px;background:var(--line)"><b id="pbar" style="display:block;height:100%;width:0;background:var(--acc)"></b></div>
 </header>
 <div class="rlayout">
-<aside class="toc" role="dialog" aria-modal="false" aria-label="Table of contents"><div class="toc-head"><h4>CONTENTS · 25 PAGES · 91 SECTIONS</h4><button class="drawerx" id="tocx" aria-label="Close contents">×</button></div><a href="#p1" class="toc-l1" aria-label="Cover — PLATFORMS&amp;amp; ROADMAPS">Cover — PLATFORMS&amp;amp; ROADMAPS</a><a href="#p2-h1" class="toc-l2" aria-label="1 01 / Concept Map">1 01 / Concept Map</a><a href="#p3-h1" class="toc-l2" aria-label="2 02 / CI in One File">2 02 / CI in One File</a><a href="#p3-h2" class="toc-l2" aria-label="3 03 / CD With Gates">3 03 / CD With Gates</a><a href="#p4-h1" class="toc-l2" aria-label="4 04 / Runners &amp;amp; Cost">4 04 / Runners &amp;amp; Cost</a><a href="#p4-h2" class="toc-l2" aria-label="5 05 / Power Patterns">5 05 / Power Patterns</a><a href="#p5-h1" class="toc-l2" aria-label="6 06 / Actions vs Jenkins">6 06 / Actions vs Jenkins</a><a href="#p5-h2" class="toc-l2" aria-label="7 07 / Handoff">7 07 / Handoff</a><a href="#p6-h1" class="toc-l2" aria-label="8 Part 1: GitLab CI">8 Part 1: GitLab CI</a><a href="#p6-h2" class="toc-l2" aria-label="9 1. What Is It?">9 1. What Is It?</a><a href="#p6-h3" class="toc-l2" aria-label="10 2. Pipeline Anatomy (GitLab Vocabulary)">10 2. Pipeline Anatomy (GitLab Vocabulary)</a><a href="#p6-h4" class="toc-l2" aria-label="11 3. Runners &amp;amp; Tags">11 3. Runners &amp;amp; Tags</a><a href="#p6-h5" class="toc-l2" aria-label="12 4. Environments, Review Apps &amp;amp; Merge Trains">12 4. Environments, Review Apps &amp;amp; Merge Trains</a><a href="#p6-h6" class="toc-l2" aria-label="13 5. GitLab vs the Sisters">13 5. GitLab vs the Sisters</a><a href="#p6-h7" class="toc-l2" aria-label="14 6. Failure Modes">14 6. Failure Modes</a><a href="#p6-h8" class="toc-l2" aria-label="15 7. Interview Notes">15 7. Interview Notes</a><a href="#p7-h1" class="toc-l2" aria-label="16 Related Topics">16 Related Topics</a><a href="#p7-h2" class="toc-l2" aria-label="17 Part 2: ArgoCD &amp;amp; GitOps">17 Part 2: ArgoCD &amp;amp; GitOps</a><a href="#p7-h3" class="toc-l2" aria-label="18 1. What Is It?">18 1. What Is It?</a><a href="#p7-h4" class="toc-l2" aria-label="19 2. Push vs Pull">19 2. Push vs Pull</a><a href="#p7-h5" class="toc-l2" aria-label="20 3. Core Objects">20 3. Core Objects</a><a href="#p7-h6" class="toc-l2" aria-label="21 4. Where It Fits">21 4. Where It Fits</a><a href="#p7-h7" class="toc-l2" aria-label="22 5. Failure Modes">22 5. Failure Modes</a><a href="#p7-h8" class="toc-l2" aria-label="23 6. Interview Notes">23 6. Interview Notes</a><a href="#p8-h1" class="toc-l2" aria-label="24 Related Topics">24 Related Topics</a><a href="#p9-h1" class="toc-l2" aria-label="25 1. What Is It?">25 1. What Is It?</a><a href="#p9-h2" class="toc-l2" aria-label="26 2. Pipeline Anatomy (GitLab Vocabulary)">26 2. Pipeline Anatomy (GitLab Vocabulary)</a><a href="#p9-h3" class="toc-l2" aria-label="27 3. Runners &amp;amp; Tags">27 3. Runners &amp;amp; Tags</a><a href="#p9-h4" class="toc-l2" aria-label="28 4. Environments, Review Apps &amp;amp; Merge Trains">28 4. Environments, Review Apps &amp;amp; Merge Trains</a><a href="#p9-h5" class="toc-l2" aria-label="29 5. GitLab vs the Sisters">29 5. GitLab vs the Sisters</a><a href="#p9-h6" class="toc-l2" aria-label="30 6. Failure Modes">30 6. Failure Modes</a><a href="#p9-h7" class="toc-l2" aria-label="31 7. Interview Notes">31 7. Interview Notes</a><a href="#p9-h8" class="toc-l2" aria-label="32 Related Topics">32 Related Topics</a><a href="#p10-h1" class="toc-l2" aria-label="33 1. What Is It?">33 1. What Is It?</a><a href="#p10-h2" class="toc-l2" aria-label="34 2. Push vs Pull">34 2. Push vs Pull</a><a href="#p10-h3" class="toc-l2" aria-label="35 3. Core Objects">35 3. Core Objects</a><a href="#p10-h4" class="toc-l2" aria-label="36 4. Where It Fits">36 4. Where It Fits</a><a href="#p10-h5" class="toc-l2" aria-label="37 5. Failure Modes">37 5. Failure Modes</a><a href="#p10-h6" class="toc-l2" aria-label="38 6. Interview Notes">38 6. Interview Notes</a><a href="#p10-h7" class="toc-l2" aria-label="39 Related Topics">39 Related Topics</a><a href="#p11-h1" class="toc-l2" aria-label="40 01 / Release Cadence — Current Model">40 01 / Release Cadence — Current Model</a><a href="#p11-h2" class="toc-l2" aria-label="41 02 / How Horizons Work">41 02 / How Horizons Work</a><a href="#p11-h3" class="toc-l3" aria-label="41.1 READING RULE">41.1 READING RULE</a><a href="#p12-h1" class="toc-l2" aria-label="42 03 / Pipeline Authoring &amp;amp; Developer Tooling">42 03 / Pipeline Authoring &amp;amp; Developer Tooling</a><a href="#p12-h2" class="toc-l2" aria-label="43 04 / End-User Experience &amp;amp; Interface">43 04 / End-User Experience &amp;amp; Interface</a><a href="#p12-h3" class="toc-l3" aria-label="43.1 WHAT THIS MEANS IN PRACTICE">43.1 WHAT THIS MEANS IN PRACTICE</a><a href="#p12-h4" class="toc-l2" aria-label="44 05 / Management &amp;amp; Tool Integrations">44 05 / Management &amp;amp; Tool Integrations</a><a href="#p13-h1" class="toc-l2" aria-label="45 06 / Jenkins on Cloud Platforms">45 06 / Jenkins on Cloud Platforms</a><a href="#p13-h2" class="toc-l2" aria-label="46 07 / Packaging &amp;amp; Platform Support">46 07 / Packaging &amp;amp; Platform Support</a><a href="#p13-h3" class="toc-l2" aria-label="47 08 / Project Internals — Infra Team 2026 Focus">47 08 / Project Internals — Infra Team 2026 Focus</a><a href="#p14-h1" class="toc-l2" aria-label="48 09 / Full Horizon Table (September 2026 snapshot)">48 09 / Full Horizon Table (September 2026 snapshot)</a><a href="#p14-h2" class="toc-l2" aria-label="49 10 / Community &amp;amp; Program Highlights — 2026">49 10 / Community &amp;amp; Program Highlights — 2026</a><a href="#p14-h3" class="toc-l2" aria-label="50 11 / How to Track Progress">50 11 / How to Track Progress</a><a href="#p15-h1" class="toc-l2" aria-label="51 12 / Failure Modes — Roadmap Edition">51 12 / Failure Modes — Roadmap Edition</a><a href="#p15-h2" class="toc-l3" aria-label="51.1 TREATING NEAR TERM AS A COMMITMENT">51.1 TREATING NEAR TERM AS A COMMITMENT</a><a href="#p15-h3" class="toc-l2" aria-label="52 13 / Operator Checklist">52 13 / Operator Checklist</a><a href="#p15-h4" class="toc-l2" aria-label="53 14 / Handoff">53 14 / Handoff</a><a href="#p16-h1" class="toc-l2" aria-label="54 01 / Incidents That Drove the Roadmap">54 01 / Incidents That Drove the Roadmap</a><a href="#p16-h2" class="toc-l3" aria-label="54.1 THE PATTERN">54.1 THE PATTERN</a><a href="#p16-h3" class="toc-l2" aria-label="55 02 / Roadmap Pillars">55 02 / Roadmap Pillars</a><a href="#p17-h1" class="toc-l2" aria-label="56 03 / A — Locking Workflow Dependencies">56 03 / A — Locking Workflow Dependencies</a><a href="#p17-h2" class="toc-l2" aria-label="57 04 / B — Scoped Secrets">57 04 / B — Scoped Secrets</a><a href="#p18-h1" class="toc-l2" aria-label="58 05 / C — Policy-Driven Workflow Execution Protections">58 05 / C — Policy-Driven Workflow Execution Protections</a><a href="#p18-h2" class="toc-l3" aria-label="58.1 DIRECTLY TARGETS &quot;COMMENT-AND-CONTROL&quot;">58.1 DIRECTLY TARGETS &quot;COMMENT-AND-CONTROL&quot;</a><a href="#p18-h3" class="toc-l2" aria-label="59 06 / D — Endpoint Monitoring &amp;amp; Control">59 06 / D — Endpoint Monitoring &amp;amp; Control</a><a href="#p19-h1" class="toc-l2" aria-label="60 07 / Platform &amp;amp; Runner Improvements — Shipped 2026">60 07 / Platform &amp;amp; Runner Improvements — Shipped 2026</a><a href="#p19-h2" class="toc-l3" aria-label="60.1 IMMUTABLE RELEASES — THE QUIET FIX">60.1 IMMUTABLE RELEASES — THE QUIET FIX</a><a href="#p19-h3" class="toc-l2" aria-label="61 08 / Adjacent Trend — AI / Agentic Workflows">61 08 / Adjacent Trend — AI / Agentic Workflows</a><a href="#p19-h4" class="toc-l2" aria-label="62 09 / Summary Timeline (GitHub&#x27;s announced windows)">62 09 / Summary Timeline (GitHub&#x27;s announced windows)</a><a href="#p20-h1" class="toc-l2" aria-label="63 10 / Architecture — How the Pillars Compose">63 10 / Architecture — How the Pillars Compose</a><a href="#p20-h2" class="toc-l2" aria-label="64 11 / Failure Modes">64 11 / Failure Modes</a><a href="#p20-h3" class="toc-l2" aria-label="65 12 / How to Track Progress">65 12 / How to Track Progress</a><a href="#p20-h4" class="toc-l3" aria-label="65.1 WHEN TO ADOPT">65.1 WHEN TO ADOPT</a><a href="#p20-h5" class="toc-l2" aria-label="66 13 / Handoff">66 13 / Handoff</a><a href="#p21-h1" class="toc-l2" aria-label="67 01 / Optimization Vectors">67 01 / Optimization Vectors</a><a href="#p21-h2" class="toc-l2" aria-label="68 02 / Governance Contrast">68 02 / Governance Contrast</a><a href="#p22-h1" class="toc-l2" aria-label="69 03 / The Two Roadmaps — Full Dimension Table">69 03 / The Two Roadmaps — Full Dimension Table</a><a href="#p22-h2" class="toc-l2" aria-label="70 04 / Timeline Realities">70 04 / Timeline Realities</a><a href="#p22-h3" class="toc-l3" aria-label="70.1 BOTH ARE DIRECTIONAL">70.1 BOTH ARE DIRECTIONAL</a><a href="#p23-h1" class="toc-l2" aria-label="71 05 / Choose Jenkins When">71 05 / Choose Jenkins When</a><a href="#p23-h2" class="toc-l2" aria-label="72 06 / Choose GitHub Actions When">72 06 / Choose GitHub Actions When</a><a href="#p23-h3" class="toc-l2" aria-label="73 07 / Consider Both Together (Common in Larger Orgs)">73 07 / Consider Both Together (Common in Larger Orgs)</a><a href="#p23-h4" class="toc-l2" aria-label="74 08 / Gut-Check Table">74 08 / Gut-Check Table</a><a href="#p24-h1" class="toc-l2" aria-label="75 09 / Where They Converge">75 09 / Where They Converge</a><a href="#p24-h2" class="toc-l3" aria-label="75.1 THE TAKEAWAY">75.1 THE TAKEAWAY</a><a href="#p24-h3" class="toc-l2" aria-label="76 10 / Suggested Adoption Sequence">76 10 / Suggested Adoption Sequence</a><a href="#p25-h1" class="toc-l2" aria-label="77 11 / Failure Modes — Decision Edition">77 11 / Failure Modes — Decision Edition</a><a href="#p25-h2" class="toc-l3" aria-label="77.1 MIGRATING FOR THE ROADMAP INSTEAD OF YOUR CONSTRAINTS">77.1 MIGRATING FOR THE ROADMAP INSTEAD OF YOUR CONSTRAINTS</a><a href="#p25-h3" class="toc-l2" aria-label="78 12 / Checklist — Before You Choose">78 12 / Checklist — Before You Choose</a><a href="#p25-h4" class="toc-l2" aria-label="79 13 / Sources &amp;amp; How to Stay Current">79 13 / Sources &amp;amp; How to Stay Current</a><a href="#p25-h5" class="toc-l2" aria-label="80 14 / Handoff">80 14 / Handoff</a>
+<aside class="toc" role="dialog" aria-modal="false" aria-label="Table of contents"><div class="toc-head"><h4>CONTENTS · 26 PAGES · 82 SECTIONS</h4><button class="drawerx" id="tocx" aria-label="Close contents">×</button></div><a href="#p1" class="toc-l1" aria-label="Cover — PLATFORMS&amp;amp; ROADMAPS">Cover — PLATFORMS&amp;amp; ROADMAPS</a><a href="#p2" class="toc-l1" aria-label="Cover — Table of Contents">Cover — Table of Contents</a><a href="#p3-h1" class="toc-l2" aria-label="1 01 / Concept Map">1 01 / Concept Map</a><a href="#p4-h1" class="toc-l2" aria-label="2 02 / CI in One File">2 02 / CI in One File</a><a href="#p4-h2" class="toc-l2" aria-label="3 03 / CD With Gates">3 03 / CD With Gates</a><a href="#p5-h1" class="toc-l2" aria-label="4 04 / Runners &amp;amp; Cost">4 04 / Runners &amp;amp; Cost</a><a href="#p5-h2" class="toc-l2" aria-label="5 05 / Power Patterns">5 05 / Power Patterns</a><a href="#p6-h1" class="toc-l2" aria-label="6 06 / Actions vs Jenkins">6 06 / Actions vs Jenkins</a><a href="#p6-h2" class="toc-l2" aria-label="7 07 / Handoff">7 07 / Handoff</a><a href="#p7-h1" class="toc-l2" aria-label="8 Part 1: GitLab CI">8 Part 1: GitLab CI</a><a href="#p7-h2" class="toc-l2" aria-label="9 1. What Is It?">9 1. What Is It?</a><a href="#p7-h3" class="toc-l2" aria-label="10 2. Pipeline Anatomy (GitLab Vocabulary)">10 2. Pipeline Anatomy (GitLab Vocabulary)</a><a href="#p7-h4" class="toc-l2" aria-label="11 3. Runners &amp;amp; Tags">11 3. Runners &amp;amp; Tags</a><a href="#p7-h5" class="toc-l2" aria-label="12 4. Environments, Review Apps &amp;amp; Merge Trains">12 4. Environments, Review Apps &amp;amp; Merge Trains</a><a href="#p7-h6" class="toc-l2" aria-label="13 5. GitLab vs the Sisters">13 5. GitLab vs the Sisters</a><a href="#p7-h7" class="toc-l2" aria-label="14 6. Failure Modes">14 6. Failure Modes</a><a href="#p7-h8" class="toc-l2" aria-label="15 7. Interview Notes">15 7. Interview Notes</a><a href="#p8-h1" class="toc-l2" aria-label="16 Related Topics">16 Related Topics</a><a href="#p8-h2" class="toc-l2" aria-label="17 Part 2: ArgoCD &amp;amp; GitOps">17 Part 2: ArgoCD &amp;amp; GitOps</a><a href="#p8-h3" class="toc-l2" aria-label="18 1. What Is It?">18 1. What Is It?</a><a href="#p8-h4" class="toc-l2" aria-label="19 2. Push vs Pull">19 2. Push vs Pull</a><a href="#p8-h5" class="toc-l2" aria-label="20 3. Core Objects">20 3. Core Objects</a><a href="#p8-h6" class="toc-l2" aria-label="21 4. Where It Fits">21 4. Where It Fits</a><a href="#p8-h7" class="toc-l2" aria-label="22 5. Failure Modes">22 5. Failure Modes</a><a href="#p8-h8" class="toc-l2" aria-label="23 6. Interview Notes">23 6. Interview Notes</a><a href="#p9-h1" class="toc-l2" aria-label="24 Related Topics">24 Related Topics</a><a href="#p10-h1" class="toc-l2" aria-label="25 1. What Is It?">25 1. What Is It?</a><a href="#p10-h2" class="toc-l2" aria-label="26 2. Pipeline Anatomy (GitLab Vocabulary)">26 2. Pipeline Anatomy (GitLab Vocabulary)</a><a href="#p10-h3" class="toc-l2" aria-label="27 3. Runners &amp;amp; Tags">27 3. Runners &amp;amp; Tags</a><a href="#p10-h4" class="toc-l2" aria-label="28 4. Environments, Review Apps &amp;amp; Merge Trains">28 4. Environments, Review Apps &amp;amp; Merge Trains</a><a href="#p10-h5" class="toc-l2" aria-label="29 5. GitLab vs the Sisters">29 5. GitLab vs the Sisters</a><a href="#p10-h6" class="toc-l2" aria-label="30 6. Failure Modes">30 6. Failure Modes</a><a href="#p10-h7" class="toc-l2" aria-label="31 7. Interview Notes">31 7. Interview Notes</a><a href="#p10-h8" class="toc-l2" aria-label="32 Related Topics">32 Related Topics</a><a href="#p11-h1" class="toc-l2" aria-label="33 1. What Is It?">33 1. What Is It?</a><a href="#p11-h2" class="toc-l2" aria-label="34 2. Push vs Pull">34 2. Push vs Pull</a><a href="#p11-h3" class="toc-l2" aria-label="35 3. Core Objects">35 3. Core Objects</a><a href="#p11-h4" class="toc-l2" aria-label="36 4. Where It Fits">36 4. Where It Fits</a><a href="#p11-h5" class="toc-l2" aria-label="37 5. Failure Modes">37 5. Failure Modes</a><a href="#p11-h6" class="toc-l2" aria-label="38 6. Interview Notes">38 6. Interview Notes</a><a href="#p11-h7" class="toc-l2" aria-label="39 Related Topics">39 Related Topics</a><a href="#p12-h1" class="toc-l2" aria-label="40 01 / Release Cadence — Current Model">40 01 / Release Cadence — Current Model</a><a href="#p12-h2" class="toc-l2" aria-label="41 02 / How Horizons Work">41 02 / How Horizons Work</a><a href="#p13-h1" class="toc-l2" aria-label="42 03 / Pipeline Authoring &amp;amp; Developer Tooling">42 03 / Pipeline Authoring &amp;amp; Developer Tooling</a><a href="#p13-h2" class="toc-l2" aria-label="43 04 / End-User Experience &amp;amp; Interface">43 04 / End-User Experience &amp;amp; Interface</a><a href="#p13-h3" class="toc-l2" aria-label="44 05 / Management &amp;amp; Tool Integrations">44 05 / Management &amp;amp; Tool Integrations</a><a href="#p14-h1" class="toc-l2" aria-label="45 06 / Jenkins on Cloud Platforms">45 06 / Jenkins on Cloud Platforms</a><a href="#p14-h2" class="toc-l2" aria-label="46 07 / Packaging &amp;amp; Platform Support">46 07 / Packaging &amp;amp; Platform Support</a><a href="#p14-h3" class="toc-l2" aria-label="47 08 / Project Internals — Infra Team 2026 Focus">47 08 / Project Internals — Infra Team 2026 Focus</a><a href="#p15-h1" class="toc-l2" aria-label="48 09 / Full Horizon Table (September 2026 snapshot)">48 09 / Full Horizon Table (September 2026 snapshot)</a><a href="#p15-h2" class="toc-l2" aria-label="49 10 / Community &amp;amp; Program Highlights — 2026">49 10 / Community &amp;amp; Program Highlights — 2026</a><a href="#p15-h3" class="toc-l2" aria-label="50 11 / How to Track Progress">50 11 / How to Track Progress</a><a href="#p16-h1" class="toc-l2" aria-label="51 12 / Failure Modes — Roadmap Edition">51 12 / Failure Modes — Roadmap Edition</a><a href="#p16-h2" class="toc-l2" aria-label="52 13 / Operator Checklist">52 13 / Operator Checklist</a><a href="#p16-h3" class="toc-l2" aria-label="53 14 / Handoff">53 14 / Handoff</a><a href="#p17-h1" class="toc-l2" aria-label="54 01 / Incidents That Drove the Roadmap">54 01 / Incidents That Drove the Roadmap</a><a href="#p17-h2" class="toc-l2" aria-label="55 02 / Roadmap Pillars">55 02 / Roadmap Pillars</a><a href="#p18-h1" class="toc-l2" aria-label="56 03 / A — Locking Workflow Dependencies">56 03 / A — Locking Workflow Dependencies</a><a href="#p18-h2" class="toc-l2" aria-label="57 04 / B — Scoped Secrets">57 04 / B — Scoped Secrets</a><a href="#p19-h1" class="toc-l2" aria-label="58 05 / C — Policy-Driven Workflow Execution Protections">58 05 / C — Policy-Driven Workflow Execution Protections</a><a href="#p19-h2" class="toc-l2" aria-label="59 06 / D — Endpoint Monitoring &amp;amp; Control">59 06 / D — Endpoint Monitoring &amp;amp; Control</a><a href="#p20-h1" class="toc-l2" aria-label="60 07 / Platform &amp;amp; Runner Improvements — Shipped 2026">60 07 / Platform &amp;amp; Runner Improvements — Shipped 2026</a><a href="#p20-h2" class="toc-l2" aria-label="61 08 / Adjacent Trend — AI / Agentic Workflows">61 08 / Adjacent Trend — AI / Agentic Workflows</a><a href="#p20-h3" class="toc-l2" aria-label="62 09 / Summary Timeline (GitHub&#x27;s announced windows)">62 09 / Summary Timeline (GitHub&#x27;s announced windows)</a><a href="#p21-h1" class="toc-l2" aria-label="63 10 / Architecture — How the Pillars Compose">63 10 / Architecture — How the Pillars Compose</a><a href="#p21-h2" class="toc-l2" aria-label="64 11 / Failure Modes">64 11 / Failure Modes</a><a href="#p21-h3" class="toc-l2" aria-label="65 12 / How to Track Progress">65 12 / How to Track Progress</a><a href="#p21-h4" class="toc-l2" aria-label="66 13 / Handoff">66 13 / Handoff</a><a href="#p22-h1" class="toc-l2" aria-label="67 01 / Optimization Vectors">67 01 / Optimization Vectors</a><a href="#p22-h2" class="toc-l2" aria-label="68 02 / Governance Contrast">68 02 / Governance Contrast</a><a href="#p23-h1" class="toc-l2" aria-label="69 03 / The Two Roadmaps — Full Dimension Table">69 03 / The Two Roadmaps — Full Dimension Table</a><a href="#p23-h2" class="toc-l2" aria-label="70 04 / Timeline Realities">70 04 / Timeline Realities</a><a href="#p24-h1" class="toc-l2" aria-label="71 05 / Choose Jenkins When">71 05 / Choose Jenkins When</a><a href="#p24-h2" class="toc-l2" aria-label="72 06 / Choose GitHub Actions When">72 06 / Choose GitHub Actions When</a><a href="#p24-h3" class="toc-l2" aria-label="73 07 / Consider Both Together (Common in Larger Orgs)">73 07 / Consider Both Together (Common in Larger Orgs)</a><a href="#p24-h4" class="toc-l2" aria-label="74 08 / Gut-Check Table">74 08 / Gut-Check Table</a><a href="#p25-h1" class="toc-l2" aria-label="75 09 / Where They Converge">75 09 / Where They Converge</a><a href="#p25-h2" class="toc-l2" aria-label="76 10 / Suggested Adoption Sequence">76 10 / Suggested Adoption Sequence</a><a href="#p26-h1" class="toc-l2" aria-label="77 11 / Failure Modes — Decision Edition">77 11 / Failure Modes — Decision Edition</a><a href="#p26-h2" class="toc-l2" aria-label="78 12 / Checklist — Before You Choose">78 12 / Checklist — Before You Choose</a><a href="#p26-h3" class="toc-l2" aria-label="79 13 / Sources &amp;amp; How to Stay Current">79 13 / Sources &amp;amp; How to Stay Current</a><a href="#p26-h4" class="toc-l2" aria-label="80 14 / Handoff">80 14 / Handoff</a>
 </aside><div class="tocscrim" id="tocscrim" aria-hidden="true"></div>
 <main class="read"><div class="readbody">
 
 
-<div id="p1" class="page cover"><div class="brand">CICD BY Nabawy · PLATFORMS</div><h1>PLATFORMS<br>&amp; ROADMAPS</h1><div class="sub">Actions, GitLab, ArgoCD — and where the platforms are headed.</div><div class="foot"><span>Reader edition</span><span class="sig">Nabawy</span></div></div><div id="p2" class="page opener">
+<div class="sheet cover" id="s01"><div class="band"><div class="bar" style="height:14px"></div><div class="bar" style="height:30px"></div><div class="bar" style="height:52px"></div><div class="bar" style="height:38px"></div><div class="bar" style="height:64px;background:var(--indigo)"></div><div class="bar" style="height:46px"></div><div class="bar" style="height:70px"></div><div class="bar" style="height:28px"></div><div class="bar" style="height:56px"></div><div class="bar" style="height:18px"></div></div><div class="ckick">SIGNAL SERIES · PLATFORMS</div><h1>PLATFORMS<br/></br>&amp; ROADMAPS</h1><div class="sub">Actions, GitLab, ArgoCD — and where the platforms are headed.</div><div class="byline">By <span class="sig">Nabawy</span><small>AUTHOR &amp; COMPILER</small></div><div class="vols"><div class="volcard on">Actions</div><div class="volcard">The Roadmap</div><div class="volcard">The Attack Surface</div><div class="volcard">The Choice</div></div><div class="cver">V4 · 2026 · PLATFORMS</div></div><div class="sheet" id="toc"><div class="pghead"><div class="hrow"><div><div class="kick">Contents</div><h1 class="t">Table of Contents</h1></div><span class="hmeta">24 sheets</span></div></div><div class="tocgrid"><a class="tocrow" href="#s02"><span class="tnum">03</span><span class="tp">Actions</span><span class="dots"></span><span>03</span></a><a class="tocrow" href="#s03"><span class="tnum">04</span><span class="tp">CI + CD</span><span class="dots"></span><span>04</span></a><a class="tocrow" href="#s04"><span class="tnum">05</span><span class="tp">Mechanics</span><span class="dots"></span><span>05</span></a><a class="tocrow" href="#s05"><span class="tnum">06</span><span class="tp">Versus &amp; Finale</span><span class="dots"></span><span>06</span></a><a class="tocrow" href="#s06"><span class="tnum">07</span><span class="tp">Part 1: GitLab CI</span><span class="dots"></span><span>07</span></a><a class="tocrow" href="#s07"><span class="tnum">08</span><span class="tp">Related Topics</span><span class="dots"></span><span>08</span></a><a class="tocrow" href="#s08"><span class="tnum">09</span><span class="tp">Related Topics</span><span class="dots"></span><span>09</span></a><a class="tocrow" href="#s09"><span class="tnum">10</span><span class="tp">1. What Is It?</span><span class="dots"></span><span>10</span></a><a class="tocrow" href="#s10"><span class="tnum">11</span><span class="tp">1. What Is It?</span><span class="dots"></span><span>11</span></a><a class="tocrow" href="#s11"><span class="tnum">12</span><span class="tp">The Roadmap</span><span class="dots"></span><span>12</span></a><a class="tocrow" href="#s12"><span class="tnum">13</span><span class="tp">Product Themes</span><span class="dots"></span><span>13</span></a><a class="tocrow" href="#s13"><span class="tnum">14</span><span class="tp">Infrastructure &amp; Platform</span><span class="dots"></span><span>14</span></a><a class="tocrow" href="#s14"><span class="tnum">15</span><span class="tp">Horizon Map</span><span class="dots"></span><span>15</span></a><a class="tocrow" href="#s15"><span class="tnum">16</span><span class="tp">Failures &amp; Handoff</span><span class="dots"></span><span>16</span></a><a class="tocrow" href="#s16"><span class="tnum">17</span><span class="tp">The Attack Surface</span><span class="dots"></span><span>17</span></a><a class="tocrow" href="#s17"><span class="tnum">18</span><span class="tp">Pillars A &amp; B</span><span class="dots"></span><span>18</span></a><a class="tocrow" href="#s18"><span class="tnum">19</span><span class="tp">Pillars C &amp; D</span><span class="dots"></span><span>19</span></a><a class="tocrow" href="#s19"><span class="tnum">20</span><span class="tp">Platform &amp; Timeline</span><span class="dots"></span><span>20</span></a><a class="tocrow" href="#s20"><span class="tnum">21</span><span class="tp">Failures &amp; Handoff</span><span class="dots"></span><span>21</span></a><a class="tocrow" href="#s21"><span class="tnum">22</span><span class="tp">The Choice</span><span class="dots"></span><span>22</span></a><a class="tocrow" href="#s22"><span class="tnum">23</span><span class="tp">Side-by-Side</span><span class="dots"></span><span>23</span></a><a class="tocrow" href="#s23"><span class="tnum">24</span><span class="tp">Decision Framework</span><span class="dots"></span><span>24</span></a><a class="tocrow" href="#s24"><span class="tnum">25</span><span class="tp">Convergence</span><span class="dots"></span><span>25</span></a><a class="tocrow" href="#s25"><span class="tnum">26</span><span class="tp">Failures &amp; Handoff</span><span class="dots"></span><span>26</span></a></div><div class="folio"><span>📘 Platforms &amp; Roadmaps · <span class="by">By Nabawy</span></span><span class="fnum">— 2 —</span><span><a class="tlink" href="#s01">Start ▶</a></span></div></div><div class="sheet" id="s02"><div class="pghead"><div class="hrow"><div><div class="kick">PLATFORMS</div><h1 class="t">Actions</h1></div><span class="hmeta">03</span></div></div>
 
 
-<div class="ctitle">ACTIONS</div>
-<p class="lede">Picking up from <em>Troubleshooting</em>, where the self-hosted domain concluded — here is <em>the same loop with zero infrastructure</em>.</p>
-<h3 id="p2-h1" class="sec"><span class="n">01 /</span> Concept Map</h3>
-<table class="cmp"><tr><th>Generic</th><th>Actions</th></tr>
+<p class="lead">Picking up from <em>Troubleshooting</em>, where the self-hosted domain concluded — here is <em>the same loop with zero infrastructure</em>.</p>
+<h3 id="p3-h1" class="sec"><span class="n">01 /</span> Concept Map</h3>
+<div class="tblwrap"><table class="tb"><tr><th>Generic</th><th>Actions</th></tr>
 <tr><td>Pipeline</td><td>Workflow (<span class="mono">.yml</span>)</td></tr>
 <tr><td>Job / Step</td><td><span class="mono">jobs.&lt;id&gt;</span> / <span class="mono">run:</span> or <span class="mono">uses:</span></td></tr>
 <tr><td>Runner</td><td>Hosted (<span class="mono">ubuntu-latest</span>) or self-hosted</td></tr>
 <tr><td>Trigger</td><td><span class="mono">on:</span> push, PR, schedule, dispatch</td></tr>
-<tr><td>Gate</td><td><span class="mono">environment:</span> + required reviewers</td></tr></table>
+<tr><td>Gate</td><td><span class="mono">environment:</span> + required reviewers</td></tr></table></div>
 
-</div><div id="p3" class="page">
+<div class="folio"><span>📘 Platforms &amp; Roadmaps · <span class="by">By Nabawy</span></span><span class="fnum">— 3 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#s01">Prev</a> <a class="tlink" href="#s03">Next</a></span></div></div><div class="sheet" id="s03"><div class="pghead"><div class="hrow"><div><div class="kick">PLATFORMS</div><h1 class="t">CI + CD</h1></div><span class="hmeta">04</span></div></div>
 
-<h3 id="p3-h1" class="sec"><span class="n">02 /</span> CI in One File</h3>
-<div class="terminal"><span class="g">on:</span> [pull_request, push→main]
+<h3 id="p4-h1" class="sec"><span class="n">02 /</span> CI in One File</h3>
+<pre class="code"><span class="g">on:</span> [pull_request, push→main]
 <span class="g">jobs:</span>
-&nbsp;&nbsp;build → test → scan <span class="c">(needs: build, parallel)</span>
-&nbsp;&nbsp;<span class="c">checkout@v4 + setup-node + cache on every job</span></div>
-<h3 id="p3-h2" class="sec"><span class="n">03 /</span> CD With Gates</h3>
-<div class="terminal">deploy-staging:    needs [test, scan] <span class="c"># auto</span>
-&nbsp;&nbsp;environment: staging
+  build → test → scan <span class="c">(needs: build, parallel)</span>
+  <span class="c">checkout@v4 + setup-node + cache on every job</span></pre>
+<h3 id="p4-h2" class="sec"><span class="n">03 /</span> CD With Gates</h3>
+<pre class="code">deploy-staging:    needs [test, scan] <span class="c"># auto</span>
+  environment: staging
 deploy-production: needs staging   <span class="c"># gated</span>
-&nbsp;&nbsp;environment: production <span class="c"># required reviewers = approval</span></div>
+  environment: production <span class="c"># required reviewers = approval</span></pre>
 
-</div><div id="p4" class="page">
+<div class="folio"><span>📘 Platforms &amp; Roadmaps · <span class="by">By Nabawy</span></span><span class="fnum">— 4 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#s02">Prev</a> <a class="tlink" href="#s04">Next</a></span></div></div><div class="sheet" id="s04"><div class="pghead"><div class="hrow"><div><div class="kick">PLATFORMS</div><h1 class="t">Mechanics</h1></div><span class="hmeta">05</span></div></div>
 
-<h3 id="p4-h1" class="sec"><span class="n">04 /</span> Runners &amp; Cost</h3>
+<h3 id="p5-h1" class="sec"><span class="n">04 /</span> Runners &amp; Cost</h3>
 <ul class="tight"><li><b>Labels select runners</b> — wrong labels = queue forever.</li><li><b>Trust</b> — fork PRs never touch persistent self-hosted runners.</li><li><b>Cost</b> — public free; private pool 2–3k min/mo; then ~$0.006 Linux / $0.010 Windows / $0.062 macOS. macOS burns 10×.</li><li><b>Killers</b> — macOS builds, no cache, sprawling matrices, failed jobs bill like green ones.</li></ul>
-<h3 id="p4-h2" class="sec"><span class="n">05 /</span> Power Patterns</h3>
-<div class="kv"><b>REUSABLE</b> (<span class="mono">workflow_call</span>) — one pipeline, N repos. <b>MATRIX</b> — fan out versions in one block. <b>CONCURRENCY</b> — cancel stale runs. <b>PATHS</b> — docs-only PRs skip CI. <b>SETUP</b> — drop the YAML, push, watch Actions tab, require the check in branch protection.</div>
-<div class="kv"><b>ARC SCALE SET —</b> ephemeral runners on your cluster, scale-to-zero idle, burst to max on PR storms. Remote caches (not pod disks). Wins when hosted minutes cost more than cluster ops.</div>
+<h3 id="p5-h2" class="sec"><span class="n">05 /</span> Power Patterns</h3>
+<div class="mark m-key"><span class="tag">REUSABLE </span> (<span class="mono">workflow_call</span>) — one pipeline, N repos. <b>MATRIX</b> — fan out versions in one block. <b>CONCURRENCY</b> — cancel stale runs. <b>PATHS</b> — docs-only PRs skip CI. <b>SETUP</b> — drop the YAML, push, watch Actions tab, require the check in branch protection.</div>
+<div class="mark m-key"><span class="tag">ARC SCALE SET </span> ephemeral runners on your cluster, scale-to-zero idle, burst to max on PR storms. Remote caches (not pod disks). Wins when hosted minutes cost more than cluster ops.</div>
 
-</div><div id="p5" class="page">
+<div class="folio"><span>📘 Platforms &amp; Roadmaps · <span class="by">By Nabawy</span></span><span class="fnum">— 5 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#s03">Prev</a> <a class="tlink" href="#s05">Next</a></span></div></div><div class="sheet" id="s05"><div class="pghead"><div class="hrow"><div><div class="kick">PLATFORMS</div><h1 class="t">Versus &amp; Finale</h1></div><span class="hmeta">06</span></div></div>
 
-<h3 id="p5-h1" class="sec"><span class="n">06 /</span> Actions vs Jenkins</h3>
-<table class="cmp"><tr><th></th><th>Actions</th><th>Jenkins</th></tr>
+<h3 id="p6-h1" class="sec"><span class="n">06 /</span> Actions vs Jenkins</h3>
+<div class="tblwrap"><table class="tb"><tr><th></th><th>Actions</th><th>Jenkins</th></tr>
 <tr><td>Runs</td><td>GitHub cloud, fresh VM</td><td>Your servers</td></tr>
 <tr><td>Language</td><td>YAML in repo</td><td>Groovy Jenkinsfile</td></tr>
-<tr><td>Cost</td><td>Free pool, then meter</td><td>Free license + your labor</td></tr></table>
+<tr><td>Cost</td><td>Free pool, then meter</td><td>Free license + your labor</td></tr></table></div>
 <p class="body">One line: Actions trades control for convenience; Jenkins trades convenience for control.</p>
-<div class="qa"><span class="qq">Q:</span> <span class="mono">needs:</span> vs parallel?<br><span class="aa">A:</span> Jobs run parallel by default; <span class="mono">needs:</span> sequences them into gates.</div>
-<h3 id="p5-h2" class="sec"><span class="n">07 /</span> Handoff</h3>
+<div class="qa"><span class="qn">Q1</span> <b><span class="mono">needs:</span> vs parallel?</b><br/></br><span class="ans">Jobs run parallel by default; <span class="mono">needs:</span> sequences them into gates.</span></div>
+<h3 id="p6-h2" class="sec"><span class="n">07 /</span> Handoff</h3>
 <p class="body">Both implementations behind you — the full arc from commit to production is yours. Return to the Topic Index for deployment strategies and labs, or start building.</p>
 
-
-</div><div id="p6" class="page md-fallback"><h3 id="p6-h1" class="sec">Part 1: GitLab CI</h3><p class="body"><em>GitLab CI is the pipeline engine inside GitLab: one YAML file in the repo (<code>.gitlab-ci.yml</code>) driving stages, runners, and environments — the same concepts as Jenkins and Actions, with GitLab's own vocabulary.</em></p><h3 id="p6-h2" class="sec">1. What Is It?</h3><p class="body">Picking up from <b>GitHub Actions</b>, where workflows lived beside the code — GitLab goes further: repo, pipeline, registry, and environments are one product, so the pipeline natively knows about merge requests, environments, and review apps.</p><h3 id="p6-h3" class="sec">2. Pipeline Anatomy (GitLab Vocabulary)</h3><pre class="codeblock" data-lang="yaml"><code>stages: [build, test, deploy]
+<div class="folio"><span>📘 Platforms &amp; Roadmaps · <span class="by">By Nabawy</span></span><span class="fnum">— 6 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#s04">Prev</a> <a class="tlink" href="#s06">Next</a></span></div></div><div class="sheet" id="s06"><div class="pghead"><div class="hrow"><div><div class="kick">PLATFORMS</div><h1 class="t">Part 1: GitLab CI</h1></div><span class="hmeta">07</span></div></div><h3 id="p7-h1" class="sec">Part 1: GitLab CI</h3><p class="body"><em>GitLab CI is the pipeline engine inside GitLab: one YAML file in the repo (<code>.gitlab-ci.yml</code>) driving stages, runners, and environments — the same concepts as Jenkins and Actions, with GitLab's own vocabulary.</em></p><h3 id="p7-h2" class="sec">1. What Is It?</h3><p class="body">Picking up from <b>GitHub Actions</b>, where workflows lived beside the code — GitLab goes further: repo, pipeline, registry, and environments are one product, so the pipeline natively knows about merge requests, environments, and review apps.</p><h3 id="p7-h3" class="sec">2. Pipeline Anatomy (GitLab Vocabulary)</h3><pre class="code mini" data-lang="yaml"><code>stages: [build, test, deploy]
 build:
   stage: build
   script: [npm ci, npm run build]
 test:
   stage: test
-  needs: [build]          # DAG edge — runs as soon as build passes</code></pre><ul class="tight"><li><b>Stages</b> run in order; <b>jobs</b> in the same stage run in parallel.</li><li><b><code>needs:</code></b> builds a DAG (like Actions), skipping stage waits.</li><li><b><code>rules:</code></b> decides when jobs run (merge request only, <code>main</code> only, paths changed) — replaces the older <code>only/except</code>.</li><li><b><code>artifacts:</code></b> passes files between jobs (reports, coverage, JUnit); <b><code>cache:</code></b> speeds reruns (lockfile-keyed, same discipline as everywhere).</li></ul><h3 id="p6-h4" class="sec">3. Runners &amp; Tags</h3><p class="body">| Runner scope | Use | |--------------|-----| | Shared | Fleet managed by the instance; default for most jobs | | Group / project (specific) | GPU, private network, compliance isolation | | Tags (<code>tags: [gpu]</code>) | Route jobs to capable runners |</p><p class="body">One job = one runner by default; scale = more runners. Self-managed runners need the same patching/scaling discipline as any self-hosted fleet.</p><h3 id="p6-h5" class="sec">4. Environments, Review Apps &amp; Merge Trains</h3><ul class="tight"><li><b>Environments</b> (<code>environment: staging/production</code>) track what's deployed where; production gates add manual approvals — the same delivery-vs-deployment line as everywhere.</li><li><b>Review apps</b> (<code>on_stop:</code> teardown) spin a live environment per merge request and destroy it on merge — GitLab's built-in preview environments.</li><li><b>Merge trains</b> serialize merges onto latest green <code>main</code> with re-verification — the same race the merge queue solves elsewhere.</li></ul><h3 id="p6-h6" class="sec">5. GitLab vs the Sisters</h3><p class="body">| | GitLab CI | GitHub Actions | Jenkins | |---|---|---|---| | Config lives | <code>.gitlab-ci.yml</code> in repo | <code>.github/workflows/</code> | Jenkinsfile in repo | | Runners | Shared fleet + tags | Hosted + ARC | Controller + agents | | Environments | Built-in (+ review apps) | Environments as gates | Manual promotion jobs | | Best when | Already on GitLab; want one product | Already on GitHub | Need total control |</p><h3 id="p6-h7" class="sec">6. Failure Modes</h3><ul class="tight"><li>Shared-runner queues at peak → pin critical jobs to tagged runners or add project runners.</li><li><code>rules:</code> mis-scoping → jobs silently skip; every <code>rules:</code> change deserves a pipeline dry-run on a test MR.</li><li>Artifacts bloating storage → expire aggressively (<code>expire_in:</code>), keep images in the registry not in job artifacts.</li></ul><h3 id="p6-h8" class="sec">7. Interview Notes</h3><ul class="tight"><li><code>needs:</code> vs stage ordering: when the DAG matters.</li><li>Review apps lifecycle: create on MR, destroy on merge (<code>on_stop</code>).</li><li>Merge trains: which race they eliminate.</li></ul></div><div id="p7" class="page md-fallback"><h3 id="p7-h1" class="sec">Related Topics</h3><ul class="tight"><li>GitHub Actions</li><li>Continuous Integration</li><li>Environments &amp; Release</li></ul><p class="body">Pipelines push changes — something has to keep the cluster matching git. Continue in <b>ArgoCD &amp; GitOps</b>.</p><h3 id="p7-h2" class="sec">Part 2: ArgoCD &amp; GitOps</h3><p class="body"><em>GitOps: git is the desired state, an in-cluster operator pulls reality toward it. ArgoCD is that operator for Kubernetes — the pipeline stops pushing to prod and starts committing to git.</em></p><h3 id="p7-h3" class="sec">1. What Is It?</h3><p class="body">Picking up from <b>GitLab CI</b>, where pipelines pushed artifacts outward — ArgoCD inverts the last mile: the CI pipeline builds the image and commits the new digest to a manifests repo; ArgoCD (running inside the cluster) notices and syncs. Cluster credentials never leave the cluster.</p><h3 id="p7-h4" class="sec">2. Push vs Pull</h3><p class="body">| | Push (classic CD) | Pull (GitOps) | |---|---|---| | Actor | External pipeline holds cluster creds | In-cluster agent, creds stay inside | | Source of truth | Pipeline run history | Git commit | | Rollback | Redeploy old digest | <code>git revert</code> | | Drift | Silent until noticed | Detected + optionally auto-healed |</p><h3 id="p7-h5" class="sec">3. Core Objects</h3><pre class="codeblock" data-lang="yaml"><code>apiVersion: argoproj.io/v1alpha1
+  needs: [build]          # DAG edge — runs as soon as build passes</code></pre><ul class="tight"><li><b>Stages</b> run in order; <b>jobs</b> in the same stage run in parallel.</li><li><b><code>needs:</code></b> builds a DAG (like Actions), skipping stage waits.</li><li><b><code>rules:</code></b> decides when jobs run (merge request only, <code>main</code> only, paths changed) — replaces the older <code>only/except</code>.</li><li><b><code>artifacts:</code></b> passes files between jobs (reports, coverage, JUnit); <b><code>cache:</code></b> speeds reruns (lockfile-keyed, same discipline as everywhere).</li></ul><h3 id="p7-h4" class="sec">3. Runners &amp; Tags</h3><p class="body">| Runner scope | Use | |--------------|-----| | Shared | Fleet managed by the instance; default for most jobs | | Group / project (specific) | GPU, private network, compliance isolation | | Tags (<code>tags: [gpu]</code>) | Route jobs to capable runners |</p><p class="body">One job = one runner by default; scale = more runners. Self-managed runners need the same patching/scaling discipline as any self-hosted fleet.</p><h3 id="p7-h5" class="sec">4. Environments, Review Apps &amp; Merge Trains</h3><ul class="tight"><li><b>Environments</b> (<code>environment: staging/production</code>) track what's deployed where; production gates add manual approvals — the same delivery-vs-deployment line as everywhere.</li><li><b>Review apps</b> (<code>on_stop:</code> teardown) spin a live environment per merge request and destroy it on merge — GitLab's built-in preview environments.</li><li><b>Merge trains</b> serialize merges onto latest green <code>main</code> with re-verification — the same race the merge queue solves elsewhere.</li></ul><h3 id="p7-h6" class="sec">5. GitLab vs the Sisters</h3><p class="body">| | GitLab CI | GitHub Actions | Jenkins | |---|---|---|---| | Config lives | <code>.gitlab-ci.yml</code> in repo | <code>.github/workflows/</code> | Jenkinsfile in repo | | Runners | Shared fleet + tags | Hosted + ARC | Controller + agents | | Environments | Built-in (+ review apps) | Environments as gates | Manual promotion jobs | | Best when | Already on GitLab; want one product | Already on GitHub | Need total control |</p><h3 id="p7-h7" class="sec">6. Failure Modes</h3><ul class="tight"><li>Shared-runner queues at peak → pin critical jobs to tagged runners or add project runners.</li><li><code>rules:</code> mis-scoping → jobs silently skip; every <code>rules:</code> change deserves a pipeline dry-run on a test MR.</li><li>Artifacts bloating storage → expire aggressively (<code>expire_in:</code>), keep images in the registry not in job artifacts.</li></ul><h3 id="p7-h8" class="sec">7. Interview Notes</h3><ul class="tight"><li><code>needs:</code> vs stage ordering: when the DAG matters.</li><li>Review apps lifecycle: create on MR, destroy on merge (<code>on_stop</code>).</li><li>Merge trains: which race they eliminate.</li></ul><div class="folio"><span>📘 Platforms &amp; Roadmaps · <span class="by">By Nabawy</span></span><span class="fnum">— 7 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#s05">Prev</a> <a class="tlink" href="#s07">Next</a></span></div></div><div class="sheet" id="s07"><div class="pghead"><div class="hrow"><div><div class="kick">PLATFORMS</div><h1 class="t">Related Topics</h1></div><span class="hmeta">08</span></div></div><h3 id="p8-h1" class="sec">Related Topics</h3><ul class="tight"><li>GitHub Actions</li><li>Continuous Integration</li><li>Environments &amp; Release</li></ul><p class="body">Pipelines push changes — something has to keep the cluster matching git. Continue in <b>ArgoCD &amp; GitOps</b>.</p><h3 id="p8-h2" class="sec">Part 2: ArgoCD &amp; GitOps</h3><p class="body"><em>GitOps: git is the desired state, an in-cluster operator pulls reality toward it. ArgoCD is that operator for Kubernetes — the pipeline stops pushing to prod and starts committing to git.</em></p><h3 id="p8-h3" class="sec">1. What Is It?</h3><p class="body">Picking up from <b>GitLab CI</b>, where pipelines pushed artifacts outward — ArgoCD inverts the last mile: the CI pipeline builds the image and commits the new digest to a manifests repo; ArgoCD (running inside the cluster) notices and syncs. Cluster credentials never leave the cluster.</p><h3 id="p8-h4" class="sec">2. Push vs Pull</h3><p class="body">| | Push (classic CD) | Pull (GitOps) | |---|---|---| | Actor | External pipeline holds cluster creds | In-cluster agent, creds stay inside | | Source of truth | Pipeline run history | Git commit | | Rollback | Redeploy old digest | <code>git revert</code> | | Drift | Silent until noticed | Detected + optionally auto-healed |</p><h3 id="p8-h5" class="sec">3. Core Objects</h3><pre class="code mini" data-lang="yaml"><code>apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata: { name: checkout }
 spec:
   source: { repoURL: https://git/ops, targetRevision: main, path: apps/checkout }
   destination: { server: https://kubernetes.default.svc, namespace: prod }
-  syncPolicy: { automated: { prune: true, selfHeal: true } }</code></pre><ul class="tight"><li><b>Application:</b> what (repo+path+revision) goes where (cluster+namespace).</li><li><b>Sync waves + hooks:</b> order resources (CRDs before CRs, migrations before app) — the deployment strategy's sequencing, declaratively.</li><li><b>ApplicationSet:</b> one template → N environments/tenants; preview environments become a generator, not a script.</li><li><b>Image Updater (optional):</b> tracks new digests and commits them — automation with git as the audit trail.</li></ul><h3 id="p7-h6" class="sec">4. Where It Fits</h3><p class="body">CI still builds, tests, scans, signs (everything upstream unchanged). The handoff changes: instead of <code>kubectl apply</code> from CI, CI commits <code>image: sha-9f3a</code> to the ops repo. Promotion = pull request between env branches/folders — reviewable, revertable, auditable.</p><h3 id="p7-h7" class="sec">5. Failure Modes</h3><ul class="tight"><li>Auto-sync + bad commit → bad state propagates at machine speed; gate with manual sync on prod or automated kill criteria.</li><li>Secrets in the manifests repo → use external secret operators (External Secrets, Sealed Secrets); git holds references, never values.</li><li><code>selfHeal</code> fighting hotfixes → emergency <code>kubectl</code> edits get reverted; declare a break-glass procedure (pause sync, fix, commit).</li><li>Monorepo scale → thousands of Applications; shard by team/cluster with ApplicationSets.</li></ul><h3 id="p7-h8" class="sec">6. Interview Notes</h3><ul class="tight"><li>Push vs pull: credential blast radius is the core argument.</li><li>What sync waves solve (ordering without scripts).</li><li>Rollback in GitOps: why <code>git revert</code> beats redeploy.</li></ul></div><div id="p8" class="page md-fallback"><h3 id="p8-h1" class="sec">Related Topics</h3><ul class="tight"><li>Continuous Delivery</li><li>Deployment Strategies</li><li>Artifact Management</li><li>GitLab CI</li></ul><p class="body">GitOps declares app state — but environments themselves are infrastructure. Continue in <b>IaC for Environments</b>.</p></div><div id="p9" class="page md-fallback"><p class="body"><em>GitLab CI is the pipeline engine inside GitLab: one YAML file in the repo (<code>.gitlab-ci.yml</code>) driving stages, runners, and environments — the same concepts as Jenkins and Actions, with GitLab's own vocabulary.</em></p><h3 id="p9-h1" class="sec">1. What Is It?</h3><p class="body">Picking up from <b>GitHub Actions</b>, where workflows lived beside the code — GitLab goes further: repo, pipeline, registry, and environments are one product, so the pipeline natively knows about merge requests, environments, and review apps.</p><h3 id="p9-h2" class="sec">2. Pipeline Anatomy (GitLab Vocabulary)</h3><pre class="codeblock" data-lang="yaml"><code>stages: [build, test, deploy]
+  syncPolicy: { automated: { prune: true, selfHeal: true } }</code></pre><ul class="tight"><li><b>Application:</b> what (repo+path+revision) goes where (cluster+namespace).</li><li><b>Sync waves + hooks:</b> order resources (CRDs before CRs, migrations before app) — the deployment strategy's sequencing, declaratively.</li><li><b>ApplicationSet:</b> one template → N environments/tenants; preview environments become a generator, not a script.</li><li><b>Image Updater (optional):</b> tracks new digests and commits them — automation with git as the audit trail.</li></ul><h3 id="p8-h6" class="sec">4. Where It Fits</h3><p class="body">CI still builds, tests, scans, signs (everything upstream unchanged). The handoff changes: instead of <code>kubectl apply</code> from CI, CI commits <code>image: sha-9f3a</code> to the ops repo. Promotion = pull request between env branches/folders — reviewable, revertable, auditable.</p><h3 id="p8-h7" class="sec">5. Failure Modes</h3><ul class="tight"><li>Auto-sync + bad commit → bad state propagates at machine speed; gate with manual sync on prod or automated kill criteria.</li><li>Secrets in the manifests repo → use external secret operators (External Secrets, Sealed Secrets); git holds references, never values.</li><li><code>selfHeal</code> fighting hotfixes → emergency <code>kubectl</code> edits get reverted; declare a break-glass procedure (pause sync, fix, commit).</li><li>Monorepo scale → thousands of Applications; shard by team/cluster with ApplicationSets.</li></ul><h3 id="p8-h8" class="sec">6. Interview Notes</h3><ul class="tight"><li>Push vs pull: credential blast radius is the core argument.</li><li>What sync waves solve (ordering without scripts).</li><li>Rollback in GitOps: why <code>git revert</code> beats redeploy.</li></ul><div class="folio"><span>📘 Platforms &amp; Roadmaps · <span class="by">By Nabawy</span></span><span class="fnum">— 8 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#s06">Prev</a> <a class="tlink" href="#s08">Next</a></span></div></div><div class="sheet" id="s08"><div class="pghead"><div class="hrow"><div><div class="kick">PLATFORMS</div><h1 class="t">Related Topics</h1></div><span class="hmeta">09</span></div></div><h3 id="p9-h1" class="sec">Related Topics</h3><ul class="tight"><li>Continuous Delivery</li><li>Deployment Strategies</li><li>Artifact Management</li><li>GitLab CI</li></ul><p class="body">GitOps declares app state — but environments themselves are infrastructure. Continue in <b>IaC for Environments</b>.</p><div class="folio"><span>📘 Platforms &amp; Roadmaps · <span class="by">By Nabawy</span></span><span class="fnum">— 9 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#s07">Prev</a> <a class="tlink" href="#s09">Next</a></span></div></div><div class="sheet" id="s09"><div class="pghead"><div class="hrow"><div><div class="kick">PLATFORMS</div><h1 class="t">1. What Is It?</h1></div><span class="hmeta">10</span></div></div><p class="body"><em>GitLab CI is the pipeline engine inside GitLab: one YAML file in the repo (<code>.gitlab-ci.yml</code>) driving stages, runners, and environments — the same concepts as Jenkins and Actions, with GitLab's own vocabulary.</em></p><h3 id="p10-h1" class="sec">1. What Is It?</h3><p class="body">Picking up from <b>GitHub Actions</b>, where workflows lived beside the code — GitLab goes further: repo, pipeline, registry, and environments are one product, so the pipeline natively knows about merge requests, environments, and review apps.</p><h3 id="p10-h2" class="sec">2. Pipeline Anatomy (GitLab Vocabulary)</h3><pre class="code mini" data-lang="yaml"><code>stages: [build, test, deploy]
 build:
   stage: build
   script: [npm ci, npm run build]
 test:
   stage: test
-  needs: [build]          # DAG edge — runs as soon as build passes</code></pre><ul class="tight"><li><b>Stages</b> run in order; <b>jobs</b> in the same stage run in parallel.</li><li><b><code>needs:</code></b> builds a DAG (like Actions), skipping stage waits.</li><li><b><code>rules:</code></b> decides when jobs run (merge request only, <code>main</code> only, paths changed) — replaces the older <code>only/except</code>.</li><li><b><code>artifacts:</code></b> passes files between jobs (reports, coverage, JUnit); <b><code>cache:</code></b> speeds reruns (lockfile-keyed, same discipline as everywhere).</li></ul><h3 id="p9-h3" class="sec">3. Runners &amp; Tags</h3><p class="body">| Runner scope | Use | |--------------|-----| | Shared | Fleet managed by the instance; default for most jobs | | Group / project (specific) | GPU, private network, compliance isolation | | Tags (<code>tags: [gpu]</code>) | Route jobs to capable runners |</p><p class="body">One job = one runner by default; scale = more runners. Self-managed runners need the same patching/scaling discipline as any self-hosted fleet.</p><h3 id="p9-h4" class="sec">4. Environments, Review Apps &amp; Merge Trains</h3><ul class="tight"><li><b>Environments</b> (<code>environment: staging/production</code>) track what's deployed where; production gates add manual approvals — the same delivery-vs-deployment line as everywhere.</li><li><b>Review apps</b> (<code>on_stop:</code> teardown) spin a live environment per merge request and destroy it on merge — GitLab's built-in preview environments.</li><li><b>Merge trains</b> serialize merges onto latest green <code>main</code> with re-verification — the same race the merge queue solves elsewhere.</li></ul><h3 id="p9-h5" class="sec">5. GitLab vs the Sisters</h3><p class="body">| | GitLab CI | GitHub Actions | Jenkins | |---|---|---|---| | Config lives | <code>.gitlab-ci.yml</code> in repo | <code>.github/workflows/</code> | Jenkinsfile in repo | | Runners | Shared fleet + tags | Hosted + ARC | Controller + agents | | Environments | Built-in (+ review apps) | Environments as gates | Manual promotion jobs | | Best when | Already on GitLab; want one product | Already on GitHub | Need total control |</p><h3 id="p9-h6" class="sec">6. Failure Modes</h3><ul class="tight"><li>Shared-runner queues at peak → pin critical jobs to tagged runners or add project runners.</li><li><code>rules:</code> mis-scoping → jobs silently skip; every <code>rules:</code> change deserves a pipeline dry-run on a test MR.</li><li>Artifacts bloating storage → expire aggressively (<code>expire_in:</code>), keep images in the registry not in job artifacts.</li></ul><h3 id="p9-h7" class="sec">7. Interview Notes</h3><ul class="tight"><li><code>needs:</code> vs stage ordering: when the DAG matters.</li><li>Review apps lifecycle: create on MR, destroy on merge (<code>on_stop</code>).</li><li>Merge trains: which race they eliminate.</li></ul><h3 id="p9-h8" class="sec">Related Topics</h3><ul class="tight"><li>GitHub Actions</li><li>Continuous Integration</li><li>Environments &amp; Release</li></ul><p class="body">Pipelines push changes — something has to keep the cluster matching git. Continue in <b>ArgoCD &amp; GitOps</b>.</p></div><div id="p10" class="page md-fallback"><p class="body"><em>GitOps: git is the desired state, an in-cluster operator pulls reality toward it. ArgoCD is that operator for Kubernetes — the pipeline stops pushing to prod and starts committing to git.</em></p><h3 id="p10-h1" class="sec">1. What Is It?</h3><p class="body">Picking up from <b>GitLab CI</b>, where pipelines pushed artifacts outward — ArgoCD inverts the last mile: the CI pipeline builds the image and commits the new digest to a manifests repo; ArgoCD (running inside the cluster) notices and syncs. Cluster credentials never leave the cluster.</p><h3 id="p10-h2" class="sec">2. Push vs Pull</h3><p class="body">| | Push (classic CD) | Pull (GitOps) | |---|---|---| | Actor | External pipeline holds cluster creds | In-cluster agent, creds stay inside | | Source of truth | Pipeline run history | Git commit | | Rollback | Redeploy old digest | <code>git revert</code> | | Drift | Silent until noticed | Detected + optionally auto-healed |</p><h3 id="p10-h3" class="sec">3. Core Objects</h3><pre class="codeblock" data-lang="yaml"><code>apiVersion: argoproj.io/v1alpha1
+  needs: [build]          # DAG edge — runs as soon as build passes</code></pre><ul class="tight"><li><b>Stages</b> run in order; <b>jobs</b> in the same stage run in parallel.</li><li><b><code>needs:</code></b> builds a DAG (like Actions), skipping stage waits.</li><li><b><code>rules:</code></b> decides when jobs run (merge request only, <code>main</code> only, paths changed) — replaces the older <code>only/except</code>.</li><li><b><code>artifacts:</code></b> passes files between jobs (reports, coverage, JUnit); <b><code>cache:</code></b> speeds reruns (lockfile-keyed, same discipline as everywhere).</li></ul><h3 id="p10-h3" class="sec">3. Runners &amp; Tags</h3><p class="body">| Runner scope | Use | |--------------|-----| | Shared | Fleet managed by the instance; default for most jobs | | Group / project (specific) | GPU, private network, compliance isolation | | Tags (<code>tags: [gpu]</code>) | Route jobs to capable runners |</p><p class="body">One job = one runner by default; scale = more runners. Self-managed runners need the same patching/scaling discipline as any self-hosted fleet.</p><h3 id="p10-h4" class="sec">4. Environments, Review Apps &amp; Merge Trains</h3><ul class="tight"><li><b>Environments</b> (<code>environment: staging/production</code>) track what's deployed where; production gates add manual approvals — the same delivery-vs-deployment line as everywhere.</li><li><b>Review apps</b> (<code>on_stop:</code> teardown) spin a live environment per merge request and destroy it on merge — GitLab's built-in preview environments.</li><li><b>Merge trains</b> serialize merges onto latest green <code>main</code> with re-verification — the same race the merge queue solves elsewhere.</li></ul><h3 id="p10-h5" class="sec">5. GitLab vs the Sisters</h3><p class="body">| | GitLab CI | GitHub Actions | Jenkins | |---|---|---|---| | Config lives | <code>.gitlab-ci.yml</code> in repo | <code>.github/workflows/</code> | Jenkinsfile in repo | | Runners | Shared fleet + tags | Hosted + ARC | Controller + agents | | Environments | Built-in (+ review apps) | Environments as gates | Manual promotion jobs | | Best when | Already on GitLab; want one product | Already on GitHub | Need total control |</p><h3 id="p10-h6" class="sec">6. Failure Modes</h3><ul class="tight"><li>Shared-runner queues at peak → pin critical jobs to tagged runners or add project runners.</li><li><code>rules:</code> mis-scoping → jobs silently skip; every <code>rules:</code> change deserves a pipeline dry-run on a test MR.</li><li>Artifacts bloating storage → expire aggressively (<code>expire_in:</code>), keep images in the registry not in job artifacts.</li></ul><h3 id="p10-h7" class="sec">7. Interview Notes</h3><ul class="tight"><li><code>needs:</code> vs stage ordering: when the DAG matters.</li><li>Review apps lifecycle: create on MR, destroy on merge (<code>on_stop</code>).</li><li>Merge trains: which race they eliminate.</li></ul><h3 id="p10-h8" class="sec">Related Topics</h3><ul class="tight"><li>GitHub Actions</li><li>Continuous Integration</li><li>Environments &amp; Release</li></ul><p class="body">Pipelines push changes — something has to keep the cluster matching git. Continue in <b>ArgoCD &amp; GitOps</b>.</p><div class="folio"><span>📘 Platforms &amp; Roadmaps · <span class="by">By Nabawy</span></span><span class="fnum">— 10 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#s08">Prev</a> <a class="tlink" href="#s10">Next</a></span></div></div><div class="sheet" id="s10"><div class="pghead"><div class="hrow"><div><div class="kick">PLATFORMS</div><h1 class="t">1. What Is It?</h1></div><span class="hmeta">11</span></div></div><p class="body"><em>GitOps: git is the desired state, an in-cluster operator pulls reality toward it. ArgoCD is that operator for Kubernetes — the pipeline stops pushing to prod and starts committing to git.</em></p><h3 id="p11-h1" class="sec">1. What Is It?</h3><p class="body">Picking up from <b>GitLab CI</b>, where pipelines pushed artifacts outward — ArgoCD inverts the last mile: the CI pipeline builds the image and commits the new digest to a manifests repo; ArgoCD (running inside the cluster) notices and syncs. Cluster credentials never leave the cluster.</p><h3 id="p11-h2" class="sec">2. Push vs Pull</h3><p class="body">| | Push (classic CD) | Pull (GitOps) | |---|---|---| | Actor | External pipeline holds cluster creds | In-cluster agent, creds stay inside | | Source of truth | Pipeline run history | Git commit | | Rollback | Redeploy old digest | <code>git revert</code> | | Drift | Silent until noticed | Detected + optionally auto-healed |</p><h3 id="p11-h3" class="sec">3. Core Objects</h3><pre class="code mini" data-lang="yaml"><code>apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata: { name: checkout }
 spec:
   source: { repoURL: https://git/ops, targetRevision: main, path: apps/checkout }
   destination: { server: https://kubernetes.default.svc, namespace: prod }
-  syncPolicy: { automated: { prune: true, selfHeal: true } }</code></pre><ul class="tight"><li><b>Application:</b> what (repo+path+revision) goes where (cluster+namespace).</li><li><b>Sync waves + hooks:</b> order resources (CRDs before CRs, migrations before app) — the deployment strategy's sequencing, declaratively.</li><li><b>ApplicationSet:</b> one template → N environments/tenants; preview environments become a generator, not a script.</li><li><b>Image Updater (optional):</b> tracks new digests and commits them — automation with git as the audit trail.</li></ul><h3 id="p10-h4" class="sec">4. Where It Fits</h3><p class="body">CI still builds, tests, scans, signs (everything upstream unchanged). The handoff changes: instead of <code>kubectl apply</code> from CI, CI commits <code>image: sha-9f3a</code> to the ops repo. Promotion = pull request between env branches/folders — reviewable, revertable, auditable.</p><h3 id="p10-h5" class="sec">5. Failure Modes</h3><ul class="tight"><li>Auto-sync + bad commit → bad state propagates at machine speed; gate with manual sync on prod or automated kill criteria.</li><li>Secrets in the manifests repo → use external secret operators (External Secrets, Sealed Secrets); git holds references, never values.</li><li><code>selfHeal</code> fighting hotfixes → emergency <code>kubectl</code> edits get reverted; declare a break-glass procedure (pause sync, fix, commit).</li><li>Monorepo scale → thousands of Applications; shard by team/cluster with ApplicationSets.</li></ul><h3 id="p10-h6" class="sec">6. Interview Notes</h3><ul class="tight"><li>Push vs pull: credential blast radius is the core argument.</li><li>What sync waves solve (ordering without scripts).</li><li>Rollback in GitOps: why <code>git revert</code> beats redeploy.</li></ul><h3 id="p10-h7" class="sec">Related Topics</h3><ul class="tight"><li>Continuous Delivery</li><li>Deployment Strategies</li><li>Artifact Management</li><li>GitLab CI</li></ul><p class="body">GitOps declares app state — but environments themselves are infrastructure. Continue in <b>IaC for Environments</b>.</p></div><div id="p11" class="page opener">
+  syncPolicy: { automated: { prune: true, selfHeal: true } }</code></pre><ul class="tight"><li><b>Application:</b> what (repo+path+revision) goes where (cluster+namespace).</li><li><b>Sync waves + hooks:</b> order resources (CRDs before CRs, migrations before app) — the deployment strategy's sequencing, declaratively.</li><li><b>ApplicationSet:</b> one template → N environments/tenants; preview environments become a generator, not a script.</li><li><b>Image Updater (optional):</b> tracks new digests and commits them — automation with git as the audit trail.</li></ul><h3 id="p11-h4" class="sec">4. Where It Fits</h3><p class="body">CI still builds, tests, scans, signs (everything upstream unchanged). The handoff changes: instead of <code>kubectl apply</code> from CI, CI commits <code>image: sha-9f3a</code> to the ops repo. Promotion = pull request between env branches/folders — reviewable, revertable, auditable.</p><h3 id="p11-h5" class="sec">5. Failure Modes</h3><ul class="tight"><li>Auto-sync + bad commit → bad state propagates at machine speed; gate with manual sync on prod or automated kill criteria.</li><li>Secrets in the manifests repo → use external secret operators (External Secrets, Sealed Secrets); git holds references, never values.</li><li><code>selfHeal</code> fighting hotfixes → emergency <code>kubectl</code> edits get reverted; declare a break-glass procedure (pause sync, fix, commit).</li><li>Monorepo scale → thousands of Applications; shard by team/cluster with ApplicationSets.</li></ul><h3 id="p11-h6" class="sec">6. Interview Notes</h3><ul class="tight"><li>Push vs pull: credential blast radius is the core argument.</li><li>What sync waves solve (ordering without scripts).</li><li>Rollback in GitOps: why <code>git revert</code> beats redeploy.</li></ul><h3 id="p11-h7" class="sec">Related Topics</h3><ul class="tight"><li>Continuous Delivery</li><li>Deployment Strategies</li><li>Artifact Management</li><li>GitLab CI</li></ul><p class="body">GitOps declares app state — but environments themselves are infrastructure. Continue in <b>IaC for Environments</b>.</p><div class="folio"><span>📘 Platforms &amp; Roadmaps · <span class="by">By Nabawy</span></span><span class="fnum">— 11 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#s09">Prev</a> <a class="tlink" href="#s11">Next</a></span></div></div><div class="sheet" id="s11"><div class="pghead"><div class="hrow"><div><div class="kick">PLATFORMS</div><h1 class="t">The Roadmap</h1></div><span class="hmeta">12</span></div></div>
 
 
-<div class="ctitle">THE ROADMAP</div>
-<p class="lede">Jenkins ships on <em>cadence, not calendar</em> — every week a new release, every four weeks a stabilized LTS, security fixes whenever they are needed. The 2026 roadmap is organized into <em>horizons</em>, not hard dates, because contributor bandwidth decides when an initiative ships.</p>
-
-<h3 id="p11-h1" class="sec"><span class="n">01 /</span> Release Cadence — Current Model</h3>
+<p class="lead">Jenkins ships on <em>cadence, not calendar</em> — every week a new release, every four weeks a stabilized LTS, security fixes whenever they are needed. The 2026 roadmap is organized into <em>horizons</em>, not hard dates, because contributor bandwidth decides when an initiative ships.</p>
+<h3 id="p12-h1" class="sec"><span class="n">01 /</span> Release Cadence — Current Model</h3>
 <p class="body">Unlike vendor-driven products, Jenkins never announces a "Jenkins 3.0." It evolves as a rolling train of weekly releases; the LTS line is a curated snapshot for conservative upgraders.</p>
-<table class="cmp"><tr><th>Track</th><th>Rhythm</th><th>Who should follow</th></tr>
+<div class="tblwrap"><table class="tb"><tr><th>Track</th><th>Rhythm</th><th>Who should follow</th></tr>
 <tr><td>Weekly</td><td>Every week (2.545 → 2.566+ in 2026)</td><td>Teams that want features fastest; accept more churn</td></tr>
 <tr><td>LTS</td><td>Cut every ~4 weeks + backports</td><td>Most production controllers — stable, patched</td></tr>
 <tr><td>Security</td><td>As needed via <span class="mono">jenkinsci-advisories</span></td><td>Everyone — apply out-of-band when CVE drops</td></tr>
-</table>
-<div class="kv"><b>2026 SHIPPED —</b> <b>2.545</b> (Jan) Java 21+ required on controller · <b>2.552</b> (Feb) experimental Plugin Manager UI + revamped Clouds page · <b>2.554</b> (Mar) script console adapted for new UI · <b>2.556</b> (Mar) Spring Security 7 + Spring Framework 7 · <b>LTS 2.541.1</b> (Jan) unified RPM repo, new GPG key for RPM/DEB.</div>
-
-<h3 id="p11-h2" class="sec"><span class="n">02 /</span> How Horizons Work</h3>
+</table></div>
+<div class="mark m-key"><span class="tag">2026 SHIPPED </span> <b>2.545</b> (Jan) Java 21+ required on controller · <b>2.552</b> (Feb) experimental Plugin Manager UI + revamped Clouds page · <b>2.554</b> (Mar) script console adapted for new UI · <b>2.556</b> (Mar) Spring Security 7 + Spring Framework 7 · <b>LTS 2.541.1</b> (Jan) unified RPM repo, new GPG key for RPM/DEB.</div>
+<h3 id="p12-h2" class="sec"><span class="n">02 /</span> How Horizons Work</h3>
 <div class="timeline"><div class="tseg rel">RELEASED</div><div class="tseg prev">PREVIEW</div><div class="tseg cur">CURRENT</div><div class="tseg near">NEAR TERM</div><div class="tseg fut">FUTURE</div></div>
 <p class="small"><b>Released</b> is done. <b>Preview</b> is usable but still changing. <b>Current</b> is under active development. <b>Near Term</b> is next up once bandwidth allows. <b>Future</b> has consensus but no active work. Treat Near/Future as directional priorities — the Jenkins project explicitly warns they are not committed dates.</p>
-<div class="callout amber"><h4 id="p11-h3">READING RULE</h4><p>Jenkins does not commit to delivery dates — all initiatives depend on volunteer/contributor availability. Track progress via the live <span class="mono">roadmap.yml</span> on GitHub, not via this snapshot.</p></div>
+<div class="mark m-warn"><span class="tag">READING RULE </span><p>Jenkins does not commit to delivery dates — all initiatives depend on volunteer/contributor availability. Track progress via the live <span class="mono">roadmap.yml</span> on GitHub, not via this snapshot.</p></div>
 
-</div><div id="p12" class="page">
+<div class="folio"><span>📘 Platforms &amp; Roadmaps · <span class="by">By Nabawy</span></span><span class="fnum">— 12 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#s10">Prev</a> <a class="tlink" href="#s12">Next</a></span></div></div><div class="sheet" id="s12"><div class="pghead"><div class="hrow"><div><div class="kick">PLATFORMS</div><h1 class="t">Product Themes</h1></div><span class="hmeta">13</span></div></div>
 
-
-<h3 id="p12-h1" class="sec"><span class="n">03 /</span> Pipeline Authoring &amp; Developer Tooling</h3>
-<table class="cmp"><tr><th>Initiative</th><th>Horizon</th><th>What changes for you</th></tr>
+<h3 id="p13-h1" class="sec"><span class="n">03 /</span> Pipeline Authoring &amp; Developer Tooling</h3>
+<div class="tblwrap"><table class="tb"><tr><th>Initiative</th><th>Horizon</th><th>What changes for you</th></tr>
 <tr><td>Pipeline as YAML <span class="badge badge-prev">PREVIEW</span></td><td>Preview</td><td>Define Pipelines in YAML natively — no extra shared-library shim. Simpler for teams that prefer YAML over Groovy.</td></tr>
 <tr><td>Jenkins Templating Engine 2.0 <span class="badge badge-rel">RELEASED</span></td><td>Released + iterating</td><td>Tool-agnostic pipeline templates; reuse pipeline logic across repos.</td></tr>
 <tr><td>IDE pipeline dev (debug, visual editor) <span class="badge badge-fut">FUTURE</span></td><td>Future</td><td>No active dev yet — design intent only. Wiring live debug + visual editors into IDE plugins.</td></tr>
 <tr><td>Expanded Pipeline reference docs <span class="badge badge-fut">FUTURE</span></td><td>Future</td><td>Completeness pass on DSL/step docs.</td></tr>
-</table>
-
-<h3 id="p12-h2" class="sec"><span class="n">04 /</span> End-User Experience &amp; Interface</h3>
+</table></div>
+<h3 id="p13-h2" class="sec"><span class="n">04 /</span> End-User Experience &amp; Interface</h3>
 <ul class="tight">
 <li><b>Plugin Manager UI revamp</b> <span class="mono">— Preview → shipping incrementally.</span> Experimental UI landed in 2.552; full rollout is staged across weeklies. Expect iterative polish, not a flag day.</li>
 <li><b>Look &amp; Feel updates</b> <span class="mono">— Current.</span> Systematic styling modernization across the web UI.</li>
@@ -808,49 +935,44 @@ spec:
 <li><b>Full interface rework</b> <span class="mono">— Future.</span> Larger overhaul; community consensus exists, no active implementation yet.</li>
 <li><b>Already released:</b> Dark Theme, Configuration UI (tables → divs), Theme Manager plugin.</li>
 </ul>
-<div class="callout green"><h4 id="p12-h3">WHAT THIS MEANS IN PRACTICE</h4><p>If you maintain internal Jenkins docs/screenshots, budget for UI drift through 2026. The Plugin Manager and Clouds pages have already changed shape — automation (Puppet/JCasC) that screen-scrapes the UI will need updates.</p></div>
-
-<h3 id="p12-h4" class="sec"><span class="n">05 /</span> Management &amp; Tool Integrations</h3>
-<table class="cmp"><tr><th>Area</th><th>Item</th><th>Horizon</th></tr>
+<div class="mark m-ok"><span class="tag">WHAT THIS MEANS IN PRACTICE </span><p>If you maintain internal Jenkins docs/screenshots, budget for UI drift through 2026. The Plugin Manager and Clouds pages have already changed shape — automation (Puppet/JCasC) that screen-scrapes the UI will need updates.</p></div>
+<h3 id="p13-h3" class="sec"><span class="n">05 /</span> Management &amp; Tool Integrations</h3>
+<div class="tblwrap"><table class="tb"><tr><th>Area</th><th>Item</th><th>Horizon</th></tr>
 <tr><td>Integrations</td><td>GitHub Checks API + GitHub App auth</td><td><span class="badge badge-rel">RELEASED</span></td></tr>
 <tr><td>Integrations</td><td>OpenAPI spec for core + plugins (client generation)</td><td><span class="badge badge-fut">FUTURE</span></td></tr>
 <tr><td>Admin</td><td>Script Security — granular approve/deny/revoke (replaces all-or-nothing)</td><td><span class="badge badge-cur">CURRENT</span></td></tr>
 <tr><td>Admin</td><td>Windows Services: YAML config support</td><td><span class="badge badge-cur">CURRENT</span></td></tr>
 <tr><td>Admin</td><td>JCasC: pluggable external config (Git, S3, K8s CRDs)</td><td><span class="badge badge-fut">FUTURE</span></td></tr>
 <tr><td>Admin</td><td>Better Remoting monitoring (Prometheus/Grafana for controller↔agent)</td><td><span class="badge badge-fut">FUTURE</span></td></tr>
-</table>
+</table></div>
 
-</div><div id="p13" class="page">
+<div class="folio"><span>📘 Platforms &amp; Roadmaps · <span class="by">By Nabawy</span></span><span class="fnum">— 13 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#s11">Prev</a> <a class="tlink" href="#s13">Next</a></span></div></div><div class="sheet" id="s13"><div class="pghead"><div class="hrow"><div><div class="kick">PLATFORMS</div><h1 class="t">Infrastructure &amp; Platform</h1></div><span class="hmeta">14</span></div></div>
 
-
-<h3 id="p13-h1" class="sec"><span class="n">06 /</span> Jenkins on Cloud Platforms</h3>
-<table class="cmp"><tr><th>Initiative</th><th>Horizon</th><th>Intent</th></tr>
+<h3 id="p14-h1" class="sec"><span class="n">06 /</span> Jenkins on Cloud Platforms</h3>
+<div class="tblwrap"><table class="tb"><tr><th>Initiative</th><th>Horizon</th><th>Intent</th></tr>
 <tr><td>CloudEvents support <span class="badge badge-cur">CURRENT</span></td><td>Current</td><td>Standard eventing for interoperability (Tekton, Knative, external notifiers).</td></tr>
 <tr><td>Jenkinsfile Runner 1.0 · Tekton build steps · Pluggable log/storage <span class="badge badge-prev">PREVIEW</span></td><td>Preview</td><td>Run Jenkinsfiles without a full controller; store logs/results externally.</td></tr>
 <tr><td>Tekton as alt execution engine · FaaS capability · Fully pluggable storage <span class="badge badge-fut">FUTURE</span></td><td>Future</td><td>Longer bets on alternate runtimes and decoupled storage.</td></tr>
-</table>
-
-<h3 id="p13-h2" class="sec"><span class="n">07 /</span> Packaging &amp; Platform Support</h3>
-<div class="kv"><b>SHIPPED —</b> Eclipse Temurin JDK migration, Windows installer rework, multi-arch Docker images. <b>FUTURE —</b> Cloud-native Java (GraalVM/Quarkus) for smaller/faster images. <b>DEV TOOLING SHIPPED —</b> JEP-229 (Continuous Delivery of Plugins), plugin BOMs, automated dependency management. <b>PREVIEW —</b> Expanded static analysis for security (Find Security Bugs coverage).</div>
-
-<h3 id="p13-h3" class="sec"><span class="n">08 /</span> Project Internals — Infra Team 2026 Focus</h3>
+</table></div>
+<h3 id="p14-h2" class="sec"><span class="n">07 /</span> Packaging &amp; Platform Support</h3>
+<div class="mark m-key"><span class="tag">SHIPPED </span> Eclipse Temurin JDK migration, Windows installer rework, multi-arch Docker images. <b>FUTURE —</b> Cloud-native Java (GraalVM/Quarkus) for smaller/faster images. <b>DEV TOOLING SHIPPED —</b> JEP-229 (Continuous Delivery of Plugins), plugin BOMs, automated dependency management. <b>PREVIEW —</b> Expanded static analysis for security (Find Security Bugs coverage).</div>
+<h3 id="p14-h3" class="sec"><span class="n">08 /</span> Project Internals — Infra Team 2026 Focus</h3>
 <p class="body">Tracked weekly by the Infra team. Small team, real budget (~$5–6k/mo Azure sponsorship), steady burn-down:</p>
 <div class="vflow">
-<div class="fnode"><img src="../assets/icons/general/terminal.svg" alt="Ansible"><b>PUPPET → ANSIBLE</b><small>Current, in progress — Puppet flagged strategic risk (Feb 2025)</small></div><div class="farrow">↓</div>
-<div class="fnode"><img src="../assets/icons/general/server.svg" alt="Platform"><b>WINDOWS 2025 + JDK 25</b><small>Near term — deprecate Win2019, switch infra to JDK 25</small></div><div class="farrow">↓</div>
-<div class="fnode"><img src="../assets/icons/security/shield.svg" alt="Signing"><b>SIGN MSI WITH LF CERT</b><small>Top priority — DigiCert expiry May 2026; LF cert replacement</small></div><div class="farrow">↓</div>
-<div class="fnode"><img src="../assets/icons/monitoring/activity.svg" alt="Stats"><b>STATS + ACCOUNTS MODERNIZATION</b><small>Resume stats.jenkins.io; modernize accounts.jenkins.io (LDAP) — future</small></div>
+<div class="fnode"><img alt="Ansible" src="../assets/icons/general/terminal.svg"/></img><b>PUPPET → ANSIBLE</b><small>Current, in progress — Puppet flagged strategic risk (Feb 2025)</small></div><div class="farrow">↓</div>
+<div class="fnode"><img alt="Platform" src="../assets/icons/general/server.svg"/></img><b>WINDOWS 2025 + JDK 25</b><small>Near term — deprecate Win2019, switch infra to JDK 25</small></div><div class="farrow">↓</div>
+<div class="fnode"><img alt="Signing" src="../assets/icons/security/shield.svg"/></img><b>SIGN MSI WITH LF CERT</b><small>Top priority — DigiCert expiry May 2026; LF cert replacement</small></div><div class="farrow">↓</div>
+<div class="fnode"><img alt="Stats" src="../assets/icons/monitoring/activity.svg"/></img><b>STATS + ACCOUNTS MODERNIZATION</b><small>Resume stats.jenkins.io; modernize accounts.jenkins.io (LDAP) — future</small></div>
 </div>
 <ul class="tight">
 <li>Ongoing: Terraform/Helm/<span class="mono">jq</span> bumps, Playwright browser packaging, credential rotation, budget stewardship.</li>
 <li><b>Governance:</b> JEP-14 (public roadmap process) + JEP-15 (crowdfunding) — <span class="badge badge-rel">RELEASED</span>; <b>Technical Steering Committee</b> — <span class="badge badge-fut">FUTURE</span>.</li>
 </ul>
 
-</div><div id="p14" class="page">
+<div class="folio"><span>📘 Platforms &amp; Roadmaps · <span class="by">By Nabawy</span></span><span class="fnum">— 14 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#s12">Prev</a> <a class="tlink" href="#s14">Next</a></span></div></div><div class="sheet" id="s14"><div class="pghead"><div class="hrow"><div><div class="kick">PLATFORMS</div><h1 class="t">Horizon Map</h1></div><span class="hmeta">15</span></div></div>
 
-
-<h3 id="p14-h1" class="sec"><span class="n">09 /</span> Full Horizon Table (September 2026 snapshot)</h3>
-<table class="cmp"><tr><th>Theme</th><th>Item</th><th>Horizon</th></tr>
+<h3 id="p15-h1" class="sec"><span class="n">09 /</span> Full Horizon Table (September 2026 snapshot)</h3>
+<div class="tblwrap"><table class="tb"><tr><th>Theme</th><th>Item</th><th>Horizon</th></tr>
 <tr><td>Pipeline</td><td>Pipeline as YAML</td><td><span class="badge badge-prev">PREVIEW</span></td></tr>
 <tr><td>Pipeline</td><td>JTE 2.0</td><td><span class="badge badge-rel">RELEASED</span></td></tr>
 <tr><td>Pipeline</td><td>IDE debugging / visual editor</td><td><span class="badge badge-fut">FUTURE</span></td></tr>
@@ -864,129 +986,115 @@ spec:
 <tr><td>Infra</td><td>Puppet → Ansible</td><td><span class="badge badge-cur">CURRENT</span></td></tr>
 <tr><td>Infra</td><td>JDK 25 + Win2025 + MSI LF cert</td><td><span class="badge badge-near">NEAR TERM</span></td></tr>
 <tr><td>Gov</td><td>Technical Steering Committee</td><td><span class="badge badge-fut">FUTURE</span></td></tr>
-</table>
-
-<h3 id="p14-h2" class="sec"><span class="n">10 /</span> Community &amp; Program Highlights — 2026</h3>
+</table></div>
+<h3 id="p15-h2" class="sec"><span class="n">10 /</span> Community &amp; Program Highlights — 2026</h3>
 <ul class="tight">
 <li><b>Google Summer of Code 2026</b> — Jenkins as mentoring org; ~300+ proposals, 8 ideas, focus on <b>docs site retooling</b> (migration to Docusaurus incl. Chinese site) and <b>Contributor Spotlight / Success Stories</b> retooling (Gatsby → Vite).</li>
 <li><b>Jenkins Awards 2026</b> — nominations open: Most Valuable Contributor, Security MVP, Most Valuable Advocate.</li>
 <li>Continuous <b>security advisories</b> (e.g., stored XSS in node offline-cause descriptions; plugin CVEs).</li>
 </ul>
-
-<h3 id="p14-h3" class="sec"><span class="n">11 /</span> How to Track Progress</h3>
-<div class="terminal"><span class="c"># live data — always verify against the repo, not this PDF</span>
-<span class="g">roadmap.yml</span>  <span class="b">→</span> github.com/jenkins-infra/jenkins.io/content/_data/roadmap/roadmap.yml
-<span class="g">archive.yml</span>  <span class="b">→</span> .../roadmap/archive.yml  <span class="c"># completed / withdrawn</span>
-<span class="g">JEP-14</span>      <span class="b">→</span> github.com/jenkinsci/jep/tree/master/jep/14  <span class="c"># roadmap process</span>
+<h3 id="p15-h3" class="sec"><span class="n">11 /</span> How to Track Progress</h3>
+<pre class="code"><span class="c"># live data — always verify against the repo, not this PDF</span>
+<span class="g">roadmap.yml</span> <span class="b">→</span> github.com/jenkins-infra/jenkins.io/content/_data/roadmap/roadmap.yml
+<span class="g">archive.yml</span> <span class="b">→</span> .../roadmap/archive.yml  <span class="c"># completed / withdrawn</span>
+<span class="g">JEP-14</span> <span class="b">→</span> github.com/jenkinsci/jep/tree/master/jep/14  <span class="c"># roadmap process</span>
 <span class="g">infra notes</span> <span class="b">→</span> community.jenkins.io  <span class="c"># Infra team meeting threads (weekly)</span>
-<span class="c"># suggest an item via JEP-14 — anyone can propose</span></div>
+<span class="c"># suggest an item via JEP-14 — anyone can propose</span></pre>
 
-</div><div id="p15" class="page">
+<div class="folio"><span>📘 Platforms &amp; Roadmaps · <span class="by">By Nabawy</span></span><span class="fnum">— 15 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#s13">Prev</a> <a class="tlink" href="#s15">Next</a></span></div></div><div class="sheet" id="s15"><div class="pghead"><div class="hrow"><div><div class="kick">PLATFORMS</div><h1 class="t">Failures &amp; Handoff</h1></div><span class="hmeta">16</span></div></div>
 
-
-<h3 id="p15-h1" class="sec"><span class="n">12 /</span> Failure Modes — Roadmap Edition</h3>
-<div class="callout red"><h4 id="p15-h2">TREATING NEAR TERM AS A COMMITMENT</h4><p>The most common misread. Near/Future are priorities ordered by contributor interest, not sprint commitments. A "Near Term" label is not a quarter promise — it means "next up when someone can staff it." Plan adoption as <em>if/when</em>, not <em>when</em>.</p></div>
+<h3 id="p16-h1" class="sec"><span class="n">12 /</span> Failure Modes — Roadmap Edition</h3>
+<div class="mark m-fail"><span class="tag">TREATING NEAR TERM AS A COMMITMENT </span><p>The most common misread. Near/Future are priorities ordered by contributor interest, not sprint commitments. A "Near Term" label is not a quarter promise — it means "next up when someone can staff it." Plan adoption as <em>if/when</em>, not <em>when</em>.</p></div>
 <ul class="tight">
 <li><b>Pinning automation to weekly UI screenshots</b> — UI/UX is actively churning (Plugin Manager, Look &amp; Feel). Gate UI automation behind CSS selectors and cache-busting, or prefer JCasC/Groovy init over scraping.</li>
 <li><b>Ignoring the cert window</b> — MSI DigiCert expiry May 2026 is the infra team's top priority; Windows install flows that verify publisher certs can break if you lag the migration.</li>
 <li><b>Staying on Puppet assumptions</b> — Puppet → Ansible is in progress. If you contribute infra or mirror infra patterns internally, expect playbook drift.</li>
 <li><b>Assuming "Pipeline as YAML" replaces Groovy tomorrow</b> — it's Preview. Groovy <span class="mono">Jenkinsfile</span> and JTE remain the production path; YAML is additive.</li>
 </ul>
-
-<h3 id="p15-h3" class="sec"><span class="n">13 /</span> Operator Checklist</h3>
-<div class="kv"><b>ADOPT —</b> LTS line + advisories; track <span class="mono">roadmap.yml</span> weekly if you depend on Preview items. <b>PLAN —</b> Java 21 now mandatory; qualify JDK 25 early; Windows Server 2025 qualification path. <b>HARDEN —</b> Script Security granular approvals available now — move off blanket approvals. <b>PREP —</b> CloudEvents and pluggable log/storage for Tekton-interop experiments.</div>
-<div class="qa"><span class="qq">Q:</span> Should we wait for the "full UI rework" before upgrading Jenkins?<br><span class="aa">A:</span> No. That rework has consensus but no active development. Upgrade on the LTS cadence; the incremental UI improvements (dark theme, Plugin Manager) ship steadily regardless.</div>
-
-<h3 id="p15-h4" class="sec"><span class="n">14 /</span> Handoff</h3>
+<h3 id="p16-h2" class="sec"><span class="n">13 /</span> Operator Checklist</h3>
+<div class="mark m-key"><span class="tag">ADOPT </span> LTS line + advisories; track <span class="mono">roadmap.yml</span> weekly if you depend on Preview items. <b>PLAN —</b> Java 21 now mandatory; qualify JDK 25 early; Windows Server 2025 qualification path. <b>HARDEN —</b> Script Security granular approvals available now — move off blanket approvals. <b>PREP —</b> CloudEvents and pluggable log/storage for Tekton-interop experiments.</div>
+<div class="qa"><span class="qn">Q2</span> <b>Should we wait for the "full UI rework" before upgrading Jenkins?</b><br/></br><span class="ans">No. That rework has consensus but no active development. Upgrade on the LTS cadence; the incremental UI improvements (dark theme, Plugin Manager) ship steadily regardless.</span></div>
+<h3 id="p16-h3" class="sec"><span class="n">14 /</span> Handoff</h3>
 <p class="body">Jenkins is moderning its <em>house</em> — UX, plugin trust, and infra debt — not reinventing the pipeline. Next, see <b>GitHub Actions Roadmap 2026</b> for the platform optimizing hardest for supply-chain trust, then <b>the Decision Guide</b> for the decision frame that holds both roadmaps side by side.</p>
 
+<div class="folio"><span>📘 Platforms &amp; Roadmaps · <span class="by">By Nabawy</span></span><span class="fnum">— 16 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#s14">Prev</a> <a class="tlink" href="#s16">Next</a></span></div></div><div class="sheet" id="s16"><div class="pghead"><div class="hrow"><div><div class="kick">PLATFORMS</div><h1 class="t">The Attack Surface</h1></div><span class="hmeta">17</span></div></div>
 
-</div><div id="p16" class="page opener">
 
-
-<div class="ctitle">THE ATTACK SURFACE</div>
-<p class="lede">In 2025–26 a pattern emerged: <em>compromise a trusted Action → execute inside CI → exfiltrate secrets</em>. The roadmap is GitHub's direct answer to three root causes: <em>implicit trust in workflow dependencies</em>, <em>poor execution visibility</em>, and <em>overly broad credential exposure</em>.</p>
-
-<h3 id="p16-h1" class="sec"><span class="n">01 /</span> Incidents That Drove the Roadmap</h3>
-<table class="cmp"><tr><th>Incident</th><th>Technique</th><th>What it abused</th></tr>
+<p class="lead">In 2025–26 a pattern emerged: <em>compromise a trusted Action → execute inside CI → exfiltrate secrets</em>. The roadmap is GitHub's direct answer to three root causes: <em>implicit trust in workflow dependencies</em>, <em>poor execution visibility</em>, and <em>overly broad credential exposure</em>.</p>
+<h3 id="p17-h1" class="sec"><span class="n">01 /</span> Incidents That Drove the Roadmap</h3>
+<div class="tblwrap"><table class="tb"><tr><th>Incident</th><th>Technique</th><th>What it abused</th></tr>
 <tr><td><span class="mono">tj-actions/changed-files</span></td><td>Compromised trusted Action</td><td>Unpinned <span class="mono">uses:</span> + transitive trust</td></tr>
 <tr><td>Nx build-tool compromise</td><td>Supply-chain injection</td><td>Shared toolchain dependency</td></tr>
 <tr><td><span class="mono">trivy-action</span> tag poisoning</td><td>75 tags force-pushed to malicious commits</td><td>Mutable tags / releases</td></tr>
 <tr><td>"Clinejection"</td><td>Prompt injection via issue title → cache poisoning → exfil</td><td>Untrusted event input driving agent workflows</td></tr>
-</table>
-<div class="callout red"><h4 id="p16-h2">THE PATTERN</h4><p>Every incident follows the same pipeline: a normal-looking workflow pulls an Action at a friendly tag, that Action (or its transitive dependency) is silently retargeted, and secrets flow outward before anyone notices. SHA pinning <em>at the top level only</em> does not close this gap.</p></div>
-
-<h3 id="p16-h3" class="sec"><span class="n">02 /</span> Roadmap Pillars</h3>
+</table></div>
+<div class="mark m-fail"><span class="tag">THE PATTERN </span><p>Every incident follows the same pipeline: a normal-looking workflow pulls an Action at a friendly tag, that Action (or its transitive dependency) is silently retargeted, and secrets flow outward before anyone notices. SHA pinning <em>at the top level only</em> does not close this gap.</p></div>
+<h3 id="p17-h2" class="sec"><span class="n">02 /</span> Roadmap Pillars</h3>
 <div class="vflow">
-<div class="fnode"><img src="../assets/icons/security/shield.svg" alt="Lock"><b>LOCK DEPENDENCIES</b><small>Make every resolved version verifiable</small></div><div class="farrow">↓</div>
-<div class="fnode"><img src="../assets/icons/general/database.svg" alt="Scope"><b>SCOPE SECRETS</b><small>Credentials flow only where declared</small></div><div class="farrow">↓</div>
-<div class="fnode"><img src="../assets/icons/ci-cd/workflow.svg" alt="Policy"><b>ENFORCE POLICY</b><small>Centrally govern who/what can trigger workflows</small></div><div class="farrow">↓</div>
-<div class="fnode"><img src="../assets/icons/general/server.svg" alt="Monitor"><b>OBSERVE &amp; CONTAIN</b><small>Stream telemetry · firewall egress outside the VM</small></div>
+<div class="fnode"><img alt="Lock" src="../assets/icons/security/shield.svg"/></img><b>LOCK DEPENDENCIES</b><small>Make every resolved version verifiable</small></div><div class="farrow">↓</div>
+<div class="fnode"><img alt="Scope" src="../assets/icons/general/database.svg"/></img><b>SCOPE SECRETS</b><small>Credentials flow only where declared</small></div><div class="farrow">↓</div>
+<div class="fnode"><img alt="Policy" src="../assets/icons/ci-cd/workflow.svg"/></img><b>ENFORCE POLICY</b><small>Centrally govern who/what can trigger workflows</small></div><div class="farrow">↓</div>
+<div class="fnode"><img alt="Monitor" src="../assets/icons/general/server.svg"/></img><b>OBSERVE &amp; CONTAIN</b><small>Stream telemetry · firewall egress outside the VM</small></div>
 </div>
 
-</div><div id="p17" class="page">
+<div class="folio"><span>📘 Platforms &amp; Roadmaps · <span class="by">By Nabawy</span></span><span class="fnum">— 17 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#s15">Prev</a> <a class="tlink" href="#s17">Next</a></span></div></div><div class="sheet" id="s17"><div class="pghead"><div class="hrow"><div><div class="kick">PLATFORMS</div><h1 class="t">Pillars A &amp; B</h1></div><span class="hmeta">18</span></div></div>
 
-
-<h3 id="p17-h1" class="sec"><span class="n">03 /</span> A — Locking Workflow Dependencies</h3>
+<h3 id="p18-h1" class="sec"><span class="n">03 /</span> A — Locking Workflow Dependencies</h3>
 <p class="body">A new <span class="mono">dependencies:</span> section in workflow YAML. Works like <span class="mono">go.sum</span> / <span class="mono">Cargo.lock</span> — but for Actions. GitHub will resolve and lock <b>direct and transitive</b> Action dependencies via commit SHA + cryptographic hash verification.</p>
-<div class="terminal"><span class="b">name:</span> ci
+<pre class="code"><span class="b">name:</span> ci
 <span class="b">on:</span> pull_request
-<span class="b">dependencies:</span>          <span class="c"># NEW — lockfile for Actions</span>
-  <span class="b">actions/checkout:</span> sha256:abc123…  <span class="c"># SHA + hash, verified</span>
-  <span class="b">my-org/composite-action:</span> sha256:def456…  <span class="c"># transitive deps locked too</span>
+<span class="b">dependencies:</span> <span class="c"># NEW — lockfile for Actions</span>
+<span class="b">actions/checkout:</span> sha256:abc123…  <span class="c"># SHA + hash, verified</span>
+<span class="b">my-org/composite-action:</span> sha256:def456…  <span class="c"># transitive deps locked too</span>
 <span class="b">jobs:</span>
-  <span class="b">build:</span>
-    <span class="b">runs-on:</span> ubuntu-latest
+<span class="b">build:</span>
+<span class="b">runs-on:</span> ubuntu-latest
     <span class="b">steps:</span>
-      - <span class="b">uses:</span> actions/checkout@abc123  <span class="c"># deterministic, diffable</span></div>
-<div class="kv"><b>WHY THIS MATTERS —</b> Today's SHA pinning only covers top-level <span class="mono">uses:</span> lines, not what a composite Action calls internally. Locking closes that gap: <b>deterministic execution</b>, <b>visible dependency diffs in PRs</b>, and <b>tamper detection even when a SHA looks correct</b> (hash mismatch fails the run). Paired with <b>immutable releases</b> and stricter publishing rules for maintainers.</div>
-<table class="cmp"><tr><th></th><th>Before</th><th>After (locking)</th></tr>
+      - <span class="b">uses:</span> actions/checkout@abc123  <span class="c"># deterministic, diffable</span></pre>
+<div class="mark m-key"><span class="tag">WHY THIS MATTERS </span> Today's SHA pinning only covers top-level <span class="mono">uses:</span> lines, not what a composite Action calls internally. Locking closes that gap: <b>deterministic execution</b>, <b>visible dependency diffs in PRs</b>, and <b>tamper detection even when a SHA looks correct</b> (hash mismatch fails the run). Paired with <b>immutable releases</b> and stricter publishing rules for maintainers.</div>
+<div class="tblwrap"><table class="tb"><tr><th></th><th>Before</th><th>After (locking)</th></tr>
 <tr><td>Scope</td><td>Top-level <span class="mono">uses:</span> only</td><td>Transitive closure (composite Actions included)</td></tr>
 <tr><td>Verification</td><td>SHA equality</td><td>SHA + cryptographic hash</td></tr>
 <tr><td>PR visibility</td><td>No dependency diff</td><td>Lockfile diff surfaces version drift</td></tr>
-</table>
-
-<h3 id="p17-h2" class="sec"><span class="n">04 /</span> B — Scoped Secrets</h3>
+</table></div>
+<h3 id="p18-h2" class="sec"><span class="n">04 /</span> B — Scoped Secrets</h3>
 <p class="body">Secrets will be bindable to a narrower scope instead of flowing broadly by default — and will no longer auto-inherit into reusable workflows.</p>
-<table class="cmp"><tr><th>Scope</th><th>Secret is available only when</th></tr>
+<div class="tblwrap"><table class="tb"><tr><th>Scope</th><th>Secret is available only when</th></tr>
 <tr><td>Repository</td><td>Workflow runs inside that specific repo</td></tr>
 <tr><td>Branch</td><td>Workflow runs targeting that branch</td></tr>
 <tr><td>Environment</td><td>Job targets the environment (e.g., <span class="mono">production</span>)</td></tr>
 <tr><td>Trusted workflow</td><td>Only an explicitly approved reusable workflow calls it</td></tr>
-</table>
-<div class="terminal"><span class="c"># BEFORE — secrets auto-inherit</span>
+</table></div>
+<pre class="code"><span class="c"># BEFORE — secrets auto-inherit</span>
 <span class="b">jobs:</span>
-  <span class="b">deploy:</span>
-    <span class="b">uses:</span> org/central-deploy@v2
+<span class="b">deploy:</span>
+<span class="b">uses:</span> org/central-deploy@v2
     <span class="b">secrets:</span> inherit               <span class="r"># ← broad, implicit</span>
-
 <span class="c"># AFTER — explicit per-secret binding</span>
 <span class="b">jobs:</span>
-  <span class="b">deploy:</span>
-    <span class="b">uses:</span> org/central-deploy@v2
+<span class="b">deploy:</span>
+<span class="b">uses:</span> org/central-deploy@v2
     <span class="b">secrets:</span>
-      <span class="b">NPM_TOKEN:</span> ${{ secrets.NPM_TOKEN }}  <span class="c"># scoped to trusted workflow + env</span></div>
-<div class="kv"><b>PERMISSION CHANGE —</b> Repository write access will no longer automatically grant secret-management rights. That moves to custom/delegated roles (separation of duties). Treat <span class="mono">secrets: inherit</span> as deprecated — audit for it now.</div>
+<span class="b">NPM_TOKEN:</span> ${{ secrets.NPM_TOKEN }}  <span class="c"># scoped to trusted workflow + env</span></pre>
+<div class="mark m-key"><span class="tag">PERMISSION CHANGE </span> Repository write access will no longer automatically grant secret-management rights. That moves to custom/delegated roles (separation of duties). Treat <span class="mono">secrets: inherit</span> as deprecated — audit for it now.</div>
 
-</div><div id="p18" class="page">
+<div class="folio"><span>📘 Platforms &amp; Roadmaps · <span class="by">By Nabawy</span></span><span class="fnum">— 18 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#s16">Prev</a> <a class="tlink" href="#s18">Next</a></span></div></div><div class="sheet" id="s18"><div class="pghead"><div class="hrow"><div><div class="kick">PLATFORMS</div><h1 class="t">Pillars C &amp; D</h1></div><span class="hmeta">19</span></div></div>
 
-
-<h3 id="p18-h1" class="sec"><span class="n">05 /</span> C — Policy-Driven Workflow Execution Protections</h3>
+<h3 id="p19-h1" class="sec"><span class="n">05 /</span> C — Policy-Driven Workflow Execution Protections</h3>
 <p class="body">Extends the existing <b>rulesets</b> framework to centrally govern workflow execution — replacing scattered <span class="mono">if: github.actor != 'dependabot[bot]'</span> guards spread across individual workflow files.</p>
-<table class="cmp"><tr><th>Rule type</th><th>Purpose</th><th>Example</th></tr>
+<div class="tblwrap"><table class="tb"><tr><th>Rule type</th><th>Purpose</th><th>Example</th></tr>
 <tr><td>Actor rules</td><td>Who/what can trigger workflows</td><td>Only <span class="mono">humans</span>, <span class="mono">Dependabot</span>, or a specific GitHub App can fire <span class="mono">deploy.yml</span></td></tr>
 <tr><td>Event rules</td><td>Which events can trigger runs</td><td><span class="mono">push</span> allowed; <span class="mono">issue_comment</span> blocked unless from maintainer</td></tr>
-</table>
-<div class="callout amber"><h4 id="p18-h2">DIRECTLY TARGETS "COMMENT-AND-CONTROL"</h4><p>Untrusted contributors trigger agent/automation workflows via issue or PR comments, injecting instructions into AI-assisted runs. Central policy prevents the trigger from ever reaching the runner — no per-workflow patching needed. <b>Status:</b> Public preview shipped <b>June 18, 2026</b>.</p></div>
-<div class="terminal"><span class="c"># org-level ruleset (conceptual)</span>
+</table></div>
+<div class="mark m-warn"><span class="tag">DIRECTLY TARGETS "COMMENT-AND-CONTROL" </span><p>Untrusted contributors trigger agent/automation workflows via issue or PR comments, injecting instructions into AI-assisted runs. Central policy prevents the trigger from ever reaching the runner — no per-workflow patching needed. <b>Status:</b> Public preview shipped <b>June 18, 2026</b>.</p></div>
+<pre class="code"><span class="c"># org-level ruleset (conceptual)</span>
 <span class="b">ruleset:</span> workflow-execution
   <span class="b">target:</span> workflows
   <span class="b">conditions:</span>
-    <span class="b">actor:</span> [human, dependabot[bot], my-deploy-app]
+<span class="b">actor:</span> [human, dependabot[bot], my-deploy-app]
     <span class="b">event:</span> [push, pull_request, workflow_dispatch]
-  <span class="c"># issue_comment / discussion events require actor allow-list</span></div>
-
-<h3 id="p18-h3" class="sec"><span class="n">06 /</span> D — Endpoint Monitoring &amp; Control</h3>
+  <span class="c"># issue_comment / discussion events require actor allow-list</span></pre>
+<h3 id="p19-h2" class="sec"><span class="n">06 /</span> D — Endpoint Monitoring &amp; Control</h3>
 <p class="body"><b>Actions data stream</b> — near-real-time telemetry for workflow runs, streamed to <span class="mono">Amazon S3</span> or <span class="mono">Azure Event Hub / Data Explorer</span>. Designed for SIEM/SOC consumption.</p>
 <ul class="tight">
 <li>Workflow execution metadata — status, duration, runner type</li>
@@ -994,98 +1102,86 @@ spec:
 <li>Network activity — planned; feeds the firewall policy workflow</li>
 </ul>
 <p class="body"><b>Native egress firewall (Layer 7)</b> — runs <em>outside</em> the GitHub-hosted runner VM, so code inside the runner cannot bypass it.</p>
-<table class="cmp"><tr><th>Mode</th><th>Behavior</th><th>Use when</th></tr>
+<div class="tblwrap"><table class="tb"><tr><th>Mode</th><th>Behavior</th><th>Use when</th></tr>
 <tr><td>Monitoring</td><td>Logs all outbound traffic</td><td>Building your allow-list without breakage</td></tr>
 <tr><td>Enforcement</td><td>Blocks requests outside the allow-list</td><td>After allow-list is validated in monitoring</td></tr>
-</table>
-<div class="kv"><b>ROLLOUT DESIGN —</b> Two-mode rollout is intentional: run in Monitoring to discover destinations, cut to Enforcement only when vetted. This is how GitHub avoids "enforcement day breaks every CI" — mirror the same staged adoption inside your org.</div>
+</table></div>
+<div class="mark m-key"><span class="tag">ROLLOUT DESIGN </span> Two-mode rollout is intentional: run in Monitoring to discover destinations, cut to Enforcement only when vetted. This is how GitHub avoids "enforcement day breaks every CI" — mirror the same staged adoption inside your org.</div>
 
-</div><div id="p19" class="page">
+<div class="folio"><span>📘 Platforms &amp; Roadmaps · <span class="by">By Nabawy</span></span><span class="fnum">— 19 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#s17">Prev</a> <a class="tlink" href="#s19">Next</a></span></div></div><div class="sheet" id="s19"><div class="pghead"><div class="hrow"><div><div class="kick">PLATFORMS</div><h1 class="t">Platform &amp; Timeline</h1></div><span class="hmeta">20</span></div></div>
 
-
-<h3 id="p19-h1" class="sec"><span class="n">07 /</span> Platform &amp; Runner Improvements — Shipped 2026</h3>
-<table class="cmp"><tr><th>Capability</th><th>Status</th><th>Why it matters</th></tr>
+<h3 id="p20-h1" class="sec"><span class="n">07 /</span> Platform &amp; Runner Improvements — Shipped 2026</h3>
+<div class="tblwrap"><table class="tb"><tr><th>Capability</th><th>Status</th><th>Why it matters</th></tr>
 <tr><td>Arm64 Linux + Windows runners (GitHub-hosted)</td><td><span style="color:var(--accent-dark);font-weight:700">GA — Sept 2026</span></td><td>Performance/cost/sustainability (real cases: 30 min x86 → ~4 min Arm64); Team + Enterprise Cloud</td></tr>
 <tr><td>Arm64 labels <span class="mono">ubuntu-22.04-arm</span>, <span class="mono">ubuntu-24.04-arm</span>, <span class="mono">windows-11-arm</span></td><td>GA incl. private repos</td><td>Native ARM without virtualization; public repos free</td></tr>
 <tr><td>Immutable Releases</td><td><span style="color:var(--accent-dark);font-weight:700">GA — all orgs/repos</span></td><td>Closes tag-mutability gap (the <span class="mono">trivy-action</span> attack vector)</td></tr>
 <tr><td>Build provenance / SBOM attestations (<span class="mono">actions/attest-build-provenance</span>)</td><td>Maturing as standard</td><td>SLSA-style provenance for release hardening</td></tr>
-</table>
-<div class="callout green"><h4 id="p19-h2">IMMUTABLE RELEASES — THE QUIET FIX</h4><p>Git tags (and therefore Releases) were historically mutable — an attacker could silently retarget a tag that workflows pinned. Immutable Releases makes that retarget detectable/blocked. Enable it at the org level; pair with dependency locking for end-to-end provenance.</p></div>
-
-<h3 id="p19-h3" class="sec"><span class="n">08 /</span> Adjacent Trend — AI / Agentic Workflows</h3>
+</table></div>
+<div class="mark m-ok"><span class="tag">IMMUTABLE RELEASES — THE QUIET FIX </span><p>Git tags (and therefore Releases) were historically mutable — an attacker could silently retarget a tag that workflows pinned. Immutable Releases makes that retarget detectable/blocked. Enable it at the org level; pair with dependency locking for end-to-end provenance.</p></div>
+<h3 id="p20-h2" class="sec"><span class="n">08 /</span> Adjacent Trend — AI / Agentic Workflows</h3>
 <p class="body">Copilot coding agent and custom agentic workflows now trigger directly from Actions (PR review agents, release-notes automation, "agent-of-day" patterns). This trend is <em>driving</em> the security roadmap — agent-triggered workflows responding to <span class="mono">issue</span> / <span class="mono">pull_request</span> / <span class="mono">discussion</span> events are exactly the attack surface that Workflow Execution Protections + scoped secrets are designed to contain. Community tooling (e.g., <span class="mono">gh-aw</span>) is fast-moving but outside GitHub's core roadmap.</p>
-
-<h3 id="p19-h4" class="sec"><span class="n">09 /</span> Summary Timeline (GitHub's announced windows)</h3>
-<table class="cmp"><tr><th>Feature</th><th>Public Preview</th><th>GA</th></tr>
+<h3 id="p20-h3" class="sec"><span class="n">09 /</span> Summary Timeline (GitHub's announced windows)</h3>
+<div class="tblwrap"><table class="tb"><tr><th>Feature</th><th>Public Preview</th><th>GA</th></tr>
 <tr><td>Workflow dependency locking</td><td>3–6 months from announcement</td><td>+6 months after preview</td></tr>
 <tr><td>Scoped secrets</td><td>3–6 months</td><td>+6 months</td></tr>
 <tr><td>Secret permission model (delegated roles)</td><td>3–6 months</td><td>TBD</td></tr>
 <tr><td>Workflow Execution Protections (rulesets)</td><td style="color:var(--accent-dark);font-weight:700">Shipped — Jun 18, 2026</td><td>TBD</td></tr>
 <tr><td>Actions data stream (S3/Event Hub)</td><td>3–6 months</td><td>+6–9 months</td></tr>
 <tr><td>Native egress firewall (L7)</td><td>6–9 months</td><td>TBD</td></tr>
-</table>
+</table></div>
 <p class="small">Timelines are GitHub's "X to Y months" estimates as of the initial roadmap announcement (Feb–Mar 2026). GitHub does not publish hard SLAs — re-verify via the Changelog.</p>
 
-</div><div id="p20" class="page">
+<div class="folio"><span>📘 Platforms &amp; Roadmaps · <span class="by">By Nabawy</span></span><span class="fnum">— 20 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#s18">Prev</a> <a class="tlink" href="#s20">Next</a></span></div></div><div class="sheet" id="s20"><div class="pghead"><div class="hrow"><div><div class="kick">PLATFORMS</div><h1 class="t">Failures &amp; Handoff</h1></div><span class="hmeta">21</span></div></div>
 
-
-<h3 id="p20-h1" class="sec"><span class="n">10 /</span> Architecture — How the Pillars Compose</h3>
+<h3 id="p21-h1" class="sec"><span class="n">10 /</span> Architecture — How the Pillars Compose</h3>
 <div class="vflow">
-<div class="fnode"><img src="../assets/icons/git/github.svg" alt="Workflow"><b>WORKFLOW YAML + DEPENDENCIES LOCKFILE</b><small>Every Action pinned to SHA+hash — transitive closure verified at queue time</small></div><div class="farrow">↓</div>
-<div class="fnode"><img src="../assets/icons/ci-cd/workflow.svg" alt="Policy"><b>RULESET GATE — ACTOR + EVENT</b><small>Org ruleset decides: can this actor fire this event on this workflow?</small></div><div class="farrow">↓</div>
-<div class="fnode"><img src="../assets/icons/general/database.svg" alt="Secrets"><b>SCOPED SECRET INJECTION</b><small>Only branch/env/trusted-workflow-scoped secrets enter the job</small></div><div class="farrow">↓</div>
-<div class="fnode"><img src="../assets/icons/general/server.svg" alt="Runner"><b>RUNNER (OUT-OF-VM FIREWALL)</b><small>L7 egress enforcement outside the VM · streams telemetry to S3/Event Hub</small></div><div class="farrow">↓</div>
-<div class="fnode"><img src="../assets/icons/general/package.svg" alt="Artifact"><b>ARTIFACT + ATTESTATION</b><small>Immutable release · SLSA provenance · SBOM</small></div>
+<div class="fnode"><img alt="Workflow" src="../assets/icons/git/github.svg"/></img><b>WORKFLOW YAML + DEPENDENCIES LOCKFILE</b><small>Every Action pinned to SHA+hash — transitive closure verified at queue time</small></div><div class="farrow">↓</div>
+<div class="fnode"><img alt="Policy" src="../assets/icons/ci-cd/workflow.svg"/></img><b>RULESET GATE — ACTOR + EVENT</b><small>Org ruleset decides: can this actor fire this event on this workflow?</small></div><div class="farrow">↓</div>
+<div class="fnode"><img alt="Secrets" src="../assets/icons/general/database.svg"/></img><b>SCOPED SECRET INJECTION</b><small>Only branch/env/trusted-workflow-scoped secrets enter the job</small></div><div class="farrow">↓</div>
+<div class="fnode"><img alt="Runner" src="../assets/icons/general/server.svg"/></img><b>RUNNER (OUT-OF-VM FIREWALL)</b><small>L7 egress enforcement outside the VM · streams telemetry to S3/Event Hub</small></div><div class="farrow">↓</div>
+<div class="fnode"><img alt="Artifact" src="../assets/icons/general/package.svg"/></img><b>ARTIFACT + ATTESTATION</b><small>Immutable release · SLSA provenance · SBOM</small></div>
 </div>
-
-<h3 id="p20-h2" class="sec"><span class="n">11 /</span> Failure Modes</h3>
+<h3 id="p21-h2" class="sec"><span class="n">11 /</span> Failure Modes</h3>
 <ul class="tight">
 <li><b>Enforcing the firewall without a monitoring phase</b> — you will deny legitimate package registries and prod endpoints. Always run Monitoring → validate allow-list → Enforcement.</li>
 <li><b>Keeping <span class="mono">secrets: inherit</span></b> — broad inheritance defeats scoped secrets. Grep org for <span class="mono">inherit</span> and convert to per-secret passing.</li>
 <li><b>Pinning top-level only</b> — transitive Actions remain unpinned until locking ships GA. Until then, vendor composite Actions or audit their inner <span class="mono">uses:</span>.</li>
 <li><b>Tag-pinning without Immutable Releases</b> — a tag can still be retargeted. Immutable Releases + SHA+hash locking are the pair.</li>
-<li><b>Leaving <span class="mono">issue_comment</span> triggers unrestricted</span></b> — with agentic workflows, this is a prompt-injection channel. Gate it with Workflow Execution Protections immediately (already in preview).</li>
+<li><b>Leaving <span class="mono">issue_comment</span> triggers unrestricted</b> — with agentic workflows, this is a prompt-injection channel. Gate it with Workflow Execution Protections immediately (already in preview).</li>
 </ul>
-<div class="qa"><span class="qq">Q:</span> Which pillar should we adopt first?<br><span class="aa">A:</span> Workflow Execution Protections (already in preview) + enable Immutable Releases today. Scoped secrets and dependency locking in preview next — enroll early. Firewall last, after a monitoring window.</div>
-
-<h3 id="p20-h3" class="sec"><span class="n">12 /</span> How to Track Progress</h3>
-<div class="terminal"><span class="c"># verify timelines — roadmaps are directional, Changelog is ground truth</span>
+<div class="qa"><span class="qn">Q3</span> <b>Which pillar should we adopt first?</b><br/></br><span class="ans">Workflow Execution Protections (already in preview) + enable Immutable Releases today. Scoped secrets and dependency locking in preview next — enroll early. Firewall last, after a monitoring window.</span></div>
+<h3 id="p21-h3" class="sec"><span class="n">12 /</span> How to Track Progress</h3>
+<pre class="code"><span class="c"># verify timelines — roadmaps are directional, Changelog is ground truth</span>
 <span class="b">roadmap</span>   → github.com/github/roadmap  <span class="c"># filter label:actions; stages: planned/beta/GA</span>
 <span class="b">changelog</span> → github.blog/changelog      <span class="c"># actual ship dates: Arm64 GA, Immutable GA, etc.</span>
-<span class="b">feedback</span>  → GitHub Public Feedback Discussions  <span class="c"># input on roadmap items</span></div>
-<div class="callout blue"><h4 id="p20-h4">WHEN TO ADOPT</h4><p>Preview features are for non-production evaluation and telemetry pipelines; gate production rollouts on GA + your own egress allow-list validation. The 3–6 month windows in the timeline table are GitHub's estimates, not commitments.</p></div>
-
-<h3 id="p20-h5" class="sec"><span class="n">13 /</span> Handoff</h3>
+<span class="b">feedback</span>  → GitHub Public Feedback Discussions  <span class="c"># input on roadmap items</span></pre>
+<div class="mark m-tip"><span class="tag">WHEN TO ADOPT </span><p>Preview features are for non-production evaluation and telemetry pipelines; gate production rollouts on GA + your own egress allow-list validation. The 3–6 month windows in the timeline table are GitHub's estimates, not commitments.</p></div>
+<h3 id="p21-h4" class="sec"><span class="n">13 /</span> Handoff</h3>
 <p class="body">GitHub's roadmap is not chasing a new pipeline syntax — it is making the existing YAML model's defaults trustworthy. Pair this with <b>the Jenkins roadmap</b> to understand the maturing self-hosted alternative, then continue to <b>CI/CD Decision Guide</b> for the side-by-side framework you can apply in your own org.</p>
 
+<div class="folio"><span>📘 Platforms &amp; Roadmaps · <span class="by">By Nabawy</span></span><span class="fnum">— 21 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#s19">Prev</a> <a class="tlink" href="#s21">Next</a></span></div></div><div class="sheet" id="s21"><div class="pghead"><div class="hrow"><div><div class="kick">PLATFORMS</div><h1 class="t">The Choice</h1></div><span class="hmeta">22</span></div></div>
 
-</div><div id="p21" class="page opener">
 
-
-<div class="ctitle">THE CHOICE</div>
-<p class="lede">Neither roadmap is chasing a new pipeline paradigm. Both consolidate around what already works — but they optimize for <em>different futures</em>. <em>Jenkins</em> is paying down debt to keep an existing install base healthy; <em>GitHub Actions</em> is locking down trust because it already won the adoption battle.</p>
-
-<h3 id="p21-h1" class="sec"><span class="n">01 /</span> Optimization Vectors</h3>
+<p class="lead">Neither roadmap is chasing a new pipeline paradigm. Both consolidate around what already works — but they optimize for <em>different futures</em>. <em>Jenkins</em> is paying down debt to keep an existing install base healthy; <em>GitHub Actions</em> is locking down trust because it already won the adoption battle.</p>
+<h3 id="p22-h1" class="sec"><span class="n">01 /</span> Optimization Vectors</h3>
 <div class="versus">
-<div class="vcard j"><b style="color:var(--red)">JENKINS</b><p><em>Survival &amp; modernization</em><br>Close UX/infra gaps on a mature, volunteer-driven install base</p></div>
+<div class="vcard j"><b style="color:var(--red)">JENKINS</b><p><em>Survival &amp; modernization</em><br/></br>Close UX/infra gaps on a mature, volunteer-driven install base</p></div>
 <div class="vmid">vs</div>
-<div class="vcard g"><b style="color:var(--blue)">GITHUB ACTIONS</b><p><em>Trust &amp; safety at scale</em><br>Make the simple YAML model secure by default at massive scale</p></div>
+<div class="vcard g"><b style="color:var(--blue)">GITHUB ACTIONS</b><p><em>Trust &amp; safety at scale</em><br/></br>Make the simple YAML model secure by default at massive scale</p></div>
 </div>
-<div class="kv"><b>ONE SENTENCE —</b> Jenkins reads like a deliberate open-source project <em>managing technical debt</em> (dark theme, Plugin Manager, Puppet→Ansible, JDK/Windows upgrades). Actions reads like a platform vendor <em>responding to real attacks</em> (dependency locking, scoped secrets, egress firewall). Neither is reinventing pipeline authoring — both are making the existing authoring safer and more observable.</div>
-
-<h3 id="p21-h2" class="sec"><span class="n">02 /</span> Governance Contrast</h3>
-<table class="cmp"><tr><th>Dimension</th><th>Jenkins</th><th>GitHub Actions</th></tr>
+<div class="mark m-key"><span class="tag">ONE SENTENCE </span> Jenkins reads like a deliberate open-source project <em>managing technical debt</em> (dark theme, Plugin Manager, Puppet→Ansible, JDK/Windows upgrades). Actions reads like a platform vendor <em>responding to real attacks</em> (dependency locking, scoped secrets, egress firewall). Neither is reinventing pipeline authoring — both are making the existing authoring safer and more observable.</div>
+<h3 id="p22-h2" class="sec"><span class="n">02 /</span> Governance Contrast</h3>
+<div class="tblwrap"><table class="tb"><tr><th>Dimension</th><th>Jenkins</th><th>GitHub Actions</th></tr>
 <tr><td>Governance</td><td>Community-driven, volunteer-dependent (CD Foundation); no committed dates</td><td>Vendor-driven (Microsoft/GitHub); estimated windows, still no hard SLAs</td></tr>
 <tr><td>Headline 2026</td><td>Incremental UX + infra overhaul</td><td>Supply-chain security hardening</td></tr>
 <tr><td>Cadence</td><td>Weekly · LTS every 4 weeks · advisories as needed</td><td>Continuous rollout (betas/GAs via Changelog)</td></tr>
 <tr><td>Architecture change</td><td>None planned — controller/agent, Groovy DSL stays</td><td>None planned — YAML + new <span class="mono">dependencies:</span> lockfile</td></tr>
-</table>
+</table></div>
 
-</div><div id="p22" class="page">
+<div class="folio"><span>📘 Platforms &amp; Roadmaps · <span class="by">By Nabawy</span></span><span class="fnum">— 22 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#s20">Prev</a> <a class="tlink" href="#s22">Next</a></span></div></div><div class="sheet" id="s22"><div class="pghead"><div class="hrow"><div><div class="kick">PLATFORMS</div><h1 class="t">Side-by-Side</h1></div><span class="hmeta">23</span></div></div>
 
-
-<h3 id="p22-h1" class="sec"><span class="n">03 /</span> The Two Roadmaps — Full Dimension Table</h3>
-<table class="cmp"><tr><th>Dimension</th><th>Jenkins</th><th>GitHub Actions</th></tr>
+<h3 id="p23-h1" class="sec"><span class="n">03 /</span> The Two Roadmaps — Full Dimension Table</h3>
+<div class="tblwrap"><table class="tb"><tr><th>Dimension</th><th>Jenkins</th><th>GitHub Actions</th></tr>
 <tr><td>Biggest near-term unlock</td><td>Plugin Manager UI (exp.), UI/UX modernization, Puppet→Ansible</td><td>Arm64 GA, Immutable Releases GA, Execution Protections (rulesets)</td></tr>
 <tr><td>Biggest risk addressed</td><td>Aging UI/plugin ecosystem, infra debt (Puppet, expiring MSI cert)</td><td>Supply-chain compromise of third-party Actions</td></tr>
 <tr><td>Extensibility</td><td>~1,800 plugins — huge, uneven maintenance</td><td>~20k Marketplace Actions — huge, same trust problem being solved</td></tr>
@@ -1094,10 +1190,9 @@ spec:
 <tr><td>Release model</td><td>Train (weekly/LTS)</td><td>Platform rollout (beta → GA)</td></tr>
 <tr><td>Plugin/Action provenance</td><td>Manager UX revamp</td><td>Dependency locking + Immutable Releases + attestations</td></tr>
 <tr><td>Security posture</td><td>Hardening via Script Security, JCasC</td><td>Hardening via scoped secrets, egress firewall</td></tr>
-</table>
-
-<h3 id="p22-h2" class="sec"><span class="n">04 /</span> Timeline Realities</h3>
-<div class="terminal"><span class="c"># Jenkins horizons — read as priorities, not quarters</span>
+</table></div>
+<h3 id="p23-h2" class="sec"><span class="n">04 /</span> Timeline Realities</h3>
+<pre class="code"><span class="c"># Jenkins horizons — read as priorities, not quarters</span>
 Released  <span class="g">●</span> Dark theme, tables→divs, JEP-229, Temurin, multi-arch images
 Preview   <span class="b">●</span> Plugin Manager UI (2.552+), Pipeline-as-YAML, Jenkinsfile Runner
 Current   <span class="a">●</span> Look &amp; Feel, Script Security approvals, CloudEvents, Puppet→Ansible
@@ -1108,13 +1203,12 @@ Future    <span class="c">●</span> Full UI rework, JCasC pluggable config, Gra
 Preview shipped  <span class="g">●</span> Workflow Execution Protections (Jun 18 2026)
 GA shipped      <span class="g">●</span> Arm64 runners, Immutable Releases
 Preview 3–6 mo  <span class="b">●</span> Dependency locking, scoped secrets, data stream
-Preview 6–9 mo  <span class="b">●</span> Native egress firewall (monitoring → enforcement)</div>
-<div class="callout amber"><h4 id="p22-h3">BOTH ARE DIRECTIONAL</h4><p>Jenkins warns that Near/Future depend on contributor bandwidth; GitHub publishes "3–6 months" estimates, not commitments. Treat every non-GA date as a <em>sequencing hint</em> and re-verify against <span class="mono">roadmap.yml</span> and the GitHub Changelog before you plan migrations around them.</p></div>
+Preview 6–9 mo  <span class="b">●</span> Native egress firewall (monitoring → enforcement)</pre>
+<div class="mark m-warn"><span class="tag">BOTH ARE DIRECTIONAL </span><p>Jenkins warns that Near/Future depend on contributor bandwidth; GitHub publishes "3–6 months" estimates, not commitments. Treat every non-GA date as a <em>sequencing hint</em> and re-verify against <span class="mono">roadmap.yml</span> and the GitHub Changelog before you plan migrations around them.</p></div>
 
-</div><div id="p23" class="page">
+<div class="folio"><span>📘 Platforms &amp; Roadmaps · <span class="by">By Nabawy</span></span><span class="fnum">— 23 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#s21">Prev</a> <a class="tlink" href="#s23">Next</a></span></div></div><div class="sheet" id="s23"><div class="pghead"><div class="hrow"><div><div class="kick">PLATFORMS</div><h1 class="t">Decision Framework</h1></div><span class="hmeta">24</span></div></div>
 
-
-<h3 id="p23-h1" class="sec"><span class="n">05 /</span> Choose Jenkins When</h3>
+<h3 id="p24-h1" class="sec"><span class="n">05 /</span> Choose Jenkins When</h3>
 <ul class="tight">
 <li>You need <b>on-prem / air-gapped</b> execution (regulated, government, no egress).</li>
 <li>Build/deploy logic is highly <b>custom, heterogeneous, or legacy</b> — multiple SCMs, mixed Windows/Linux/mainframe, non-GitHub source.</li>
@@ -1122,8 +1216,7 @@ Preview 6–9 mo  <span class="b">●</span> Native egress firewall (monitoring 
 <li>You need <b>very fine-grained control</b> over execution engine, distributed builds, custom scheduling.</li>
 <li>Cost model must be <b>zero marginal cost per build minute</b> (owned hardware).</li>
 </ul>
-
-<h3 id="p23-h2" class="sec"><span class="n">06 /</span> Choose GitHub Actions When</h3>
+<h3 id="p24-h2" class="sec"><span class="n">06 /</span> Choose GitHub Actions When</h3>
 <ul class="tight">
 <li>Source already lives on <b>GitHub</b> — single strongest signal; PR/Issues/Checks integration is hard to replicate.</li>
 <li>You want <b>low-maintenance SaaS CI</b> with minimal infra ownership.</li>
@@ -1131,17 +1224,15 @@ Preview 6–9 mo  <span class="b">●</span> Native egress firewall (monitoring 
 <li>You want the <b>newest supply-chain security defaults</b> (locking, scoped secrets, egress firewall) as they roll out in 2026.</li>
 <li>You are building <b>agentic / Copilot-assisted</b> workflows and want native platform support.</li>
 </ul>
-
-<h3 id="p23-h3" class="sec"><span class="n">07 /</span> Consider Both Together (Common in Larger Orgs)</h3>
-<div class="kv"><b>MIGRATING</b> — Run legacy jobs on Jenkins while new services onboard to Actions. <b>SPECIALIZED</b> — Jenkins for on-prem workloads (hardware-in-the-loop, mainframe) while Actions handles standard app CI. <b>ORCHESTRATED</b> — Actions as the trigger/orchestration layer (PR gating, release tagging) calling Jenkins as a specialized executor via webhook/API.</div>
-<div class="terminal"><span class="c"># hybrid topology (conceptual)</span>
+<h3 id="p24-h3" class="sec"><span class="n">07 /</span> Consider Both Together (Common in Larger Orgs)</h3>
+<div class="mark m-key"><span class="tag">MIGRATING </span> — Run legacy jobs on Jenkins while new services onboard to Actions. <b>SPECIALIZED</b> — Jenkins for on-prem workloads (hardware-in-the-loop, mainframe) while Actions handles standard app CI. <b>ORCHESTRATED</b> — Actions as the trigger/orchestration layer (PR gating, release tagging) calling Jenkins as a specialized executor via webhook/API.</div>
+<pre class="code"><span class="c"># hybrid topology (conceptual)</span>
 <span class="b">PR / push</span> → <span class="b">GitHub Actions</span> (lint, test, gate) → <span class="a">if specialized</span> →
   webhook → <span class="r">Jenkins controller</span> (hardware-in-the-loop, mainframe, air-gapped build)
         ↘ <span class="a">else</span> → <span class="b">Actions runners</span> (build, SBOM, deploy to cloud)
-<span class="c"># two systems, one lifecycle: SOURCE → PIPELINE → VALIDATION → ARTIFACT → RELEASE</span></div>
-
-<h3 id="p23-h4" class="sec"><span class="n">08 /</span> Gut-Check Table</h3>
-<table class="cmp"><tr><th>If your priority is…</th><th>Lean toward</th></tr>
+<span class="c"># two systems, one lifecycle: SOURCE → PIPELINE → VALIDATION → ARTIFACT → RELEASE</span></pre>
+<h3 id="p24-h4" class="sec"><span class="n">08 /</span> Gut-Check Table</h3>
+<div class="tblwrap"><table class="tb"><tr><th>If your priority is…</th><th>Lean toward</th></tr>
 <tr><td>Regulatory / air-gapped compliance</td><td style="color:var(--red);font-weight:700">Jenkins</td></tr>
 <tr><td>Fastest time-to-first-pipeline</td><td style="color:var(--blue);font-weight:700">GitHub Actions</td></tr>
 <tr><td>Total control over build infra</td><td style="color:var(--red);font-weight:700">Jenkins</td></tr>
@@ -1152,59 +1243,52 @@ Preview 6–9 mo  <span class="b">●</span> Native egress firewall (monitoring 
 <tr><td>Best-in-class supply-chain security defaults (2026)</td><td style="color:var(--blue);font-weight:700">GitHub Actions</td></tr>
 <tr><td>Absolute plugin count (breadth, older)</td><td>Jenkins (~1,800)</td></tr>
 <tr><td>Freshest, best-maintained integrations</td><td>GitHub Actions (~20k Marketplace)</td></tr>
-</table>
+</table></div>
 
-</div><div id="p24" class="page">
+<div class="folio"><span>📘 Platforms &amp; Roadmaps · <span class="by">By Nabawy</span></span><span class="fnum">— 24 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#s22">Prev</a> <a class="tlink" href="#s24">Next</a></span></div></div><div class="sheet" id="s24"><div class="pghead"><div class="hrow"><div><div class="kick">PLATFORMS</div><h1 class="t">Convergence</h1></div><span class="hmeta">25</span></div></div>
 
-
-<h3 id="p24-h1" class="sec"><span class="n">09 /</span> Where They Converge</h3>
+<h3 id="p25-h1" class="sec"><span class="n">09 /</span> Where They Converge</h3>
 <p class="body">Three shared directions — regardless of which platform you pick today, expect the ecosystem to keep tightening along these axes through 2026–27:</p>
 <div class="vflow">
-<div class="fnode"><img src="../assets/icons/security/shield.svg" alt="Security"><b>SECURITY-AS-DEFAULT</b><small>Jenkins: Script Security approvals, JCasC · Actions: scoped secrets, egress firewall — both tightening default trust</small></div><div class="farrow">↓</div>
-<div class="fnode"><img src="../assets/icons/general/package.svg" alt="Provenance"><b>PROVENANCE &amp; TRUST</b><small>Jenkins: Plugin Manager UX revamp · Actions: dependency locking, Immutable Releases, SBOM attestations — same problem, different architectures</small></div><div class="farrow">↓</div>
-<div class="fnode"><img src="../assets/icons/monitoring/activity.svg" alt="Observe"><b>OBSERVABILITY OVER REINVENTION</b><small>Neither platform replaces YAML/Groovy; both make the existing authoring model safer and more observable rather than inventing new syntax</small></div>
+<div class="fnode"><img alt="Security" src="../assets/icons/security/shield.svg"/></img><b>SECURITY-AS-DEFAULT</b><small>Jenkins: Script Security approvals, JCasC · Actions: scoped secrets, egress firewall — both tightening default trust</small></div><div class="farrow">↓</div>
+<div class="fnode"><img alt="Provenance" src="../assets/icons/general/package.svg"/></img><b>PROVENANCE &amp; TRUST</b><small>Jenkins: Plugin Manager UX revamp · Actions: dependency locking, Immutable Releases, SBOM attestations — same problem, different architectures</small></div><div class="farrow">↓</div>
+<div class="fnode"><img alt="Observe" src="../assets/icons/monitoring/activity.svg"/></img><b>OBSERVABILITY OVER REINVENTION</b><small>Neither platform replaces YAML/Groovy; both make the existing authoring model safer and more observable rather than inventing new syntax</small></div>
 </div>
-<div class="callout green"><h4 id="p24-h2">THE TAKEAWAY</h4><p>If you choose Jenkins, budget for steady modernization (UI, infra, JDK) and harden Script Security now. If you choose Actions, enroll early in Execution Protections and Immutable Releases, and plan a staged rollout for scoped secrets + egress firewall. If you run both, use Actions to <em>gate</em> and Jenkins to <em>execute</em> the jobs only Jenkins can run.</p></div>
-
-<h3 id="p24-h3" class="sec"><span class="n">10 /</span> Suggested Adoption Sequence</h3>
-<table class="cmp"><tr><th>Quarter (illustrative)</th><th>Jenkins track</th><th>Actions track</th></tr>
+<div class="mark m-ok"><span class="tag">THE TAKEAWAY </span><p>If you choose Jenkins, budget for steady modernization (UI, infra, JDK) and harden Script Security now. If you choose Actions, enroll early in Execution Protections and Immutable Releases, and plan a staged rollout for scoped secrets + egress firewall. If you run both, use Actions to <em>gate</em> and Jenkins to <em>execute</em> the jobs only Jenkins can run.</p></div>
+<h3 id="p25-h2" class="sec"><span class="n">10 /</span> Suggested Adoption Sequence</h3>
+<div class="tblwrap"><table class="tb"><tr><th>Quarter (illustrative)</th><th>Jenkins track</th><th>Actions track</th></tr>
 <tr><td>Now</td><td>LTS upgrades; qualify Java 21 mandatory; adopt Script Security granular approvals</td><td>Enable Immutable Releases (org); enable Execution Protections preview; audit <span class="mono">secrets: inherit</span></td></tr>
 <tr><td>Next</td><td>Watch Plugin Manager UI deltas; qualify JDK 25 + Win2025</td><td>Enroll dependency locking + scoped secrets previews; start data-stream SIEM plumbing</td></tr>
 <tr><td>Later</td><td>Evaluate Pipeline-as-YAML (Preview) for new repos</td><td>Run egress firewall in <b>Monitoring</b>, validate allow-list, then <b>Enforcement</b></td></tr>
-</table>
+</table></div>
 <p class="small">Sequencing is guidance only — calendar it against your own risk + change windows, not against the roadmap's directional estimates.</p>
 
-</div><div id="p25" class="page">
+<div class="folio"><span>📘 Platforms &amp; Roadmaps · <span class="by">By Nabawy</span></span><span class="fnum">— 25 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#s23">Prev</a> <a class="tlink" href="#s25">Next</a></span></div></div><div class="sheet" id="s25"><div class="pghead"><div class="hrow"><div><div class="kick">PLATFORMS</div><h1 class="t">Failures &amp; Handoff</h1></div><span class="hmeta">26</span></div></div>
 
-
-<h3 id="p25-h1" class="sec"><span class="n">11 /</span> Failure Modes — Decision Edition</h3>
-<div class="callout red"><h4 id="p25-h2">MIGRATING FOR THE ROADMAP INSTEAD OF YOUR CONSTRAINTS</h4><p>The most expensive mistake: moving a working Jenkins estate to Actions (or vice versa) because a roadmap looks shinier, without scoring your actual constraints — air-gap, legacy SCM, secret posture, team skill, cost at volume. Score the gut-check table first; only migrate where the signal is clear.</p></div>
+<h3 id="p26-h1" class="sec"><span class="n">11 /</span> Failure Modes — Decision Edition</h3>
+<div class="mark m-fail"><span class="tag">MIGRATING FOR THE ROADMAP INSTEAD OF YOUR CONSTRAINTS </span><p>The most expensive mistake: moving a working Jenkins estate to Actions (or vice versa) because a roadmap looks shinier, without scoring your actual constraints — air-gap, legacy SCM, secret posture, team skill, cost at volume. Score the gut-check table first; only migrate where the signal is clear.</p></div>
 <ul class="tight">
 <li><b>Treating Marketplace/plugin counts as quality</b> — ~1,800 Jenkins plugins and ~20k Actions both include unmaintained entries. Evaluate <em>specific</em> plugins/Actions for ownership, provenance, and update freshness — especially the ones that will touch secrets or deploys.</li>
 <li><b>Adopting egress firewall in Enforcement without a monitoring phase</b> — you will deny real registries. Monitoring first is not optional.</li>
 <li><b>Leaving <span class="mono">if: actor != '...'</span> sprawl instead of rulesets</b> — central policy is the durable fix for Comment-and-Control; per-workflow <span class="mono">if:</span> guards rot.</li>
 <li><b>Assuming "Pipeline as YAML" means Groovy is deprecated</b> — it's additive and still in Preview; don't gate adoption on a horizon labeled Future.</li>
 </ul>
-<div class="qa"><span class="qq">Q:</span> We already run Jenkins well — should we add Actions?<br><span class="aa">A:</span> Only if you score high on the Actions signals (code on GitHub, SaaS desire, supply-chain defaults, agentic work) <em>or</em> need a hybrid split (Actions gates standard app CI, Jenkins keeps specialized builds). Otherwise, invest in the Jenkins modernization path — LTS hygiene, JCasC, Script Security.</div>
-
-<h3 id="p25-h3" class="sec"><span class="n">12 /</span> Checklist — Before You Choose</h3>
-<div class="kv"><b>SCORE —</b> Fill the gut-check table with your stakeholders; require agreement on 3+ rows before choosing. <b>PROVE —</b> Run a one-repo pilot on the non-incumbent platform before org-wide commitment. <b>VERIFY —</b> Check live roadmaps (<span class="mono">roadmap.yml</span> + Changelog) the week you decide — not this PDF's snapshot. <b>HYBRID GATE —</b> If both, define the boundary contract early: which system gates, which executes, and how provenance flows across the boundary.</div>
-
-<h3 id="p25-h4" class="sec"><span class="n">13 /</span> Sources &amp; How to Stay Current</h3>
-<div class="terminal"><span class="c"># Jenkins (live)</span>
+<div class="qa"><span class="qn">Q4</span> <b>We already run Jenkins well — should we add Actions?</b><br/></br><span class="ans">Only if you score high on the Actions signals (code on GitHub, SaaS desire, supply-chain defaults, agentic work) <em>or</em> need a hybrid split (Actions gates standard app CI, Jenkins keeps specialized builds). Otherwise, invest in the Jenkins modernization path — LTS hygiene, JCasC, Script Security.</span></div>
+<h3 id="p26-h2" class="sec"><span class="n">12 /</span> Checklist — Before You Choose</h3>
+<div class="mark m-key"><span class="tag">SCORE </span> Fill the gut-check table with your stakeholders; require agreement on 3+ rows before choosing. <b>PROVE —</b> Run a one-repo pilot on the non-incumbent platform before org-wide commitment. <b>VERIFY —</b> Check live roadmaps (<span class="mono">roadmap.yml</span> + Changelog) the week you decide — not this PDF's snapshot. <b>HYBRID GATE —</b> If both, define the boundary contract early: which system gates, which executes, and how provenance flows across the boundary.</div>
+<h3 id="p26-h3" class="sec"><span class="n">13 /</span> Sources &amp; How to Stay Current</h3>
+<pre class="code"><span class="c"># Jenkins (live)</span>
 <span class="b">roadmap.yml</span>  → github.com/jenkins-infra/jenkins.io/content/_data/roadmap/roadmap.yml
 <span class="b">archive.yml</span>  → .../roadmap/archive.yml  <span class="c"># completed/withdrawn</span>
 <span class="b">JEP-14</span>       → github.com/jenkinsci/jep/tree/master/jep/14
 <span class="c"># GitHub Actions (live)</span>
 <span class="b">roadmap</span>    → github.com/github/roadmap  <span class="c"># label:actions</span>
 <span class="b">changelog</span>  → github.blog/changelog  <span class="c"># ship dates</span>
-<span class="b">feedback</span>   → GitHub Public Feedback Discussions</div>
-
-<h3 id="p25-h5" class="sec"><span class="n">14 /</span> Handoff</h3>
+<span class="b">feedback</span>   → GitHub Public Feedback Discussions</pre>
+<h3 id="p26-h4" class="sec"><span class="n">14 /</span> Handoff</h3>
 <p class="body">The roadmaps close the "strategy" arc — you now hold the 2026 context for both platforms and a framework for choosing between them. For implementation, return to the preceding chapters: <b>the platform roadmaps</b> for platform detail, or jump to the <b>the Labs Handbook</b> to build and gate a real pipeline. The decision is yours; the verification is continuous.</p>
 
-
-</div>
+<div class="folio"><span>📘 Platforms &amp; Roadmaps · <span class="by">By Nabawy</span></span><span class="fnum">— 26 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#s24">Prev</a> <a class="tlink" href="#toc">▲ Top</a></span></div></div>
 
 <div class="relatedbox"><h4>Related books</h4><ul class="relgrid"><li class="relcard" data-cat="Jenkins" style="--cat:#22B8CF"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 8h10M7 12h10M7 16h10"/><circle cx="12" cy="12" r="9" opacity=".35"/></svg></span><span class="rel-main"><a href="jenkins-complete.html">Jenkins Complete</a><span class="rel-meta">345 min · <span class="difbadge int">Int</span></span><span class="rel-why">→ Prerequisite</span></span></li><li class="relcard" data-cat="Build" style="--cat:#F5A524"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 6l3.5 3.5-8 8H6v-4l8.5-8z"/><path d="M11 9l3 3"/><path d="M13 6l3-3 3 3-3 3-3-3z" opacity=".5"/></svg></span><span class="rel-main"><a href="build-artifacts.html">Pipelines, Build, Test &amp; Artifacts</a><span class="rel-meta">130 min · <span class="difbadge int">Int</span></span><span class="rel-why">→ Prerequisite</span></span></li><li class="relcard" data-cat="Reference" style="--cat:#64748B"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 4h8a2 2 0 012 2v12a2 2 0 01-2 2H6z"/><path d="M6 8h6"/><path d="M6 12h6"/><path d="M6 16h4" opacity=".6"/></svg></span><span class="rel-main"><a href="cheatsheet.html">Command Cheatsheet</a><span class="rel-meta">15 min · <span class="difbadge beg">Beg</span></span><span class="rel-why">→ More to explore</span></span></li><li class="relcard" data-cat="Deliver" style="--cat:#F472B6"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l4 6-4 12-4-12z"/><path d="M8 9h8"/><path d="M10 3v4M14 3v4" opacity=".6"/><circle cx="12" cy="9" r="1.2" fill="currentColor" stroke="none"/></svg></span><span class="rel-main"><a href="deliver-operate.html">Delivery, Deployment &amp; Operations</a><span class="rel-meta">255 min · <span class="difbadge int">Int</span></span><span class="rel-why">→ More to explore</span></span></li></ul></div>
 <div class="chapnav"><span></span><span></span></div>
