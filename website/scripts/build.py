@@ -157,6 +157,11 @@ h2.sec{font-size:24px;font-weight:500;letter-spacing:-.24px;margin:64px 0 4px;co
 footer{border-top:1px solid var(--line-soft);margin-top:64px;color:var(--mut);font-size:13px}
 footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .empty{background:var(--card);border:1px dashed var(--line);border-radius:var(--radius);padding:30px;text-align:center;color:var(--mut)}
+.empty p{margin:0 0 14px;font-size:14px}
+.empty-cats{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:0 0 16px}
+.empty .chip{font-family:var(--mono);font-size:12px;display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:9999px;border:1px solid var(--line);background:var(--base);color:var(--mut);text-decoration:none}
+.empty .chip:hover{border-color:var(--brand);color:var(--brand)}
+.empty a{color:var(--brand);font-weight:600}
 /* collection: shelf rows */
 .collectlabel{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--mut);margin:56px 0 20px}
 .jumpnav{display:flex;gap:8px;flex-wrap:wrap;margin:-6px 0 30px}
@@ -1054,10 +1059,12 @@ def build_map_page(books, output_dir, paths_html=""):
     # Build blocks html
     blocks_html = ""
     detail_html = ""
+    cat_chips = []
     for cat in cats_sorted:
         bs = sorted(bycat[cat], key=lambda x: (DIFF_RANK.get(x["difficulty"],9), x["title"].lower()))
         cnt = len(bs)
         slug = _slug_cat(cat)
+        cat_chips.append((slug, cat))
         color = CAT_COLORS_MAP.get(cat, "#18E299")
         icon = CATEGORY_ICONS.get(cat, CATEGORY_ICONS["Reference"])
         diff_cnt = Counter(b["difficulty"] for b in bs)
@@ -1136,6 +1143,7 @@ def build_map_page(books, output_dir, paths_html=""):
             f'<div class="map-cards">{cards}</div>'
             f'</section>'
         )
+    empty_chips = "".join(f'<a class="chip" href="#{s}">{html.escape(c)}</a>' for s, c in cat_chips)
     n_paths = len({b.get("path", "") for b in books if b.get("path")})
     n_hours = sum(b.get("time_minutes", 30) for b in books) // 60
     ranked = [b for b in books if b.get("difficulty") in DIFF_RANK]
@@ -1193,7 +1201,7 @@ def build_map_page(books, output_dir, paths_html=""):
 <div class="map-grid" id="mapGrid" role="list" aria-label="Knowledge structure map">{blocks_html}</div>
 {paths_html}
 <div id="mapDetails">{detail_html}</div>
-<div class="empty" id="mapEmpty" style="display:none">No category matches this link. <a href="index.html">Back home</a></div>
+<div class="empty" id="mapEmpty" style="display:none"><p>That link doesn't match a category. Jump straight to one:</p><div class="empty-cats">{empty_chips}</div><a href="index.html">Back to overview</a></div>
 </div>
 <footer><div class="wrap"><span>CICD BY Nabawy</span><span><a href="index.html">Home</a> · <a href="roadmap/">Roadmap</a> · <a href="glossary.html">Glossary</a> · v2.1 Sep 2026</span></div></footer>
 <script>
