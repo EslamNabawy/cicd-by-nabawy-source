@@ -515,32 +515,45 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
 /* — HOME: SIGNAL contents — */
 .hm-hero{position:relative;border:2px solid var(--line);border-radius:18px;background:var(--card);padding:38px 32px 32px;margin:26px 0 8px;overflow:hidden;box-shadow:var(--shadow-lift)}
 .hm-hero::before{content:'';position:absolute;top:0;left:0;right:0;height:7px;background:linear-gradient(90deg,var(--brand) 0 55%,#4f46e5 55% 100%)}
+.hm-hero::after{content:'';position:absolute;top:-120px;right:-120px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle at center,color-mix(in srgb,var(--brand) 14%,transparent) 0%,transparent 70%);pointer-events:none}
+.hm-hero .hm-sub{position:relative}
 .hm-band{display:flex;justify-content:center;gap:5px;margin-bottom:18px}
 .hm-band i{width:9px;border-radius:3px 3px 0 0;background:var(--brand);opacity:.85;display:block}
 .hm-kick{font-family:var(--mono);font-size:11px;font-weight:800;letter-spacing:.3em;text-transform:uppercase;color:var(--brand);text-align:center}
 .hm-hero h1{font-size:clamp(34px,5vw,54px);font-weight:800;letter-spacing:-1px;text-align:center;margin:10px 0 4px}
 .hm-sub{text-align:center;color:var(--mut);font-size:16px;margin:0 auto;max-width:560px}
 .hm-vols{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:22px}
-.hm-vol{display:inline-flex;align-items:center;gap:8px;border:2px solid var(--line);border-radius:10px;background:var(--bg);padding:8px 14px;font-size:13px;font-weight:700;color:var(--ink);text-decoration:none;transition:border-color .15s,transform .15s}
+.hm-vol{display:inline-flex;align-items:center;gap:9px;border:2px solid var(--line);border-radius:10px;background:var(--bg);padding:9px 16px;font-size:13px;font-weight:700;color:var(--ink);text-decoration:none;transition:border-color .15s,transform .15s,box-shadow .15s;box-shadow:var(--shadow-btn)}
+.hm-vol:hover{border-color:var(--cat);transform:translateY(-2px);box-shadow:var(--shadow-lift)}
 .hm-vol i{width:10px;height:10px;border-radius:3px;background:var(--cat);flex:none}
-.hm-vol:hover{border-color:var(--cat);transform:translateY(-2px)}
-.hm-label{display:flex;align-items:baseline;gap:10px;font-family:var(--mono);font-size:11px;font-weight:800;letter-spacing:.15em;color:var(--mut);margin:34px 0 4px}
+.hm-vol .vc{font-family:var(--mono);font-size:10px;color:var(--mut);font-weight:600}
+.hm-label{display:flex;align-items:baseline;gap:12px;font-family:var(--mono);font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);margin:38px 0 6px;padding-top:8px;border-top:1px solid var(--line-soft)}
 .hm-label::after{content:'';flex:1;border-bottom:2px dotted var(--line)}
-.hm-list{display:grid;margin:6px 0 8px}
-.hm-row{display:flex;align-items:baseline;gap:12px;padding:13px 8px;text-decoration:none;color:var(--ink);border-bottom:1px solid var(--line-soft)}
+.hm-label .lc{color:var(--cat)}
+.hm-list{display:flex;flex-direction:column;margin:6px 0 14px;max-width:880px}
+.hm-row{display:flex;align-items:center;gap:14px;padding:14px 12px;text-decoration:none;color:var(--ink);border-bottom:1px solid var(--line-soft);background:var(--bg);transition:background .12s,border-color .12s,transform .12s}
 .hm-row:first-child{border-top:1px solid var(--line-soft)}
-.hm-row:hover{background:var(--bg2)}
+.hm-row:hover{background:var(--bg2);border-color:var(--line);transform:translateX(3px)}
 .hm-row:hover .hm-cat{color:var(--cat)}
-.hm-num{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--cat);width:30px;flex:none}
-.hm-main{min-width:0}
-.hm-cat{display:block;font-size:16.5px;font-weight:800;letter-spacing:-.2px}
-.hm-desc{display:block;font-size:13px;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.hm-dots{flex:1;border-bottom:2px dotted var(--line);transform:translateY(-4px);min-width:16px}
-.hm-meta{font-family:var(--mono);font-size:11.5px;color:var(--mut);white-space:nowrap}
-.hm-go{color:var(--cat);font-weight:800;opacity:0;transition:opacity .15s}
-.hm-row:hover .hm-go,.hm-row:focus-visible .hm-go{opacity:1}
-.hm-row:focus-visible{outline:2px solid var(--cat);outline-offset:2px;border-radius:8px}
-@media(max-width:600px){.hm-desc{display:none}.hm-vols{gap:8px}.hm-hero{padding:30px 18px 26px}.hm-meta{font-size:10.5px}}
+.hm-row:hover .hm-ico{background:color-mix(in srgb,var(--cat) 22%,var(--bg2));color:var(--cat);transform:rotate(-6deg)}
+.hm-row:focus-visible{outline:2px solid var(--cat);outline-offset:2px;border-radius:10px}
+.hm-num{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--cat);width:26px;flex:none;text-align:right;opacity:.85}
+.hm-ico{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--cat) 12%,var(--bg2));border:1px solid color-mix(in srgb,var(--cat) 18%,var(--line-soft));color:var(--cat);flex:none;transition:background .12s,transform .12s}
+.hm-ico svg{width:22px;height:22px;display:block}
+.hm-main{min-width:0;flex:1}
+.hm-kicker{display:block;font-family:var(--mono);font-size:10px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--cat);margin-bottom:2px}
+.hm-cat{display:block;font-size:17px;font-weight:800;letter-spacing:-.25px;line-height:1.15}
+.hm-desc{display:block;font-size:13px;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
+.hm-pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.hm-dots{flex:1;border-bottom:2px dotted var(--line);transform:translateY(-4px);min-width:16px;opacity:.5}
+.hm-go{color:var(--cat);font-weight:800;font-size:18px;opacity:0;transition:opacity .15s,transform .15s;flex:none}
+.hm-row:hover .hm-go,.hm-row:focus-visible .hm-go{opacity:1;transform:translateX(2px)}
+.hm-row.hm-series{background:linear-gradient(180deg,color-mix(in srgb,#18E299 10%,var(--bg)) 0%,var(--bg) 45%);border-color:color-mix(in srgb,#18E299 30%,var(--line))}
+.hm-row.hm-series .hm-ico{background:color-mix(in srgb,#18E299 22%,var(--bg2));color:#18E299}
+.map-pill.dif-beginner{background:color-mix(in srgb,#2ECC71 16%,var(--bg2));border-color:color-mix(in srgb,#2ECC71 30%,var(--line-soft));color:#2ECC71}
+.map-pill.dif-intermediate{background:color-mix(in srgb,#F5A524 16%,var(--bg2));border-color:color-mix(in srgb,#F5A524 30%,var(--line-soft));color:#F5A524}
+.map-pill.dif-advanced{background:color-mix(in srgb,#E5484D 16%,var(--bg2));border-color:color-mix(in srgb,#E5484D 30%,var(--line-soft));color:#E5484D}
+@media(max-width:600px){.hm-desc{display:none}.hm-ico{width:34px;height:34px}.hm-ico svg{width:18px;height:18px}.hm-pills{display:none}.hm-vols{gap:8px}.hm-hero{padding:30px 18px 26px}.hm-meta{font-size:10.5px}}
 .map-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--cat) 12%,var(--bg2));border:1px solid color-mix(in srgb,var(--cat) 18%,var(--line-soft));color:var(--cat);flex:none;box-shadow:inset 0 1px 0 rgba(255,255,255,.6)}
 [data-theme=dark] .map-icon,[data-theme=dim] .map-icon{box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
 .map-icon svg{width:28px;height:28px;display:block}
@@ -950,7 +963,7 @@ def build_map_page(books, output_dir, paths_html=""):
     # deterministic order: CAT_ORDER first, then rest alpha; no hardcoded count
     CAT_ORDER = ["Start Here","Build","Deliver","Observability","Jenkins","Platforms","Labs","Reference"]
     cats_sorted = [c for c in CAT_ORDER if c in bycat] + sorted([c for c in bycat if c not in CAT_ORDER])
-    shown_cats = [c for c in cats_sorted if c != "Start Here"]
+    shown_cats = list(cats_sorted)
     CAT_COLORS_MAP = CAT_HEX
     # Build blocks html
     blocks_html = ""
@@ -972,16 +985,21 @@ def build_map_page(books, output_dir, paths_html=""):
         desc = (_desc[:92] + "…") if len(_desc) > 92 else _desc
         vols_html += (
             f'<a class="hm-vol" style="--cat:{color}" href="read/{b0["id"]}.html">'
-            f'<i aria-hidden="true"></i>{html.escape(cat)}</a>'
+            f'<i aria-hidden="true"></i><span>{html.escape(cat)}</span>'
+            f'<span class="vc">{html.escape(b0.get("difficulty", ""))}</span></a>'
         )
+        dcls = DIF_CLS.get(b0.get("difficulty", ""), "int")
         blocks_html += (
             f'<a class="hm-row" style="--cat:{color}" href="read/{b0["id"]}.html" data-cat="{html.escape(cat)}" data-id="{b0["id"]}" data-title="{html.escape(b0["title"])}" id="block-{slug}" '
-            f'aria-label="{html.escape(cat)} — {html.escape(b0["title"])}">'
+            f'aria-label="{html.escape(b0["title"])} — {tmin} minutes, {html.escape(b0.get("difficulty", ""))}">'
             f'<span class="hm-num">{num:02d}</span>'
-            f'<span class="hm-main"><span class="hm-cat">{html.escape(cat)}</span>'
-            f'<span class="hm-desc">{html.escape(desc)}</span></span>'
-            f'<span class="hm-dots" aria-hidden="true"></span>'
-            f'<span class="hm-meta">{tmin} min · {html.escape(ds)} · verified {html.escape(upd)}</span>'
+            f'<span class="hm-ico" aria-hidden="true">{icon}</span>'
+            f'<span class="hm-main"><span class="hm-kicker">{html.escape(cat)}</span>'
+            f'<span class="hm-cat">{html.escape(b0["title"])}</span>'
+            f'<span class="hm-desc">{html.escape(b0.get("description", ""))}</span>'
+            f'<span class="hm-pills"><span class="map-pill">◷ <b>{tmin} min</b></span>'
+            f'<span class="map-pill dif-{dcls}">{html.escape(b0.get("difficulty", ""))}</span>'
+            f'<span class="map-pill">✓ verified {html.escape(upd)}</span></span></span>'
             f'<span class="hm-go" aria-hidden="true">→</span>'
             f'</a>'
         )
@@ -1021,7 +1039,7 @@ def build_map_page(books, output_dir, paths_html=""):
 <div class="hm-label" aria-hidden="true"><span>CONTENTS</span><span>{len(shown_cats)} BOOKS</span></div>
 <div class="hm-list" id="mapGrid" role="list" aria-label="Library contents">{blocks_html}</div>
 <div class="hm-label" aria-hidden="true"><span>SERIES EDITION</span><span>OMNIBUS</span></div>
-<a class="hm-row" style="--cat:#18E299" href="roadmap/#shelf-series-edition" data-cat="Series" data-id="series" data-title="Series edition S01–S09" id="block-series" aria-label="Series — omnibus print edition S01 to S09"><span class="hm-num">09</span><span class="hm-main"><span class="hm-cat">Series edition S01–S09</span><span class="hm-desc">Read it as one book: foundations to labs, omnibus print edition…</span></span><span class="hm-dots" aria-hidden="true"></span><span class="hm-meta">9 parts · omnibus · verified 2026-09-18</span><span class="hm-go" aria-hidden="true">→</span></a>
+<a class="hm-row hm-series" style="--cat:#18E299" href="roadmap/#shelf-series-edition" data-cat="Series" data-id="series" data-title="Series edition S01–S09" id="block-series" aria-label="Series edition, omnibus print edition parts 1 to 9"><span class="hm-num">09</span><span class="hm-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h8a2 2 0 012 2v12a2 2 0 01-2 2H6z"/><path d="M6 8h6"/><path d="M6 12h6"/></svg></span><span class="hm-main"><span class="hm-kicker">Omnibus</span><span class="hm-cat">Series edition S01–S09</span><span class="hm-desc">Read it as one book: foundations to labs in a single omnibus print edition.</span><span class="hm-pills"><span class="map-pill"><b>9</b> parts</span><span class="map-pill">omnibus</span><span class="map-pill">✓ verified 2026-09-18</span></span></span><span class="hm-go" aria-hidden="true">→</span></a>
 {paths_html}
 <div class="empty" id="mapEmpty" style="display:none"><p>That link doesn't match a category. Jump straight to one:</p><div class="empty-cats">{empty_chips}</div><a href="index.html">Back to overview</a></div>
 </div>
