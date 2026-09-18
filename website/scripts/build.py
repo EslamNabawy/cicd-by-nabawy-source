@@ -557,12 +557,12 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
 .hm-row:hover .hm-go,.hm-row:focus-visible .hm-go{opacity:1;transform:translateX(2px)}
 .hm-row.hm-series{background:linear-gradient(180deg,color-mix(in srgb,#18E299 10%,var(--bg)) 0%,var(--bg) 45%);border-color:color-mix(in srgb,#18E299 30%,var(--line))}
 .hm-row.hm-series .hm-ico{background:color-mix(in srgb,#18E299 22%,var(--bg2));color:#18E299}
-.hm-series-shelf{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin:10px 0 18px}
-.series-card{display:flex;flex-direction:column;gap:6px;padding:14px 16px;border:1px solid var(--line-soft);border-radius:12px;background:var(--card);text-decoration:none;color:var(--ink);transition:border-color .15s,transform .15s,box-shadow .15s;box-shadow:var(--shadow-btn)}
+
+
 .series-card:hover{border-color:#18E299;transform:translateY(-2px);box-shadow:var(--shadow-lift)}
-.series-num{font-family:var(--mono);font-size:10px;font-weight:800;letter-spacing:.12em;color:#18E299}
-.series-t{font-size:13px;font-weight:600}
-.series-open{font-size:12px;color:var(--mut)}
+
+
+
 .map-pill.dif-beginner{background:color-mix(in srgb,#2ECC71 16%,var(--bg2));border-color:color-mix(in srgb,#2ECC71 30%,var(--line-soft));color:#2ECC71}
 .map-pill.dif-intermediate{background:color-mix(in srgb,#F5A524 16%,var(--bg2));border-color:color-mix(in srgb,#F5A524 30%,var(--line-soft));color:#F5A524}
 .map-pill.dif-advanced{background:color-mix(in srgb,#E5484D 16%,var(--bg2));border-color:color-mix(in srgb,#E5484D 30%,var(--line-soft));color:#E5484D}
@@ -578,7 +578,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
 .hm-hero h1{font-size:32px}
 .hm-hero .hm-sub{font-size:15px}
 .hm-hero .hm-about{font-size:13px}
-.hm-series-shelf{grid-template-columns:1fr}
+
 .toolgrid{grid-template-columns:1fr}
 .stackgrid{grid-template-columns:1fr}
 .projgrid{grid-template-columns:1fr}
@@ -599,8 +599,8 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
 .hm-pills{display:flex;gap:5px;margin-top:4px}
 .hm-pills .map-pill{font-size:10px;padding:2px 7px}
 .hm-go{opacity:1;font-size:16px}
-.hm-series-shelf{gap:8px}
-.series-card{padding:12px 14px}
+
+
 .toolcard{padding:14px}
 .stackcard{padding:14px}
 .projcard{padding:14px}
@@ -1087,21 +1087,6 @@ def build_map_page(books, output_dir, paths_html=""):
                              f'<i aria-hidden="true"></i><span>{html.escape(_th["label"])}</span></a>')
     except Exception:
         thread_chips = ""
-    series_links = ""
-    for _p in sorted(glob.glob(os.path.join(PDF, "series", "*.html"))):
-        _bn = os.path.basename(_p)
-        _m = re.match(r'S(\d+)-([a-z-]+)\.html', _bn)
-        _code = ('S%02d' % int(_m.group(1))) if _m else _bn
-        _ph = open(_p, encoding="utf-8").read()
-        _tm = re.search(r"<title>(.*?)</title>", _ph, re.S)
-        _st = re.sub(r"<[^>]+>", "", _tm.group(1)).strip().split(":", 1)[-1].strip() if _tm else ""
-        if not _st and _m:
-            _st = _m.group(2).replace('-', ' ').title()
-        _np = _ph.count('class="page cover"') + _ph.count('class="page opener"') + _ph.count('class="page"')
-        series_links += (f'<a class="series-card" href="pdf/series/{html.escape(_bn)}" style="--cat:#18E299">'
-                         f'<span class="series-num">{_code} · {html.escape(_st)}</span>'
-                         f'<span class="series-t">Omnibus print edition — {_np} pages, chapters keep their numbers.</span>'
-                         f'<span class="series-open">Open →</span></a>')
     # Site header chrome: reuse same header as index, with Home active
     page = f"""<!DOCTYPE html>
 <html lang="en">
@@ -1135,10 +1120,6 @@ def build_map_page(books, output_dir, paths_html=""):
 </div>
 <div class="hm-label" aria-hidden="true"><span>CONTENTS</span><span>{len(shown_cats)} BOOKS</span></div>
 <div class="hm-list" id="mapGrid" role="list" aria-label="Library contents">{blocks_html}</div>
-<div class="hm-label" aria-hidden="true"><span>SERIES EDITION</span><span>OMNIBUS</span></div>
-<a class="hm-row hm-series" style="--cat:#18E299" href="#series-shelf" data-cat="Series" data-id="series" data-title="Series edition S01–S09" id="block-series" aria-label="Series edition, omnibus print edition parts 1 to 9"><span class="hm-num">09</span><span class="hm-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h8a2 2 0 012 2v12a2 2 0 01-2 2H6z"/><path d="M6 8h6"/><path d="M6 12h6"/></svg></span><span class="hm-main"><span class="hm-kicker">Omnibus</span><span class="hm-cat">Series edition S01–S09</span><span class="hm-desc">Read it as one book: foundations to labs in a single omnibus print edition.</span><span class="hm-pills"><span class="map-pill"><b>9</b> parts</span><span class="map-pill">omnibus</span><span class="map-pill">✓ verified 2026-09-18</span></span></span><span class="hm-go" aria-hidden="true">↓</span></a>
-<div class="hm-label" aria-hidden="true"><span>SERIES SHELF</span><span>OMNIBUS PRINT</span></div>
-<div class="hm-series-shelf" id="series-shelf">{series_links}</div>
 <div class="hm-label" aria-hidden="true"><span>START FROM A THREAD</span><span>9 IDEAS</span></div>
 <div class="hm-vols" style="justify-content:flex-start">{thread_chips}<a class="hm-vol" style="--cat:var(--brand)" href="threads/"><i aria-hidden="true"></i><span>All threads →</span></a></div>
 {paths_html}
