@@ -133,10 +133,11 @@ def build_threads_page(books, output_dir, env, threads, tindex):
     maxn = max(1, max(len(tindex[th['id']]) for th in threads))
     for th in threads:
         n = len(tindex[th['id']])
-        nb = len({e['book'] for e in tindex[th['id']]})
+        bset = {e['book'] for e in tindex[th['id']]}
+        nb = len(bset)
         why = THREAD_WHY.get(th['id'], ('', ''))[0]
         story = THREAD_STORY.get(th['id'], ('',''))[0]
-        t_ms = sum(next((b.get('time_minutes',30) for b in books if b['id']==e['book']),30) for e in tindex[th['id']] if e['book'] in [b['id'] for b in books])
+        t_ms = sum(next((b.get('time_minutes',30) for b in books if b['id']==bid),30) for bid in bset)
         cards.append('<a class="thread-card" href="#' + th['id'] + '" style="--cat:#0e7490" data-thread="' + th['id'] + '"><span class="thread-num">' + str(n) + ' sheets · ' + str(nb) + ' books</span><b>' + htmllib.escape(th['label']) + '</b><span>' + htmllib.escape(th['desc']) + '</span>' + ('<span class="story">' + htmllib.escape(story[:90]) + '</span>' if story else '') + '<span class="tbar" aria-hidden="true"><b style="width:' + str(round(100 * n / maxn)) + '%"></b></span><span class="thread-meta"><span class="tprog" data-tprog="' + th['id'] + '"></span>~' + str(t_ms) + ' min · jump ↓</span></a>')
     PATH_RANK = {'start-here': 0, 'build': 1, 'deliver': 2, 'observability': 3, 'jenkins': 4, 'platforms': 5, 'labs': 6, 'reference': 7}
     bord = sorted(books, key=lambda b: (PATH_RANK.get(b.get('path', ''), 9), b['id']))
@@ -163,7 +164,8 @@ def build_threads_page(books, output_dir, env, threads, tindex):
         story, check = THREAD_STORY.get(th['id'], ('',''))
         tools = THREAD_TOOLS.get(th['id'], [])
         checks = THREAD_CHECK.get(th['id'], [])
-        t_ms = sum(next((b.get('time_minutes',30) for b in books if b['id']==e['book']),30) for e in tindex[th['id']] if e['book'] in [b['id'] for b in books])
+        bset2 = {e['book'] for e in tindex[th['id']]}
+        t_ms = sum(next((b.get('time_minutes',30) for b in books if b['id']==bid),30) for bid in bset2)
         xlinks = '<p class="sub">Field links: <a href="../read/platforms-roadmaps.html#s29n">Tool vs Tool matrix</a> · <a href="../tools/">5-question picker</a></p>'
         ticons = ''.join('<span class="stack-icon sm" title="' + htmllib.escape(t) + '" style="--cat:#0e7490"><span>' + htmllib.escape(t[:1]) + '</span></span>' for t in tools)
         cks = ''.join('<li>' + htmllib.escape(c) + '</li>' for c in checks)
