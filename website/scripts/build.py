@@ -550,6 +550,12 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
 .hm-row:hover .hm-go,.hm-row:focus-visible .hm-go{opacity:1;transform:translateX(2px)}
 .hm-row.hm-series{background:linear-gradient(180deg,color-mix(in srgb,#18E299 10%,var(--bg)) 0%,var(--bg) 45%);border-color:color-mix(in srgb,#18E299 30%,var(--line))}
 .hm-row.hm-series .hm-ico{background:color-mix(in srgb,#18E299 22%,var(--bg2));color:#18E299}
+.hm-series-shelf{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin:10px 0 18px}
+.series-card{display:flex;flex-direction:column;gap:6px;padding:14px 16px;border:1px solid var(--line-soft);border-radius:12px;background:var(--card);text-decoration:none;color:var(--ink);transition:border-color .15s,transform .15s,box-shadow .15s;box-shadow:var(--shadow-btn)}
+.series-card:hover{border-color:#18E299;transform:translateY(-2px);box-shadow:var(--shadow-lift)}
+.series-num{font-family:var(--mono);font-size:10px;font-weight:800;letter-spacing:.12em;color:#18E299}
+.series-t{font-size:13px;font-weight:600}
+.series-open{font-size:12px;color:var(--mut)}
 .map-pill.dif-beginner{background:color-mix(in srgb,#2ECC71 16%,var(--bg2));border-color:color-mix(in srgb,#2ECC71 30%,var(--line-soft));color:#2ECC71}
 .map-pill.dif-intermediate{background:color-mix(in srgb,#F5A524 16%,var(--bg2));border-color:color-mix(in srgb,#F5A524 30%,var(--line-soft));color:#F5A524}
 .map-pill.dif-advanced{background:color-mix(in srgb,#E5484D 16%,var(--bg2));border-color:color-mix(in srgb,#E5484D 30%,var(--line-soft));color:#E5484D}
@@ -1004,6 +1010,15 @@ def build_map_page(books, output_dir, paths_html=""):
             f'</a>'
         )
     empty_chips = "".join(f'<a class="chip" href="read/{bid}.html">{html.escape(c)}</a>' for s, c, bid in cat_chips)
+    series_links = ""
+    for _p in sorted(glob.glob(os.path.join(PDF, "series", "*.html"))):
+        _bn = os.path.basename(_p)
+        _m = re.match(r'S(\d+)-([a-z-]+)\.html', _bn)
+        _lbl = ('S%02d · %s' % (int(_m.group(1)), _m.group(2).replace('-', ' ').title())) if _m else _bn
+        series_links += (f'<a class="series-card" href="pdf/series/{html.escape(_bn)}" style="--cat:#18E299">'
+                         f'<span class="series-num">{_lbl}</span>'
+                         f'<span class="series-t">Omnibus part · {html.escape(_bn)}</span>'
+                         f'<span class="series-open">Open →</span></a>')
     # Site header chrome: reuse same header as index, with Home active
     page = f"""<!DOCTYPE html>
 <html lang="en">
@@ -1022,7 +1037,6 @@ def build_map_page(books, output_dir, paths_html=""):
 <a class="logo" href="index.html" style="color:inherit"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="5" cy="12" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="6" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="18" r="2.6" stroke="#18E299" stroke-width="2"/><path d="M7.6 12h5.2m0 0-2.6-2.6m2.6 2.6-2.6 2.6M13.4 7.4l2.8-1M13.4 16.6l2.8 1" stroke="#18E299" stroke-width="2" stroke-linecap="round"/></svg>CICD<span> BY Nabawy</span></a>
 <div class="search"><div class="searchwrap"><input id="q" type="search" placeholder="Search all {len(books)} books…" autocomplete="off"><div class="searchdrop" id="qdrop" role="listbox"></div></div><kbd>⌘K</kbd></div>
 <a class="btn" href="index.html" aria-current="page" style="text-decoration:none;border-color:var(--brand);color:var(--brand)">Home</a>
-<a class="btn" href="roadmap/" style="text-decoration:none">Roadmap</a>
 <a class="btn" href="glossary.html" style="text-decoration:none">Glossary</a>
 <a class="btn" href="threads/" style="text-decoration:none">Threads</a>
 <a class="btn" href="tools/" style="text-decoration:none">Tools</a>
@@ -1039,12 +1053,14 @@ def build_map_page(books, output_dir, paths_html=""):
 <div class="hm-label" aria-hidden="true"><span>CONTENTS</span><span>{len(shown_cats)} BOOKS</span></div>
 <div class="hm-list" id="mapGrid" role="list" aria-label="Library contents">{blocks_html}</div>
 <div class="hm-label" aria-hidden="true"><span>SERIES EDITION</span><span>OMNIBUS</span></div>
-<a class="hm-row hm-series" style="--cat:#18E299" href="roadmap/#shelf-series-edition" data-cat="Series" data-id="series" data-title="Series edition S01–S09" id="block-series" aria-label="Series edition, omnibus print edition parts 1 to 9"><span class="hm-num">09</span><span class="hm-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h8a2 2 0 012 2v12a2 2 0 01-2 2H6z"/><path d="M6 8h6"/><path d="M6 12h6"/></svg></span><span class="hm-main"><span class="hm-kicker">Omnibus</span><span class="hm-cat">Series edition S01–S09</span><span class="hm-desc">Read it as one book: foundations to labs in a single omnibus print edition.</span><span class="hm-pills"><span class="map-pill"><b>9</b> parts</span><span class="map-pill">omnibus</span><span class="map-pill">✓ verified 2026-09-18</span></span></span><span class="hm-go" aria-hidden="true">→</span></a>
+<a class="hm-row hm-series" style="--cat:#18E299" href="#series-shelf" data-cat="Series" data-id="series" data-title="Series edition S01–S09" id="block-series" aria-label="Series edition, omnibus print edition parts 1 to 9"><span class="hm-num">09</span><span class="hm-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h8a2 2 0 012 2v12a2 2 0 01-2 2H6z"/><path d="M6 8h6"/><path d="M6 12h6"/></svg></span><span class="hm-main"><span class="hm-kicker">Omnibus</span><span class="hm-cat">Series edition S01–S09</span><span class="hm-desc">Read it as one book: foundations to labs in a single omnibus print edition.</span><span class="hm-pills"><span class="map-pill"><b>9</b> parts</span><span class="map-pill">omnibus</span><span class="map-pill">✓ verified 2026-09-18</span></span></span><span class="hm-go" aria-hidden="true">↓</span></a>
+<div class="hm-label" aria-hidden="true"><span>SERIES SHELF</span><span>OMNIBUS PRINT</span></div>
+<div class="hm-series-shelf" id="series-shelf">{series_links}</div>
 {paths_html}
 <div class="empty" id="mapEmpty" style="display:none"><p>That link doesn't match a category. Jump straight to one:</p><div class="empty-cats">{empty_chips}</div><a href="index.html">Back to overview</a></div>
 </div>
 <a id="resume" style="display:none"></a>
-<footer><div class="wrap"><span>CICD BY Nabawy</span><span><a href="index.html">Home</a> · <a href="roadmap/">Roadmap</a> · <a href="glossary.html">Glossary</a> · v2.1 Sep 2026</span></div></footer>
+<footer><div class="wrap"><span>CICD BY Nabawy</span><span><a href="index.html">Home</a> · <a href="glossary.html">Glossary</a> · v2.1 Sep 2026</span></div></footer>
 <script>
 (function(){{
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
@@ -1724,7 +1740,7 @@ body.fs .readbody{{max-width:880px}}
 <title>Glossary — CICD BY Nabawy</title>{seo_tags("Glossary — CICD BY Nabawy", "CI/CD glossary: terms shared by all books, reader and search.", f"{SITE_URL}/glossary.html")}<style>{BASE_CSS}</style><script>try{{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}}catch(e){{document.documentElement.dataset.theme='sepia'}}</script></head>
 <body>
 <header class="top"><div class="wrap"><a class="logo" href="index.html" style="text-decoration:none;color:inherit"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="5" cy="12" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="6" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="18" r="2.6" stroke="#18E299" stroke-width="2"/><path d="M7.6 12h5.2m0 0-2.6-2.6m2.6 2.6-2.6 2.6M13.4 7.4l2.8-1M13.4 16.6l2.8 1" stroke="#18E299" stroke-width="2" stroke-linecap="round"/></svg>CICD<span> BY Nabawy</span></a>
-<div class="search"><input id="q" type="search" placeholder="Filter terms…"></div><a class="btn" href="index.html" style="text-decoration:none">Home</a><a class="btn" href="roadmap/" style="text-decoration:none">Roadmap</a><button class="btn" id="themebtn">☀</button></div></header>
+<div class="search"><input id="q" type="search" placeholder="Filter terms…"></div><a class="btn" href="index.html" style="text-decoration:none">Home</a><button class="btn" id="themebtn">☀</button></div></header>
 <div class="wrap"><h2 class="sec">Glossary</h2><p class="sub">{len(re.findall('<tr ', grows))} terms · shared by books, reader and search</p>
 <div class="gtbar"><input id="q2" type="search" placeholder="Filter terms…" aria-label="Filter glossary terms"><nav class="az" aria-label="Jump to letter">{_az}</nav></div>
 <table class="gloss"><tr><th>Term</th><th>Definition</th><th>Topic</th><th>Link</th></tr>{grows}</table></div>
