@@ -361,6 +361,9 @@ table.gloss .upd{color:var(--brand);font-weight:700;font-size:11px;white-space:n
 .az a{background:var(--card)}
 .az span.dim{opacity:.3}
 table.gloss tr{scroll-margin-top:150px}
+table.gloss tbody tr:hover td{background:color-mix(in srgb,var(--brand) 6%,transparent)}
+table.gloss tr:target td{background:color-mix(in srgb,var(--brand) 12%,transparent)}
+.gtbar .az a:hover{border-color:var(--brand);color:var(--brand)}
 @media(max-width:600px){table.gloss,table.gloss tbody{display:block;width:100%;overflow:visible}table.gloss tr:first-child{display:none}table.gloss tr{display:block;background:var(--card);border:1px solid var(--line-soft);border-radius:12px;margin:0 0 10px;padding:12px 14px}table.gloss td{display:block;border:none;padding:3px 0}table.gloss td:first-child{font-size:16px}table.gloss td:last-child a{display:inline-block;padding:10px 16px;border:1px solid var(--line);border-radius:9999px}.gtbar input{min-height:44px;font-size:16px}.az a,.az span.dim{min-width:44px;height:44px}}
 /* P0: sepia theme + light leak guards + covers + filters + a11y */
 [data-theme=sepia]{--bg:#F6F1E7;--bg2:#EDE3CC;--card:#FFFBF0;--ink:#3B2F1E;--mut:#6F665A;--line:rgba(59,47,30,.16);--line-soft:rgba(59,47,30,.09);--acc:#0B9B68;--acc-soft:rgba(11,155,104,.11);--brand:#0B9B68;--shadow:rgba(59,47,30,.08) 0px 2px 8px;--shadow-btn:rgba(59,47,30,.10) 0px 1px 3px;--shadow-lift:rgba(59,47,30,.16) 0px 16px 32px -10px}
@@ -1740,14 +1743,15 @@ body.fs .readbody{{max-width:880px}}
 <title>Glossary — CICD BY Nabawy</title>{seo_tags("Glossary — CICD BY Nabawy", "CI/CD glossary: terms shared by all books, reader and search.", f"{SITE_URL}/glossary.html")}<style>{BASE_CSS}</style><script>try{{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}}catch(e){{document.documentElement.dataset.theme='sepia'}}</script></head>
 <body>
 <header class="top"><div class="wrap"><a class="logo" href="index.html" style="text-decoration:none;color:inherit"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="5" cy="12" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="6" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="18" r="2.6" stroke="#18E299" stroke-width="2"/><path d="M7.6 12h5.2m0 0-2.6-2.6m2.6 2.6-2.6 2.6M13.4 7.4l2.8-1M13.4 16.6l2.8 1" stroke="#18E299" stroke-width="2" stroke-linecap="round"/></svg>CICD<span> BY Nabawy</span></a>
-<div class="search"><input id="q" type="search" placeholder="Filter terms…"></div><a class="btn" href="index.html" style="text-decoration:none">Home</a><button class="btn" id="themebtn">☀</button></div></header>
-<div class="wrap"><h2 class="sec">Glossary</h2><p class="sub">{len(re.findall('<tr ', grows))} terms · shared by books, reader and search</p>
+<div class="search"><input id="q" type="search" placeholder="Filter terms…"></div><a class="btn" href="index.html" style="text-decoration:none">Home</a><a class="btn" href="threads/" style="text-decoration:none">Threads</a><a class="btn" href="tools/" style="text-decoration:none">Tools</a><button class="btn" id="themebtn">☀</button></div></header>
+<div class="wrap"><h2 class="sec">Glossary</h2><p class="sub"><span id="gcount">{len(re.findall('<tr ', grows))}</span> terms · shared by books, reader and search</p>
 <div class="gtbar"><input id="q2" type="search" placeholder="Filter terms…" aria-label="Filter glossary terms"><nav class="az" aria-label="Jump to letter">{_az}</nav></div>
 <table class="gloss"><tr><th>Term</th><th>Definition</th><th>Topic</th><th>Link</th></tr>{grows}</table></div>
-<footer><div class="wrap">CICD BY Nabawy</div></footer>
+<footer><div class="wrap"><span>CICD BY Nabawy</span><span><a href="index.html">Home</a> · <a href="threads/">Threads</a> · <a href="tools/">Tools</a></span></div></footer>
 <script>{BASE_JS}
-function gfilter(el){{const q=(el.value||'').toLowerCase();
-$$('table.gloss tr').forEach((r,i)=>{{if(!i)return;r.style.display=r.textContent.toLowerCase().includes(q)?'':'none'}});}};
+function gfilter(el){{const q=(el.value||'').toLowerCase();let n=0,tot=0;
+$$('table.gloss tr').forEach((r,i)=>{{if(!i)return;tot++;const ok=r.textContent.toLowerCase().includes(q);r.style.display=ok?'':'none';if(ok)n++}});
+const c=$('#gcount');if(c)c.textContent=(q?n+' / '+tot:tot);}};
 $('#q').addEventListener('input',e=>gfilter(e.target));const _q2=$('#q2');if(_q2)_q2.addEventListener('input',e=>gfilter(e.target));
 const THS=['sepia','dark','light'],THI={{dark:'☀',light:'☾',sepia:'◐'}};
 function syncTheme(){{const p=getP('cicdlib:pref',{{theme:'sepia'}});const th=THS.includes(p.theme)?p.theme:'sepia';document.documentElement.dataset.theme=th;const t=$('#themebtn');if(t)t.textContent=THI[th]||'☀'}}

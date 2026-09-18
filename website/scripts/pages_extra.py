@@ -83,6 +83,11 @@ def build_threads_page(books, output_dir, env, threads, tindex):
         n = len(tindex[th['id']])
         parts.append('<a href="#' + th['id'] + '"><rect x="750" y="' + str(y) + '" width="230" height="40" rx="10" fill="var(--card)" stroke="#0e7490" stroke-width="2"/><text x="762" y="' + str(y + 25) + '" font-size="13" font-weight="700" fill="var(--ink)">' + htmllib.escape(th['label']) + ' (' + str(n) + ')</text></a>')
     svg = '<svg id="graph" width="100%" viewBox="0 0 ' + str(W) + ' ' + str(H) + '" style="max-height:70vh;border:1px solid var(--line);border-radius:14px;background:var(--card)">' + ''.join(parts) + '</svg>'
+    cards = []
+    for th in threads:
+        n = len(tindex[th['id']])
+        nb = len({e['book'] for e in tindex[th['id']]})
+        cards.append('<a class="thread-card" href="#' + th['id'] + '" style="--cat:#0e7490"><span class="thread-num">' + str(n) + ' sheets</span><b>' + htmllib.escape(th['label']) + '</b><span>' + htmllib.escape(th['desc']) + '</span><span class="thread-meta">' + str(nb) + ' books · jump ↓</span></a>')
     secs = []
     for th in threads:
         groups = {}
@@ -92,34 +97,39 @@ def build_threads_page(books, output_dir, env, threads, tindex):
         for b in books:
             if b['id'] not in groups:
                 continue
-            es = groups[b['id']][:6]
-            chips = ''.join('<a class="chip" href="../read/' + e['book'] + '.html#' + e['sid'] + '">' + htmllib.escape(e['sheet'][:34]) + '</a>' for e in es)
-            extra = ''
-            if len(groups[b['id']]) > 6:
-                extra = ' <span>+' + str(len(groups[b['id']]) - 6) + ' more</span>'
-            glist.append('<div style="margin:8px 0"><b>' + htmllib.escape(b['title']) + '</b><div class="chiprow">' + chips + extra + '</div></div>')
-        secs.append('<section id="' + th['id'] + '" style="margin:26px 0"><h2 class="sec">' + htmllib.escape(th['label']) + '</h2><p class="sub">' + htmllib.escape(th['desc']) + ' - ' + str(len(tindex[th['id']])) + ' sheets.</p>' + ''.join(glist) + '</section>')
+            es = groups[b['id']]
+            vis = es[:6]
+            hid = es[6:]
+            chips = ''.join('<a class="chip" href="../read/' + e['book'] + '.html#' + e['sid'] + '">' + htmllib.escape(e['sheet'][:34]) + '</a>' for e in vis)
+            if hid:
+                chips += '<span class="morechips" hidden>' + ''.join('<a class="chip" href="../read/' + e['book'] + '.html#' + e['sid'] + '">' + htmllib.escape(e['sheet'][:34]) + '</a>' for e in hid) + '</span>'
+                chips += ' <button class="btn morebtn" aria-expanded="false">+' + str(len(hid)) + ' more</button>'
+            glist.append('<div style="margin:8px 0"><b>' + htmllib.escape(b['title']) + '</b><div class="chiprow">' + chips + '</div></div>')
+        secs.append('<section id="' + th['id'] + '" style="margin:26px 0;scroll-margin-top:70px"><h2 class="sec">' + htmllib.escape(th['label']) + ' <span class="map-pill"><b>' + str(len(tindex[th['id']])) + '</b> sheets</span></h2><p class="sub">' + htmllib.escape(th['desc']) + '</p>' + ''.join(glist) + '<p><a href="#graph">↑ graph</a></p></section>')
     page = ('<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">'
             '<meta name="viewport" content="width=device-width, initial-scale=1.0">'
             '<title>Concept threads - CICD BY Nabawy</title>'
-            '<style>' + env['BASE_CSS'] + '.chiprow{margin:6px 0}</style>'
+            '<style>' + env['BASE_CSS'] + '.chiprow{margin:6px 0}.thread-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:16px 0 8px}.thread-card{display:flex;flex-direction:column;gap:6px;padding:14px 16px;border:1px solid var(--line-soft);border-radius:12px;background:var(--card);text-decoration:none;color:var(--ink)}.thread-card:hover{border-color:var(--cat);transform:translateY(-2px)}.thread-card b{font-size:15px}.thread-card span{font-size:12px;color:var(--mut)}.thread-num{font-family:var(--mono);font-size:10px;font-weight:800;letter-spacing:.12em;color:var(--cat)}.thread-meta{font-family:var(--mono);font-size:11px}</style>'
             + HEAD_THEME +
             '</head><body><header class="top"><div class="wrap">'
             '<a class="logo" href="../index.html" style="color:inherit">CICD<span> BY Nabawy</span></a>'
             '<nav class="crumbs"><span class="sep">/</span><span class="here">Threads</span></nav>'
             '<a class="btn" href="../index.html" style="text-decoration:none">Home</a>'
+            '<a class="btn" href="../glossary.html" style="text-decoration:none">Glossary</a>'
             '<a class="btn" href="../tools/" style="text-decoration:none">Tools</a>'
             '<button class="btn" id="themebtn" aria-label="Toggle theme">X</button>'
             '</div></header><div class="wrap">'
             '<div class="hero" style="padding:36px 24px 16px"><span class="eyebrow">THREADS</span>'
             '<h1>Follow an idea across books.</h1>'
-            '<p>Nine concept threads stitched from every sheet. Drag to pan, scroll to zoom.</p></div>'
+            '<p>' + str(len(threads)) + ' concept threads stitched from every sheet. Pick a card or drag the graph to pan, scroll to zoom.</p></div>'
+            '<div class="thread-grid">' + ''.join(cards) + '</div>'
             + svg +
             '<p class="sub">Scroll to zoom - drag to pan - double-click to reset.</p>'
             + ''.join(secs) +
-            '</div><footer><div class="wrap"><span>CICD BY Nabawy</span></div></footer>'
+            '</div><footer><div class="wrap"><span>CICD BY Nabawy</span><span><a href="../index.html">Home</a> · <a href="../glossary.html">Glossary</a> · <a href="../tools/">Tools</a></span></div></footer>'
             '<script>'
             + THEME_JS +
+            "document.querySelectorAll('.morebtn').forEach(b=>b.onclick=()=>{const m=b.parentElement.querySelector('.morechips');const open=m.hidden;m.hidden=!open;b.setAttribute('aria-expanded',open);b.textContent=open?'show less':'+'+m.querySelectorAll('a').length+' more';});" +
             "const svg=document.querySelector('#graph');let vb=[0,0,1000," + str(H) + '];'
             "const apply=()=>svg.setAttribute('viewBox',vb.join(' '));"
             "svg.addEventListener('wheel',e=>{e.preventDefault();const f=e.deltaY>0?1.12:0.9;const r=svg.getBoundingClientRect();const mx=(e.clientX-r.left)/r.width*vb[2]+vb[0],my=(e.clientY-r.top)/r.height*vb[3]+vb[1];vb=[mx-(mx-vb[0])*f,my-(my-vb[1])*f,vb[2]*f,vb[3]*f];apply();},{passive:false});"
@@ -182,7 +192,7 @@ def build_tools_page(books, output_dir, env):
         for o, w in opts:
             btns.append('<button class="btn qopt" data-q="' + str(qi) + '" data-w="' + htmllib.escape(json.dumps(w), quote=True) + '">' + o + '</button>')
         vis = '' if qi == 0 else ' hidden'
-        qhtml.append('<div class="qcard" id="q' + str(qi) + '"' + vis + '><h3>' + str(qi + 1) + '. ' + q + '</h3><div class="opts">' + ''.join(btns) + '</div></div>')
+        qhtml.append('<div class="qcard" id="q' + str(qi) + '"' + vis + '><div class="qprog"><span style="width:' + str(round(100 * qi / len(QUESTIONS))) + '%"></span></div><p class="qstep">Question ' + str(qi + 1) + ' of ' + str(len(QUESTIONS)) + '</p><h3>' + q + '</h3><div class="opts">' + ''.join(btns) + '</div></div>')
     names = {}
     whys = {}
     for k in TOOLS_META:
@@ -201,7 +211,8 @@ if(qi<NQ){document.querySelector('#q'+qi).hidden=false;}else{showResult();}});
 function showResult(){const tot=Math.max(1,...Object.values(scores));
 const rank=Object.keys(scores).sort((a,b)=>scores[b]-scores[a]);
 let s='<div class="qcard"><h3>Your stack, ranked</h3>';
-rank.forEach((k,i)=>{s+='<div class="tcard"><b>'+(i+1)+'. '+NAMES[k]+' - '+scores[k]+' pts</b><div class="tbar"><b style="width:'+Math.round(100*scores[k]/tot)+'%"></b></div><p>'+WHY[k]+'</p><a class="btn" href="'+LINKS[k]+'">Read why</a> ';if(i===0){s+='<a class="btn" href="'+LINKS.choice+'">Compare all</a> <a class="btn" href="'+LINKS.matrix+'">Full field matrix</a>';}s+='</div>';});
+const MEDAL=['\U0001F947','\U0001F948','\U0001F949','4.'];
+rank.forEach((k,i)=>{s+='<div class="tcard'+(i===0?' winner':'')+'"><b>'+MEDAL[i]+' '+NAMES[k]+' - '+scores[k]+' pts</b><div class="tbar"><b style="width:'+Math.round(100*scores[k]/tot)+'%"></b></div><p>'+WHY[k]+'</p><a class="btn" href="'+LINKS[k]+'">Read why</a> ';if(i===0){s+='<a class="btn" href="'+LINKS.choice+'">Compare all</a> <a class="btn" href="'+LINKS.matrix+'">Full field matrix</a>';}s+='</div>';});
 s+='<p><button class="btn" onclick="location.reload()">Retake</button></p></div>';
 document.querySelector('#result').innerHTML=s;
 window.scrollTo({top:document.querySelector('#result').offsetTop-80});}
@@ -209,19 +220,20 @@ window.scrollTo({top:document.querySelector('#result').offsetTop-80});}
     page = ('<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">'
             '<meta name="viewport" content="width=device-width, initial-scale=1.0">'
             '<title>Tool picker - CICD BY Nabawy</title>'
-            '<style>' + env['BASE_CSS'] + '.qcard{max-width:640px;margin:18px auto;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px}.qcard .opts{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}.qcard .btn{min-height:48px}.tcard{max-width:640px;margin:12px auto;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 22px}.tbar{height:8px;border-radius:99px;background:var(--bg2);margin:10px 0}.tbar b{display:block;height:100%;border-radius:99px;background:var(--brand)}</style>'
+            '<style>' + env['BASE_CSS'] + '.qcard{max-width:640px;margin:18px auto;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px}.qcard .opts{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}.qcard .btn{min-height:48px}.qcard .opts .btn{flex:1 1 140px}.qprog{height:6px;border-radius:99px;background:var(--bg2);margin-bottom:12px;overflow:hidden}.qprog span{display:block;height:100%;background:var(--brand);border-radius:99px;transition:width .2s}.qstep{font-family:var(--mono);font-size:11px;color:var(--mut);letter-spacing:.1em;margin-bottom:6px}.tcard{max-width:640px;margin:12px auto;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 22px}.tcard.winner{border-color:var(--brand);box-shadow:var(--shadow-lift)}.tbar{height:8px;border-radius:99px;background:var(--bg2);margin:10px 0}.tbar b{display:block;height:100%;border-radius:99px;background:var(--brand)}</style>'
             + HEAD_THEME +
             '</head><body><header class="top"><div class="wrap">'
             '<a class="logo" href="../index.html" style="color:inherit">CICD<span> BY Nabawy</span></a>'
             '<nav class="crumbs"><span class="sep">/</span><span class="here">Tools</span></nav>'
             '<a class="btn" href="../index.html" style="text-decoration:none">Home</a>'
+            '<a class="btn" href="../glossary.html" style="text-decoration:none">Glossary</a>'
             '<a class="btn" href="../threads/" style="text-decoration:none">Threads</a>'
             '<button class="btn" id="themebtn" aria-label="Toggle theme">X</button>'
             '</div></header><div class="wrap">'
             '<div class="hero" style="padding:36px 24px 16px"><span class="eyebrow">TOOLS</span>'
             '<h1>Which tool fits?</h1><p>Five questions. Ranked answers with reasons and deep links.</p></div>'
             "<div id='quiz'>" + ''.join(qhtml) + "</div><div id='result'></div>"
-            '</div><footer><div class="wrap"><span>CICD BY Nabawy</span></div></footer>'
+            '</div><footer><div class="wrap"><span>CICD BY Nabawy</span><span><a href="../index.html">Home</a> · <a href="../glossary.html">Glossary</a> · <a href="../threads/">Threads</a></span></div></footer>'
             '<script>'
             + THEME_JS + js_vars + quiz_js +
             '</script></body></html>')
