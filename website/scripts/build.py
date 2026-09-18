@@ -724,7 +724,7 @@ function drop(){const raw=($('#q').value||''),q=raw.toLowerCase(),box=$('#qdrop'
 const STOP=new Set(['how','does','did','can','what','when','where','which','that','this','with','from','have','has','are','was','were','been','will','would','there','their','about','into','your','you','our','the','and','for','are','but','not','all','any','can','had','her','him','his','one','our','out','day','get','has','him','how','its','may','new','now','old','see','two','way','who','boy','did','she','use','her','now','do','i','an','a','to','in','of','or','is','it','my','me','on','as','at','by','we','if','up','so']);
 const qn=norm(raw);let toks=qn.split(/\\s+/).filter(t=>t.length>=3&&!STOP.has(t));if(!toks.length)toks=[qn].filter(t=>t.length>=2);if(!toks.length){box.classList.remove('open');return;}
 const idx=window.SEARCH_IDX||[];const res=idx.map(b=>{const secs=(b.sections||[]).join(' ');const body=(b.body||'');const hay=norm(b.title+' '+b.desc+' '+(b.tags||[]).join(' ')+' '+secs+' '+body);if(!toks.every(t=>hay.includes(t)))return null;let s=1,hit='';const secHit=(b.sections||[]).find(t=>{const tn=norm(t);return toks.every(tk=>tn.includes(tk))||tn.includes(toks[0]);});const titleHit=toks.every(t=>norm(b.title).includes(t));if(titleHit)s=3;else if(secHit){s=2;hit=secHit;}else{const bi=norm(body).indexOf(toks[0]);if(bi>=0){hit='…'+body.slice(Math.max(0,bi-30),bi+50).replace(/\\s+/g,' ')+'…';}else if(b.desc){hit=b.desc.slice(0,70);}}if((b.tags||[]).some(t=>toks.some(k=>norm(t).includes(k))))s+=0.5;return {b,s,hit};}).filter(Boolean).sort((a,b2)=>b2.s-a.s).slice(0,8);
-box.innerHTML=res.length?res.map(r=>`<a href="book/${r.b.id}.html"><b>${r.b.title}</b><small>${r.b.cat} · ${r.b.dif} · ${r.b.time} min${r.hit?' · § '+r.hit.slice(0,80):''}</small></a>`).join(''):'<a><b>Nothing found</b><small>Try “rollback” or “canary” — or start with Foundations</small></a>';box.classList.add('open');}
+box.innerHTML=res.length?res.map(r=>`<a href="read/${r.b.id}.html"><b>${r.b.title}</b><small>${r.b.cat} · ${r.b.dif} · ${r.b.time} min${r.hit?' · § '+r.hit.slice(0,80):''}</small></a>`).join(''):'<a><b>Nothing found</b><small>Try “rollback” or “canary” — or start with Foundations</small></a>';box.classList.add('open');}
 document.addEventListener('click',e=>{const box=$('#qdrop');if(box&&!e.target.closest('.searchwrap'))box.classList.remove('open');});
 function logQ(q){q=(q||'').trim().toLowerCase();if(q.length<3)return;try{const L=getP('cicdlib:qlog',{});L[q]=(L[q]||0)+1;setP('cicdlib:qlog',L);}catch(e){}}
 function renderPop(){try{const L=getP('cicdlib:qlog',{}),top=Object.entries(L).sort((a,b)=>b[1]-a[1]).slice(0,5);const el=$('#popsearch');if(el)el.innerHTML=top.length?('Popular: '+top.map(t=>`<a data-q="${t[0]}">${t[0]}</a>`).join(' · ')):'';$$('#popsearch a').forEach(a=>a.onclick=()=>{$('#q').value=a.dataset.q;filter();drop();});}catch(e){}}
@@ -1059,7 +1059,7 @@ def build_map_page(books, output_dir, paths_html=""):
     for b in books:
         bycat.setdefault(b["category"], []).append(b)
     # deterministic order: CAT_ORDER first, then rest alpha; no hardcoded count
-    CAT_ORDER = ["CI/CD","Jenkins","Labs","Platforms","Roadmap","Build","Testing","Delivery","Security","Reliability","Reference","GitHub"]
+    CAT_ORDER = ["Start Here","Build","Deliver","Jenkins","Platforms","Labs","Reference"]
     cats_sorted = [c for c in CAT_ORDER if c in bycat] + sorted([c for c in bycat if c not in CAT_ORDER])
     CAT_COLORS_MAP = CAT_HEX
     # Build blocks html
@@ -1388,6 +1388,7 @@ try{{document.querySelectorAll('.stop[data-book]').forEach(s=>{{const p=getP('ci
 def build():
     from collections import Counter
     books = json.load(open(os.path.join(ROOT, "content", "books.json"), encoding="utf-8"))
+    shutil.rmtree(READ, ignore_errors=True)
     os.makedirs(READ, exist_ok=True)
     try:
         pathdata = json.load(open(os.path.join(ROOT, "content", "paths.json"), encoding="utf-8"))
@@ -1507,6 +1508,7 @@ def build():
     build_roadmap_page(books, DIST)
     # shared icon library: single source (KB assets) copied into dist
     shutil.rmtree(os.path.join(DIST, "assets"), ignore_errors=True)
+    shutil.rmtree(os.path.join(DIST, "book"), ignore_errors=True)  # overviews removed
     shutil.copytree(os.path.join(KB, "assets"), os.path.join(DIST, "assets"))
     # print editions ship with the site so reader "Open print HTML" works live
     shutil.rmtree(os.path.join(DIST, "pdf"), ignore_errors=True)
@@ -1662,9 +1664,9 @@ def build():
 <div class="search"><input id="q" type="search" placeholder="Find in this book…" aria-label="Find in this book"><kbd>⌘K</kbd></div>
 <span id="qcount" style="font-size:12px;color:var(--mut)"></span>
 <button class="markbtn" id="markbtn" aria-label="Bookmark this book">☆ Save</button>
-<a class="readback btn reader-nav" id="backbtn" href="../book/{b["id"]}.html">← Back</a>
+<a class="readback btn reader-nav" id="backbtn" href="../index.html">← Back</a>
 <nav class="reader-nav" aria-label="Reader navigation"><a class="btn" href="../index.html" style="text-decoration:none">Home</a>
-<a class="btn" href="../book/{b['id']}.html" style="text-decoration:none">Overview</a></nav>
+</nav>
 <button class="btn" id="fsbtn" aria-label="Toggle fullscreen">⛶</button>
 <button class="btn" id="setbtn" aria-label="Reading settings">⚙</button>
 <button class="btn mobilemenu" id="mobilemenubtn" aria-label="Open reader menu" aria-expanded="false">☰</button>
@@ -1677,7 +1679,7 @@ def build():
 </aside><div class="tocscrim" id="tocscrim" aria-hidden="true"></div>
 <main class="read"><div class="readbody">
 {top_upnext}
-{f'<div class="labbanner">🧪 Hands-on lab · {b.get("time_minutes", 45)} min · Env: {html.escape(b.get("lab_env", "See book overview"))} · <a href="../book/' + b["id"] + '.html">Overview &amp; prereqs</a> · <a href="../downloads/labs/' + b["id"] + '.pdf" download>Download PDF</a> · <button class="markbtn" id="labreset" style="margin-left:8px">Reset checks</button></div>' if is_lab else ''}
+{f'<div class="labbanner">🧪 Hands-on lab · {b.get("time_minutes", 45)} min · Env: {html.escape(b.get("lab_env", "See book overview"))} · <a href="../downloads/labs/' + b["id"] + '.pdf" download>Download PDF</a> · <button class="markbtn" id="labreset" style="margin-left:8px">Reset checks</button></div>' if is_lab else ''}
 {''.join(body_pages)}
 {f'<div class="upnext">Up next in {html.escape(PATHS.get(b.get("path", ""), {}).get("label", b.get("path", "")))} → <a href="{upnext["id"]}.html"><b>{html.escape(upnext["title"])}</b></a></div>' if upnext else ''}
 {related_box_html(rels)}
@@ -1688,7 +1690,7 @@ def build():
 <button class="topbtn" id="topbtn" aria-label="Back to top" title="Back to top">↑</button>
 <div class="drawer" id="drawer"><div class="scrim"></div><div class="panel" role="dialog" aria-modal="false" aria-label="Reading settings"><button class="drawerx" id="setx" aria-label="Close settings">×</button>
 <h3>Reading settings</h3>
-<div class="setrow mobile-controls"><a class="readback btn" href="../book/{b["id"]}.html">← Back</a> <button class="btn" id="mobilemarkbtn">☆ Save</button><button class="btn" id="fsbtnm" aria-label="Toggle fullscreen">⛶</button><a class="btn" href="../index.html">Home</a><a class="btn" href="../book/{b['id']}.html">Overview</a></div>
+<div class="setrow mobile-controls"><a class="readback btn" href="../index.html">← Back</a> <button class="btn" id="mobilemarkbtn">☆ Save</button><button class="btn" id="fsbtnm" aria-label="Toggle fullscreen">⛶</button><a class="btn" href="../index.html">Home</a></div>
 <div class="setrow mobile-search"><label for="mobileq">Find in this book</label><input id="mobileq" type="search" placeholder="Search this book…"></div>
 <div class="setrow"><h5>THEME</h5><div class="opts">
 <button class="btn" data-k="theme" data-set="dark" onclick="setOpt('theme','dark')">Dark</button>
@@ -1712,6 +1714,7 @@ def build():
     # Dedicated lab manuals: same reader theme, direct lab-to-lab navigation,
     # checklists, and downloadable PDFs without mixing labs into the library UI.
     lab_dir = os.path.join(DIST, "labs")
+    shutil.rmtree(lab_dir, ignore_errors=True)
     os.makedirs(lab_dir, exist_ok=True)
     lab_books = [b for b in books if b.get("category") == "Labs"]
     for b in lab_books:
@@ -1725,12 +1728,12 @@ def build():
     )
     lab_index = f'''<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><title>Hands-on Labs — CICD BY Nabawy</title>{seo_tags("Hands-on Labs — CICD BY Nabawy", "Direct HTML manuals for every CI/CD lab.", f"{SITE_URL}/labs/")}<style>{BASE_CSS}.lab-index{{max-width:920px;margin:0 auto;padding:54px 24px 90px}}.lab-index h1{{font-size:42px;margin:12px 0}}.lab-index p{{color:var(--mut);font-size:17px;max-width:680px;line-height:1.6}}.lab-index ul{{list-style:none;padding:0;margin:34px 0;display:grid;gap:10px}}.lab-index li{{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:18px 20px;background:var(--card);border:1px solid var(--line-soft);border-radius:12px}}.lab-index li span{{color:var(--mut);font-size:13px}}@media(max-width:600px){{.lab-index{{padding:34px 14px}}.lab-index h1{{font-size:32px}}.lab-index li{{display:block}}.lab-index li span{{display:block;margin-top:6px}}}}</style></head><body><header class="top"><div class="wrap"><a class="logo" href="../index.html" style="color:inherit">CICD<span> BY Nabawy</span></a><a class="btn" href="../index.html">Home</a></div></header><main class="lab-index"><span class="eyebrow">HANDS-ON LABS</span><h1>Practice the pipeline.</h1><p>Eight guided exercises from the first green check through Jenkins recovery. Each manual includes setup, execution, verification, failure scenarios, cleanup, and a downloadable PDF edition.</p><ul>{lab_links}</ul></main></body></html>'''
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><title>Hands-on Labs — CICD BY Nabawy</title>{seo_tags("Hands-on Labs — CICD BY Nabawy", "Direct HTML manuals for every CI/CD lab.", f"{SITE_URL}/labs/")}<style>{BASE_CSS}.lab-index{{max-width:920px;margin:0 auto;padding:54px 24px 90px}}.lab-index h1{{font-size:42px;margin:12px 0}}.lab-index p{{color:var(--mut);font-size:17px;max-width:680px;line-height:1.6}}.lab-index ul{{list-style:none;padding:0;margin:34px 0;display:grid;gap:10px}}.lab-index li{{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:18px 20px;background:var(--card);border:1px solid var(--line-soft);border-radius:12px}}.lab-index li span{{color:var(--mut);font-size:13px}}@media(max-width:600px){{.lab-index{{padding:34px 14px}}.lab-index h1{{font-size:32px}}.lab-index li{{display:block}}.lab-index li span{{display:block;margin-top:6px}}}}</style></head><body><header class="top"><div class="wrap"><a class="logo" href="../index.html" style="color:inherit">CICD<span> BY Nabawy</span></a><a class="btn" href="../index.html">Home</a></div></header><main class="lab-index"><span class="eyebrow">HANDS-ON LABS</span><h1>Practice the pipeline.</h1><p>One hands-on handbook from the first green check through Jenkins recovery and DR drills. Each lab includes setup, execution, verification, failure scenarios, and cleanup.</p><ul>{lab_links}</ul></main></body></html>'''
     open(os.path.join(lab_dir, "index.html"), "w", encoding="utf-8").write(lab_index)
 
     cats = sorted(set(b["category"] for b in books))
     byid = {b["id"]: b for b in books}
-    CAT_ORDER = ["CI/CD", "Delivery", "Build", "Testing", "Security", "Reliability", "Jenkins", "GitHub", "Platforms", "Labs", "Reference"]
+    CAT_ORDER = ["Start Here","Build","Deliver","Jenkins","Platforms","Labs","Reference"]
     cats = [c for c in CAT_ORDER if c in byid or any(b["category"] == c for b in books)] + [c for c in cats if c not in CAT_ORDER]
     def card(b, i):
         initials = "".join(w[0] for w in re.sub(r"[^A-Za-z0-9 ]", "", b["title"]).split()[:2]).upper()
@@ -1739,10 +1742,10 @@ def build():
         return (
             f'<div class="card book" data-id="{b["id"]}" data-cat="{html.escape(b["category"])}" data-dif="{html.escape(b["difficulty"])}" data-time="{tmin}" data-tags="{html.escape(tags)}" data-title="{html.escape(b["title"])}" data-desc="{html.escape(b["description"])}">'
             f'<div class="coverart" aria-hidden="true"><b>{initials}</b></div>'
-            f'<h3><a href="book/{b["id"]}.html">{html.escape(b["title"])}</a></h3><p>{html.escape(b["description"])}</p>'
+            f'<h3><a href="read/{b["id"]}.html">{html.escape(b["title"])}</a></h3><p>{html.escape(b["description"])}</p>'
             f'<div class="dif"><i></i>{b["difficulty"]} · {html.escape(b.get("path", ""))}</div>'
             f'<div class="prog"><b style="width:0%"></b></div>'
-            f'<span><a class="read" href="{reader_url(b)}">Read</a> <a href="book/{b["id"]}.html" style="font-size:13px;color:var(--mut)">Overview</a></span></div>'
+            f'<span><a class="read" href="{reader_url(b)}">Read</a></span></div>'
         )
     idx_of = {b["id"]: i for i, b in enumerate(books)}
     series_files = sorted(glob.glob(os.path.join(PDF, "series", "*.html")))
@@ -1884,35 +1887,6 @@ $('#themebtn').onclick=()=>{{const p=getP('cicdlib:pref',{{theme:'sepia'}});p.th
 </script></body></html>"""
     open(os.path.join(DIST, "glossary.html"), "w", encoding="utf-8").write(gloss)
 
-    # --- P1: book landing pages ---
-    bookdir = os.path.join(DIST, "book")
-    os.makedirs(bookdir, exist_ok=True)
-    for i, b in enumerate(books):
-        rels = related_books(b)
-        upnext = path_next(b)
-        toc = [t for _, t, _ in toc_of(parse_book(os.path.join(PDF, b["file"]))[1])][:12]
-        preq = "".join(f'<a href="{p}.html">{html.escape(byid[p]["title"])}</a>' if p in byid else f'<span>{html.escape(p)}</span>' for p in b.get("prereqs", [])) or "<span>None — start here</span>"
-        outs = "".join(f"<li>{html.escape(o)}</li>" for o in b.get("outcomes", [])) or "<li>Read the full book</li>"
-        initials = "".join(w[0] for w in re.sub(r"[^A-Za-z0-9 ]", "", b["title"]).split()[:2]).upper()
-        bp = f"""<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><title>{html.escape(b['title'])} — Overview — CICD BY Nabawy</title>{seo_tags(b['title'] + " — Overview — CICD BY Nabawy", b.get("description", ""), f"{SITE_URL}/book/{b['id']}.html", image=f"{SITE_URL}/og/{b['id']}.{OG_EXT}")}<link rel="prefetch" href="../read/{b['id']}.html"><style>{BASE_CSS}</style><script>try{{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}}catch(e){{document.documentElement.dataset.theme='sepia'}}</script>
-{f'<script type="application/ld+json">{json.dumps({"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":SITE_URL + "/"},{"@type":"ListItem","position":2,"name":b["title"],"item":SITE_URL + "/book/" + b["id"] + ".html"}]})}</script>'}></head>
-<body><header class="top"><div class="wrap"><a class="logo" href="../index.html" style="color:inherit">CICD<span> BY Nabawy</span></a><nav class="crumbs"><span class="sep">/</span><span class="here">{html.escape(b['title'])}</span></nav><div class="search"></div><a class="btn" href="../index.html">Home</a><button class="btn" id="themebtn">☀</button></div></header>
-<div class="wrap"><div class="bookhero"><div class="coverart" data-cat="{html.escape(b['category'])}"><b>{initials}</b></div><div style="flex:1;min-width:260px"><span class="num">{html.escape(b['category'])} · {b['difficulty']} · {b.get('time_minutes', 30)} min · v{b.get('version', '2.0')} · Updated {html.escape(b.get('updated', ''))}</span><h1 style="font-size:34px;margin:6px 0">{html.escape(b['title'])}</h1><p class="sub">{html.escape(b.get('description', ''))}</p>
-<div class="chiprow"><a id="startbtn" href="../read/{b['id']}.html">Start reading →</a><a href="../read/{b['id']}.html">Reader</a></div>
-<div class="chiprow"><span>Prereqs:</span>{preq}</div></div></div>
-<div class="outcomes"><b>What you'll learn</b><ul>{outs}</ul></div>
-<h2 class="sec" style="margin-top:20px">Contents preview</h2><ul class="labcheck">{"".join(f"<li>{html.escape(t)}</li>" for t in toc)}</ul>
-{f'<div class="upnext">Up next in {html.escape(PATHS.get(b.get("path", ""), {}).get("label", b.get("path", "")))} → <a href="{upnext["id"]}.html"><b>{html.escape(upnext["title"])}</b></a></div>' if upnext else ''}
-{related_box_html(rels)}
-</div><footer><div class="wrap"><span>CICD BY Nabawy</span></div></footer>
-<script>{BASE_JS}
-const pref=getP('cicdlib:pref',{{theme:'sepia'}});const THX=['sepia','dark','light','dim','contrast'];document.documentElement.dataset.theme=THX.includes(pref.theme)?pref.theme:'sepia';
-$('#themebtn').onclick=()=>{{pref.theme=THX[(THX.indexOf(pref.theme)+1)%THX.length]||'sepia';setP('cicdlib:pref',pref);document.documentElement.dataset.theme=pref.theme;}};
-try{{const p=getP('cicdlib:prog:{b['id']}',null);if(p&&p.pct>0&&p.pct<100)$('#startbtn').textContent='Continue reading — '+p.pct+'% →';}}catch(e){{}}
-</script></body></html>"""
-        open(os.path.join(bookdir, b["id"] + ".html"), "w", encoding="utf-8").write(bp)
 
     # --- P1: updates page (per-book date from git, manifest fallback) ---
     import subprocess as _sp
@@ -1939,7 +1913,7 @@ try{{const p=getP('cicdlib:prog:{b['id']}',null);if(p&&p.pct>0&&p.pct<100)$('#st
     def _urow(b):
         _ds = _book_date(b)
         _rib = ' <span class="upd">\u25cf Updated</span>' if _fresh(_ds) else ""
-        return (f'<tr><td><a href="book/{b["id"]}.html">{html.escape(b["title"])}</a></td><td>{html.escape(b["category"])}</td><td>{b["difficulty"]}</td><td>v{html.escape(b.get("version", "2.0"))}</td><td>{html.escape(_ds)}{_rib}</td><td>{b.get("time_minutes", 30)} min</td></tr>')
+        return (f'<tr><td><a href="read/{b["id"]}.html">{html.escape(b["title"])}</a></td><td>{html.escape(b["category"])}</td><td>{b["difficulty"]}</td><td>v{html.escape(b.get("version", "2.0"))}</td><td>{html.escape(_ds)}{_rib}</td><td>{b.get("time_minutes", 30)} min</td></tr>')
     rows_u = "".join(_urow(b) for b in books)
     upd = f"""<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1952,7 +1926,7 @@ try{{const p=getP('cicdlib:prog:{b['id']}',null);if(p&&p.pct>0&&p.pct<100)$('#st
     urls = [SITE_URL + "/", SITE_URL + "/glossary.html", SITE_URL + "/roadmap/", SITE_URL + "/map.html", SITE_URL + "/updates.html"]
     for b in books:
         urls.append(f"{SITE_URL}/read/{b['id']}.html")
-        urls.append(f"{SITE_URL}/book/{b['id']}.html")
+        urls.append(f"{SITE_URL}/read/{b['id']}.html")
     for q in sorted(pathlib.Path(os.path.join(DIST, "pdf")).rglob("*.html")):
         rel = q.relative_to(pathlib.Path(DIST)).as_posix()
         urls.append(f"{SITE_URL}/{rel}")
@@ -1969,7 +1943,7 @@ try{{const p=getP('cicdlib:prog:{b['id']}',null);if(p&&p.pct>0&&p.pct<100)$('#st
     search_idx = [{"id": b["id"], "title": b["title"], "desc": b.get("description", ""), "cat": b["category"], "dif": b["difficulty"], "tags": b.get("tags", []), "time": b.get("time_minutes", 30), "sections": all_sections.get(b["id"], []), "body": all_body.get(b["id"], "")[:2000]} for b in books]
     pathlib.Path(os.path.join(DIST, "search.json")).write_text(json.dumps(search_idx, ensure_ascii=False, indent=1), encoding="utf-8")
 
-    print(f"BUILT {len(books)} books + {len(books)} overviews + index + glossary + updates -> {DIST}")
+    print(f"BUILT {len(books)} books + {len(books)} readers + index + glossary + updates -> {DIST}")
 
 
 if __name__ == "__main__":
