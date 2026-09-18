@@ -534,7 +534,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
 .stat-pill b{font-size:14px;color:var(--ink)}
 .stat-level b{color:var(--brand)}
 .map-hero{overflow:hidden}
-.pipeline{position:absolute;inset:0;margin:0 auto;max-width:1060px;height:300px;pointer-events:none;opacity:.25;z-index:0}
+.pipeline{max-width:1060px;margin:6px auto 0;height:150px;pointer-events:none;opacity:.32}
 .map-hero-inner{position:relative;z-index:2}
 .pipeline svg{width:100%;height:100%;display:block}
 .pnode{fill:var(--card);stroke:var(--brand);stroke-width:2}
@@ -546,7 +546,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
 .plabel{font-family:var(--mono);font-size:11px;letter-spacing:.6px;text-transform:uppercase;fill:var(--mut)}
 @keyframes dashflow{to{stroke-dashoffset:-128}}
 @media(prefers-reduced-motion:reduce){.pedge{animation:none}}
-@media(max-width:600px){.pipeline{opacity:.10;height:230px}.herocta{flex-direction:column;align-items:stretch;max-width:320px;margin-left:auto;margin-right:auto}.herocta .btn{justify-content:center}}
+@media(max-width:600px){.pipeline{opacity:.14;height:110px}.herocta{flex-direction:column;align-items:stretch;max-width:320px;margin-left:auto;margin-right:auto}.herocta .btn{justify-content:center}}
 /* — MAP GRID: exterior blocks as distinct objects — */
 .map-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;margin:32px 0 28px;perspective:1200px}
 .map-block{position:relative;background:linear-gradient(135deg,color-mix(in srgb,var(--cat) 7%,var(--card)) 0%,var(--card) 55%);border:1.5px solid color-mix(in srgb,var(--cat) 28%,var(--line-soft));border-radius:16px;padding:0;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06),0 8px 24px -8px color-mix(in srgb,var(--cat) 18%,transparent),0 2px 10px rgba(0,0,0,.06);transition:transform .24s cubic-bezier(.2,.8,.2,1),box-shadow .24s ease,border-color .24s ease;text-align:left;cursor:pointer;color:var(--ink);text-decoration:none;transform-style:preserve-3d}
@@ -1180,23 +1180,23 @@ def build_map_page(books, output_dir, paths_html=""):
 </div></header>
 <div class="wrap">
 <div class="map-hero">
-<div class="pipeline" aria-hidden="true"><svg width="1000" height="300" viewBox="0 0 1000 300" fill="none">
-<defs><g id="nd"><circle class="pnode" cx="0" cy="0" r="26"/><circle class="pcore" cx="0" cy="0" r="7"/></g>
-<g id="ndm"><circle class="pnode mut" cx="0" cy="0" r="26"/><circle class="pcore mut" cx="0" cy="0" r="7"/></g></defs>
-<path class="pedge live" d="M96 120 C 215 120, 252 88, 296 88"/>
-<path class="pedge" d="M326 88 C 395 88, 414 113, 442 128"/>
-<path class="pedge" d="M494 128 C 540 128, 556 96, 582 96"/>
-<path class="pedge live" d="M634 96 C 690 96, 708 116, 876 104"/>
-<g><use href="#nd" x="70" y="120"/><text class="plabel" x="70" y="166" text-anchor="middle">Source</text></g>
-<g><use href="#nd" x="300" y="88"/><text class="plabel" x="300" y="60" text-anchor="middle">Build</text></g>
-<g><use href="#nd" x="468" y="128"/><text class="plabel" x="468" y="174" text-anchor="middle">Test</text></g>
-<g><use href="#ndm" x="608" y="96"/><text class="plabel" x="608" y="146" text-anchor="middle">Artifact</text></g>
-<g><use href="#nd" x="902" y="104"/><text class="plabel" x="902" y="150" text-anchor="middle">Deploy</text></g>
-</svg></div>
 <div class="map-hero-inner"><span class="eyebrow">HOME</span>
 <h1>The whole building, <span style="color:var(--mut)">one glance.</span></h1>
 <div class="herocta"><a class="btn prim" href="read/start-here.html">Start here <span aria-hidden="true">→</span></a><a class="btn" href="roadmap/">Follow the roadmap</a></div>
 <div class="stat-row">{stats_pills}</div></div>
+<div class="pipeline" aria-hidden="true"><svg width="1000" height="170" viewBox="0 0 1000 170" fill="none">
+<defs><g id="nd"><circle class="pnode" cx="0" cy="0" r="26"/><circle class="pcore" cx="0" cy="0" r="7"/></g>
+<g id="ndm"><circle class="pnode mut" cx="0" cy="0" r="26"/><circle class="pcore mut" cx="0" cy="0" r="7"/></g></defs>
+<path class="pedge live" d="M106 70 C 200 70, 228 60, 264 60"/>
+<path class="pedge" d="M316 60 C 390 60, 412 76, 464 76"/>
+<path class="pedge" d="M516 76 C 570 76, 592 62, 654 62"/>
+<path class="pedge live" d="M706 62 C 775 62, 805 68, 854 68"/>
+<g><use href="#nd" x="80" y="70"/><text class="plabel" x="80" y="116" text-anchor="middle">Source</text></g>
+<g><use href="#nd" x="290" y="60"/><text class="plabel" x="290" y="28" text-anchor="middle">Build</text></g>
+<g><use href="#nd" x="490" y="76"/><text class="plabel" x="490" y="122" text-anchor="middle">Test</text></g>
+<g><use href="#ndm" x="680" y="62"/><text class="plabel" x="680" y="30" text-anchor="middle">Artifact</text></g>
+<g><use href="#nd" x="880" y="68"/><text class="plabel" x="880" y="114" text-anchor="middle">Deploy</text></g>
+</svg></div>
 </div>
 <div class="map-grid" id="mapGrid" role="list" aria-label="Knowledge structure map">{blocks_html}</div>
 {paths_html}
