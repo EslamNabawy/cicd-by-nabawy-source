@@ -226,20 +226,32 @@ CATALOG = [
 
 def build_tools_page(books, output_dir, env):
     CAT_HEX = env.get('CAT_HEX', {})
+    ICON_FOR = {
+        'Jenkins': '<img alt="" src="../assets/icons/jenkins/jenkins.svg" width="28" height="28">',
+        'GitHub Actions': '<img alt="" src="../assets/icons/git/github.svg" width="28" height="28">',
+        'GitLab CI': '<img alt="" src="../assets/icons/git/gitlab.svg" width="28" height="28">',
+        'ArgoCD': '<img alt="" src="../assets/icons/deployment/argo.svg" width="28" height="28">',
+        'Docker': '<img alt="" src="../assets/icons/docker/docker.svg" width="28" height="28">',
+        'Kubernetes': '<img alt="" src="../assets/icons/deployment/argo.svg" width="28" height="28">',
+        'Helm': '<img alt="" src="../assets/icons/general/puzzle.svg" width="28" height="28">',
+        'Terraform': '<img alt="" src="../assets/icons/general/terraform.svg" width="28" height="28">',
+        'Prometheus': '<img alt="" src="../assets/icons/monitoring/activity.svg" width="28" height="28">',
+        'Grafana': '<img alt="" src="../assets/icons/monitoring/activity.svg" width="28" height="28">',
+        'Loki': '<img alt="" src="../assets/icons/monitoring/activity.svg" width="28" height="28">',
+        'GHCR / Registries': '<img alt="" src="../assets/icons/general/package.svg" width="28" height="28">',
+    }
     cath = []
     for _t in CATALOG:
         _name, _cat, _what, _when, _why, _how, _pop, _bid = _t
         _col = CAT_HEX.get(_cat, '#18E299')
         _stars = '★' * _pop + '☆' * (5 - _pop)
+        _icon = ICON_FOR.get(_name, '<span aria-hidden="true">' + htmllib.escape(_name[:1]) + '</span>')
         cath.append('<article class="toolcard" style="--cat:' + _col + '" aria-label="' + htmllib.escape(_name) + '">'
-            '<div class="toolcard-head"><span class="map-icon" aria-hidden="true">' + htmllib.escape(_name[:1]) + '</span>'
+            '<div class="toolcard-head"><span class="map-icon" aria-hidden="true">' + _icon + '</span>'
             '<div><h3>' + htmllib.escape(_name) + '</h3>'
-            '<span class="pop" title="Field popularity ' + str(_pop) + ' out of 5">' + _stars + ' <b>' + str(_pop) + '/5</b></span></div></div>'
-            '<p><b>What:</b> ' + htmllib.escape(_what) + '</p>'
-            '<p><b>When:</b> ' + htmllib.escape(_when) + '</p>'
-            '<p><b>Why:</b> ' + htmllib.escape(_why) + '</p>'
-            '<p><b>How:</b> ' + htmllib.escape(_how) + '</p>'
-            '<p><a class="btn" href="../read/' + _bid + '.html">Read in book</a></p></article>')
+            '<span class="pop" title="Popularity: ' + str(_pop) + ' out of 5 in 2026 field adoption"><span class="poplbl">Popularity</span><span class="stars">' + _stars + '</span><b>' + str(_pop) + '/5</b></span></div></div>'
+            '<dl class="tooldl"><dt>What</dt><dd>' + htmllib.escape(_what) + '</dd><dt>When</dt><dd>' + htmllib.escape(_when) + '</dd><dt>Why</dt><dd>' + htmllib.escape(_why) + '</dd><dt>How</dt><dd><code>' + htmllib.escape(_how) + '</code></dd></dl>'
+            '<p><a class="btn" href="../read/' + _bid + '.html">Read in book →</a></p></article>')
     catalog_html = '<div class="hm-label" aria-hidden="true"><span>TOOL CATALOG</span><span>' + str(len(CATALOG)) + ' TOOLS</span></div><div class="toolgrid">' + ''.join(cath) + '</div><p class="sub">Popularity is a field estimate for 2026 hiring and community weight — fit beats fame; confirm with the matrix.</p>'
     links = {
         'jenkins': resolve_sheet(books, env, 'jenkins-complete', ['Setup', 'Topology', 'Agents']),
@@ -294,7 +306,7 @@ try{const _m=location.hash.match(/^#r=([a-z,0-9:]+)$/);if(_m){_m[1].split(',').f
             '<meta name="viewport" content="width=device-width, initial-scale=1.0">'
             '<link rel="icon" type="image/svg+xml" href="../favicon.svg">'
             '<title>Tool picker - CICD BY Nabawy</title>'
-            '<style>' + env['BASE_CSS'] + '.qcard{max-width:640px;margin:18px auto;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px}.qcard .opts{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}.qcard .btn{min-height:48px}.qcard .opts .btn{flex:1 1 140px}.qprog{height:6px;border-radius:99px;background:var(--bg2);margin-bottom:12px;overflow:hidden}.qprog span{display:block;height:100%;background:var(--brand);border-radius:99px;transition:width .2s}.qstep{font-family:var(--mono);font-size:11px;color:var(--mut);letter-spacing:.1em;margin-bottom:6px}.qhint{font-size:13px;color:var(--mut);margin:4px 0 6px}.qback{margin-top:4px}.toolgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin:14px 0}.toolcard{background:var(--card);border:1px solid var(--line-soft);border-radius:14px;padding:18px}.toolcard:hover{border-color:var(--cat)}.toolcard-head{display:flex;gap:12px;align-items:center;margin-bottom:8px}.toolcard-head .map-icon{font-size:20px;font-weight:800;width:44px;height:44px}.toolcard h3{font-size:16px;margin:0}.toolcard .pop{color:var(--cat);font-size:12px}.toolcard p{font-size:13px;color:var(--mut);margin:6px 0}.toolcard p b{color:var(--ink)}.tcard{max-width:640px;margin:12px auto;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 22px}.tcard.winner{border-color:var(--brand);box-shadow:var(--shadow-lift)}.tbar{height:8px;border-radius:99px;background:var(--bg2);margin:10px 0}.tbar b{display:block;height:100%;border-radius:99px;background:var(--brand)}</style>'
+            '<style>' + env['BASE_CSS'] + '.qcard{max-width:640px;margin:18px auto;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px}.qcard .opts{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}.qcard .btn{min-height:48px}.qcard .opts .btn{flex:1 1 140px}.qprog{height:6px;border-radius:99px;background:var(--bg2);margin-bottom:12px;overflow:hidden}.qprog span{display:block;height:100%;background:var(--brand);border-radius:99px;transition:width .2s}.qstep{font-family:var(--mono);font-size:11px;color:var(--mut);letter-spacing:.1em;margin-bottom:6px}.qhint{font-size:13px;color:var(--mut);margin:4px 0 6px}.qback{margin-top:4px}.toolgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin:14px 0}.toolcard{background:var(--card);border:1px solid var(--line-soft);border-radius:14px;padding:18px}.toolcard:hover{border-color:var(--cat)}.toolcard-head{display:flex;gap:12px;align-items:center;margin-bottom:8px}.toolcard{position:relative;overflow:hidden}.toolcard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--cat)}.toolcard-head .map-icon{font-size:20px;font-weight:800;width:44px;height:44px;overflow:hidden}.toolcard-head .map-icon img{width:28px;height:28px;display:block;object-fit:contain}.toolcard h3{font-size:16px;margin:0}.toolcard .pop{display:inline-flex;align-items:center;gap:6px;color:var(--mut);font-size:12px}.toolcard .pop .poplbl{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut)}.toolcard .pop .stars{color:var(--cat);letter-spacing:1px}.toolcard .tooldl{margin:10px 0 6px}.toolcard .tooldl dt{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--cat);margin-top:8px}.toolcard .tooldl dd{font-size:13px;color:var(--mut);margin:2px 0 0}.toolcard .tooldl dd code{font-family:var(--mono);font-size:12px;background:color-mix(in srgb,var(--cat) 8%,var(--bg2));border:1px solid color-mix(in srgb,var(--cat) 14%,var(--line));border-radius:6px;padding:2px 6px;color:var(--ink)}.tcard{max-width:640px;margin:12px auto;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 22px}.tcard.winner{border-color:var(--brand);box-shadow:var(--shadow-lift)}.tbar{height:8px;border-radius:99px;background:var(--bg2);margin:10px 0}.tbar b{display:block;height:100%;border-radius:99px;background:var(--brand)}</style>'
             + HEAD_THEME +
             '</head><body><header class="top"><div class="wrap">'
             '<a class="logo" href="../index.html" style="color:inherit">CICD<span> BY Nabawy</span></a>'
