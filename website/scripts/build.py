@@ -1361,6 +1361,7 @@ def build():
     # shared icon library: single source (KB assets) copied into dist
     shutil.rmtree(os.path.join(DIST, "assets"), ignore_errors=True)
     shutil.rmtree(os.path.join(DIST, "book"), ignore_errors=True)  # overviews removed
+    shutil.rmtree(os.path.join(DIST, "downloads"), ignore_errors=True)  # stale lab PDFs
     shutil.copytree(os.path.join(KB, "assets"), os.path.join(DIST, "assets"))
     # print editions ship with the site so reader "Open print HTML" works live
     shutil.rmtree(os.path.join(DIST, "pdf"), ignore_errors=True)
@@ -1529,7 +1530,7 @@ def build():
 </aside><div class="tocscrim" id="tocscrim" aria-hidden="true"></div>
 <main class="read"><div class="readbody">
 {top_upnext}
-{f'<div class="labbanner">🧪 Hands-on lab · {b.get("time_minutes", 45)} min · Env: {html.escape(b.get("lab_env", "See book overview"))} · <a href="../downloads/labs/' + b["id"] + '.pdf" download>Download PDF</a> · <button class="markbtn" id="labreset" style="margin-left:8px">Reset checks</button></div>' if is_lab else ''}
+{f'<div class="labbanner">🧪 Hands-on lab · {b.get("time_minutes", 45)} min · Env: {html.escape(b.get("lab_env", "See book overview"))} · <a href="../pdf/' + b["file"] + '">Print edition</a> · <button class="markbtn" id="labreset" style="margin-left:8px">Reset checks</button></div>' if is_lab else ''}
 {''.join(body_pages)}
 {f'<div class="upnext">Up next in {html.escape(PATHS.get(b.get("path", ""), {}).get("label", b.get("path", "")))} → <a href="{upnext["id"]}.html"><b>{html.escape(upnext["title"])}</b></a></div>' if upnext else ''}
 {related_box_html(rels)}
@@ -1668,6 +1669,7 @@ def build():
     series_sec = [s for s in sections if s["name"] == "Series edition"]
     sections = [s for s in sections if s["name"] != "Series edition"] + series_sec
     ogdir = os.path.join(DIST, "og")
+    shutil.rmtree(ogdir, ignore_errors=True)
     os.makedirs(ogdir, exist_ok=True)
     for b in books:
         open(os.path.join(ogdir, b["id"] + ".svg"), "w", encoding="utf-8").write(og_svg(b["title"], b["category"], CAT_COLORS.get(b["category"], "#18E299")))
