@@ -1,37 +1,53 @@
-# CI/CD Knowledge Base
+# CICD BY Nabawy — Library
 
-> Canonical source for CI/CD learning material. Every PDF, website page, lab, and exam note derives from this Markdown.
+> 8 merged handbooks, SIGNAL study-guide design, static website. Live:
+> https://eslamnabawy.github.io/cicd-by-nabawy/
+
+## Books (source: `pdf/`, manifest: `website/content/books.json`)
+
+| # | Book | File | Path |
+|---|---|---|---|
+| 1 | Start Here: Foundations, Git & CI | `pdf-merged-01-start-here.html` | start-here |
+| 2 | Pipelines, Build, Test & Artifacts | `pdf-merged-10-build-artifacts.html` | build |
+| 3 | Delivery, Deployment & Operations | `pdf-merged-11-deliver-operate.html` | deliver |
+| 4 | Observability: Loki, Prometheus & Grafana | `pdf-43-observability.html` | observability |
+| 5 | Jenkins Complete | `pdf-merged-12-jenkins-complete.html` | jenkins |
+| 6 | Platforms & 2026 Roadmaps | `pdf-merged-13-platforms-roadmaps.html` | platforms |
+| 7 | Labs Handbook | `pdf-merged-14-labs-handbook.html` | labs |
+| 8 | Command Cheatsheet | `pdf-36-command-cheatsheet.html` | reference |
+
+Every book: one cover, Contents sheet, chapters with EXAM boxes, glossary,
+interview, cheat sheet, quiz. Zero `PDF NN` seams.
 
 ## Learning Flow
 
 ```mermaid
 flowchart LR
-    A[Git<br/>Branching, PR] --> B[CI Trigger<br/>Pipeline]
-    B --> C[Build, Test<br/>Security Scan]
-    C --> D[Artifact<br/>Registry]
-    D --> E[CD]
-    E --> F[Staging]
-    E --> G[Production]
-    G --> H[Observability]
-    H --> I[Feedback]
-    I -.-> A
+    A[Start Here] --> B[Build, Test & Artifacts]
+    B --> C[Deliver & Operate]
+    C --> D[Observability]
+    D --> E[Jenkins Complete]
+    E --> F[Platforms & Roadmaps]
+    F --> G[Labs Handbook]
 ```
 
-## Map
+## Map (Markdown sources — search index + print fallback)
 
-| # | Area | Document |
-|---|------|----------|
-| 00 | Foundations | [CI/CD Overview](00-foundations/cicd-overview.md) |
-| 01 | Source Control | [Git, Branching & Pull Requests](01-source-control/git-branching-pull-requests.md) |
-| 06 | Pipelines | [CI/CD Pipelines](06-ci-cd-pipelines/pipelines.md) |
-| 05 | Artifacts | [Artifact Management](05-artifacts-and-packaging/artifact-management.md) |
-| 07 | Delivery | [Continuous Delivery](07-continuous-delivery/continuous-delivery.md) |
-| 13 | Feedback | [Observability & Feedback](13-observability-and-feedback/observability-feedback.md) |
-| 15 | Platforms | [Jenkins Domain](15-platforms-and-tools/jenkins/README.md) |
+| Area | Document |
+|---|---|
+| Foundations | [Start Here](00-foundations/start-here-merged.md) |
+| Pipelines/Build/Test | [Pipelines + Builds](06-ci-cd-pipelines/pipelines-build-test.md), [Artifacts](05-artifacts-and-packaging/artifact-management.md) |
+| Delivery/Ops | [Delivery + IaC](07-continuous-delivery/delivery-envs-iac.md), [Strategies](10-deployment-strategies/deployment-strategies.md), [Observe/Recover](13-observability-and-feedback/observe-recover-secure.md) |
+| Jenkins | [Core](15-platforms-and-tools/jenkins/jenkins-core-merged.md), [Advanced](15-platforms-and-tools/jenkins/jenkins-advanced-ops.md) |
+| Platforms | [Actions](15-platforms-and-tools/github-actions.md), [GitLab + ArgoCD](15-platforms-and-tools/gitlab-argocd.md) |
+| Labs | [Core](16-labs/core-labs-handbook.md), [Jenkins](16-labs/jenkins-labs-handbook.md) |
+| Reference | [Cheatsheet](17-reference/command-cheatsheet.md) |
 
 ## Rules
 
-- Source of truth: Markdown first, PDF/website second.
-- See [DOCUMENTATION_RULES.md](DOCUMENTATION_RULES.md) before adding content.
-- Track coverage in [TOPIC_INDEX.md](TOPIC_INDEX.md) and [ROADMAP.md](ROADMAP.md).
+- Source of truth: `pdf/` print editions first, Markdown second (search + fallback).
+- Website: `website/` — rebuild after any change (`website/scripts/build.py`),
+  verify (`scripts/qc-check.py`), push source, manual `gh-pages` deploy.
+- Track gaps in [CONTENT-BRIEF.md](CONTENT-BRIEF.md) and [ROADMAP.md](ROADMAP.md).
 - Terms defined in [GLOSSARY.md](GLOSSARY.md).
+- Stale planning docs live in `_archive/` — do not resurrect.

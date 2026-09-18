@@ -81,18 +81,23 @@
 
 - [x] IaC for environments: modules, state per env, plan-as-review, drift, preview automation
 
-## Publication (PDF Phase — In Progress)
+## Publication (print editions in `pdf/`)
 
-- [x] Per-file PDFs 01–39 in `pdf/` (standalone A4 HTML, spec system, Nabawy signature, all QC green)
-- [x] Series edition S01–S09 in `pdf/series/` (omnibus generator `scripts/build_series.py`, all QC green)
-- [x] Series on the website (Series edition section + print PDFs ship in `dist/`)
+- [x] 8 merged SIGNAL books (cover, Contents+legend, chapters with EXAM boxes,
+  glossary, interview, cheat sheet, quiz) + observability reference edition
+- [x] Retired singles kept as merge inputs (QC-allowlisted, not in manifest)
+- [x] Series edition S01–S09 in `pdf/series/` (omnibus generator
+  `scripts/build_series.py`, roadmap-linked, ships in `dist/`)
 
 ## Website (Live)
 
-- [x] Library + reader in `website/dist/` per `WEBSITE_BUILD_SPEC.md` (36 books, TOC, 2 themes, font/width, search, progress, glossary, mobile, print)
-- [x] Deployed: https://eslamnabawy.github.io/cicd-library/ (repo `EslamNabawy/cicd-library`, `gh-pages` branch)
-- Standing: rebuild via `website/scripts/build.py` + repush `dist/` after each new book
-- [x] Knowledge content complete (36 md files) — HTML/PDF work unblocked
+- [x] Library + readers in `website/dist/`: 8 books, SIGNAL design, sepia/dark/
+  light themes, search, progress, threads + tool picker, glossary, mobile, print
+- [x] Deployed: https://eslamnabawy.github.io/cicd-by-nabawy/ (site repo
+  `EslamNabawy/cicd-by-nabawy`, `gh-pages` branch, manual deploy — CI broken)
+- Standing: rebuild via `website/scripts/build.py` + QC + push + manual deploy
+  after each content change
+- [x] Knowledge content complete — HTML/PDF work unblocked
 
 ## Labs
 
