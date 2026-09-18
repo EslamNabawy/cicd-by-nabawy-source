@@ -1,18 +1,26 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><title>Command Cheatsheet — Overview — CICD BY Nabawy</title><link rel="icon" type="image/svg+xml" href="https://eslamnabawy.github.io/cicd-by-nabawy/favicon.svg">
-<meta name="description" content="Every lab command grouped by tool.">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<title>Pipelines, Build, Test &amp; Artifacts — CICD BY Nabawy</title>
+<link rel="icon" type="image/svg+xml" href="https://eslamnabawy.github.io/cicd-by-nabawy/favicon.svg">
+<meta name="description" content="Trigger to versioned artifact: stages, runners, hermetic builds, test pyramid, registries, signing, SBOM.">
 <meta name="theme-color" content="#0B0D10">
-<link rel="canonical" href="https://eslamnabawy.github.io/cicd-by-nabawy/book/cheatsheet.html">
-<meta property="og:title" content="Command Cheatsheet — Overview — CICD BY Nabawy">
-<meta property="og:description" content="Every lab command grouped by tool.">
-<meta property="og:url" content="https://eslamnabawy.github.io/cicd-by-nabawy/book/cheatsheet.html">
-<meta property="og:type" content="website">
+<link rel="canonical" href="https://eslamnabawy.github.io/cicd-by-nabawy/read/build-artifacts.html">
+<meta property="og:title" content="Pipelines, Build, Test &amp; Artifacts — CICD BY Nabawy">
+<meta property="og:description" content="Trigger to versioned artifact: stages, runners, hermetic builds, test pyramid, registries, signing, SBOM.">
+<meta property="og:url" content="https://eslamnabawy.github.io/cicd-by-nabawy/read/build-artifacts.html">
+<meta property="og:type" content="article">
 <meta property="og:site_name" content="CICD BY Nabawy">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Command Cheatsheet — Overview — CICD BY Nabawy">
-<meta name="twitter:description" content="Every lab command grouped by tool.">
-<meta property="og:image" content="https://eslamnabawy.github.io/cicd-by-nabawy/og/cheatsheet.png"><link rel="prefetch" href="../read/cheatsheet.html"><style>
+<meta name="twitter:title" content="Pipelines, Build, Test &amp; Artifacts — CICD BY Nabawy">
+<meta name="twitter:description" content="Trigger to versioned artifact: stages, runners, hermetic builds, test pyramid, registries, signing, SBOM.">
+<meta property="og:image" content="https://eslamnabawy.github.io/cicd-by-nabawy/og/build-artifacts.png">
+<link rel="prefetch" href="deliver-operate.html">
+<style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap');
 :root{--bg:#0B0D10;--bg2:#12151a;--card:#12151a;--ink:#ededed;--mut:#a0a0a0;--line:rgba(255,255,255,.1);--line-soft:rgba(255,255,255,.07);--acc:#18E299;--acc-soft:rgba(24,226,153,.12);--brand:#18E299;--warn:#c37d0d;--red:#d45656;--shadow:rgba(0,0,0,.4) 0px 2px 4px;--shadow-btn:rgba(0,0,0,.4) 0px 1px 2px;--shadow-lift:rgba(0,0,0,.5) 0px 12px 28px -8px;--radius:12px;--mono:'Geist Mono',ui-monospace,SFMono-Regular,Menlo,monospace}
 [data-theme=light]{--bg:#ffffff;--bg2:#fafafa;--card:#ffffff;--ink:#0d0d0d;--mut:#666666;--line:rgba(0,0,0,.07);--line-soft:rgba(0,0,0,.05);--acc:#0b9b68;--acc-soft:#d4fae8;--brand:#18E299;--warn:#c37d0d;--red:#d45656;--shadow:rgba(0,0,0,.03) 0px 2px 4px;--shadow-btn:rgba(0,0,0,.06) 0px 1px 2px;--shadow-lift:rgba(0,0,0,.1) 0px 12px 28px -8px;--radius:12px;--mono:'Geist Mono',ui-monospace,SFMono-Regular,Menlo,monospace}
@@ -581,22 +589,409 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
   .map-preview{transition:none !important}
 }
 </style><script>try{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}catch(e){document.documentElement.dataset.theme='sepia'}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Library", "item": "https://eslamnabawy.github.io/cicd-by-nabawy/"}, {"@type": "ListItem", "position": 2, "name": "Command Cheatsheet", "item": "https://eslamnabawy.github.io/cicd-by-nabawy/book/cheatsheet.html"}]}</script>></head>
-<body><header class="top"><div class="wrap"><a class="logo" href="../index.html" style="color:inherit">CICD<span> BY Nabawy</span></a><nav class="crumbs"><span class="sep">/</span><span class="here">Command Cheatsheet</span></nav><div class="search"></div><a class="btn" href="../index.html">Home</a><button class="btn" id="themebtn">☀</button></div></header>
-<div class="wrap"><div class="bookhero"><div class="coverart" data-cat="Reference"><b>CC</b></div><div style="flex:1;min-width:260px"><span class="num">Reference · Beginner · 15 min · v2.0 · Updated 2026-09-01</span><h1 style="font-size:34px;margin:6px 0">Command Cheatsheet</h1><p class="sub">Every lab command grouped by tool.</p>
-<div class="chiprow"><a id="startbtn" href="../read/cheatsheet.html">Start reading →</a><a href="../read/cheatsheet.html">Reader</a></div>
-<div class="chiprow"><span>Prereqs:</span><span>None — start here</span></div></div></div>
-<div class="outcomes"><b>What you'll learn</b><ul><li>Find any lab command fast</li><li>Copy per-tool snippets</li><li>Unblock local runs</li></ul></div>
-<h2 class="sec" style="margin-top:20px">Contents preview</h2><ul class="labcheck"></ul>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Pipelines, Build, Test & Artifacts", "description": "Trigger to versioned artifact: stages, runners, hermetic builds, test pyramid, registries, signing, SBOM.", "url": "https://eslamnabawy.github.io/cicd-by-nabawy/read/build-artifacts.html", "author": {"@type": "Person", "name": "Nabawy"}, "isPartOf": {"@type": "CollectionPage", "name": "CICD BY Nabawy", "url": "https://eslamnabawy.github.io/cicd-by-nabawy"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Library", "item": "https://eslamnabawy.github.io/cicd-by-nabawy/"}, {"@type": "ListItem", "position": 2, "name": "Pipelines, Build, Test & Artifacts", "item": "https://eslamnabawy.github.io/cicd-by-nabawy/read/build-artifacts.html"}]}</script>
+<style>
+.readbody{--paper:#f5f6f4;--white:#fff;--ink:#161a19;--muted:#68706d;--line:#d5dad7;--panel:#111614;--panel-2:#1a201d;--text-light:#e8eeeb;--text-muted:#9ca8a3;--accent:#00b87c;--accent-dark:#008f61;--blue:#4387ff;--amber:#d99a24;--red:#d94b4b;--artifact:#8b6cff}
+*{box-sizing:border-box;margin:0;padding:0}
+.readbody{font-family:Inter,"Segoe UI",Arial,sans-serif;color:var(--ink)}
+@page{size:A4;margin:0}
+.page{width:210mm;min-height:297mm;padding:16mm 16mm 19mm;margin:8mm auto;position:relative;background:var(--paper);page-break-after:always;overflow:hidden;display:flex;flex-direction:column}
+@media print{.readbody{}.page{margin:0;box-shadow:none}h3.sec,.phead h2{break-after:avoid}.pipeline,.lane,.terminal,.cmdres,.callout,.vflow,.dec,table.cmp,.qa,.kv{break-inside:avoid}}
+.phead{font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase}
+.phead .ch{color:var(--accent-dark);font-weight:700}
+.phead h2{font-size:22px;letter-spacing:1px;color:var(--ink);margin:2px 0 6px;text-transform:uppercase}
+.phead hr{border:none;border-top:1.5px solid var(--ink);margin-bottom:10px}
+.pfoot{margin-top:auto;padding-top:8px;font-size:9px;color:var(--muted);display:flex;justify-content:space-between;border-top:1px solid var(--line);letter-spacing:1px}
+h3.sec{font-size:23px;margin:16px 0 8px;text-transform:uppercase;letter-spacing:.5px;break-after:avoid}
+h3.sec .n{color:var(--accent-dark);font-family:"Cascadia Code",Consolas,monospace;font-size:15px;margin-right:10px}
+p.body{font-size:14.5px;line-height:1.6;margin:8px 0}
+.cap{font-size:10.5px;color:var(--muted);margin-top:6px;line-height:1.6}
+code,.mono{font-family:"SFMono-Regular","Cascadia Code",Consolas,monospace}
+.cover{background:var(--panel);color:var(--text-light);justify-content:center}
+.cover .brand{font-size:10px;letter-spacing:4px;color:var(--text-muted)}
+.cover h1{font-size:48px;line-height:1.08;margin:10px 0 4px;letter-spacing:1px}
+.cover h1 span{color:var(--accent)}
+.cover .sub{font-size:15px;color:var(--text-muted);margin-bottom:18px}
+.cover .tri{font-size:10px;letter-spacing:2.5px;color:var(--accent);margin-bottom:26px;line-height:2}
+.vpipe{display:flex;flex-direction:column;margin:6px 0 26px}
+.vnode{display:flex;align-items:center;gap:12px}
+.vnode .dot{width:14px;height:14px;border-radius:50%;border:2px solid var(--accent);box-shadow:0 0 10px rgba(0,184,124,.55);flex:none}
+.vnode.blue .dot{border-color:var(--blue);box-shadow:0 0 10px rgba(67,135,255,.55)}
+.vnode.purp .dot{border-color:var(--artifact);box-shadow:0 0 10px rgba(139,108,255,.55)}
 
-<div class="relatedbox"><h4>Related books</h4><ul class="relgrid"><li class="relcard" data-cat="Deliver" style="--cat:#F472B6"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l4 6-4 12-4-12z"/><path d="M8 9h8"/><path d="M10 3v4M14 3v4" opacity=".6"/><circle cx="12" cy="9" r="1.2" fill="currentColor" stroke="none"/></svg></span><span class="rel-main"><a href="deliver-operate.html">Delivery, Deployment &amp; Operations</a><span class="rel-meta">255 min · <span class="difbadge int">Int</span></span><span class="rel-why">→ More to explore</span></span></li><li class="relcard" data-cat="Jenkins" style="--cat:#22B8CF"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 8h10M7 12h10M7 16h10"/><circle cx="12" cy="12" r="9" opacity=".35"/></svg></span><span class="rel-main"><a href="jenkins-complete.html">Jenkins Complete</a><span class="rel-meta">345 min · <span class="difbadge int">Int</span></span><span class="rel-why">→ More to explore</span></span></li><li class="relcard" data-cat="Labs" style="--cat:#EAB308"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6v6l3 5a3 3 0 01-3 4H9a3 3 0 01-3-4l3-5V3z"/><path d="M8 14h8" opacity=".6"/></svg></span><span class="rel-main"><a href="labs-handbook.html">Labs Handbook</a><span class="rel-meta">675 min · <span class="difbadge int">Int</span></span><span class="rel-why">→ More to explore</span></span></li><li class="relcard" data-cat="Build" style="--cat:#F5A524"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 6l3.5 3.5-8 8H6v-4l8.5-8z"/><path d="M11 9l3 3"/><path d="M13 6l3-3 3 3-3 3-3-3z" opacity=".5"/></svg></span><span class="rel-main"><a href="build-artifacts.html">Pipelines, Build, Test &amp; Artifacts</a><span class="rel-meta">130 min · <span class="difbadge int">Int</span></span><span class="rel-why">→ More to explore</span></span></li></ul></div>
-</div><footer><div class="wrap"><span>CICD BY Nabawy</span></div></footer>
+.cover .vnode img{filter:drop-shadow(0 0 0.9px #18E299) drop-shadow(0 0 4px rgba(24,226,153,.22));}
+.cover .vnode img[src*="github"]{background:none;border-radius:0;padding:0;box-shadow:none;filter:drop-shadow(0 0 0.9px #18E299) drop-shadow(0 0 5px rgba(24,226,153,.28));}
+.cover .vnode img[src*="github"]{background:none;border-radius:0;padding:0;box-shadow:none;filter:drop-shadow(1px 0 0 white) drop-shadow(-1px 0 0 white) drop-shadow(0 1px 0 white) drop-shadow(0 -1px 0 white) drop-shadow(0.7px 0.7px 0 white) drop-shadow(-0.7px -0.7px 0 white) drop-shadow(-0.7px 0.7px 0 white) drop-shadow(0.7px -0.7px 0 white);}
+/* icon: github white on dark, black on light — no halo */
+.cover .vnode img[src*="github"]{filter:invert(1) brightness(1.05);background:none;box-shadow:none;border-radius:0;padding:0;}
+.cover .vnode img:not([src*="github"]){filter:none;}
+/* icon: outline/black icons white on dark covers */
+.cover .vnode img[src*="github"], .cover .vnode img[src*="workflow"], .cover .vnode img[src*="hammer"], .cover .vnode img[src*="package"], .cover .vnode img[src*="database"], .cover .vnode img[src*="puzzle"], .cover .vnode img[src*="server"], .cover .vnode img[src*="terminal"], .cover .vnode img[src*="shield"], .cover .vnode img[src*="activity"], .cover .vnode img[src*="webhook"], .cover .vnode img[src*="wrench"], .cover .vnode img[src*="flask"], .cover .vnode img[src*="rocket"]{filter:invert(1) brightness(1.05);}
+.vnode img{width:22px;height:22px;flex:none}
+.vnode b{font-size:12px;letter-spacing:2px}
+.vnode small{font-size:10px;color:var(--text-muted)}
+.vline{width:2px;height:16px;background:#2c3531;margin-left:6px}
+.cover .foot{font-size:9px;color:var(--text-muted);letter-spacing:2px;margin-top:auto;padding-top:20px;display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.cover .sig{font-family:"Brush Script MT","Segoe Script","Snell Roundhand",cursive;font-size:26px;color:var(--accent);transform:rotate(-4deg);text-shadow:0 0 14px rgba(0,184,124,.45);white-space:nowrap}
+.opener .bignum{font-size:64px;font-weight:800;line-height:1}
+.opener .ctitle{font-size:32px;letter-spacing:3px;margin:2px 0 12px}
+.opener .lede{font-size:18px;line-height:1.65;max-width:155mm;margin:8px 0}
+.opener .lede em{color:var(--accent-dark);font-style:normal;font-weight:700}
+.pipeline{display:flex;align-items:stretch;margin:12px 0}
+.stage{flex:1;background:var(--white);border:1px solid var(--line);border-left:4px solid var(--accent);padding:10px 12px;position:relative}
+.stage small.st{display:block;font-size:10px;color:var(--muted);letter-spacing:1px}
+.stage strong{display:block;font-size:14px;letter-spacing:1px;margin:3px 0}
+.stage .desc{font-size:11px;color:var(--muted);line-height:1.5}
+.stage img{width:22px;height:22px;display:block;margin-bottom:2px}
+.stage.run{border-left-color:var(--blue)}.stage.art{border-left-color:var(--artifact)}
+.connector{flex:none;width:22px;align-self:center;text-align:center;color:var(--accent-dark);font-weight:700}
+.terminal{background:var(--panel);color:var(--text-light);border-radius:8px;padding:16px 18px;font-family:"Cascadia Code",Consolas,monospace;font-size:11.5px;line-height:1.65;margin:12px 0;white-space:pre-wrap}
+.terminal .p{color:var(--accent)}.terminal .c{color:var(--text-muted)}.terminal .g{color:var(--accent)}
+table.cmp{width:100%;border-collapse:collapse;font-size:12.5px;margin:12px 0}
+table.cmp th{background:var(--panel);color:var(--text-light);font-size:10.5px;letter-spacing:1px;padding:9px 10px;text-align:left}
+table.cmp td{border:1px solid var(--line);padding:9px 10px;background:var(--white);line-height:1.55}
+table.cmp td:first-child{font-weight:700;background:#eef0ee}
+.callout{border-left:3px solid var(--accent);background:var(--white);padding:12px 14px;margin:12px 0}
+.callout h4{font-size:11px;letter-spacing:2px;color:var(--accent-dark);margin-bottom:5px}
+.callout p{font-size:13px;line-height:1.6}
+.callout.bad{border-left-color:var(--red)}.callout.bad h4{color:var(--red)}
+.vflow{margin:10px 0}
+.fnode{background:var(--white);border:1px solid var(--line);padding:10px 14px;font-size:12.5px;display:flex;align-items:center;gap:10px}
+.fnode img{width:24px;height:24px;flex:none}
+.fnode b{letter-spacing:1px;font-size:12px}
+.fnode small{color:var(--muted);font-size:11px}
+.fnode.bad{border-left:4px solid var(--red)}.fnode.art{border-left:4px solid var(--artifact)}
+.farrow{text-align:center;color:var(--accent-dark);font-weight:700;line-height:1.1;padding:1px 0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.kv{background:var(--white);border:1px solid var(--line);padding:10px 12px;margin:8px 0;font-size:13px;line-height:1.65}
+.kv b{color:var(--accent-dark)}
+ul.tight{font-size:13px;line-height:1.7;margin:8px 0 8px 20px}
+ul.tight li{margin-bottom:4px}
+.qa{background:var(--white);border:1px solid var(--line);padding:10px 14px;margin:8px 0;font-size:13px;line-height:1.65}
+.qa .qq{font-weight:700}.qa .aa{color:var(--accent-dark);font-weight:700}
+.printnote{font-size:10px;color:var(--muted);border:1px dashed var(--line);padding:10px 12px;margin-top:12px;line-height:1.7}
+/* m-reflow: screen-only mobile reflow; print unaffected */
+@media screen and (max-width:700px){.page{width:auto;min-height:0;margin:0 auto;padding:16px 14px 20px}h3.sec{font-size:19px}.opener .bignum{font-size:48px}.cover h1{font-size:32px}.cover .tri{font-size:9px}table.cmp{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}.terminal{font-size:10.5px}.vnode b,.fnode b{font-size:11px}.phead h2{font-size:18px}.step{font-size:12.5px}}
+
+
+.readbody{--paper:#f5f6f4;--white:#fff;--ink:#161a19;--muted:#68706d;--line:#d5dad7;--panel:#111614;--panel-2:#1a201d;--text-light:#e8eeeb;--text-muted:#9ca8a3;--accent:#00b87c;--accent-dark:#008f61;--blue:#4387ff;--amber:#d99a24;--red:#d94b4b;--artifact:#8b6cff}
+*{box-sizing:border-box;margin:0;padding:0}
+.readbody{font-family:Inter,"Segoe UI",Arial,sans-serif;color:var(--ink)}
+@page{size:A4;margin:0}
+.page{width:210mm;min-height:297mm;padding:16mm 16mm 19mm;margin:8mm auto;position:relative;background:var(--paper);page-break-after:always;overflow:hidden;display:flex;flex-direction:column}
+@media print{.readbody{}.page{margin:0;box-shadow:none}h3.sec,.phead h2{break-after:avoid}.pipeline,.lane,.terminal,.cmdres,.callout,.vflow,.dec,table.cmp,.qa,.kv{break-inside:avoid}}
+.phead{font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase}
+.phead .ch{color:var(--accent-dark);font-weight:700}
+.phead h2{font-size:22px;letter-spacing:1px;color:var(--ink);margin:2px 0 6px;text-transform:uppercase}
+.phead hr{border:none;border-top:1.5px solid var(--ink);margin-bottom:10px}
+.pfoot{margin-top:auto;padding-top:8px;font-size:9px;color:var(--muted);display:flex;justify-content:space-between;border-top:1px solid var(--line);letter-spacing:1px}
+h3.sec{font-size:23px;margin:16px 0 8px;text-transform:uppercase;letter-spacing:.5px;break-after:avoid}
+h3.sec .n{color:var(--accent-dark);font-family:"Cascadia Code",Consolas,monospace;font-size:15px;margin-right:10px}
+p.body{font-size:14.5px;line-height:1.6;margin:8px 0}
+code,.mono{font-family:"SFMono-Regular","Cascadia Code",Consolas,monospace}
+.cover{background:var(--panel);color:var(--text-light);justify-content:center}
+.cover .brand{font-size:10px;letter-spacing:4px;color:var(--text-muted)}
+.cover h1{font-size:48px;line-height:1.08;margin:10px 0 4px;letter-spacing:1px}
+.cover h1 span{color:var(--artifact)}
+.cover .sub{font-size:15px;color:var(--text-muted);margin-bottom:18px}
+.cover .tri{font-size:10px;letter-spacing:2.5px;color:var(--artifact);margin-bottom:26px;line-height:2}
+.vpipe{display:flex;flex-direction:column;margin:6px 0 26px}
+.vnode{display:flex;align-items:center;gap:12px}
+.vnode .dot{width:14px;height:14px;border-radius:50%;border:2px solid var(--artifact);box-shadow:0 0 10px rgba(139,108,255,.55);flex:none}
+
+.cover .vnode img{filter:drop-shadow(0 0 0.9px #18E299) drop-shadow(0 0 4px rgba(24,226,153,.22));}
+.cover .vnode img[src*="github"]{background:none;border-radius:0;padding:0;box-shadow:none;filter:drop-shadow(0 0 0.9px #18E299) drop-shadow(0 0 5px rgba(24,226,153,.28));}
+.cover .vnode img[src*="github"]{background:none;border-radius:0;padding:0;box-shadow:none;filter:drop-shadow(1px 0 0 white) drop-shadow(-1px 0 0 white) drop-shadow(0 1px 0 white) drop-shadow(0 -1px 0 white) drop-shadow(0.7px 0.7px 0 white) drop-shadow(-0.7px -0.7px 0 white) drop-shadow(-0.7px 0.7px 0 white) drop-shadow(0.7px -0.7px 0 white);}
+/* icon: github white on dark, black on light — no halo */
+.cover .vnode img[src*="github"]{filter:invert(1) brightness(1.05);background:none;box-shadow:none;border-radius:0;padding:0;}
+.cover .vnode img:not([src*="github"]){filter:none;}
+/* icon: outline/black icons white on dark covers */
+.cover .vnode img[src*="github"], .cover .vnode img[src*="workflow"], .cover .vnode img[src*="hammer"], .cover .vnode img[src*="package"], .cover .vnode img[src*="database"], .cover .vnode img[src*="puzzle"], .cover .vnode img[src*="server"], .cover .vnode img[src*="terminal"], .cover .vnode img[src*="shield"], .cover .vnode img[src*="activity"], .cover .vnode img[src*="webhook"], .cover .vnode img[src*="wrench"], .cover .vnode img[src*="flask"], .cover .vnode img[src*="rocket"]{filter:invert(1) brightness(1.05);}
+.vnode img{width:22px;height:22px;flex:none}
+.vnode b{font-size:12px;letter-spacing:2px}
+.vnode small{font-size:10px;color:var(--text-muted)}
+.vline{width:2px;height:16px;background:#2c3531;margin-left:6px}
+.cover .foot{font-size:9px;color:var(--text-muted);letter-spacing:2px;margin-top:auto;padding-top:20px;display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.cover .sig{font-family:"Brush Script MT","Segoe Script","Snell Roundhand",cursive;font-size:26px;color:var(--accent);transform:rotate(-4deg);text-shadow:0 0 14px rgba(0,184,124,.45);white-space:nowrap}
+.opener .bignum{font-size:64px;font-weight:800;line-height:1}
+.opener .ctitle{font-size:32px;letter-spacing:3px;margin:2px 0 12px}
+.opener .lede{font-size:18px;line-height:1.65;max-width:155mm;margin:8px 0}
+.opener .lede em{color:var(--accent-dark);font-style:normal;font-weight:700}
+.terminal{background:var(--panel);color:var(--text-light);border-radius:8px;padding:16px 18px;font-family:"Cascadia Code",Consolas,monospace;font-size:12px;line-height:1.7;margin:12px 0;white-space:pre-wrap}
+.terminal .p{color:var(--accent)}.terminal .c{color:var(--text-muted)}
+table.cmp{width:100%;border-collapse:collapse;font-size:12.5px;margin:12px 0}
+table.cmp th{background:var(--panel);color:var(--text-light);font-size:10.5px;letter-spacing:1px;padding:9px 10px;text-align:left}
+table.cmp td{border:1px solid var(--line);padding:9px 10px;background:var(--white);line-height:1.55}
+table.cmp td:first-child{font-weight:700;background:#eef0ee}
+.callout{border-left:3px solid var(--artifact);background:var(--white);padding:12px 14px;margin:12px 0}
+.callout h4{font-size:11px;letter-spacing:2px;color:var(--accent-dark);margin-bottom:5px}
+.callout p{font-size:13px;line-height:1.6}
+.callout.bad{border-left-color:var(--red)}.callout.bad h4{color:var(--red)}
+.vflow{margin:10px 0}
+.fnode{background:var(--white);border:1px solid var(--line);padding:10px 14px;font-size:12.5px;display:flex;align-items:center;gap:10px}
+.fnode img{width:24px;height:24px;flex:none}
+.fnode b{letter-spacing:1px;font-size:12px}
+.fnode small{color:var(--muted);font-size:11px}
+.fnode.art{border-left:4px solid var(--artifact)}
+.farrow{text-align:center;color:var(--accent-dark);font-weight:700;line-height:1.1;padding:1px 0}
+.kv{background:var(--white);border:1px solid var(--line);padding:10px 12px;margin:8px 0;font-size:13px;line-height:1.65}
+.kv b{color:var(--accent-dark)}
+ul.tight{font-size:13px;line-height:1.7;margin:8px 0 8px 20px}
+ul.tight li{margin-bottom:4px}
+.qa{background:var(--white);border:1px solid var(--line);padding:10px 14px;margin:8px 0;font-size:13px;line-height:1.65}
+.qa .qq{font-weight:700}.qa .aa{color:var(--accent-dark);font-weight:700}
+.printnote{font-size:10px;color:var(--muted);border:1px dashed var(--line);padding:10px 12px;margin-top:12px;line-height:1.7}
+/* m-reflow: screen-only mobile reflow; print unaffected */
+@media screen and (max-width:700px){.page{width:auto;min-height:0;margin:0 auto;padding:16px 14px 20px}h3.sec{font-size:19px}.opener .bignum{font-size:48px}.cover h1{font-size:32px}.cover .tri{font-size:9px}table.cmp{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}.terminal{font-size:10.5px}.vnode b,.fnode b{font-size:11px}.phead h2{font-size:18px}.step{font-size:12.5px}}
+
+/* reader overrides */
+.readbody .page:not(.cover){width:auto !important;min-height:0 !important;margin:0 auto !important;padding:10px 26px !important;background:transparent !important;border-radius:0;page-break-after:auto !important;overflow:visible}
+.readbody .page.cover{align-items:flex-start !important;border-radius:16px;padding:48px 34px !important;margin:0 auto 30px !important}
+.readbody .page.opener .bignum{margin-top:30px}
+[data-theme=dark] .readbody{--paper:#10161d;--white:#151c25;--ink:#e6edf3;--muted:#8b949e;--line:#26303d;--panel:#0a0e14;--text-light:#e6edf3}
+[data-theme=dark] .readbody table.cmp td:first-child{background:var(--white)}
+[data-theme=dark] .readbody .fnode.gate{background:rgba(217,154,36,.12)}
+[data-theme=dark] .readbody .i-gr{background:var(--muted)}
+</style>
+</head>
+<body data-book="build-artifacts">
+<header class="top"><div class="wrap">
+<button class="btn tocbtn" id="tocbtn" aria-label="Open table of contents">☰ Contents · 33</button>
+<nav class="crumbs"><a class="logo" href="../index.html" style="color:inherit"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="5" cy="12" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="6" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="18" r="2.6" stroke="#18E299" stroke-width="2"/><path d="M7.6 12h5.2m0 0-2.6-2.6m2.6 2.6-2.6 2.6M13.4 7.4l2.8-1M13.4 16.6l2.8 1" stroke="#18E299" stroke-width="2" stroke-linecap="round"/></svg>CICD<span> BY Nabawy</span></a>
+<span class="sep">/</span>
+<span class="here">Pipelines, Build, Test &amp; Artifacts</span></nav>
+<div class="search"><input id="q" type="search" placeholder="Find in this book…" aria-label="Find in this book"><kbd>⌘K</kbd></div>
+<span id="qcount" style="font-size:12px;color:var(--mut)"></span>
+<button class="markbtn" id="markbtn" aria-label="Bookmark this book">☆ Save</button>
+<a class="readback btn reader-nav" id="backbtn" href="../book/build-artifacts.html">← Back</a>
+<nav class="reader-nav" aria-label="Reader navigation"><a class="btn" href="../index.html" style="text-decoration:none">Home</a>
+<a class="btn" href="../book/build-artifacts.html" style="text-decoration:none">Overview</a></nav>
+<button class="btn" id="fsbtn" aria-label="Toggle fullscreen">⛶</button>
+<button class="btn" id="setbtn" aria-label="Reading settings">⚙</button>
+<button class="btn mobilemenu" id="mobilemenubtn" aria-label="Open reader menu" aria-expanded="false">☰</button>
+</div>
+<div class="prog" style="height:3px;background:var(--line)"><b id="pbar" style="display:block;height:100%;width:0;background:var(--acc)"></b></div>
+</header>
+<div class="readcontext" data-testid="reader-context"><div class="wrap"><a href="../index.html">Home</a><span>›</span><a href="../index.html#path-build">Build, Test &amp; Artifacts</a><span>›</span><span class="here">Pipelines, Build, Test &amp; Artifacts</span><span class="pathpos">1 of 1 in Build, Test &amp; Artifacts</span><span class="prereq">Prereq:<a href="start-here.html">Start Here: Foundations, Git &amp; CI</a></span></div></div>
+<div class="rlayout">
+<aside class="toc" role="dialog" aria-modal="false" aria-label="Table of contents"><div class="toc-head"><h4>CONTENTS · 13 PAGES · 33 SECTIONS</h4><button class="drawerx" id="tocx" aria-label="Close contents">×</button></div><a href="#p1" class="toc-l1" aria-label="Cover — PIPELINES, BUILD,TEST &amp;amp; ARTIFACTS">Cover — PIPELINES, BUILD,TEST &amp;amp; ARTIFACTS</a><a href="#p2-h1" class="toc-l1" aria-label="1 CI/CD PIPELINES">1 CI/CD PIPELINES</a><a href="#p3-h1" class="toc-l2" aria-label="1.1 01 / Vocabulary">1.1 01 / Vocabulary</a><a href="#p4-h1" class="toc-l2" aria-label="1.2 02 / How a Run Executes">1.2 02 / How a Run Executes</a><a href="#p4-h2" class="toc-l2" aria-label="1.3 03 / Canonical Workflow">1.3 03 / Canonical Workflow</a><a href="#p5-h1" class="toc-l2" aria-label="1.4 04 / The Three Verification Stages">1.4 04 / The Three Verification Stages</a><a href="#p5-h2" class="toc-l2" aria-label="1.5 05 / Without a Daemon: BuildKit &amp;amp; Kaniko">1.5 05 / Without a Daemon: BuildKit &amp;amp; Kaniko</a><a href="#p6-h1" class="toc-l2" aria-label="1.6 06 / Failure Modes">1.6 06 / Failure Modes</a><a href="#p7-h1" class="toc-l2" aria-label="1.7 07 / Handoff">1.7 07 / Handoff</a><a href="#p8-h1" class="toc-l2" aria-label="1.8 1. What Is It?">1.8 1. What Is It?</a><a href="#p8-h2" class="toc-l2" aria-label="1.9 2. Hermetic Builds">1.9 2. Hermetic Builds</a><a href="#p8-h3" class="toc-l2" aria-label="1.10 3. Caching Done Right">1.10 3. Caching Done Right</a><a href="#p8-h4" class="toc-l2" aria-label="1.11 4. Tool Notes">1.11 4. Tool Notes</a><a href="#p8-h5" class="toc-l2" aria-label="1.12 5. Failure Modes">1.12 5. Failure Modes</a><a href="#p8-h6" class="toc-l2" aria-label="1.13 6. Interview Notes">1.13 6. Interview Notes</a><a href="#p8-h7" class="toc-l2" aria-label="1.14 Related Topics">1.14 Related Topics</a><a href="#p9-h1" class="toc-l2" aria-label="1.15 1. What Is It?">1.15 1. What Is It?</a><a href="#p9-h2" class="toc-l2" aria-label="1.16 2. The Pyramid in Pipelines">1.16 2. The Pyramid in Pipelines</a><a href="#p9-h3" class="toc-l2" aria-label="1.17 3. Placement Rules">1.17 3. Placement Rules</a><a href="#p9-h4" class="toc-l2" aria-label="1.18 4. Flaky Policy">1.18 4. Flaky Policy</a><a href="#p9-h5" class="toc-l2" aria-label="1.19 5. Capacity &amp;amp; Performance Placement">1.19 5. Capacity &amp;amp; Performance Placement</a><a href="#p9-h6" class="toc-l2" aria-label="1.20 6. Failure Modes">1.20 6. Failure Modes</a><a href="#p9-h7" class="toc-l2" aria-label="1.21 7. Interview Notes">1.21 7. Interview Notes</a><a href="#p9-h8" class="toc-l2" aria-label="1.22 Related Topics">1.22 Related Topics</a><a href="#p10-h1" class="toc-l1" aria-label="2 ARTIFACT MANAGEMENT">2 ARTIFACT MANAGEMENT</a><a href="#p11-h1" class="toc-l2" aria-label="2.1 01 / Vocabulary">2.1 01 / Vocabulary</a><a href="#p11-h2" class="toc-l2" aria-label="2.2 02 / Why Immutability">2.2 02 / Why Immutability</a><a href="#p12-h1" class="toc-l2" aria-label="2.3 03 / Producer, Consumer, Lifecycle">2.3 03 / Producer, Consumer, Lifecycle</a><a href="#p12-h2" class="toc-l2" aria-label="2.4 04 / Commands">2.4 04 / Commands</a><a href="#p12-h3" class="toc-l2" aria-label="2.5 05 / Versioning">2.5 05 / Versioning</a><a href="#p13-h1" class="toc-l2" aria-label="2.6 06 / Failure Modes">2.6 06 / Failure Modes</a><a href="#p13-h2" class="toc-l3" aria-label="2.6.1 SUPPLY-CHAIN TRUST">2.6.1 SUPPLY-CHAIN TRUST</a><a href="#p13-h3" class="toc-l2" aria-label="2.7 07 / Handoff">2.7 07 / Handoff</a>
+</aside><div class="tocscrim" id="tocscrim" aria-hidden="true"></div>
+<main class="read"><div class="readbody">
+
+
+<div id="p1" class="page cover"><div class="brand">CICD BY Nabawy · BUILD</div><h1>PIPELINES, BUILD,<br>TEST &amp; ARTIFACTS</h1><div class="sub">Trigger to build to test to versioned artifact — one flow.</div><div class="foot"><span>Reader edition</span><span class="sig">Nabawy</span></div></div><div id="p2" class="page opener"><div class="bignum">Part I</div><h2 id="p2-h1">CI/CD PIPELINES</h2><p class="body">Trigger → Build → Test → Scan → Artifact</p></div><div id="p3" class="page opener">
+
+
+<div class="ctitle">PIPELINES</div>
+<p class="lede">Picking up from <em>Source Control</em>, where a merge fired the trigger — we now examine <em>the pipeline that the trigger starts</em>: stages of jobs of steps, executed by runners.</p>
+<h3 id="p3-h1" class="sec"><span class="n">01 /</span> Vocabulary</h3>
+<table class="cmp"><tr><th>Term</th><th>Meaning</th><th>Example</th></tr>
+<tr><td>Pipeline</td><td>Whole automated workflow</td><td><span class="mono">ci.yml</span></td></tr>
+<tr><td>Stage</td><td>Logical phase</td><td>build → test → scan</td></tr>
+<tr><td>Job</td><td>Unit of work (often parallel)</td><td><span class="mono">unit-tests</span></td></tr>
+<tr><td>Step</td><td>Single operation in a job</td><td><span class="mono">npm test</span></td></tr>
+<tr><td>Runner</td><td>Machine executing jobs</td><td><span class="mono">ubuntu-latest</span></td></tr></table>
+
+</div><div id="p4" class="page">
+
+<h3 id="p4-h1" class="sec"><span class="n">02 /</span> How a Run Executes</h3>
+<div class="pipeline">
+<div class="stage"><small class="st">TRIGGER</small><strong>START</strong><span class="desc">PR · push</span></div><div class="connector">→</div>
+<div class="stage"><small class="st">JOB</small><strong>BUILD</strong><span class="desc">compile</span></div><div class="connector">→</div>
+<div class="stage run"><small class="st">JOBS × N</small><strong>TEST</strong><span class="desc">parallel</span></div><div class="connector">→</div>
+<div class="stage art"><small class="st">GATE</small><strong>ARTIFACT</strong><span class="desc">package + push</span></div>
+</div>
+<p class="body">Runner checks out the commit, sets up a cached toolchain, runs build → test → scan (independent jobs in parallel, <span class="mono">needs:</span> for gates), and returns results as PR feedback. Fail-fast by default; advisory checks ride <span class="mono">continue-on-error</span>.</p>
+<h3 id="p4-h2" class="sec"><span class="n">03 /</span> Canonical Workflow</h3>
+<div class="terminal"><span class="c"># ci.yml — build, then test + scan in parallel</span>
+<span class="g">jobs:</span>
+&nbsp;&nbsp;build: <span class="c"># npm ci + build</span>
+&nbsp;&nbsp;test:  needs: build <span class="c"># npm test --coverage</span>
+&nbsp;&nbsp;scan:  needs: build <span class="c"># npm audit + gitleaks</span></div>
+
+</div><div id="p5" class="page">
+
+<h3 id="p5-h1" class="sec"><span class="n">04 /</span> The Three Verification Stages</h3>
+<ul class="tight"><li><b>Build</b> — hermetic: pinned deps, clean env, no hidden host tools. Same commit → byte-identical output anywhere.</li><li><b>Test</b> — unit (fast, per-PR) → integration → E2E/smoke (staging). PR suites stay under 10 min.</li><li><b>Security scan</b> — <span class="mono">npm audit</span>, gitleaks, Trivy on every PR. Shifting left beats incident response.</li></ul>
+<div class="kv"><b>COMPONENT & INTEGRATION PIPELINES —</b> multi-binary systems: each component pipeline publishes tested versioned binaries · one integration pipeline assembles them and runs full acceptance. Trigger downstream on fresh upstream binaries; only jointly-green combinations ship.</div>
+<h3 id="p5-h2" class="sec"><span class="n">05 /</span> Without a Daemon: BuildKit &amp; Kaniko</h3>
+<table class="cmp"><tr><th></th><th>BuildKit (<span class="mono">buildx</span>)</th><th>Kaniko</th></tr>
+<tr><td>Needs daemon</td><td>Yes (local or remote)</td><td>No — userspace build</td></tr>
+<tr><td>Best in</td><td>Docker agents, dev machines</td><td>Locked-down K8s</td></tr>
+<tr><td>Secrets</td><td><span class="mono">--secret</span> mounts</td><td>Short-lived tokens</td></tr></table>
+<div class="kv"><b>RULE —</b> BuildKit everywhere a daemon exists; Kaniko exactly where daemons are banned.</div>
+<div class="kv"><b>RUNNERS —</b> managed = zero ops, cold caches (use registry/remote cache); self-hosted = warm cache, you own patches + scaling. Cache key must include lockfiles.<br><b>DAG —</b> fan out independent jobs, gate fan-in; cap matrix axes; fail-fast for PR signal, advisory for experiments; retry idempotent steps only; quarantine flakes with owner + deadline.</div>
+
+</div><div id="p6" class="page">
+
+<h3 id="p6-h1" class="sec"><span class="n">06 /</span> Failure Modes</h3>
+<div class="vflow">
+<div class="fnode bad"><img src="../assets/icons/testing/flask-conical.svg" alt="Flaky"><b>FLAKY TESTS</b><small>shared state → quarantine, fix, or delete</small></div><div class="farrow">↓</div>
+<div class="fnode bad"><img src="../assets/icons/ci-cd/workflow.svg" alt="Slow"><b>SLOW PIPELINE</b><small>no cache → cache, split, parallelize</small></div><div class="farrow">↓</div>
+<div class="fnode bad"><img src="../assets/icons/ci-cd/hammer.svg" alt="Drift"><b>WORKS LOCALLY</b><small>unpinned deps → lockfiles, containerized runners</small></div>
+</div>
+<div class="kv"><b>RULES —</b> PR pipeline under 10 min · pin action/tool versions · never bake secrets into logs/images · same steps locally and in CI.</div>
+<div class="qa"><span class="qq">Q:</span> What belongs in the PR pipeline vs post-merge?<br><span class="aa">A:</span> Fast unit/integration + scans in PR; slow E2E and staging gates post-merge.</div>
+
+</div><div id="p7" class="page">
+
+<h3 id="p7-h1" class="sec"><span class="n">07 /</span> Handoff</h3>
+<p class="body">This pipeline produces one thing that outlives it — the artifact. Continue in <b>Artifact Management</b>, where the versioned output is stored, promoted, and traced.</p>
+
+
+</div><div id="p8" class="page md-fallback"><p class="body"><em>A build system turns source into runnable output deterministically: dependency resolution, compilation, bundling — the same inputs must always produce the same outputs.</em></p><h3 id="p8-h1" class="sec">1. What Is It?</h3><p class="body">Picking up from <b>CI/CD Pipelines</b>, where the build stage was defined — here is what actually runs inside it: Maven/Gradle (JVM), npm (JS), Go modules, Cargo — each resolving declared dependencies into a compiled/bundled artifact.</p><h3 id="p8-h2" class="sec">2. Hermetic Builds</h3><p class="body">Hermetic = sealed from the ambient machine (see glossary). Concretely: pinned dependency versions (lockfiles: <code>package-lock.json</code>, <code>pom.xml</code> versions, <code>go.sum</code>), clean container per build, no <code>latest</code> tags, no host-installed toolchains. Violation symptom: "works in CI, fails locally" in reverse — the build drank something from its environment.</p><h3 id="p8-h3" class="sec">3. Caching Done Right</h3><p class="body">Cache layers, fastest first: dependency cache keyed on lockfiles → remote build cache (Gradle remote, BuildKit registry cache) → artifact reuse (skip rebuild when inputs unchanged). Golden rule: the cache key must include every input; a stale key ships stale code silently.</p><h3 id="p8-h4" class="sec">4. Tool Notes</h3><ul class="tight"><li><b>Maven/Gradle:</b> standard layouts, wrapper scripts (<code>mvnw</code>, <code>gradlew</code>) pin the toolchain itself — commit them.</li><li><b>npm:</b> <code>npm ci</code> (lockfile-exact) in CI, never <code>npm install</code>; cache <code>~/.npm</code>.</li><li><b>Docker builds:</b> BuildKit with <code>--secret</code> mounts and registry cache (see pipelines BuildKit section); multi-stage so SDKs never ship in runtime images.</li></ul><h3 id="p8-h5" class="sec">5. Failure Modes</h3><ul class="tight"><li>Unpinned deps → "it built yesterday"; fix with lockfiles + dependabot-style updates as PRs.</li><li>Bloated images (SDK in prod) → slow pulls, huge attack surface; fix with multi-stage builds.</li><li>Cache poisoning (stale key) → phantom green; fix by keying on lockfiles + periodic cache-bust verification.</li></ul><h3 id="p8-h6" class="sec">6. Interview Notes</h3><ul class="tight"><li>Hermetic vs reproducible: sealed environment vs byte-identical output (reproducible is stricter).</li><li>Why <code>npm ci</code> over <code>npm install</code> in CI.</li><li>Multi-stage Docker: what ships vs what builds.</li></ul><h3 id="p8-h7" class="sec">Related Topics</h3><ul class="tight"><li>CI/CD Pipelines</li><li>Artifact Management</li><li>Continuous Integration</li></ul><p class="body">Deterministic builds produce trustworthy artifacts. Continue in <b>Artifact Management</b>.</p></div><div id="p9" class="page md-fallback"><p class="body"><em>Testing strategy decides *which tests run where*: fast unit tests gate every PR, slow E2E proves staging — the pyramid keeps feedback fast without losing coverage.</em></p><h3 id="p9-h1" class="sec">1. What Is It?</h3><p class="body">Picking up from <b>Build Systems</b>, where output became deterministic — now prove it's correct, at the right stage, at the right cost.</p><h3 id="p9-h2" class="sec">2. The Pyramid in Pipelines</h3><p class="body">| Layer | Speed | Runs in | Guards | |-------|-------|---------|--------| | Unit | ms each, minutes total | Every PR | Logic correctness | | Contract | seconds | Every PR (provider + consumer) | API compatibility between services | | Integration | minutes | Post-merge / staging | Wiring, DBs, queues | | E2E / smoke | minutes–tens of minutes | Staging, post-deploy | Real user journeys |</p><p class="body">Many unit, fewer E2E: an inverted pyramid (all Selenium, no units) is slow, flaky, and tells you nothing a unit test couldn't in milliseconds.</p><p class="body">Test doubles, cheapest first: stub (canned answers) → fake (working shortcut, e.g. in-memory store) → mock (verifies interactions). Mock roles and boundaries, never implementation trivia — over-mocked suites shatter on every refactor while missing real regressions.</p><h3 id="p9-h3" class="sec">3. Placement Rules</h3><ul class="tight"><li>PR pipeline: unit + contract + fast integration (&lt; 10 min total). Anything slower moves post-merge.</li><li>Staging: full integration + E2E + smoke after deploy; failures block promotion, not merges.</li><li>Post-deploy: synthetic smoke probes continuously — the pipeline's last test never ends.</li><li>Acceptance criteria as executable specs: analyst + tester + developer agree the criteria before coding, written so the pipeline can run them (Given-When-Then). Docs that can't fail the build drift from behavior.</li></ul><h3 id="p9-h4" class="sec">4. Flaky Policy</h3><p class="body">Flaky test protocol: quarantine to a non-blocking suite immediately (same day), assign an owner, fix-or-delete deadline of one sprint. A flaky gate teaches developers that red is meaningless — the most expensive test debt there is.</p><h3 id="p9-h5" class="sec">5. Capacity &amp; Performance Placement</h3><p class="body">Functional tests prove correctness; capacity tests prove survival. Treat performance as a requirement with a number, not a wish:</p><ul class="tight"><li>Quantify first: convert expected load into thresholds (p99 latency, sustained throughput, concurrent users) — unquantified goals justify unbounded effort.</li><li>Placement: short performance smoke sentinels in the PR pipeline; full load scenarios post-merge/staging on isolated, production-like hosts (shared or noisy hosts produce phantom regressions).</li><li>Derive load from reality: adapt acceptance flows into composable load scenarios; warm up caches/JIT before measuring.</li><li>Ratchet thresholds: start at minimum viable target, raise as headroom proves stable; investigate before lowering.</li><li>Vocabulary: latency (one transaction's time) vs throughput (transactions per interval) vs capacity (max sustainable throughput within latency budget).</li></ul><h3 id="p9-h6" class="sec">6. Failure Modes</h3><ul class="tight"><li>Testing pyramid inverted → 40-minute PR suites developers ignore; rebalance toward units.</li><li>E2E in PR → queue pileups; move to staging.</li><li>No contract tests in microservices → integration surprises at deploy; add consumer-driven contracts.</li><li>Coverage % as a target → gaming (assert-free tests); treat coverage as smoke signal, not goal.</li></ul><h3 id="p9-h7" class="sec">7. Interview Notes</h3><ul class="tight"><li>Why contract tests exist (microservice API drift).</li><li>Flaky quarantine protocol, step by step.</li><li>What runs in PR vs staging vs post-deploy, and why.</li></ul><h3 id="p9-h8" class="sec">Related Topics</h3><ul class="tight"><li>CI/CD Pipelines</li><li>Build Systems</li><li>Continuous Delivery</li></ul><p class="body">Proven correct — now ship it releasably. Continue in <b>Continuous Delivery</b>.</p></div><div id="p10" class="page opener"><div class="bignum">Part II</div><h2 id="p10-h1">ARTIFACT MANAGEMENT</h2><p class="body">Build once — promote the digest everywhere</p></div><div id="p11" class="page opener">
+
+
+<div class="ctitle">ARTIFACTS</div>
+<p class="lede">Picking up from <em>Pipelines</em>, where the build succeeded — we now follow <em>the one thing that outlives the pipeline</em>: the versioned, immutable artifact.</p>
+<h3 id="p11-h1" class="sec"><span class="n">01 /</span> Vocabulary</h3>
+<table class="cmp"><tr><th>Term</th><th>Meaning</th></tr>
+<tr><td>Artifact</td><td>Built output + version (<span class="mono">app:1.4.2</span>, <span class="mono">app:sha-9f3a</span>)</td></tr>
+<tr><td>Registry</td><td>Storage + distribution (Hub, GHCR, ECR, Nexus)</td></tr>
+<tr><td>Promotion</td><td>Same artifact approved staging → production (never rebuild)</td></tr>
+<tr><td>Digest</td><td>Content hash — the image's fingerprint</td></tr></table>
+<h3 id="p11-h2" class="sec"><span class="n">02 /</span> Why Immutability</h3>
+<p class="body">Rebuilding per environment means testing one binary and shipping another. Immutable artifacts guarantee <b>what passed staging is what runs in production</b>.</p>
+
+</div><div id="p12" class="page">
+
+<h3 id="p12-h1" class="sec"><span class="n">03 /</span> Producer, Consumer, Lifecycle</h3>
+<div class="kv"><b>PRODUCER</b> build job → <b>STORAGE</b> registry → <b>CONSUMER</b> CD pipeline · Lifecycle: build → store → promote → deploy → retire.</div>
+<h3 id="p12-h2" class="sec"><span class="n">04 /</span> Commands</h3>
+<div class="terminal"><span class="p">$</span> docker build -t ghcr.io/acme/app:sha-9f3a .<br><span class="p">$</span> docker push ghcr.io/acme/app:sha-9f3a<br><span class="p">$</span> docker tag ghcr.io/acme/app:sha-9f3a ghcr.io/acme/app:1.4.2 <span class="c"># promote: same digest, human tag</span><br><span class="p">$</span> docker push ghcr.io/acme/app:1.4.2</div>
+<h3 id="p12-h3" class="sec"><span class="n">05 /</span> Versioning</h3>
+<ul class="tight"><li>Immutable primary tag: commit SHA — traceable, never overwritten.</li><li>Human tags: semver (<span class="mono">MAJOR.MINOR.PATCH</span>) applied at promotion, never rebuilt.</li><li>Never deploy <span class="mono">:latest</span> — it is unrepeatable.</li><li>Also valid: build numbers (<span class="mono">build-1042</span>) for ordering, date tags for nightlies. SHA always = truth.</li></ul>
+
+</div><div id="p13" class="page">
+
+<h3 id="p13-h1" class="sec"><span class="n">06 /</span> Failure Modes</h3>
+<ul class="tight"><li>Mutable tags overwritten → unreproducible deploys; fix with SHA digests + tag immutability.</li><li>Registry bloat/slow pulls; fix with retention + layer caching + regional mirrors.</li><li>Secrets baked into images; fix with multi-stage builds + secret mounts, scan with Trivy.</li></ul>
+<div class="callout"><h4 id="p13-h2">SUPPLY-CHAIN TRUST</h4><p>Sign artifacts (cosign proves who built the image) and keep SBOMs (the machine-readable ingredient list) so a future CVE traces to exactly the affected images. Provenance attestations (SLSA-style) let consumers verify builder + commit before promoting.</p></div>
+<div class="qa"><span class="qq">Q:</span> Why must the same digest flow through all environments?<br><span class="aa">A:</span> Otherwise you tested one binary and shipped another — verification is void.</div>
+<h3 id="p13-h3" class="sec"><span class="n">07 /</span> Handoff</h3>
+<p class="body">The artifact is frozen — now it must travel. Continue in <b>Continuous Delivery</b>, where this exact digest moves through staging to production.</p>
+
+
+</div>
+
+<div class="relatedbox"><h4>Related books</h4><ul class="relgrid"><li class="relcard" data-cat="Deliver" style="--cat:#F472B6"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l4 6-4 12-4-12z"/><path d="M8 9h8"/><path d="M10 3v4M14 3v4" opacity=".6"/><circle cx="12" cy="9" r="1.2" fill="currentColor" stroke="none"/></svg></span><span class="rel-main"><a href="deliver-operate.html">Delivery, Deployment &amp; Operations</a><span class="rel-meta">255 min · <span class="difbadge int">Int</span></span><span class="rel-why">→ Follow-up</span></span></li><li class="relcard" data-cat="Platforms" style="--cat:#F97316"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 4-8 4-8-4z"/><path d="M4 10l8 4 8-4"/><path d="M4 14l8 4 8-4"/><path d="M4 18l8 4 8-4" opacity=".4"/></svg></span><span class="rel-main"><a href="platforms-roadmaps.html">Platforms &amp; 2026 Roadmaps</a><span class="rel-meta">190 min · <span class="difbadge int">Int</span></span><span class="rel-why">→ Follow-up</span></span></li><li class="relcard" data-cat="Start Here" style="--cat:#5B8DEF"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3v18"/><path d="M6 4h11l-2.6 3.5L17 11H6"/></svg></span><span class="rel-main"><a href="start-here.html">Start Here: Foundations, Git &amp; CI</a><span class="rel-meta">75 min · <span class="difbadge beg">Beg</span></span><span class="rel-why">→ Prerequisite</span></span></li><li class="relcard" data-cat="Labs" style="--cat:#EAB308"><span class="rel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6v6l3 5a3 3 0 01-3 4H9a3 3 0 01-3-4l3-5V3z"/><path d="M8 14h8" opacity=".6"/></svg></span><span class="rel-main"><a href="labs-handbook.html">Labs Handbook</a><span class="rel-meta">675 min · <span class="difbadge int">Int</span></span><span class="rel-why">→ Shared tags</span></span></li></ul></div>
+<div class="chapnav"><span></span><span></span></div>
+</div></main>
+<div id="lightbox" role="dialog" aria-label="Diagram viewer"><img alt="Enlarged diagram"></div>
+</div>
+<button class="topbtn" id="topbtn" aria-label="Back to top" title="Back to top">↑</button>
+<div class="drawer" id="drawer"><div class="scrim"></div><div class="panel" role="dialog" aria-modal="false" aria-label="Reading settings"><button class="drawerx" id="setx" aria-label="Close settings">×</button>
+<h3>Reading settings</h3>
+<div class="setrow mobile-controls"><a class="readback btn" href="../book/build-artifacts.html">← Back</a> <button class="btn" id="mobilemarkbtn">☆ Save</button><button class="btn" id="fsbtnm" aria-label="Toggle fullscreen">⛶</button><a class="btn" href="../index.html">Home</a><a class="btn" href="../book/build-artifacts.html">Overview</a></div>
+<div class="setrow mobile-search"><label for="mobileq">Find in this book</label><input id="mobileq" type="search" placeholder="Search this book…"></div>
+<div class="setrow"><h5>THEME</h5><div class="opts">
+<button class="btn" data-k="theme" data-set="dark" onclick="setOpt('theme','dark')">Dark</button>
+<button class="btn" data-k="theme" data-set="light" onclick="setOpt('theme','light')">Light</button>
+<button class="btn" data-k="theme" data-set="sepia" onclick="setOpt('theme','sepia')">Sepia</button>
+</div></div>
+
+
+
+
+<div class="setrow"><h5>SHORTCUTS</h5><p style="font-size:12px;color:var(--mut)">Ctrl+K search · T contents · ←/→ prev/next book · Esc close</p></div>
+
+</div></div>
+<div id="fsbar" hidden><button class="btn" id="fs-toc" aria-label="Open contents">☰</button><button class="btn" id="fs-theme" aria-label="Cycle theme">◐</button><span id="fs-prog">0%</span><button class="btn" id="fs-exit">⛶ Exit</button></div>
 <script>
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 function getP(k,d){try{const v=JSON.parse(localStorage.getItem(k));return v??d}catch(e){return d}}
 function setP(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
 
-const pref=getP('cicdlib:pref',{theme:'sepia'});const THX=['sepia','dark','light','dim','contrast'];document.documentElement.dataset.theme=THX.includes(pref.theme)?pref.theme:'sepia';
-$('#themebtn').onclick=()=>{pref.theme=THX[(THX.indexOf(pref.theme)+1)%THX.length]||'sepia';setP('cicdlib:pref',pref);document.documentElement.dataset.theme=pref.theme;};
-try{const p=getP('cicdlib:prog:cheatsheet',null);if(p&&p.pct>0&&p.pct<100)$('#startbtn').textContent='Continue reading — '+p.pct+'% →';}catch(e){}
-</script></body></html>
+const BID=document.body.dataset.book,PREF='cicdlib:pref',PKEY='cicdlib:prog:'+BID;
+const pref=Object.assign({theme:'sepia',fs:18,width:'820px',font:'sans',lh:1.7},getP(PREF,{}));
+const RTHEMES=['sepia','dark','light'];
+function applyPref(){document.documentElement.dataset.theme=RTHEMES.includes(pref.theme)?pref.theme:'sepia';
+  document.body.dataset.font=pref.font==='serif'?'serif':'sans';
+  const rb=document.querySelector('.readbody');if(rb){rb.style.fontSize=pref.fs+'px';rb.style.setProperty('max-width',pref.width);rb.style.setProperty('--lh',pref.lh);}
+  $$('.setrow .opts .btn').forEach(b=>b.classList.toggle('on',b.dataset.set===undefined?'':String(pref[b.dataset.k])===b.dataset.set));
+  setP(PREF,pref);}
+function setOpt(k,v){pref[k]=v;applyPref()}
+$$('.terminal').forEach(t=>{const bar=document.createElement('div');bar.className='copybar';const b=document.createElement('button');b.className='copybtn';b.textContent='Copy';b.onclick=()=>{let txt=t.innerText.split('\n').filter(l=>!l.match(/^\s*(NAME|nginx-|CONTAINER|NAME\s+READY)/)).join('\n');navigator.clipboard.writeText(txt||t.innerText).then(()=>{b.textContent='Copied!';setTimeout(()=>b.textContent='Copy',1200)})};bar.appendChild(b);t.before(bar)});
+$$('.readbody pre').forEach(p=>{if(p.closest('.terminal')||p.previousElementSibling?.classList?.contains('codehead'))return;const h=document.createElement('div');h.className='codehead';h.innerHTML='<span class=dot></span><span>'+(p.dataset.lang||"code")+'</span>';const b=document.createElement('button');b.textContent='Copy';b.onclick=()=>{navigator.clipboard.writeText(p.innerText).then(()=>{b.textContent='Copied!';setTimeout(()=>b.textContent='Copy',1200)})};const w=document.createElement('button');w.textContent='Wrap';w.style.marginLeft='6px';w.onclick=()=>{p.style.whiteSpace=p.style.whiteSpace==='pre-wrap'?'pre':'pre-wrap'};h.appendChild(b);h.appendChild(w);p.before(h)});
+$$('.readbody img').forEach(im=>{im.setAttribute('loading','lazy');if(!im.getAttribute('alt'))im.setAttribute('alt','Diagram from '+BID);im.style.cursor='zoom-in';im.addEventListener('click',()=>{const lb=$('#lightbox');if(lb){lb.querySelector('img').src=im.src;lb.classList.add('open');}});im.addEventListener('error',()=>{im.dataset.broken='1';const f=document.createElement('div');f.className='imgfallback';f.style.display='block';f.textContent='Image unavailable: '+(im.getAttribute('alt')||im.src);im.after(f);});});
+const _lb=$('#lightbox');if(_lb)_lb.addEventListener('click',()=>_lb.classList.remove('open'));
+const MARKS='cicdlib:marks';
+const _mb=$('#markbtn');function syncMark(){const m=getP(MARKS,{});const on=!!m[BID];if(_mb){_mb.textContent=on?'★ Saved':'☆ Save';_mb.classList.toggle('on',on);}}
+if(_mb)_mb.onclick=()=>{const m=getP(MARKS,{});if(m[BID])delete m[BID];else m[BID]=Date.now();setP(MARKS,m);syncMark();};syncMark();
+const LABKEY='cicdlib:lab:'+BID;
+function labChecks(){const done=getP(LABKEY,{});$$('.readbody .step').forEach((st,i)=>{if(st.querySelector('input[type=checkbox]'))return;const lab=document.createElement('input');lab.type='checkbox';lab.checked=!!done[i];lab.setAttribute('aria-label','Mark step done');lab.onchange=()=>{const d=getP(LABKEY,{});if(lab.checked)d[i]=1;else delete d[i];setP(LABKEY,d);st.classList.toggle('done',lab.checked);};st.classList.toggle('done',!!done[i]);const lb=document.createElement('label');lb.className='stephit';lb.setAttribute('aria-label','Mark step done');lb.appendChild(lab);st.prepend(lb);});const rst=$('#labreset');if(rst)rst.onclick=()=>{setP(LABKEY,{});$$('.readbody .step').forEach(st=>{st.classList.remove('done');const c=st.querySelector('input[type=checkbox]');if(c)c.checked=false;});};}
+labChecks();
+function tocUpdate(){const links=$$('aside.toc a');let cur=null;
+  links.forEach(a=>{const h=a.getAttribute('href');if(!h||h[0]!=='#')return;
+    const el=document.getElementById(h.slice(1));
+    if(el&&el.getBoundingClientRect().top<160)cur=h;});
+  window._cur=cur?cur.slice(1):null;
+  links.forEach(a=>a.classList.toggle('cur',a.getAttribute('href')===cur));}
+window.addEventListener('scroll',()=>{tocUpdate();
+  const h=document.documentElement,p=Math.min(100,Math.round(100*(h.scrollTop)/(h.scrollHeight-h.clientHeight||1)));
+  setP(PKEY,{pct:p,ts:Date.now()});const bar=$('#pbar');if(bar)bar.style.width=p+'%';const fp=$('#fs-prog');if(fp)fp.textContent=p+'%';},{passive:true});
+function findBook(q){$$('.readbody mark').forEach(m=>{m.replaceWith(document.createTextNode(m.textContent))});if(!q)return 0;
+  let n=0;const walker=document.createTreeWalker(document.querySelector('.readbody'),NodeFilter.SHOW_TEXT);
+  const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
+  nodes.forEach(nd=>{const i=nd.textContent.toLowerCase().indexOf(q.toLowerCase());if(i<0)return;
+    if(nd.parentElement.closest('.terminal,script,style'))return;
+    const r=document.createRange();r.setStart(nd,i);r.setEnd(nd,i+q.length);
+    const m=document.createElement('mark');r.surroundContents(m);n++;});
+  const f=document.querySelector('.readbody mark');if(f)f.scrollIntoView({block:'center'});
+  window._marks=[...document.querySelectorAll('.readbody mark')];window._mi=0;window._lastQ=q;return n;}
+$('#q').addEventListener('keydown',e=>{if(e.key==='Enter'){const v=e.target.value;
+  if(v&&v===window._lastQ&&(window._marks||[]).length){window._mi=(window._mi+1)%window._marks.length;window._marks[window._mi].scrollIntoView({block:'center'});$('#qcount').textContent='match '+(window._mi+1)+' of '+window._marks.length;return;}
+  const n=findBook(v);$('#qcount').textContent=n?n+' match'+(n>1?'es':'')+' in this book — Enter for next':'no matches in this book'}});
+$('#q').addEventListener('input',e=>{if(!e.target.value)findBook('')});
+document.addEventListener('keydown',e=>{
+  if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();$('#q').focus()}
+  if(e.key==='Escape'){if(document.activeElement===$('#q')||document.activeElement===$('#mobileq')){document.activeElement.value='';findBook('');const qc=$('#qcount');if(qc)qc.textContent='';}const _do=$('#drawer').classList.contains('open'),_to=$('aside.toc').classList.contains('open');$('#drawer').classList.remove('open');if($('aside.toc').classList.contains('open')){const tb=$('#tocbtn');if(tb)setTimeout(()=>tb.focus(),0);}$('aside.toc').classList.remove('open');if(!_do&&!_to&&document.body.classList.contains('fs'))setFS(false);lockScroll();}
+  if(e.key.toLowerCase()==='t'&&document.activeElement.tagName!=='INPUT'){$('aside.toc').classList.toggle('open')}
+  if(e.key==='ArrowRight'&&document.activeElement.tagName!=='INPUT'){const n=$('#nextbook');if(n)location.href=n.href}
+  if(e.key==='ArrowLeft'&&document.activeElement.tagName!=='INPUT'){const p=$('#prevbook');if(p)location.href=p.href}
+  if(e.key.toLowerCase()==='c'&&document.activeElement.tagName!=='INPUT'&&window._cur){try{navigator.clipboard.writeText(location.href.split('#')[0]+'#'+window._cur);const qc=$('#qcount');if(qc)qc.textContent='section link copied';}catch(err){}}});
+$('#setbtn').onclick=()=>$('#drawer').classList.add('open');
+const _pr=$('#prefreset');if(_pr)_pr.onclick=()=>{setP(PREF,{theme:'sepia',fs:18,width:'820px',font:'sans',lh:1.7});location.reload();};
+$('#drawer .scrim').onclick=()=>$('#drawer').classList.remove('open');
+$('#tocbtn').onclick=()=>tocToggle();
+$$('aside.toc a').forEach(a=>a.onclick=()=>{if(innerWidth<=900)$('aside.toc').classList.remove('open')});
+const back=$('#backbtn');
+if(back)back.addEventListener('click',e=>{
+  let sameOrigin=false;
+  try{sameOrigin=!!document.referrer&&new URL(document.referrer,location.href).origin===location.origin;}catch(err){}
+  if(sameOrigin&&history.length>1){e.preventDefault();history.back();}
+});
+const menuBtn=$('#mobilemenubtn');
+if(menuBtn)menuBtn.onclick=()=>{const d=$('#drawer'),open=!d.classList.contains('open');d.classList.toggle('open',open);menuBtn.setAttribute('aria-expanded',String(open));};
+const mobileMark=$('#mobilemarkbtn');
+if(mobileMark)mobileMark.onclick=()=>{if(_mb)_mb.click();mobileMark.textContent=_mb?.textContent||'☆ Save';};
+const mobileQ=$('#mobileq'),bookQ=$('#q');
+if(mobileQ&&bookQ){mobileQ.addEventListener('input',()=>{bookQ.value=mobileQ.value;});mobileQ.addEventListener('keydown',e=>{if(e.key==='Enter'){bookQ.value=mobileQ.value;bookQ.dispatchEvent(new KeyboardEvent('keydown',{key:'Enter'}));}});}
+const topBtn=$('#topbtn');let topTimer;
+function syncTop(){if(!topBtn)return;const eligible=scrollY>innerHeight*.9;topBtn.classList.toggle('on',eligible);clearTimeout(topTimer);if(eligible)topTimer=setTimeout(()=>topBtn.classList.remove('on'),2800);}
+window.addEventListener('scroll',syncTop,{passive:true});
+if(topBtn)topBtn.onclick=()=>window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+window.addEventListener('hashchange',tocUpdate);
+window.addEventListener('pageshow',tocUpdate);
+function lockScroll(){const any=$('#drawer').classList.contains('open')||document.querySelector('aside.toc').classList.contains('open');document.body.classList.toggle('toc-open',document.querySelector('aside.toc').classList.contains('open')&&matchMedia('(max-width:900px)').matches);document.body.classList.toggle('lock',any);document.querySelector('aside.toc').setAttribute('aria-modal',document.querySelector('aside.toc').classList.contains('open')?'true':'false');document.querySelector('#drawer .panel').setAttribute('aria-modal',$('#drawer').classList.contains('open')?'true':'false');}
+new MutationObserver(lockScroll).observe(document.querySelector('aside.toc'),{attributes:true,attributeFilter:['class']});
+new MutationObserver(lockScroll).observe($('#drawer'),{attributes:true,attributeFilter:['class']});
+function tocToggle(){const mob=matchMedia('(max-width:900px)').matches;const toc=document.querySelector('aside.toc');if(mob){toc.classList.toggle('open');}else{document.body.classList.toggle('toc-hide');}lockScroll();const tb=$('#tocbtn');if(tb)tb.setAttribute('aria-expanded',String(!document.body.classList.contains('toc-hide')));}
+const _tocx=$('#tocx');if(_tocx)_tocx.onclick=()=>{document.querySelector('aside.toc').classList.remove('open');document.body.classList.add('toc-hide');lockScroll();const tb=$('#tocbtn');if(tb)tb.focus();};const _ts=$('#tocscrim');if(_ts)_ts.onclick=()=>{document.querySelector('aside.toc').classList.remove('open');lockScroll();const tb=$('#tocbtn');if(tb)tb.focus();};(function(){const toc=document.querySelector('aside.toc');let sx=0;toc.addEventListener('touchstart',e=>{sx=e.touches[0].clientX},{passive:true});toc.addEventListener('touchend',e=>{if(sx-e.changedTouches[0].clientX>60&&matchMedia('(max-width:900px)').matches&&toc.classList.contains('open')){toc.classList.remove('open');lockScroll();const tb=$('#tocbtn');if(tb)tb.focus();}sx=0;},{passive:true});})();
+const _setx=$('#setx');if(_setx)_setx.onclick=()=>{$('#drawer').classList.remove('open');lockScroll();};
+document.addEventListener('keydown',e=>{if(e.key!=='Tab')return;const open=document.querySelector('aside.toc.open')||document.querySelector('#drawer.open');if(!open)return;const f=[...open.querySelectorAll('button,a[href],input,[tabindex]')].filter(el=>el.offsetParent);if(!f.length)return;if(e.shiftKey&&document.activeElement===f[0]){e.preventDefault();f[f.length-1].focus();}else if(!e.shiftKey&&document.activeElement===f[f.length-1]){e.preventDefault();f[0].focus();}});
+// Fullscreen: Fullscreen API where available, CSS-immersive fallback otherwise. Per-session toggle (never auto-restored).
+function syncFS(){const on=document.body.classList.contains('fs');const bar=$('#fsbar');if(bar)bar.hidden=!on;const fb=$('#fsbtn');if(fb)fb.setAttribute('aria-pressed',on?'true':'false');}
+function setFS(on){if(on){document.body.classList.add('fs');try{const el=document.documentElement;const pr=el.requestFullscreen&&el.requestFullscreen();if(pr&&pr.catch)pr.catch(()=>{});}catch(err){}}else{document.body.classList.remove('fs');try{if(document.fullscreenElement&&document.exitFullscreen)document.exitFullscreen().catch(()=>{});}catch(err){}}syncFS();}
+document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement)document.body.classList.remove('fs');syncFS();});
+const _fsb=$('#fsbtn'),_fsm=$('#fsbtnm');if(_fsb)_fsb.onclick=()=>setFS(!document.body.classList.contains('fs'));if(_fsm)_fsm.onclick=()=>{$('#drawer').classList.remove('open');setFS(!document.body.classList.contains('fs'));};
+const _ft=$('#fs-toc');if(_ft)_ft.onclick=()=>tocToggle();
+const _fx=$('#fs-exit');if(_fx)_fx.onclick=()=>setFS(false);
+const _fth=$('#fs-theme');if(_fth)_fth.onclick=()=>{setOpt('theme',RTHEMES[(RTHEMES.indexOf(pref.theme)+1)%RTHEMES.length]);};
+function _fsStep(dd){const S=[16,18,20,22];let i=S.indexOf(pref.fs);if(i<0)i=1;setOpt('fs',S[Math.min(S.length-1,Math.max(0,i+dd))]);}
+const _fd=$('#fs-dec'),_fi=$('#fs-inc');if(_fd)_fd.onclick=()=>_fsStep(-1);if(_fi)_fi.onclick=()=>_fsStep(1);
+applyPref();tocUpdate();syncFS();
+</script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>Start Here: Foundations, Git &amp; CI</title><style>
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>START<br>HERE — CICD BY Nabawy</title><style>
 .readbody{
     --paper:#f5f6f4; --white:#ffffff;
     --ink:#161a19; --muted:#68706d; --line:#d5dad7;
@@ -168,23 +168,9 @@ ul.tight li{margin-bottom:4px;}
 .printnote{font-size:10px; color:var(--muted); border:1px dashed var(--line); padding:10px 12px; margin-top:12px; line-height:1.7;}
 /* m-reflow: screen-only mobile reflow; print unaffected */
 @media screen and (max-width:700px){.page{width:auto;min-height:0;margin:0 auto;padding:16px 14px 20px}h3.sec{font-size:19px}.opener .bignum{font-size:48px}.cover h1{font-size:32px}.cover .tri{font-size:9px}table.cmp{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}.terminal{font-size:10.5px}.vnode b,.fnode b{font-size:11px}.phead h2{font-size:18px}.step{font-size:12.5px}}
-</style></head><body><div class="page cover">
-    <div class="brand">CI/CD SYSTEMS &nbsp;·&nbsp; ENGINEERING MANUAL &nbsp;·&nbsp; PDF 01</div>
-    <h1>CI/CD<br><span>ENGINEERING</span> </h1>
-    <div class="sub">From Commit to Production</div>
-    <div class="tri">CONTINUOUS INTEGRATION<br>CONTINUOUS DELIVERY<br>CONTINUOUS DEPLOYMENT</div>
-    <div class="vpipe">
-        <div class="vnode blue"><span class="dot"></span> <img src="../assets/icons/git/git.svg" alt="Source"><b>SOURCE</b><small>Git push</small></div><div class="vline"></div>
-        <div class="vnode blue"><span class="dot"></span> <img src="../assets/icons/ci-cd/hammer.svg" alt="Build"><b>BUILD</b><small>compile &amp; bundle</small></div><div class="vline"></div>
-        <div class="vnode"><span class="dot"></span> <img src="../assets/icons/testing/flask-conical.svg" alt="Test"><b>TEST</b><small>prove it works</small></div><div class="vline"></div>
-        <div class="vnode purp"><span class="dot"></span> <img src="../assets/icons/general/package.svg" alt="Package"><b>PACKAGE</b><small>immutable artifact</small></div><div class="vline"></div>
-        <div class="vnode amber"><span class="dot"></span> <img src="../assets/icons/deployment/rocket.svg" alt="Deploy"><b>DEPLOY</b><small>gated release</small></div><div class="vline"></div>
-        <div class="vnode"><span class="dot"></span> <img src="../assets/icons/monitoring/activity.svg" alt="Observe"><b>OBSERVE</b><small>learn &amp; feedback</small></div>
-    </div>
-    <div class="foot"><span>01 / 10 · FOUNDATIONS &nbsp;·&nbsp; SOURCE → PIPELINE → ARTIFACT → ENVIRONMENT → FEEDBACK</span> <span class="sig">Nabawy</span> </div>
-</div><div class="page opener">
-    <div class="phead"><span class="ch">CI/CD Systems</span> &nbsp; Chapter 01<hr><h2>Foundations</h2>Continuous Integration</div>
-    <div class="bignum">01</div>
+</style></head><body><div class="page cover"><div class="brand">CICD BY Nabawy · START HERE</div><h1>START<br>HERE</h1><div class="sub">Foundations, Git and CI — the ground everything stands on.</div><div class="foot"><span>Reader edition</span><span class="sig">Nabawy</span></div></div><div class="page opener"><div class="bignum">Part I</div><h2>CI/CD ENGINEERING</h2><p class="body">From Commit to Production</p></div><div class="page opener"><div class="bignum">Part II</div><h2>GIT, BRANCHING &amp; PULL REQUESTS</h2><p class="body">The quality gate that feeds CI</p></div><div class="page opener"><div class="bignum">Part III</div><h2>CONTINUOUS INTEGRATION</h2><p class="body">The discipline behind the pipeline</p></div><div class="page opener">
+    <div class="phead"><span class="ch">CI/CD Systems</span> &nbsp; Part<hr><h2>Foundations</h2>Continuous Integration</div>
+    
     <div class="ctitle">FOUNDATIONS</div>
     <p class="lede">A pipeline is not magic.<br>It is a <em>deterministic sequence of machines making decisions about your code</em> — from the moment you push to the moment users feel the change.</p>
     <h3 class="sec"><span class="n">1 /</span> The CI/CD Lifecycle</h3>
@@ -199,9 +185,9 @@ ul.tight li{margin-bottom:4px;}
     <div class="cap">Every chapter of this manual lives somewhere on this line. Feedback flows backward: deploy → observe → next commit.</div>
     <h3 class="sec"><span class="n">2 /</span> How to read this manual</h3>
     <p class="body">Each concept answers <b>WHAT · WHY · WHEN · HOW · WHAT CAN FAIL</b>. Green means passed, red means failed, amber means a human must decide, purple means artifact. Color always pairs with a symbol and a label — the book survives grayscale printing.</p>
-    <div class="pfoot"><span>CI/CD Engineering Manual</span> <span>CH 01</span> <span>02 / 10</span> </div>
+    <div class="pfoot"><span>CICD BY Nabawy</span><span>1</span></div>
 </div><div class="page">
-    <div class="phead"><span class="ch">CI/CD Systems</span> &nbsp; Chapter 01<hr><h2>Continuous Integration</h2>Concept · Reason · Cost of Skipping</div>
+    <div class="phead"><span class="ch">CI/CD Systems</span> &nbsp; Part<hr><h2>Continuous Integration</h2>Concept · Reason · Cost of Skipping</div>
     <h3 class="sec"><span class="n">3 /</span> What Is Continuous Integration</h3>
     <div class="iconrow"><img src="../assets/icons/git/git.svg" alt="Git"><p class="body"><b>Developers merge small changes into shared <span class="mono">main</span> frequently; every merge triggers an automated build + test + scan.</b> CI answers one question: <i>does this change work?</i></p></div>
     <p class="body"><b>WHEN</b> — on every push and every pull request. <b>HOW</b> — a pipeline job checks out the exact commit, builds it in a clean environment, and reports green or red back to the branch in minutes.</p>
@@ -215,9 +201,9 @@ ul.tight li{margin-bottom:4px;}
         <li><b>No feedback loop.</b> The same bug class ships again and again.</li>
     </ul>
     <p class="body">Integration pain is paid <b>minutes per commit</b> with CI/CD, or <b>weeks per release</b> without it.</p>
-    <div class="pfoot"><span>CI/CD Engineering Manual</span> <span>CH 01</span> <span>03 / 10</span> </div>
+    <div class="pfoot"><span>CICD BY Nabawy</span><span>2</span></div>
 </div><div class="page">
-    <div class="phead"><span class="ch">CI/CD Systems</span> &nbsp; Chapter 01<hr><h2>CI vs CD · Delivery vs Deployment</h2>Comparisons</div>
+    <div class="phead"><span class="ch">CI/CD Systems</span> &nbsp; Part<hr><h2>CI vs CD · Delivery vs Deployment</h2>Comparisons</div>
     <h3 class="sec"><span class="n">5 /</span> CI vs Delivery vs Deployment</h3>
     <table class="cmp">
         <tr><th></th><th>CI</th><th>Continuous Delivery</th><th>Continuous Deployment</th></tr>
@@ -234,9 +220,9 @@ ul.tight li{margin-bottom:4px;}
         </div>
     </div>
     <div class="callout warn"><h4>GOTCHA</h4><p>A green build does not mean the application works in production. It means only the checks inside that pipeline passed.</p></div>
-    <div class="pfoot"><span>CI/CD Engineering Manual</span> <span>CH 01</span> <span>04 / 10</span> </div>
+    <div class="pfoot"><span>CICD BY Nabawy</span><span>3</span></div>
 </div><div class="page">
-    <div class="phead"><span class="ch">CI/CD Systems</span> &nbsp; Chapter 01<hr><h2>Pipeline &amp; Status</h2>Stages · States · Language</div>
+    <div class="phead"><span class="ch">CI/CD Systems</span> &nbsp; Part<hr><h2>Pipeline &amp; Status</h2>Stages · States · Language</div>
     <h3 class="sec"><span class="n">6 /</span> Anatomy of a Pipeline</h3>
     <div class="pipeline">
         <div class="stage"><span class="no">01</span> <img src="../assets/icons/git/git.svg" alt="Source"><small class="st">● PASSED</small><strong>SOURCE</strong><span class="desc">Git push to main</span> </div><div class="connector">→</div>
@@ -262,9 +248,9 @@ ul.tight li{margin-bottom:4px;}
         <span class="pill"><i class="i-gr"></i>● WAITING</span>
         <span class="pill"><i class="i-gr"></i>● SKIPPED</span>
     </div>
-    <div class="pfoot"><span>CI/CD Engineering Manual</span> <span>CH 01</span> <span>05 / 10</span> </div>
+    <div class="pfoot"><span>CICD BY Nabawy</span><span>4</span></div>
 </div><div class="page">
-    <div class="phead"><span class="ch">CI/CD Systems</span> &nbsp; Chapter 01<hr><h2>Environments &amp; Flow</h2>Lanes · Loop</div>
+    <div class="phead"><span class="ch">CI/CD Systems</span> &nbsp; Part<hr><h2>Environments &amp; Flow</h2>Lanes · Loop</div>
     <h3 class="sec"><span class="n">8 /</span> Environment Lanes: One Artifact, Three Tracks</h3>
     <div class="lane dev"><div class="lt"><span>DEVELOPMENT</span> <span>BUILD → TEST</span> </div><div class="lb">push <span class="ok">→ build ✓ → unit tests ✓</span> <span class="wt">→ image staged</span> </div></div>
     <div class="lane stg"><div class="lt"><span>STAGING</span> <span>DEPLOY → VERIFY</span> </div><div class="lb">deploy sha-9f3a <span class="ok">→ smoke ✓ → scan ✓</span> <span class="wt">→ awaiting approval</span> </div></div>
@@ -278,9 +264,9 @@ ul.tight li{margin-bottom:4px;}
         <div class="fnode good"><img src="../assets/icons/deployment/rocket.svg" alt="Deploy"><b>DEPLOY</b><small>same digest to production</small></div><div class="farrow">↓</div>
         <div class="fnode"><img src="../assets/icons/monitoring/activity.svg" alt="Observe"><b>OBSERVE → FEEDBACK</b><small>metrics → developer → next commit</small></div>
     </div>
-    <div class="pfoot"><span>CI/CD Engineering Manual</span> <span>CH 01</span> <span>06 / 10</span> </div>
+    <div class="pfoot"><span>CICD BY Nabawy</span><span>5</span></div>
 </div><div class="page">
-    <div class="phead"><span class="ch">CI/CD Systems</span> &nbsp; Chapter 01<hr><h2>Console</h2>Command · Result · Why</div>
+    <div class="phead"><span class="ch">CI/CD Systems</span> &nbsp; Part<hr><h2>Console</h2>Command · Result · Why</div>
     <h3 class="sec"><span class="n">10 /</span> From Push to Pipeline</h3>
     <div class="terminal"><span class="p">$</span> git push origin main<br><br><span class="c">→ pipeline triggered · commit 9f3a2c1</span> <br><br>[01] BUILD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="g">PASSED</span> &nbsp; 1m 12s<br>[02] TEST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="b">RUNNING</span> · 214/300<br>[03] SCAN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="w">WAITING</span> <br>[04] ARTIFACT&nbsp;&nbsp;&nbsp;<span class="w">WAITING</span> </div>
     <h3 class="sec"><span class="n">11 /</span> Command and Result</h3>
@@ -292,9 +278,9 @@ Successfully tagged sha-9f3a
 Pushed digest sha256:4d…e9</pre></div>
     </div>
     <div class="kv"><b>WHY IT MATTERS —</b> the pushed digest is the frozen, promotable unit. Staging and production deploy this exact hash; nothing is ever rebuilt between environments.</div>
-    <div class="pfoot"><span>CI/CD Engineering Manual</span> <span>CH 01</span> <span>07 / 10</span> </div>
+    <div class="pfoot"><span>CICD BY Nabawy</span><span>6</span></div>
 </div><div class="page">
-    <div class="phead"><span class="ch">CI/CD Systems</span> &nbsp; Chapter 01<hr><h2>Artifact &amp; Gate</h2>Freeze · Approve</div>
+    <div class="phead"><span class="ch">CI/CD Systems</span> &nbsp; Part<hr><h2>Artifact &amp; Gate</h2>Freeze · Approve</div>
     <h3 class="sec"><span class="n">12 /</span> The Artifact Identity</h3>
     <div class="vflow">
         <div class="fnode"><img src="../assets/icons/git/git.svg" alt="Source code"><b>SOURCE CODE</b><small>repo @ 9f3a2c1</small></div><div class="farrow">↓</div>
@@ -306,9 +292,9 @@ Pushed digest sha256:4d…e9</pre></div>
     <h3 class="sec"><span class="n">13 /</span> The Approval Gate</h3>
     <div class="kv"><b>AUTOMATED:</b> build ✓ · test ✓ · scan ✓ · artifact ✓ &nbsp;→&nbsp; <b style="color:#a5761a;">◌ APPROVAL — a human decision is required</b> &nbsp;→&nbsp; <b>PRODUCTION</b></div>
     <div class="callout"><h4>CONTEXT — PRODUCER &amp; CONSUMER</h4><p>The build pipeline <b>produces</b> the artifact; the deployment pipeline <b>consumes</b> it; the registry <b>stores</b> it. Lifecycle: build → store → promote → deploy. Anything that breaks this chain — a rebuild, a mutable tag, a skipped gate — voids every check upstream.</p></div>
-    <div class="pfoot"><span>CI/CD Engineering Manual</span> <span>CH 01</span> <span>08 / 10</span> </div>
+    <div class="pfoot"><span>CICD BY Nabawy</span><span>7</span></div>
 </div><div class="page">
-    <div class="phead"><span class="ch">CI/CD Systems</span> &nbsp; Chapter 01<hr><h2>Failure &amp; Recovery</h2>States · Loops</div>
+    <div class="phead"><span class="ch">CI/CD Systems</span> &nbsp; Part<hr><h2>Failure &amp; Recovery</h2>States · Loops</div>
     <h3 class="sec"><span class="n">14 /</span> Failure as a State Transition</h3>
     <div class="vflow">
         <div class="fnode good"><img src="../assets/icons/ci-cd/hammer.svg" alt="Build passed"><b>BUILD ✓</b><small>compiles</small></div><div class="farrow">↓</div>
@@ -320,9 +306,9 @@ Pushed digest sha256:4d…e9</pre></div>
         <div class="callout bad"><h4>RECOVERY LOOP</h4><p>FAILURE → LOGS → ROOT CAUSE → FIX → NEW COMMIT → PIPELINE. Every incident must land a new check, or it will recur.</p></div>
         <div class="callout warn"><h4>GOTCHA</h4><p>Never bypass a red gate with an admin override "just this once". The override becomes the process.</p></div>
     </div>
-    <div class="pfoot"><span>CI/CD Engineering Manual</span> <span>CH 01</span> <span>09 / 10</span> </div>
+    <div class="pfoot"><span>CICD BY Nabawy</span><span>8</span></div>
 </div><div class="page">
-    <div class="phead"><span class="ch">CI/CD Systems</span> &nbsp; Chapter 01<hr><h2>Check &amp; Map</h2>Knowledge · System</div>
+    <div class="phead"><span class="ch">CI/CD Systems</span> &nbsp; Part<hr><h2>Check &amp; Map</h2>Knowledge · System</div>
     <h3 class="sec"><span class="n">15 /</span> Interview Check</h3>
     <div class="qa"><span class="qq">Q:</span> Delivery vs Deployment?<br><span class="aa">A:</span> Delivery keeps software production-ready behind an approval; Deployment releases validated changes automatically.</div>
     <div class="qa"><span class="qq">Q:</span> Why must staging and production share one artifact digest?<br><span class="aa">A:</span> Otherwise you tested one binary and shipped another — verification is void.</div>
@@ -337,23 +323,11 @@ Pushed digest sha256:4d…e9</pre></div>
         <div class="kv"><b>STAGING</b> → ◌ <b>APPROVAL GATE</b> → <b>PRODUCTION</b></div>
         <div class="kv"><b>OBSERVE</b> → <b>FEEDBACK</b> → next commit</div>
     </div>
-    <div class="printnote"><b>PRINT:</b> open this file in a browser → Ctrl/Cmd+P → Save as PDF → enable <b>Background graphics</b> → A4. Source: <span class="mono">CI-CD/00-foundations/cicd-overview.md</span> . Next: PDF 02 — Source Control &amp; Pipelines.</div>
-    <div class="pfoot"><span>CI/CD Engineering Manual</span> <span>CH 01</span> <span>10 / 10</span> </div>
-</div><div class="page cover">
-<div class="brand">CI/CD SYSTEMS &nbsp;·&nbsp; ENGINEERING MANUAL &nbsp;·&nbsp; PDF 02</div>
-<h1>GIT, BRANCHING<br><span>&amp; PULL REQUESTS</span></h1>
-<div class="sub">The quality gate that feeds CI</div>
-<div class="tri">SOURCE CONTROL<br>BRANCHING MODELS<br>CI TRIGGERS</div>
-<div class="vpipe">
-<div class="vnode blue"><span class="dot"></span><img src="../assets/icons/git/git.svg" alt="Git"><b>GIT</b><small>every change recorded</small></div><div class="vline"></div>
-<div class="vnode blue"><span class="dot"></span><img src="../assets/icons/ci-cd/workflow.svg" alt="Branch"><b>BRANCH</b><small>isolated line of work</small></div><div class="vline"></div>
-<div class="vnode"><span class="dot"></span><img src="../assets/icons/git/github.svg" alt="PR"><b>PULL REQUEST</b><small>review + checks</small></div><div class="vline"></div>
-<div class="vnode"><span class="dot"></span><img src="../assets/icons/jenkins/webhook.svg" alt="Trigger"><b>CI TRIGGER</b><small>pipeline starts</small></div>
-</div>
-<div class="foot"><span>01 / 05 · SOURCE CONTROL</span><span class="sig">Nabawy</span></div>
+    
+    <div class="pfoot"><span>CICD BY Nabawy</span><span>9</span></div>
 </div><div class="page opener">
-<div class="phead"><span class="ch">CI/CD Systems</span> &nbsp; Chapter 02<hr><h2>Source Control</h2>Git · Branching · Triggers</div>
-<div class="bignum">02</div>
+<div class="phead"><span class="ch">CI/CD Systems</span> &nbsp; Part<hr><h2>Source Control</h2>Git · Branching · Triggers</div>
+
 <div class="ctitle">SOURCE CONTROL</div>
 <p class="lede">Picking up from <em>Foundations</em>, where a Git push triggered the lifecycle — we now examine the machinery of that trigger: <em>branches isolate work, pull requests gate it, triggers fire pipelines</em>.</p>
 <h3 class="sec"><span class="n">01 /</span> What Each Piece Is</h3>
@@ -363,9 +337,9 @@ Pushed digest sha256:4d…e9</pre></div>
 <div class="iconrow"><img src="../assets/icons/jenkins/webhook.svg" alt="Trigger"><p class="body"><b>CI Trigger</b> — the event that starts a pipeline: PR opened/updated, push to <span class="mono">main</span>, schedule, manual.</p></div>
 <h3 class="sec"><span class="n">02 /</span> Why the Gate Exists</h3>
 <p class="body">Direct pushes to <span class="mono">main</span> bypass review and verification. The branch → PR → CI → merge flow makes every change <b>Reviewed, Tested, and Traceable</b> before it can break the pipeline.</p>
-<div class="pfoot"><span>CI/CD Engineering Manual</span><span>CH 02</span><span>02 / 05</span></div>
+<div class="pfoot"><span>CICD BY Nabawy</span><span>10</span></div>
 </div><div class="page">
-<div class="phead"><span class="ch">CI/CD Systems</span> &nbsp; Chapter 02<hr><h2>Flow &amp; Commands</h2>Steps · CLI · Config</div>
+<div class="phead"><span class="ch">CI/CD Systems</span> &nbsp; Part<hr><h2>Flow &amp; Commands</h2>Steps · CLI · Config</div>
 <h3 class="sec"><span class="n">03 /</span> How the Flow Executes</h3>
 <div class="vflow">
 <div class="fnode good"><img src="../assets/icons/ci-cd/workflow.svg" alt="Branch"><b>BRANCH</b><small>small logical commits</small></div><div class="farrow">↓</div>
@@ -376,9 +350,9 @@ Pushed digest sha256:4d…e9</pre></div>
 <h3 class="sec"><span class="n">04 /</span> Commands</h3>
 <div class="terminal"><span class="p">$</span> git checkout -b feature/login<br><span class="p">$</span> git add -A &amp;&amp; git commit -m "feat(auth): add login validation"<br><span class="p">$</span> git push -u origin feature/login<br><br><span class="c"># then open the PR — CI trigger fires automatically</span></div>
 <div class="terminal"><span class="c"># .github/workflows trigger: CI on every PR + push to main</span><br><span class="g">on:</span><br>&nbsp;&nbsp;pull_request:<br>&nbsp;&nbsp;push:<br>&nbsp;&nbsp;&nbsp;&nbsp;branches: [main]</div>
-<div class="pfoot"><span>CI/CD Engineering Manual</span><span>CH 02</span><span>03 / 05</span></div>
+<div class="pfoot"><span>CICD BY Nabawy</span><span>11</span></div>
 </div><div class="page">
-<div class="phead"><span class="ch">CI/CD Systems</span> &nbsp; Chapter 02<hr><h2>Models &amp; Discipline</h2>Strategies · Failures · Rules</div>
+<div class="phead"><span class="ch">CI/CD Systems</span> &nbsp; Part<hr><h2>Models &amp; Discipline</h2>Strategies · Failures · Rules</div>
 <h3 class="sec"><span class="n">05 /</span> Branching Models</h3>
 <table class="cmp"><tr><th>Model</th><th>Rule</th><th>Best for</th></tr>
 <tr><td>GitHub Flow</td><td>Branch → PR → main → deploy</td><td>CD teams (this series' default)</td></tr>
@@ -388,31 +362,19 @@ Pushed digest sha256:4d…e9</pre></div>
 <ul class="tight"><li>Long-lived branches → merge hell; fix with trunk-based discipline.</li><li>Red checks ignored; fix with required status checks.</li><li>Merge-queue races; fix with merge queues, linear history.</li></ul>
 <div class="kv"><b>RULES —</b> one logical change per PR (&lt; ~400 lines) · green CI + 1 approval before merge · conventional commits (<span class="mono">feat:</span>, <span class="mono">fix:</span>) so changelogs automate.</div>
 <div class="callout warn"><h4>GOTCHA</h4><p>"Merging equals deploying" is false. Merging makes a change a <i>candidate</i>; Continuous Delivery decides deployment.</p></div>
-<div class="pfoot"><span>CI/CD Engineering Manual</span><span>CH 02</span><span>04 / 05</span></div>
+<div class="pfoot"><span>CICD BY Nabawy</span><span>12</span></div>
 </div><div class="page">
-<div class="phead"><span class="ch">CI/CD Systems</span> &nbsp; Chapter 02<hr><h2>Check &amp; Handoff</h2>Knowledge · Next</div>
+<div class="phead"><span class="ch">CI/CD Systems</span> &nbsp; Part<hr><h2>Check &amp; Handoff</h2>Knowledge · Next</div>
 <h3 class="sec"><span class="n">07 /</span> Interview Check</h3>
 <div class="qa"><span class="qq">Q:</span> Explain the PR as a quality gate.<br><span class="aa">A:</span> Human review (design) + automated checks (correctness) + merge policy (green + approved = mergeable).</div>
 <div class="qa"><span class="qq">Q:</span> Map the trigger types.<br><span class="aa">A:</span> Push, pull request, schedule, manual dispatch, tag/release.</div>
 <h3 class="sec"><span class="n">08 /</span> Handoff</h3>
-<p class="body">The trigger fires — now something must execute. This workflow continues in <b>PDF 03 · CI/CD Pipelines</b>, where the triggered pipeline runs build, test, and scan.</p>
-<div class="printnote"><b>SOURCE:</b> <span class="mono">01-source-control/git-branching-pull-requests.md</span> · Print: Ctrl/Cmd+P → Save as PDF → Background graphics on → A4.</div>
-<div class="pfoot"><span>CI/CD Engineering Manual</span><span>CH 02</span><span>05 / 05</span></div>
-</div><div class="page cover">
-<div class="brand">CI/CD SYSTEMS &nbsp;·&nbsp; ENGINEERING MANUAL &nbsp;·&nbsp; PDF 21</div>
-<h1>CONTINUOUS<br><span>INTEGRATION</span></h1>
-<div class="sub">The discipline behind the pipeline</div>
-<div class="tri">MERGE DAILY · VERIFY ALWAYS<br>PR GATES · MERGE QUEUES<br>TRUNK DISCIPLINE</div>
-<div class="vpipe">
-<div class="vnode"><span class="dot"></span><img src="../assets/icons/git/git.svg" alt="Integrate"><b>INTEGRATE</b><small>small merges, daily</small></div><div class="vline"></div>
-<div class="vnode"><span class="dot"></span><img src="../assets/icons/testing/flask-conical.svg" alt="Verify"><b>VERIFY</b><small>build + test + scan</small></div><div class="vline"></div>
-<div class="vnode"><span class="dot"></span><img src="../assets/icons/ci-cd/workflow.svg" alt="Gate"><b>GATE</b><small>green + approved</small></div><div class="vline"></div>
-<div class="vnode"><span class="dot"></span><img src="../assets/icons/git/git.svg" alt="Fix"><b>FIX FIRST</b><small>red main stops the line</small></div>
-</div>
-<div class="foot"><span>01 / 04 · DISCIPLINE, NOT MACHINERY</span><span class="sig">Nabawy</span></div>
+<p class="body">The trigger fires — now something must execute. This workflow continues in <b>Pipelines, Build, Test &amp; Artifacts</b>, where the triggered pipeline runs build, test, and scan.</p>
+
+<div class="pfoot"><span>CICD BY Nabawy</span><span>13</span></div>
 </div><div class="page opener">
-<div class="phead"><span class="ch">CI/CD Systems</span> &nbsp; Chapter 21<hr><h2>Discipline</h2>Merge · Gate · Trunk</div>
-<div class="bignum">21</div>
+<div class="phead"><span class="ch">CI/CD Systems</span> &nbsp; Part<hr><h2>Discipline</h2>Merge · Gate · Trunk</div>
+
 <div class="ctitle">INTEGRATION</div>
 <p class="lede">Picking up from <em>Source Control</em>, where the PR gate was built — CI is <em>the discipline that makes the gate meaningful</em>: integrate daily, verify automatically, fix immediately.</p>
 <h3 class="sec"><span class="n">01 /</span> The Three Habits</h3>
@@ -422,9 +384,9 @@ Pushed digest sha256:4d…e9</pre></div>
 <div class="fnode"><img src="../assets/icons/ci-cd/workflow.svg" alt="Fix"><b>FIX</b><small>red main = top priority, stop the line</small></div>
 </div>
 <p class="body">Integration pain grows with branch age: two-day branches merge in minutes, two-month branches in weeks.</p>
-<div class="pfoot"><span>CI/CD Engineering Manual</span><span>CH 21</span><span>02 / 04</span></div>
+<div class="pfoot"><span>CICD BY Nabawy</span><span>14</span></div>
 </div><div class="page">
-<div class="phead"><span class="ch">CI/CD Systems</span> &nbsp; Chapter 21<hr><h2>Gates</h2>PR Gates · Queues · Trunk</div>
+<div class="phead"><span class="ch">CI/CD Systems</span> &nbsp; Part<hr><h2>Gates</h2>PR Gates · Queues · Trunk</div>
 <h3 class="sec"><span class="n">02 /</span> PR Gates &amp; Merge Queues</h3>
 <ul class="tight"><li><b>PR gate</b> — required checks + approvals in branch protection. No green, no merge. No admin overrides.</li><li><b>Merge queue</b> — serializes merges on busy <span class="mono">main</span>: rebase onto latest green, re-verify, land. Kills the green-on-branch-red-on-main race.</li><li><b>Linear history</b> — rebase/squash keeps <span class="mono">main</span> bisectable: any commit builds and reverts cleanly.</li></ul>
 <h3 class="sec"><span class="n">03 /</span> Trunk Discipline</h3>
@@ -432,11 +394,11 @@ Pushed digest sha256:4d…e9</pre></div>
 <ul class="tight"><li>Long branches → merge hell (WIP limits + flags).</li><li>Red main normalized → quality collapse (stop-the-line culture).</li><li>Flaky gates → bypassed checks (quarantine flakes, never disable gates).</li></ul>
 <div class="qa"><span class="qq">Q:</span> CI practice vs CI pipeline?<br><span class="aa">A:</span> Discipline (merge small, verify, fix first) vs machinery (the pipeline that enforces it).</div>
 <div class="kv"><b>DISCIPLINE DETAILS —</b> preflight builds validate diffs before landing on <span class="mono">main</span> · rotating build master reverts lingering breakage on large teams · ratcheting gates fail only when warnings or duplication increase.</div>
-<div class="pfoot"><span>CI/CD Engineering Manual</span><span>CH 21</span><span>03 / 04</span></div>
+<div class="pfoot"><span>CICD BY Nabawy</span><span>15</span></div>
 </div><div class="page">
-<div class="phead"><span class="ch">CI/CD Systems</span> &nbsp; Chapter 21<hr><h2>Handoff</h2>Next · Source</div>
+<div class="phead"><span class="ch">CI/CD Systems</span> &nbsp; Part<hr><h2>Handoff</h2>Next · Source</div>
 <h3 class="sec"><span class="n">04 /</span> Handoff</h3>
-<p class="body">Small merges, verified automatically, fixed immediately — that discipline feeds every pipeline downstream. Continue in <b>PDF 03 · CI/CD Pipelines</b>.</p>
-<div class="printnote"><b>SOURCE:</b> <span class="mono">02-continuous-integration/continuous-integration.md</span> · Print: Ctrl/Cmd+P → Save as PDF → Background graphics on → A4.</div>
-<div class="pfoot"><span>CI/CD Engineering Manual</span><span>CH 21</span><span>04 / 04</span></div>
+<p class="body">Small merges, verified automatically, fixed immediately — that discipline feeds every pipeline downstream. Continue in <b>Pipelines, Build, Test &amp; Artifacts</b>.</p>
+
+<div class="pfoot"><span>CICD BY Nabawy</span><span>16</span></div>
 </div></body></html>

@@ -210,11 +210,15 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 @media(max-width:600px){.cores-grid{grid-template-columns:1fr}}
 /* reader */
 .rlayout{display:flex;max-width:1320px;margin:0 auto;min-height:100vh;min-height:100dvh}
-aside.toc{width:300px;flex:none;border-right:1px solid var(--line-soft);padding:24px 16px;position:sticky;top:57px;height:calc(100vh - 57px);height:calc(100dvh - 57px);overflow:auto}
+aside.toc{width:300px;flex:none;border-right:1px solid var(--line-soft);padding:0 14px 24px;position:sticky;top:57px;height:calc(100vh - 57px);height:calc(100dvh - 57px);overflow:auto;counter-reset:tocsec;scrollbar-width:thin}
+aside.toc .toc-head{position:sticky;top:0;z-index:2;background:var(--bg);margin:0 -14px;padding:20px 14px 12px;border-bottom:1px solid var(--line-soft)}
 aside.toc h4{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--mut)}
-aside.toc a{display:block;font-size:14px;font-weight:500;color:var(--mut);text-decoration:none;padding:7px 12px;border-radius:8px;border-left:2px solid transparent;line-height:1.45}
-aside.toc a:hover{color:var(--ink);background:var(--bg2)}
-aside.toc a.cur{background:var(--acc-soft);color:var(--brand);font-weight:600;border-left-color:var(--brand)}
+aside.toc a{position:relative;display:block;font-size:13.5px;font-weight:500;color:var(--mut);text-decoration:none;padding:8px 12px 8px 40px;border-radius:10px;line-height:1.45;transition:background .15s ease,color .15s ease,transform .15s ease}
+aside.toc a::before{counter-increment:tocsec;content:counter(tocsec,decimal-leading-zero);position:absolute;left:13px;top:9px;font-family:var(--mono);font-size:10px;color:var(--mut);opacity:.7}
+aside.toc a:hover{color:var(--ink);background:var(--bg2);transform:translateX(2px)}
+aside.toc a:hover::before{opacity:1}
+aside.toc a.cur{background:var(--acc-soft);color:var(--brand);font-weight:700}
+aside.toc a.cur::before{color:var(--brand);opacity:1}
 [data-theme=light] aside.toc a.cur{color:#0fa76e}
 main.read{flex:1;min-width:0;padding:32px 32px 90px}
 .readbody{margin:0 auto;max-width:820px}
@@ -264,7 +268,7 @@ mark{background:var(--acc-soft);color:var(--ink);border-radius:3px;padding:0 2px
 .crumbs .sep{color:var(--mut)}
 @media(max-width:900px){aside.toc{position:fixed;left:0;top:0;bottom:0;background:var(--card);z-index:60;transform:translateX(-105%);transition:transform .2s;height:100vh;height:100dvh}
 aside.toc.open{transform:none}.tocscrim{display:none}@media(max-width:900px){body.toc-open .tocscrim{display:block;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:55}}
-aside.toc a{padding:11px 12px;font-size:15px}
+aside.toc a{padding:11px 12px 11px 40px;font-size:15px}
 .tocbtn{display:inline-block}
 main.read{padding:20px 14px 90px}
 .crumbs .here{max-width:140px}
@@ -370,7 +374,7 @@ table.gloss tr{scroll-margin-top:150px}
 .filterbar{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 6px;align-items:center}
 .filterbar select,.filterbar input[type=search]{background:var(--card);border:1px solid var(--line);color:var(--ink);border-radius:9999px;padding:7px 14px;font-size:13px;outline:none}
 .filterbar .count{margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--mut)}
-.toc-l2{padding-left:14px !important}.toc-l3{padding-left:28px !important}.toc-num{font-family:var(--mono);font-size:11px;color:var(--mut);margin-right:6px}
+.toc-l2{padding-left:50px !important}.toc-l3{padding-left:60px !important}.toc-num{font-family:var(--mono);font-size:11px;color:var(--mut);margin-right:6px}
 .codehead{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:var(--mut);margin:12px 0 0;background:var(--bg2);border:1px solid var(--line);border-bottom:none;border-radius:8px 8px 0 0;padding:6px 12px}
 .codehead .dot{width:8px;height:8px;border-radius:50%;background:var(--brand)}
 .codehead button{margin-left:auto;background:transparent;border:1px solid var(--line);color:var(--ink);border-radius:9999px;font-size:11px;padding:2px 10px;cursor:pointer}
@@ -1015,7 +1019,7 @@ def toc_of(pages):
 
 
 DIFF_RANK = {"Beginner": 0, "Intermediate": 1, "Advanced": 2}
-CAT_HEX = {"CI/CD":"#5B8DEF","Build":"#F5A524","Testing":"#2ECC71","Security":"#E5484D","Reliability":"#9B7BF0","Jenkins":"#22B8CF","Delivery":"#F472B6","GitHub":"#94A3B8","Platforms":"#F97316","Labs":"#EAB308","Reference":"#64748B","Roadmap":"#18E299"}
+CAT_HEX = {"CI/CD":"#5B8DEF","Build":"#F5A524","Testing":"#2ECC71","Security":"#E5484D","Reliability":"#9B7BF0","Jenkins":"#22B8CF","Delivery":"#F472B6","GitHub":"#94A3B8","Platforms":"#F97316","Labs":"#EAB308","Reference":"#64748B","Roadmap":"#18E299","Start Here":"#5B8DEF","Deliver":"#F472B6"}
 DIF_SHORT = {"Beginner":"Beg","Intermediate":"Int","Advanced":"Adv"}
 DIF_CLS = {"Beginner":"beg","Intermediate":"int","Advanced":"adv"}
 
@@ -1038,6 +1042,8 @@ CATEGORY_ICONS = {
     "Reliability": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l2-4 3 7 2-4h7"/><circle cx="12" cy="12" r="9" opacity=".2"/></svg>',
     "Reference": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 4h8a2 2 0 012 2v12a2 2 0 01-2 2H6z"/><path d="M6 8h6"/><path d="M6 12h6"/><path d="M6 16h4" opacity=".6"/></svg>',
     "GitHub": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 00-3 17.5"/><path d="M9 18c-2.2 1-3-1-3-1"/><path d="M12 16c-1 .3-2 .1-2.5-.8"/><path d="M14.5 18V15a2.5 2.5 0 00-.7-1.8c1.6-.2 3.2-.8 3.2-3.5a2.7 2.7 0 00-.7-1.9s-.6-.2-2 .7a7.8 7.8 0 00-3.6 0c-1.4-.9-2-.7-2-.7a2.7 2.7 0 00-.7 1.9c0 2.7 1.6 3.3 3.2 3.5A2.5 2.5 0 0011.5 15v3"/><circle cx="12" cy="3" r=".3" fill="currentColor"/></svg>',
+    "Start Here": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3v18"/><path d="M6 4h11l-2.6 3.5L17 11H6"/></svg>',
+    "Deliver": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l4 6-4 12-4-12z"/><path d="M8 9h8"/><path d="M10 3v4M14 3v4" opacity=".6"/><circle cx="12" cy="9" r="1.2" fill="currentColor" stroke="none"/></svg>',
 }
 
 def _slug_cat(name):
@@ -1112,7 +1118,7 @@ def build_map_page(books, output_dir, paths_html=""):
             f'</a>'
         )
         # detail view — themed interior with improved card hierarchy
-        cat_desc = {"CI/CD":"Fundamentals: lifecycle, branching, pipelines & artifacts","Jenkins":"Controllers, agents, pipelines, Groovy & plugins","Labs":"Hands-on labs — build, deploy & recover","Platforms":"Jenkins, GitHub Actions, GitLab & ArgoCD","Roadmap":"Planned paths through the library","Build":"Hermetic builds, BuildKit & Kaniko","Testing":"Strategy, pyramids & flaky tests","Delivery":"Releasable always, deployed by decision","Security":"Signing, SBOM & supply chain","Reliability":"Rollback, recovery & resilience","Reference":"Cheatsheets & quick lookup","GitHub":"Actions, workflows & automation"}.get(cat, f"{cnt} books in {cat}")
+        cat_desc = {"CI/CD":"Fundamentals: lifecycle, branching, pipelines & artifacts","Jenkins":"Controllers, agents, pipelines, Groovy & plugins","Labs":"Hands-on labs — build, deploy & recover","Platforms":"Jenkins, GitHub Actions, GitLab & ArgoCD","Roadmap":"Planned paths through the library","Build":"Hermetic builds, BuildKit & Kaniko","Testing":"Strategy, pyramids & flaky tests","Delivery":"Releasable always, deployed by decision","Security":"Signing, SBOM & supply chain","Reliability":"Rollback, recovery & resilience","Reference":"Cheatsheets & quick lookup","GitHub":"Actions, workflows & automation","Start Here":"Foundations, Git and CI — begin here","Build":"Pipelines, builds, tests and artifacts","Deliver":"Strategies, envs, operations and recovery"}.get(cat, f"{cnt} books in {cat}")
         cards = ""
         for b in bs:
             idx = next((i for i, x in enumerate(books) if x["id"]==b["id"]), 0)
@@ -1511,25 +1517,39 @@ def build():
 
     all_sections = {}
     # P2.3: book id -> markdown source (from AUDIT_STRUCTURE mapping; 3 roadmaps are pdf-only)
-    MD_MAP = {"start-here": "00-foundations/start-here-merged.md", "pipelines-build-test": "06-ci-cd-pipelines/pipelines-build-test.md", "artifacts": "05-artifacts-and-packaging/artifact-management.md", "delivery-envs": "07-continuous-delivery/delivery-envs-iac.md", "strategies": "10-deployment-strategies/deployment-strategies.md", "observe-recover-secure": "13-observability-and-feedback/observe-recover-secure.md", "jenkins-core": "15-platforms-and-tools/jenkins/jenkins-core-merged.md", "jenkins-advanced-ops": "15-platforms-and-tools/jenkins/jenkins-advanced-ops.md", "github-actions": "15-platforms-and-tools/github-actions.md", "gitlab-argocd": "15-platforms-and-tools/gitlab-argocd.md", "core-labs": "16-labs/core-labs-handbook.md", "jenkins-labs-handbook": "16-labs/jenkins-labs-handbook.md", "cheatsheet": "17-reference/command-cheatsheet.md"}
+    MD_MAP = {"start-here": ["00-foundations/start-here-merged.md"], "build-artifacts": ["06-ci-cd-pipelines/pipelines-build-test.md", "05-artifacts-and-packaging/artifact-management.md"], "deliver-operate": ["10-deployment-strategies/deployment-strategies.md", "07-continuous-delivery/delivery-envs-iac.md", "13-observability-and-feedback/observe-recover-secure.md"], "jenkins-complete": ["15-platforms-and-tools/jenkins/jenkins-core-merged.md", "15-platforms-and-tools/jenkins/jenkins-advanced-ops.md"], "platforms-roadmaps": ["15-platforms-and-tools/github-actions.md", "15-platforms-and-tools/gitlab-argocd.md"], "labs-handbook": ["16-labs/core-labs-handbook.md", "16-labs/jenkins-labs-handbook.md"], "cheatsheet": ["17-reference/command-cheatsheet.md"]}
     all_body = {}
     for idx, b in enumerate(books):
         css, pages = parse_book(os.path.join(PDF, b["file"]))
         # Some older print files are shells with a cover but no article body.
         # The canonical Markdown source is the authoritative fallback so those
         # books and labs remain readable instead of silently rendering empty.
-        source_path = MD_MAP.get(b["id"])
+        _sps = MD_MAP.get(b["id"]) or []
+        if isinstance(_sps, str):
+            _sps = [_sps]
+        _sps = [sp for sp in _sps if os.path.exists(os.path.join(KB, sp))]
         page_text = re.sub(r"<[^>]+>", " ", "".join(pages))
-        if source_path and os.path.exists(os.path.join(KB, source_path)) and len(page_text.strip()) < 500:
-            pages = markdown_pages(os.path.join(KB, source_path), b["title"])
+        if _sps and len(page_text.strip()) < 500:
+            _combo = []
+            for _sp in _sps:
+                for _i, _pg in enumerate(markdown_pages(os.path.join(KB, _sp), b["title"])):
+                    if _i == 0 and _combo:
+                        continue
+                    _combo.append(_pg)
+            pages = _combo or pages
         toc = toc_of(pages)
         all_sections[b["id"]] = [t for _, t, _ in toc][:16]
         # body text for section-level search: md source preferred (full), pdf fallback
         body_txt = ""
         try:
-            mp = MD_MAP.get(b["id"])
-            if mp and os.path.exists(os.path.join(KB, mp)):
-                raw = open(os.path.join(KB, mp), encoding="utf-8").read()
+            _mps = MD_MAP.get(b["id"]) or []
+            if isinstance(_mps, str):
+                _mps = [_mps]
+            raw = ""
+            for mp in _mps:
+                if mp and os.path.exists(os.path.join(KB, mp)):
+                    raw += "\n" + open(os.path.join(KB, mp), encoding="utf-8").read()
+            if raw.strip():
                 raw = re.sub(r"^---.*?---\s*", "", raw, flags=re.S)
                 raw = re.sub(r"<!--.*?-->", " ", raw, flags=re.S)
                 raw = re.sub(r"```.*?```", " ", raw, flags=re.S)
@@ -1646,7 +1666,7 @@ def build():
 <nav class="reader-nav" aria-label="Reader navigation"><a class="btn" href="../index.html" style="text-decoration:none">Home</a>
 <a class="btn" href="../book/{b['id']}.html" style="text-decoration:none">Overview</a></nav>
 <button class="btn" id="fsbtn" aria-label="Toggle fullscreen">⛶</button>
-<button class="btn" id="setbtn" aria-label="Reading settings">⚙ A⁺</button>
+<button class="btn" id="setbtn" aria-label="Reading settings">⚙</button>
 <button class="btn mobilemenu" id="mobilemenubtn" aria-label="Open reader menu" aria-expanded="false">☰</button>
 </div>
 <div class="prog" style="height:3px;background:var(--line)"><b id="pbar" style="display:block;height:100%;width:0;background:var(--acc)"></b></div>
@@ -1675,26 +1695,14 @@ def build():
 <button class="btn" data-k="theme" data-set="light" onclick="setOpt('theme','light')">Light</button>
 <button class="btn" data-k="theme" data-set="sepia" onclick="setOpt('theme','sepia')">Sepia</button>
 </div></div>
-<div class="setrow"><h5>FONT</h5><div class="opts">
-<button class="btn" data-k="font" data-set="sans" onclick="setOpt('font','sans')">Sans</button>
-<button class="btn" data-k="font" data-set="serif" onclick="setOpt('font','serif')">Serif</button></div></div>
-<div class="setrow"><h5>LINE HEIGHT</h5><div class="opts">
-<button class="btn" data-k="lh" data-set="1.6" onclick="setOpt('lh',1.6)">Tight</button>
-<button class="btn" data-k="lh" data-set="1.7" onclick="setOpt('lh',1.7)">Comfort</button>
-<button class="btn" data-k="lh" data-set="1.9" onclick="setOpt('lh',1.9)">Roomy</button></div></div>
-<div class="setrow"><h5>TEXT SIZE</h5><div class="opts">
-<button class="btn" data-k="fs" data-set="16" onclick="setOpt('fs',16)">A−</button>
-<button class="btn" data-k="fs" data-set="18" onclick="setOpt('fs',18)">A</button>
-<button class="btn" data-k="fs" data-set="20" onclick="setOpt('fs',20)">A+</button>
-<button class="btn" data-k="fs" data-set="22" onclick="setOpt('fs',22)">A++</button></div></div>
-<div class="setrow"><h5>READING WIDTH</h5><div class="opts">
-<button class="btn" data-k="width" data-set="680px" onclick="setOpt('width','680px')">Narrow</button>
-<button class="btn" data-k="width" data-set="820px" onclick="setOpt('width','820px')">Comfortable</button>
-<button class="btn" data-k="width" data-set="1020px" onclick="setOpt('width','1020px')">Wide</button></div></div>
+
+
+
+
 <div class="setrow"><h5>SHORTCUTS</h5><p style="font-size:12px;color:var(--mut)">Ctrl+K search · T contents · ←/→ prev/next book · Esc close</p></div>
-<div class="setrow"><button class="btn" id="prefreset">Reset reading settings</button></div>
+
 </div></div>
-<div id="fsbar" hidden><button class="btn" id="fs-toc" aria-label="Open contents">☰</button><button class="btn" id="fs-theme" aria-label="Cycle theme">◐</button><button class="btn" id="fs-dec" aria-label="Smaller text">A−</button><button class="btn" id="fs-inc" aria-label="Larger text">A+</button><span id="fs-prog">0%</span><button class="btn" id="fs-exit">⛶ Exit</button></div>
+<div id="fsbar" hidden><button class="btn" id="fs-toc" aria-label="Open contents">☰</button><button class="btn" id="fs-theme" aria-label="Cycle theme">◐</button><span id="fs-prog">0%</span><button class="btn" id="fs-exit">⛶ Exit</button></div>
 <script>{READER_JS}</script>
 </body>
 </html>"""
@@ -1828,7 +1836,10 @@ def build():
     # glossary (dedupe by term, anchor links)
     rows = re.findall(r"^\| ([^|]+) \| ([^|]+) \| ([^|]+) \|", open(os.path.join(KB, "GLOSSARY.md"), encoding="utf-8").read(), re.M)
     seen = set()
-    MD_INV = {v: k for k, v in MD_MAP.items()}
+    MD_INV = {}
+    for k, v in MD_MAP.items():
+        for _vv in (v if isinstance(v, list) else [v]):
+            MD_INV.setdefault(_vv, k)
     grows = ""
     first_by_letter = {}
     for t, d, r in rows:
@@ -1909,9 +1920,9 @@ try{{const p=getP('cicdlib:prog:{b['id']}',null);if(p&&p.pct>0&&p.pct<100)$('#st
     _today = _du.today()
     def _book_date(b):
         cands = [os.path.join(PDF, b["file"])]
-        _src = MD_MAP.get(b["id"])
-        if _src:
-            cands.append(os.path.join(KB, _src))
+        _src = MD_MAP.get(b["id"]) or []
+        for _s in (_src if isinstance(_src, list) else [_src]):
+            cands.append(os.path.join(KB, _s))
         for _cp in cands:
             try:
                 _out = _sp.check_output(["git", "log", "-1", "--format=%ad", "--date=short", "--", os.path.relpath(_cp, KB)], cwd=KB, stderr=_sp.DEVNULL, text=True).strip()

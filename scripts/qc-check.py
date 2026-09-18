@@ -86,6 +86,19 @@ def parity():
         "pdf-40-jenkins-roadmap-2026.html",
         "pdf-41-github-actions-roadmap-2026.html",
         "pdf-42-cicd-decision-guide.html",
+        # v4 merge inputs: retired omnibus members, superseded by
+        # pdf-merged-10..14 (single polished books, no merge seams).
+        "pdf-merged-02-pipelines-build-test.html",
+        "pdf-04-artifact-management.html",
+        "pdf-20-deployment-strategies.html",
+        "pdf-merged-03-delivery-envs.html",
+        "pdf-merged-04-observe-recover-secure.html",
+        "pdf-merged-05-jenkins-advanced-ops.html",
+        "pdf-19-github-actions.html",
+        "pdf-merged-06-gitlab-argocd.html",
+        "pdf-merged-07-core-labs.html",
+        "pdf-merged-08-jenkins-labs.html",
+        "pdf-merged-09-roadmap-choice.html",
     }
     for orphan in pdfs - manifest_files - RETIRED_MEMBERS:
         flag(f"pdf not in manifest: {orphan}")
