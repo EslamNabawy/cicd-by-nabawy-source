@@ -230,5 +230,40 @@
    "8 Related Topics"
   ],
   "body": "--- title: Command Cheatsheet category: reference status: complete difficulty: beginner prerequisites: related: - Git, Branching & Pull Requests - CI/CD Pipelines --- Command Cheatsheet Every command used across the labs and guides, grouped by tool. Copy-paste ready; details live in the linked chapters. Git See Git, Branching & Pull Requests ../01-source-control/git-branching-pull-requests.md . npm / Builds See Build Systems ../03-build-systems/build-systems.md . Docker / GHCR See Artifact Management ../05-artifacts-and-packaging/artifact-management.md . Jenkins Compose lab See Lab 06 ../16-labs/06-jenkins-controller.md , Lab 08 ../16-labs/08-jenkins-backup-restore.md . Jenkins backup See Jenkins Advanced ../15-platforms-and-tools/jenkins/jenkins-advanced.md . GitHub Actions snippets See GitHub Actions ../15-platforms-and-tools/github-actions.md . Interview Notes - Reproduce any pipeline in this file from memory: trigger, build, gate, promote, rollback. - Which snippet pins versions — and what breaks first when nothing is pinned. - Where the approval gate lives in each platform's snippet, and what happens without it. Related Topics - Topic Index ../TOPIC_INDEX.md - Glossary ../GLOSSARY.md"
+ },
+ {
+  "id": "observability",
+  "title": "Observability: Loki, Prometheus & Grafana",
+  "desc": "See inside production: logs with Loki, metrics with Prometheus, dashboards with Grafana, queries that answer.",
+  "cat": "Observability",
+  "dif": "Intermediate",
+  "tags": [
+   "observability",
+   "loki",
+   "prometheus",
+   "grafana",
+   "logql",
+   "promql"
+  ],
+  "time": 120,
+  "sections": [
+   "Cover — ObservabilityStudy Guide",
+   "Cover — 📖 Table of Contents",
+   "Cover — 🗺️ The Map — The Whole Route",
+   "Cover — 👁️ What is Observability? — The Four Pil",
+   "Cover — ⚖️ Logs vs Metrics vs Traces",
+   "Cover — 🧱 The Core Stack — At a Glance",
+   "Cover — 📜 Why Loki? — The Philosophy &amp; the D",
+   "1 3-AThe five-stage pipeline",
+   "Cover — 🚚 Promtail Workflow — Why a DaemonSet + ",
+   "Cover — 📈 Prometheus — Fundamentals",
+   "Cover — 🛰️ Metric Sources — Know Who Exposes Wha",
+   "2 5.1The purpose",
+   "3 5.2The tools",
+   "Cover — 📊 Grafana — The Unified UI",
+   "Cover — 🧩 How It All Fits Together — in Kubernet",
+   "Cover — 🚀 Helm + kube-prometheus-stack"
+  ],
+  "body": "Observability Study Guide — Loki · Prometheus · Grafana — By Nabawy — SIGNAL Theme SIGNAL SERIES · OBSERVABILITY ON KUBERNETES Observability Study Guide The complete merged edition — Loki + Promtail for logs, Prometheus + exporters for metrics, and Grafana for visualization — deployed on Minikube with Helm . Fundamentals → architecture → deployment → LogQL/PromQL → app integration → troubleshooting → mental model → terms glossary → interview prep. One concrete lab: a Minikube cluster, a dedicated observability namespace, two Helm charts. By Nabawy AUTHOR & COMPILER MERGED EDITION Study + Deployment · A4 Loki + Promtail 📜 Prometheus + Exporters 📈 Grafana Dashboards 📊 Minikube + Helm ⎈ LOGS · METRICS · TRACES · VISUALIZATION — BY NABAWY Contents 📖 Table of Contents 14 parts · 26 pages 🗺️ The Map — Executive Summary 3 01 What is Observability? — Four Pillars 4 02 Logs vs Metrics vs Traces 5 02·b The Core Stack at a Glance 6 03 Logs 1/3 — Why Loki? 7 03·b Logs 2/3 — Loki Architecture 8 03·c Logs 3/3 — Promtail Workflow 9 04 Metrics 1/2 — Prometheus Fundamentals 10 04·b Metrics 2/2 — The Metric Sources 11 05 Traces — Journey of a Request 12 06 Visualization — Grafana 13 07 How It All Fits Together in K8s 14 08 Deployment 1/2 — Helm + prometheus-stack 15 08·b Deployment 2/2 — loki-stack + The Gotcha 16 09 Querying 1/2 — LogQL 17 09·b Querying 2/2 — PromQL 18 10 Application Integration 19 11 Troubleshooting Playbook 1/2 20 11·b Troubleshooting 2/2 + Cleanup 21 13 The Mental Model — Architecture 22 13·b Quick Revision — Terms Glossary 23 14 Interview Prep — 14 Concepts 24 14·b Command Cheat Sheet 25 14·c Self-Quiz + Answer Key 26 TASK [Status Color Legend] theme guide TEAL — headings & series structure INDIGO — core concepts (KEY IDEA) GREEN — confirmations & proofs AMBER — cautions & notes RED — symptoms & failures NOTE How to use this book: 14 connected parts merging the study guide and the deployment guide into one journey — defining Observability, the three signal types"
  }
 ]

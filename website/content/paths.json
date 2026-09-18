@@ -3,6 +3,7 @@
     "start-here",
     "build",
     "deliver",
+    "observability",
     "jenkins",
     "platforms",
     "labs",
@@ -20,6 +21,10 @@
     "deliver": {
       "label": "Deliver & Operate",
       "desc": "Releasable always, deployed by decision, watched in production. Strategies, envs, SLOs, recovery."
+    },
+    "observability": {
+      "label": "Observability",
+      "desc": "See inside production: Loki logs, Prometheus metrics, Grafana dashboards."
     },
     "jenkins": {
       "label": "Jenkins Complete",

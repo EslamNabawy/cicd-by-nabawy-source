@@ -764,7 +764,7 @@ class PageGrabber(HTMLParser):
 
     def handle_starttag(self, tag, attrs):
         d = dict(attrs)
-        if tag == "div" and self._buf is None and "page" in d.get("class", "").split():
+        if tag == "div" and self._buf is None and ("page" in d.get("class", "").split() or "sheet" in d.get("class", "").split()):
             self._buf, self._depth = [self.get_starttag_text()], 1
             return
         if self._buf is not None:
@@ -944,7 +944,7 @@ def toc_of(pages):
 
 
 DIFF_RANK = {"Beginner": 0, "Intermediate": 1, "Advanced": 2}
-CAT_HEX = {"CI/CD":"#5B8DEF","Build":"#F5A524","Testing":"#2ECC71","Security":"#E5484D","Reliability":"#9B7BF0","Jenkins":"#22B8CF","Delivery":"#F472B6","GitHub":"#94A3B8","Platforms":"#F97316","Labs":"#EAB308","Reference":"#64748B","Roadmap":"#18E299","Start Here":"#5B8DEF","Deliver":"#F472B6"}
+CAT_HEX = {"CI/CD":"#5B8DEF","Build":"#F5A524","Testing":"#2ECC71","Security":"#E5484D","Reliability":"#9B7BF0","Jenkins":"#22B8CF","Delivery":"#F472B6","GitHub":"#94A3B8","Platforms":"#F97316","Labs":"#EAB308","Reference":"#64748B","Roadmap":"#18E299","Start Here":"#5B8DEF","Deliver":"#F472B6","Observability":"#0e7490"}
 DIF_SHORT = {"Beginner":"Beg","Intermediate":"Int","Advanced":"Adv"}
 DIF_CLS = {"Beginner":"beg","Intermediate":"int","Advanced":"adv"}
 
@@ -969,6 +969,7 @@ CATEGORY_ICONS = {
     "GitHub": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 00-3 17.5"/><path d="M9 18c-2.2 1-3-1-3-1"/><path d="M12 16c-1 .3-2 .1-2.5-.8"/><path d="M14.5 18V15a2.5 2.5 0 00-.7-1.8c1.6-.2 3.2-.8 3.2-3.5a2.7 2.7 0 00-.7-1.9s-.6-.2-2 .7a7.8 7.8 0 00-3.6 0c-1.4-.9-2-.7-2-.7a2.7 2.7 0 00-.7 1.9c0 2.7 1.6 3.3 3.2 3.5A2.5 2.5 0 0011.5 15v3"/><circle cx="12" cy="3" r=".3" fill="currentColor"/></svg>',
     "Start Here": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3v18"/><path d="M6 4h11l-2.6 3.5L17 11H6"/></svg>',
     "Deliver": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l4 6-4 12-4-12z"/><path d="M8 9h8"/><path d="M10 3v4M14 3v4" opacity=".6"/><circle cx="12" cy="9" r="1.2" fill="currentColor" stroke="none"/></svg>',
+    "Observability": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6z"/><circle cx="12" cy="12" r="2.6"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2" opacity=".5"/></svg>',
 }
 
 def _slug_cat(name):
@@ -984,7 +985,7 @@ def build_map_page(books, output_dir, paths_html=""):
     for b in books:
         bycat.setdefault(b["category"], []).append(b)
     # deterministic order: CAT_ORDER first, then rest alpha; no hardcoded count
-    CAT_ORDER = ["Start Here","Build","Deliver","Jenkins","Platforms","Labs","Reference"]
+    CAT_ORDER = ["Start Here","Build","Deliver","Observability","Jenkins","Platforms","Labs","Reference"]
     cats_sorted = [c for c in CAT_ORDER if c in bycat] + sorted([c for c in bycat if c not in CAT_ORDER])
     shown_cats = [c for c in cats_sorted if c != "Start Here"]
     CAT_COLORS_MAP = CAT_HEX
@@ -1500,6 +1501,11 @@ def build():
 /* reader overrides */
 .readbody .page:not(.cover){{width:auto !important;min-height:0 !important;margin:0 auto !important;padding:10px 26px !important;background:transparent !important;border-radius:0;page-break-after:auto !important;overflow:visible}}
 .readbody .page.cover{{align-items:flex-start !important;border-radius:16px;padding:48px 34px !important;margin:0 auto 30px !important}}
+.readbody .sheet{{width:auto !important;height:auto !important;min-height:0 !important;margin:0 auto 22px !important;padding:26px !important;border-radius:14px;page-break-after:auto !important;overflow:visible}}
+.readbody .sheet::before{{display:none}}
+.readbody .sheet.cover{{min-height:0 !important}}
+.readbody .sheet.cover .cver{{position:static !important;margin-top:26px}}
+.readbody .folio{{position:static !important;margin:14px 0 0}}
 .readbody .page.opener .bignum{{margin-top:30px}}
 [data-theme=dark] .readbody{{--paper:#10161d;--white:#151c25;--ink:#e6edf3;--muted:#8b949e;--line:#26303d;--panel:#0a0e14;--text-light:#e6edf3}}
 [data-theme=dark] .readbody table.cmp td:first-child{{background:var(--white)}}
@@ -1580,7 +1586,7 @@ def build():
 
     cats = sorted(set(b["category"] for b in books))
     byid = {b["id"]: b for b in books}
-    CAT_ORDER = ["Start Here","Build","Deliver","Jenkins","Platforms","Labs","Reference"]
+    CAT_ORDER = ["Start Here","Build","Deliver","Observability","Jenkins","Platforms","Labs","Reference"]
     cats = [c for c in CAT_ORDER if c in byid or any(b["category"] == c for b in books)] + [c for c in cats if c not in CAT_ORDER]
     def card(b, i):
         initials = "".join(w[0] for w in re.sub(r"[^A-Za-z0-9 ]", "", b["title"]).split()[:2]).upper()

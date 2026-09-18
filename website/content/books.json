@@ -188,5 +188,34 @@
     "path": "reference",
     "updated": "2026-09-01",
     "version": "2.0"
+  },
+  {
+    "id": "observability",
+    "title": "Observability: Loki, Prometheus & Grafana",
+    "file": "pdf-43-observability.html",
+    "category": "Observability",
+    "difficulty": "Intermediate",
+    "description": "See inside production: logs with Loki, metrics with Prometheus, dashboards with Grafana, queries that answer.",
+    "time_minutes": 120,
+    "prereqs": [
+      "deliver-operate"
+    ],
+    "outcomes": [
+      "Separate logs, metrics and traces",
+      "Ship logs with Promtail and query with LogQL",
+      "Scrape targets and alert with Prometheus",
+      "Unify it all in Grafana dashboards"
+    ],
+    "tags": [
+      "observability",
+      "loki",
+      "prometheus",
+      "grafana",
+      "logql",
+      "promql"
+    ],
+    "path": "observability",
+    "updated": "2026-09-18",
+    "version": "1.0"
   }
 ]

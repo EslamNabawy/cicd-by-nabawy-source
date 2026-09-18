@@ -19,6 +19,8 @@
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/read/labs-handbook.html</loc><lastmod>2026-09-18</lastmod></url>
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/read/cheatsheet.html</loc><lastmod>2026-09-18</lastmod></url>
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/read/cheatsheet.html</loc><lastmod>2026-09-18</lastmod></url>
+  <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/read/observability.html</loc><lastmod>2026-09-18</lastmod></url>
+  <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/read/observability.html</loc><lastmod>2026-09-18</lastmod></url>
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/pdf/pdf-01-foundations.html</loc><lastmod>2026-09-18</lastmod></url>
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/pdf/pdf-02-git-branching-pull-requests.html</loc><lastmod>2026-09-18</lastmod></url>
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/pdf/pdf-03-pipelines.html</loc><lastmod>2026-09-18</lastmod></url>
@@ -57,6 +59,7 @@
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/pdf/pdf-40-jenkins-roadmap-2026.html</loc><lastmod>2026-09-18</lastmod></url>
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/pdf/pdf-41-github-actions-roadmap-2026.html</loc><lastmod>2026-09-18</lastmod></url>
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/pdf/pdf-42-cicd-decision-guide.html</loc><lastmod>2026-09-18</lastmod></url>
+  <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/pdf/pdf-43-observability.html</loc><lastmod>2026-09-18</lastmod></url>
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/pdf/pdf-jenkins-lab-01-webhook.html</loc><lastmod>2026-09-18</lastmod></url>
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/pdf/pdf-jenkins-lab-02-docker.html</loc><lastmod>2026-09-18</lastmod></url>
   <url><loc>https://eslamnabawy.github.io/cicd-by-nabawy/pdf/pdf-jenkins-lab-03-multibranch.html</loc><lastmod>2026-09-18</lastmod></url>

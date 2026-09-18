@@ -891,6 +891,11 @@ ul.tight li{margin-bottom:4px}
 /* reader overrides */
 .readbody .page:not(.cover){width:auto !important;min-height:0 !important;margin:0 auto !important;padding:10px 26px !important;background:transparent !important;border-radius:0;page-break-after:auto !important;overflow:visible}
 .readbody .page.cover{align-items:flex-start !important;border-radius:16px;padding:48px 34px !important;margin:0 auto 30px !important}
+.readbody .sheet{width:auto !important;height:auto !important;min-height:0 !important;margin:0 auto 22px !important;padding:26px !important;border-radius:14px;page-break-after:auto !important;overflow:visible}
+.readbody .sheet::before{display:none}
+.readbody .sheet.cover{min-height:0 !important}
+.readbody .sheet.cover .cver{position:static !important;margin-top:26px}
+.readbody .folio{position:static !important;margin:14px 0 0}
 .readbody .page.opener .bignum{margin-top:30px}
 [data-theme=dark] .readbody{--paper:#10161d;--white:#151c25;--ink:#e6edf3;--muted:#8b949e;--line:#26303d;--panel:#0a0e14;--text-light:#e6edf3}
 [data-theme=dark] .readbody table.cmp td:first-child{background:var(--white)}
