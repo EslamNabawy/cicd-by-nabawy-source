@@ -967,6 +967,7 @@ def build_map_page(books, output_dir, paths_html=""):
         b0 = bs[0]
         tmin = b0.get("time_minutes", 30)
         ds = DIF_SHORT.get(b0.get("difficulty", ""), b0.get("difficulty", ""))
+        upd = b0.get("updated", "")
         _desc = b0.get("description", "")
         desc = (_desc[:92] + "…") if len(_desc) > 92 else _desc
         vols_html += (
@@ -980,7 +981,7 @@ def build_map_page(books, output_dir, paths_html=""):
             f'<span class="hm-main"><span class="hm-cat">{html.escape(cat)}</span>'
             f'<span class="hm-desc">{html.escape(desc)}</span></span>'
             f'<span class="hm-dots" aria-hidden="true"></span>'
-            f'<span class="hm-meta">{tmin} min · {html.escape(ds)}</span>'
+            f'<span class="hm-meta">{tmin} min · {html.escape(ds)} · verified {html.escape(upd)}</span>'
             f'<span class="hm-go" aria-hidden="true">→</span>'
             f'</a>'
         )
@@ -995,6 +996,7 @@ def build_map_page(books, output_dir, paths_html=""):
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <title>CICD BY Nabawy</title>
 {seo_tags("CICD BY Nabawy", "Home of the CI/CD library — merged handbooks plus ordered learning paths.", f"{SITE_URL}/")}
+<script type="application/ld+json">{{"@context": "https://schema.org", "@type": "CollectionPage", "name": "CICD BY Nabawy", "url": "{SITE_URL}/"}}</script>
 <style>{BASE_CSS}</style><script>try{{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}}catch(e){{document.documentElement.dataset.theme='sepia'}}</script>
 </head>
 <body>
@@ -1018,6 +1020,8 @@ def build_map_page(books, output_dir, paths_html=""):
 </div>
 <div class="hm-label" aria-hidden="true"><span>CONTENTS</span><span>{len(shown_cats)} BOOKS</span></div>
 <div class="hm-list" id="mapGrid" role="list" aria-label="Library contents">{blocks_html}</div>
+<div class="hm-label" aria-hidden="true"><span>SERIES EDITION</span><span>OMNIBUS</span></div>
+<a class="hm-row" style="--cat:#18E299" href="roadmap/#shelf-series-edition" data-cat="Series" data-id="series" data-title="Series edition S01–S09" id="block-series" aria-label="Series — omnibus print edition S01 to S09"><span class="hm-num">09</span><span class="hm-main"><span class="hm-cat">Series edition S01–S09</span><span class="hm-desc">Read it as one book: foundations to labs, omnibus print edition…</span></span><span class="hm-dots" aria-hidden="true"></span><span class="hm-meta">9 parts · omnibus · verified 2026-09-18</span><span class="hm-go" aria-hidden="true">→</span></a>
 {paths_html}
 <div class="empty" id="mapEmpty" style="display:none"><p>That link doesn't match a category. Jump straight to one:</p><div class="empty-cats">{empty_chips}</div><a href="index.html">Back to overview</a></div>
 </div>
@@ -1342,7 +1346,16 @@ def build():
                     _combo.append(_pg)
             pages = _combo or pages
         toc = toc_of(pages)
-        all_sections[b["id"]] = [t for _, t, _ in toc][:16]
+        _secs = [t for _, t, _ in toc][:60]
+        try:
+            _pdfh = open(os.path.join(PDF, b["file"]), encoding="utf-8").read()
+            for _nt in re.findall(r'<h1 class="t">(.*?)</h1>', _pdfh):
+                _nt = html.unescape(re.sub(r"<[^>]+>", "", _nt)).strip()
+                if _nt and _nt not in _secs:
+                    _secs.append(_nt)
+        except Exception:
+            pass
+        all_sections[b["id"]] = _secs
         # body text for section-level search: md source preferred (full), pdf fallback
         body_txt = ""
         try:
@@ -1359,7 +1372,14 @@ def build():
                 raw = re.sub(r"```.*?```", " ", raw, flags=re.S)
                 raw = re.sub(r"[`#>*|\[\]()!]", " ", raw)
                 raw = re.sub(r"\s+", " ", raw).strip()
-                body_txt = raw[:5000]
+                _praw = open(os.path.join(PDF, b["file"]), encoding="utf-8").read()
+                _newbits = " ".join(re.findall(r'<h1 class="t">(.*?)</h1>', _praw))
+                _newbits += " " + " ".join(re.findall(r'WHEN TO USE [A-Z/ ]+', _praw))
+                _newbits = html.unescape(re.sub(r"<[^>]+>", " ", _newbits)).strip()
+                _praw = re.sub(r"<style.*?</style>", " ", _praw, flags=re.S | re.I)
+                _praw = re.sub(r"<[^>]+>", " ", _praw)
+                _praw = html.unescape(re.sub(r"\s+", " ", _praw)).strip()
+                body_txt = (_newbits + " " + raw + " " + _praw)[:5000]
             else:
                 praw = open(os.path.join(PDF, b["file"]), encoding="utf-8").read()
                 praw = re.sub(r"<style.*?</style>", " ", praw, flags=re.S | re.I)

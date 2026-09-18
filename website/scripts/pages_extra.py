@@ -174,6 +174,7 @@ def build_tools_page(books, output_dir, env):
         'gitlab': resolve_sheet(books, env, 'platforms-roadmaps', ['GitLab CI', 'Pipeline Anatomy']),
         'argocd': resolve_sheet(books, env, 'platforms-roadmaps', ['ArgoCD & GitOps', 'Push vs Pull', 'Where It Fits']),
         'choice': resolve_sheet(books, env, 'platforms-roadmaps', ['The Choice', 'Decision Framework', 'Side-by-Side']),
+        'matrix': resolve_sheet(books, env, 'platforms-roadmaps', ['Tool vs Tool']),
     }
     qhtml = []
     for qi, (q, opts) in enumerate(QUESTIONS):
@@ -200,7 +201,7 @@ if(qi<NQ){document.querySelector('#q'+qi).hidden=false;}else{showResult();}});
 function showResult(){const tot=Math.max(1,...Object.values(scores));
 const rank=Object.keys(scores).sort((a,b)=>scores[b]-scores[a]);
 let s='<div class="qcard"><h3>Your stack, ranked</h3>';
-rank.forEach((k,i)=>{s+='<div class="tcard"><b>'+(i+1)+'. '+NAMES[k]+' - '+scores[k]+' pts</b><div class="tbar"><b style="width:'+Math.round(100*scores[k]/tot)+'%"></b></div><p>'+WHY[k]+'</p><a class="btn" href="'+LINKS[k]+'">Read why</a> ';if(i===0){s+='<a class="btn" href="'+LINKS.choice+'">Compare all</a>';}s+='</div>';});
+rank.forEach((k,i)=>{s+='<div class="tcard"><b>'+(i+1)+'. '+NAMES[k]+' - '+scores[k]+' pts</b><div class="tbar"><b style="width:'+Math.round(100*scores[k]/tot)+'%"></b></div><p>'+WHY[k]+'</p><a class="btn" href="'+LINKS[k]+'">Read why</a> ';if(i===0){s+='<a class="btn" href="'+LINKS.choice+'">Compare all</a> <a class="btn" href="'+LINKS.matrix+'">Full field matrix</a>';}s+='</div>';});
 s+='<p><button class="btn" onclick="location.reload()">Retake</button></p></div>';
 document.querySelector('#result').innerHTML=s;
 window.scrollTo({top:document.querySelector('#result').offsetTop-80});}

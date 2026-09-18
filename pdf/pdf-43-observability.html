@@ -249,7 +249,7 @@ code{font-family:'Consolas',monospace; background:var(--panel2); border:1px soli
 <div class="volcard">Grafana<small>Dashboards 📊</small></div>
 <div class="volcard">Minikube<small>+ Helm ⎈</small></div>
 </div>
-<div class="cver">LOGS · METRICS · TRACES · VISUALIZATION — BY NABAWY</div>
+<div class="cver">LOGS · METRICS · TRACES · VISUALIZATION — BY NABAWY · verified 2026-09-18</div>
 </div>
 <!-- ═══ 02 · TOC ═══ -->
 <div class="sheet" id="toc">
@@ -368,7 +368,7 @@ code{font-family:'Consolas',monospace; background:var(--panel2); border:1px soli
 <tr><td>Stored by</td><td><b>Loki</b></td><td><b>Prometheus</b></td><td><i>Not deployed in this lab</i> (Tempo / Jaeger / Zipkin would be)</td></tr>
 <tr><td>Query language</td><td><b>LogQL</b></td><td><b>PromQL</b></td><td>(trace UI)</td></tr>
 <tr><td>Best for</td><td>Reading the <i>exact</i> content of an event ("show me the stack trace")</td><td>Trends, rates, aggregation, alerting, dashboards</td><td>Latency breakdown across a multi-service request</td></tr>
-</table></div>
+</table></div><div class="mark m-tip"><span class="tag">WHEN TO USE LOKI / PROMETHEUS / GRAFANA</span>use when Loki stores log lines for exact errors · use when Prometheus scrapes numeric signals for alerts · use when Grafana unifies both into dashboards · avoid when logs serve as metrics · avoid when metrics replace trace journeys. <a class="tlink" href="../read/platforms-roadmaps.html#s29n">Tool vs Tool — The Whole Field</a></div>
 <div class="taskhead">TASK [How they work together]<span class="hst">the classic debugging flow</span></div>
 <div class="zone">
 <div class="frow">

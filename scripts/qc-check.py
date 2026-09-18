@@ -105,8 +105,10 @@ def parity():
 
 
 def pdfs_qc():
-    for f in sorted(glob.glob(os.path.join(ROOT, "pdf/*.html"))):
-        n = os.path.basename(f)
+    targets = sorted(glob.glob(os.path.join(ROOT, "pdf/*.html")))
+    targets += sorted(glob.glob(os.path.join(ROOT, "pdf/series/*.html")))
+    for f in targets:
+        n = os.path.relpath(f, os.path.join(ROOT, "pdf"))
         h = open(f, encoding="utf-8").read()
         if not h.lstrip().lower().startswith("<!doctype html"):
             flag(f"{n}: no doctype")
@@ -120,8 +122,9 @@ def pdfs_qc():
             flag(f"{n}: script tag")
         if "m-reflow" not in h and not re.search(r"@media\s*(?:screen\s+and\s+)?\(max-width:", h, re.I):
             flag(f"{n}: no mobile marker")
-        for s in set(re.findall(r'src="(\.\./assets/[^"]+)"', h)):
-            if not os.path.exists(os.path.normpath(os.path.join(ROOT, "pdf", s))):
+        _base = os.path.dirname(f)
+        for s in set(re.findall(r'src="((?:\.\./)+assets/[^"]+)"', h)):
+            if not os.path.exists(os.path.normpath(os.path.join(_base, s))):
                 flag(f"{n}: bad asset {s}")
         npages = h.count('class="page cover"') + h.count('class="page opener"') + h.count('class="page"')
         feet = re.findall(r'<div class="pfoot">.*?(\d+) / (\d+)</span></div>', h, re.S)
@@ -129,7 +132,7 @@ def pdfs_qc():
         # page footers by design (same convention as pdf/series/). Skip the
         # single-edition footer sequence/total check for them; the website
         # reader strips print footers and is separately verified.
-        if n.startswith("pdf-merged-"):
+        if n.startswith("pdf-merged-") or n.startswith("series"):
             feet = []
         if feet:
             seq = [int(a) for a, _b in feet]
@@ -244,6 +247,30 @@ def reader_content():
             flag(f"{b['id']}: reader content is empty or missing headings")
 
 
+def a11y():
+    for f in sorted(glob.glob(os.path.join(ROOT, "pdf/*.html"))):
+        n = os.path.basename(f)
+        if n.startswith("pdf-merged-0") and n not in (
+            "pdf-merged-01-start-here.html", "pdf-merged-10-build-artifacts.html",
+            "pdf-merged-11-deliver-operate.html", "pdf-merged-12-jenkins-complete.html",
+            "pdf-merged-13-platforms-roadmaps.html", "pdf-merged-14-labs-handbook.html"):
+            continue
+        h = open(f, encoding="utf-8").read()
+        for m in re.finditer(r'<div class="mark (m-[a-z]+)">(.*?)</div>', h, re.S):
+            if '<span class="tag">' not in m.group(2) and 'class="tag"' not in m.group(2):
+                flag(f"{n}: mark {m.group(1)} missing non-color tag label")
+                break
+        for img in set(re.findall(r"<img((?:(?!>).)*)>", h)):
+            if "alt=" not in img:
+                flag(f"{n}: img missing alt")
+                break
+    for f in glob.glob(os.path.join(ROOT, "website/dist/read", "*.html")):
+        name = os.path.basename(f)
+        h = open(f, encoding="utf-8").read()
+        if 'id="tocbtn"' in h and 'aria-label="Open table of contents"' not in h:
+            flag(f"{name}: contents trigger missing label")
+
+
 if __name__ == "__main__":
     os.chdir(ROOT)
     md_links()
@@ -254,5 +281,6 @@ if __name__ == "__main__":
     dist()
     reader_chrome()
     reader_content()
+    a11y()
     print("QC:", "FAIL" if fails else "ALL GREEN", f"({len(fails)} findings)")
     sys.exit(1 if fails else 0)
