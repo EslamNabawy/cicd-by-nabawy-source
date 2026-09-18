@@ -190,6 +190,7 @@
   "sections": [
    "Cover — LABSHANDBOOK",
    "Cover — Table of Contents",
+   "Cover — Table of Contents · continued",
    "1 01 / First Pipeline",
    "1.0.1 OBJECTIVE",
    "1.0.2 ARCHITECTURE",
@@ -202,8 +203,7 @@
    "3.0.2 THE DAG EDGE",
    "3.1 Step 1: Split and Cache",
    "4 04 / Hermeticity &amp; Caching",
-   "4.1 Step 2: Prove Hermeticity",
-   "4.1.1 LOCAL COMMAND"
+   "4.1 Step 2: Prove Hermeticity"
   ],
   "body": "--- title: Core Labs Handbook status: complete merged_from: - 16-labs/01-first-pipeline.md - 16-labs/02-build-and-test.md - 16-labs/03-artifacts.md - 16-labs/04-deployment.md - 16-labs/05-rollback.md - 16-labs/06-jenkins-controller.md - 16-labs/07-jenkins-shared-library.md - 16-labs/08-jenkins-backup-restore.md --- Core Labs Handbook Merged handbook. Sources: 16-labs/01-first-pipeline.md, 16-labs/02-build-and-test.md, 16-labs/03-artifacts.md, 16-labs/04-deployment.md, 16-labs/05-rollback.md, 16-labs/06-jenkins-controller.md, 16-labs/07-jenkins-shared-library.md, 16-labs/08-jenkins-backup-restore.md. --- Part 1: Lab 01 — First Pipeline Objective Ship a green CI pipeline on GitHub Actions: push → build → test → status check on the PR. Prerequisites - A GitHub repo you own; Node 20+ locally any tiny JS project works, even package.json + one test file . - Concepts: CI/CD Pipelines ../06-ci-cd-pipelines/pipelines.md , GitHub Actions ../15-platforms-and-tools/github-actions.md . Architecture Push → GitHub webhook → hosted runner ubuntu-latest → checkout → setup-node → npm ci → npm test → green check on PR. Setup Repo with package.json containing a test script even \"test\": \"node --test\" . Step 1 — Add the workflow Execute Create .github/workflows/ci.yml : Push to a branch, open a PR. Expected Result Actions tab shows the run green; the PR shows a green check. Why This is the smallest closed loop: trigger → runner → job → feedback on the PR see pipeline anatomy ../06-ci-cd-pipelines/pipelines.md . Step 2 — Require the check Execute Repo Settings → Branches → protect main → require build status check. Push a breaking change to a PR. Expected Result Merge button blocked until green. Why An unenforced gate is decoration; branch protection makes CI a rule see PR gates ../02-continuous-integration/continuous-integration.md . Verification - PR shows green check from the workflow. - Merging to main without green is blocked. - Breaking the test turns the PR red. Failure Scenarios -"
  },
