@@ -1057,9 +1057,9 @@ def build_map_page(books, output_dir, paths_html=""):
 <div class="hm-hero">
 <div class="hm-band" aria-hidden="true"><i style="height:14px"></i><i style="height:30px"></i><i style="height:52px"></i><i style="height:38px"></i><i style="height:64px"></i><i style="height:46px"></i><i style="height:70px"></i><i style="height:28px"></i><i style="height:56px"></i><i style="height:18px"></i></div>
 <div class="hm-kick">CICD BY Nabawy · SIGNAL SERIES</div>
-<h1>The CI/CD library.</h1>
-<p class="hm-sub">{len(books)} handbooks, ordered paths. Pick a row, start reading.</p>
-<p class="hm-about">CI/CD is how teams ship software safely and often: every commit is built, tested, and scanned by machines (<b>continuous integration</b>), every good change stays releasable behind approvals (<b>continuous delivery</b>), and production is watched so lessons flow back into the next commit. Here you get the full loop as {len(books)} handbooks — foundations to Jenkins to labs — plus <a href="threads/">concept threads</a> that stitch ideas across books, a <a href="tools/">tool picker</a> that ranks your stack in six questions, and a <a href="glossary.html">glossary</a> of every term.</p>
+<h1>The CI/CD Library</h1>
+<p class="hm-sub"><b>CI/CD</b> is the automated path from <b>commit → build → test → release → production</b>, creating a continuous feedback loop between development and operations.</p>
+<p class="hm-about">This library brings together <b>{len(books)} focused handbooks</b> covering Git &amp; CI, pipelines, Jenkins, deployment, observability, modern platforms, hands-on labs, and essential command references. Pick a row to start reading — or follow a <a href="threads/">thread</a>, <a href="tools/">rank your stack</a>, or <a href="glossary.html">look up a term</a>.</p>
 </div>
 <div class="hm-label" aria-hidden="true"><span>CONTENTS</span><span>{len(shown_cats)} BOOKS</span></div>
 <div class="hm-list" id="mapGrid" role="list" aria-label="Library contents">{blocks_html}</div>

@@ -208,8 +208,39 @@ QUESTIONS = [
 STUDY_THREAD = {'jenkins': 'controller-agent', 'actions': 'trunk-discipline', 'gitlab': 'approval-gates', 'argocd': 'gitops-pull'}
 STUDY_LABEL = {'jenkins': 'Controllers & Agents', 'actions': 'Trunk Discipline', 'gitlab': 'Approval Gates', 'argocd': 'GitOps Pull Model'}
 
+CATALOG = [
+    ('Jenkins', 'Jenkins', 'Self-hosted automation server: controllers schedule, agents execute pipelines as code.', 'Regulated or air-gapped estates, complex heterogeneous builds, zero per-minute cost.', 'Total control over execution, deepest plugin ecosystem, proven at scale.', 'Jenkinsfile on controller, stages on labeled agents, credentials via bindings.', 4, 'jenkins-complete'),
+    ('GitHub Actions', 'GitHub', 'CI/CD built into GitHub: workflows of jobs and steps on hosted or self-hosted runners.', 'Source already on GitHub, small teams wanting zero-infra CI.', 'Fastest path from push to green; PR checks and Marketplace built in.', 'YAML in .github/workflows, jobs with needs DAG, environments as gates.', 5, 'platforms-roadmaps'),
+    ('GitLab CI', 'Platforms', 'Pipeline engine inside GitLab: single YAML driving stages, runners, review apps.', 'Single-platform shops wanting repo plus pipeline plus envs in one product.', 'Review apps per MR and merge trains come free with the platform.', '.gitlab-ci.yml stages with needs DAG, rules gating, runners by tags.', 3, 'platforms-roadmaps'),
+    ('ArgoCD', 'Platforms', 'GitOps operator for Kubernetes: in-cluster agent pulls desired state from git.', 'Kubernetes fleets needing pull-model audit and env-per-branch scale.', 'Cluster creds never leave the cluster; git revert is the rollback.', 'Application objects with sync waves, ApplicationSets, manual prod sync.', 4, 'platforms-roadmaps'),
+    ('Docker', 'Labs', 'Container runtime and image format: freeze the app plus its OS userland.', 'Every pipeline that must kill works-on-my-machine drift.', 'Identical bits from laptop to CI to prod; BuildKit caches keep it fast.', 'Multi-stage Dockerfiles, BuildKit secrets, push digests to a registry.', 5, 'labs-handbook'),
+    ('Kubernetes', 'Platforms', 'Container orchestrator: desired-state scheduler for pods, services, jobs.', 'Fleets sharing clusters, elastic runners, pull delivery targets.', 'Bin-packing plus self-heal plus one API for runners and releases.', 'Manifests or Helm charts applied by hand, CI push, or ArgoCD pull.', 5, 'platforms-roadmaps'),
+    ('Helm', 'Platforms', 'Package manager for Kubernetes: templated charts with per-env values.', 'K8s releases needing versioned, repeatable installs across envs.', 'One chart, many envs — diffs are value diffs, not manifest forks.', 'Chart plus values per env, helm upgrade with pinned image digests.', 4, 'platforms-roadmaps'),
+    ('Terraform', 'Labs', 'Infrastructure as code: declare envs, plan the diff, apply gated.', 'Environments that must be reviewable, repeatable, and drift-checked.', 'Plan output is the review; state per env bounds the blast radius.', 'Modules pinned by version, remote state with locking, plan on PR.', 5, 'labs-handbook'),
+    ('Prometheus', 'Observability', 'Metrics engine: scrapes numeric time series, alerts on burn rate.', 'Any service needing SLO alerts and capacity signals.', 'One query language over every target; alert on budgets, not blips.', 'Scrape targets, PromQL rules, Alertmanager with runbook links.', 4, 'observability'),
+    ('Grafana', 'Observability', 'Unified dashboards over Loki, Prometheus, and traces.', 'Teams drowning in separate UIs for logs versus metrics.', 'One glass pane with version annotations on every deploy.', 'Data sources plus dashboards as code, alerts beside the graphs.', 5, 'observability'),
+    ('Loki', 'Observability', 'Log aggregation indexed by labels, queried with LogQL.', 'Exact-error forensics without paying full-text index prices.', 'Labels keep it cheap; pairs with Prometheus metrics and Grafana.', 'Promtail DaemonSet ships lines, LogQL filters by labels and content.', 3, 'observability'),
+    ('GHCR / Registries', 'Build', 'Artifact storage and distribution: images, SBOMs, attestations.', 'Every pipeline that promotes the same digest end to end.', 'Immutable digests make rollback a redeploy, not a rebuild.', 'Push by SHA tag, sign with Cosign, attest provenance, expire aggressively.', 3, 'build-artifacts'),
+]
+
 
 def build_tools_page(books, output_dir, env):
+    CAT_HEX = env.get('CAT_HEX', {})
+    cath = []
+    for _t in CATALOG:
+        _name, _cat, _what, _when, _why, _how, _pop, _bid = _t
+        _col = CAT_HEX.get(_cat, '#18E299')
+        _stars = '★' * _pop + '☆' * (5 - _pop)
+        cath.append('<article class="toolcard" style="--cat:' + _col + '" aria-label="' + htmllib.escape(_name) + '">'
+            '<div class="toolcard-head"><span class="map-icon" aria-hidden="true">' + htmllib.escape(_name[:1]) + '</span>'
+            '<div><h3>' + htmllib.escape(_name) + '</h3>'
+            '<span class="pop" title="Field popularity ' + str(_pop) + ' out of 5">' + _stars + ' <b>' + str(_pop) + '/5</b></span></div></div>'
+            '<p><b>What:</b> ' + htmllib.escape(_what) + '</p>'
+            '<p><b>When:</b> ' + htmllib.escape(_when) + '</p>'
+            '<p><b>Why:</b> ' + htmllib.escape(_why) + '</p>'
+            '<p><b>How:</b> ' + htmllib.escape(_how) + '</p>'
+            '<p><a class="btn" href="../read/' + _bid + '.html">Read in book</a></p></article>')
+    catalog_html = '<div class="hm-label" aria-hidden="true"><span>TOOL CATALOG</span><span>' + str(len(CATALOG)) + ' TOOLS</span></div><div class="toolgrid">' + ''.join(cath) + '</div><p class="sub">Popularity is a field estimate for 2026 hiring and community weight — fit beats fame; confirm with the matrix.</p>'
     links = {
         'jenkins': resolve_sheet(books, env, 'jenkins-complete', ['Setup', 'Topology', 'Agents']),
         'actions': resolve_sheet(books, env, 'platforms-roadmaps', ['Actions']),
@@ -263,7 +294,7 @@ try{const _m=location.hash.match(/^#r=([a-z,0-9:]+)$/);if(_m){_m[1].split(',').f
             '<meta name="viewport" content="width=device-width, initial-scale=1.0">'
             '<link rel="icon" type="image/svg+xml" href="../favicon.svg">'
             '<title>Tool picker - CICD BY Nabawy</title>'
-            '<style>' + env['BASE_CSS'] + '.qcard{max-width:640px;margin:18px auto;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px}.qcard .opts{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}.qcard .btn{min-height:48px}.qcard .opts .btn{flex:1 1 140px}.qprog{height:6px;border-radius:99px;background:var(--bg2);margin-bottom:12px;overflow:hidden}.qprog span{display:block;height:100%;background:var(--brand);border-radius:99px;transition:width .2s}.qstep{font-family:var(--mono);font-size:11px;color:var(--mut);letter-spacing:.1em;margin-bottom:6px}.qhint{font-size:13px;color:var(--mut);margin:4px 0 6px}.qback{margin-top:4px}.tcard{max-width:640px;margin:12px auto;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 22px}.tcard.winner{border-color:var(--brand);box-shadow:var(--shadow-lift)}.tbar{height:8px;border-radius:99px;background:var(--bg2);margin:10px 0}.tbar b{display:block;height:100%;border-radius:99px;background:var(--brand)}</style>'
+            '<style>' + env['BASE_CSS'] + '.qcard{max-width:640px;margin:18px auto;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px}.qcard .opts{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}.qcard .btn{min-height:48px}.qcard .opts .btn{flex:1 1 140px}.qprog{height:6px;border-radius:99px;background:var(--bg2);margin-bottom:12px;overflow:hidden}.qprog span{display:block;height:100%;background:var(--brand);border-radius:99px;transition:width .2s}.qstep{font-family:var(--mono);font-size:11px;color:var(--mut);letter-spacing:.1em;margin-bottom:6px}.qhint{font-size:13px;color:var(--mut);margin:4px 0 6px}.qback{margin-top:4px}.toolgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin:14px 0}.toolcard{background:var(--card);border:1px solid var(--line-soft);border-radius:14px;padding:18px}.toolcard:hover{border-color:var(--cat)}.toolcard-head{display:flex;gap:12px;align-items:center;margin-bottom:8px}.toolcard-head .map-icon{font-size:20px;font-weight:800;width:44px;height:44px}.toolcard h3{font-size:16px;margin:0}.toolcard .pop{color:var(--cat);font-size:12px}.toolcard p{font-size:13px;color:var(--mut);margin:6px 0}.toolcard p b{color:var(--ink)}.tcard{max-width:640px;margin:12px auto;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 22px}.tcard.winner{border-color:var(--brand);box-shadow:var(--shadow-lift)}.tbar{height:8px;border-radius:99px;background:var(--bg2);margin:10px 0}.tbar b{display:block;height:100%;border-radius:99px;background:var(--brand)}</style>'
             + HEAD_THEME +
             '</head><body><header class="top"><div class="wrap">'
             '<a class="logo" href="../index.html" style="color:inherit">CICD<span> BY Nabawy</span></a>'
@@ -275,7 +306,7 @@ try{const _m=location.hash.match(/^#r=([a-z,0-9:]+)$/);if(_m){_m[1].split(',').f
             '</div></header><div class="wrap">'
             '<div class="hero" style="padding:36px 24px 16px"><span class="eyebrow">TOOLS</span>'
             '<h1>Which tool fits?</h1><p>' + str(len(QUESTIONS)) + ' questions. Ranked answers with reasons, study threads, and deep links.</p></div>'
-            "<div id='quiz'>" + ''.join(qhtml) + "</div><div id='result'></div>"
+            "<div id='quiz'>" + ''.join(qhtml) + "</div><div id='result'></div>" + catalog_html +
             '</div><footer><div class="wrap"><span>CICD BY Nabawy</span><span><a href="../index.html">Home</a> · <a href="../glossary.html">Glossary</a> · <a href="../threads/">Threads</a></span></div></footer>'
             '<script>'
             + THEME_JS + js_vars + quiz_js +
