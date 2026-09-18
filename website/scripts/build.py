@@ -1760,7 +1760,7 @@ body.fs .readbody{{max-width:880px}}
 <body>
 <header class="top"><div class="wrap"><a class="logo" href="index.html" style="text-decoration:none;color:inherit"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="5" cy="12" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="6" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="18" r="2.6" stroke="#18E299" stroke-width="2"/><path d="M7.6 12h5.2m0 0-2.6-2.6m2.6 2.6-2.6 2.6M13.4 7.4l2.8-1M13.4 16.6l2.8 1" stroke="#18E299" stroke-width="2" stroke-linecap="round"/></svg>CICD<span> BY Nabawy</span></a>
 <div class="search"><input id="q" type="search" placeholder="Filter terms…"></div><a class="btn" href="index.html" style="text-decoration:none">Home</a><a class="btn" href="threads/" style="text-decoration:none">Threads</a><a class="btn" href="tools/" style="text-decoration:none">Tools</a><button class="btn" id="themebtn">☀</button></div></header>
-<div class="wrap"><h2 class="sec">Glossary</h2><p class="sub"><span id="gcount">{len(re.findall('<tr ', grows))}</span> terms · shared by books, reader and search</p>
+<div class="wrap"><h2 class="sec">Glossary</h2><p class="sub"><span id="gcount">{grows.count('<tr id="g-')}</span> terms · shared by books, reader and search</p>
 <div class="gtbar"><input id="q2" type="search" placeholder="Filter terms…" aria-label="Filter glossary terms"><nav class="az" aria-label="Jump to letter">{_az}</nav></div>
 <table class="gloss"><tr><th>Term</th><th>Definition</th><th>Topic</th><th>Link</th></tr>{grows}</table></div>
 <footer><div class="wrap"><span>CICD BY Nabawy</span><span><a href="index.html">Home</a> · <a href="threads/">Threads</a> · <a href="tools/">Tools</a></span></div></footer>
