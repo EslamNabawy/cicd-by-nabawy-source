@@ -639,8 +639,6 @@ $$('.readbody pre').forEach(p=>{if(p.closest('.terminal')||p.previousElementSibl
 $$('.readbody img').forEach(im=>{im.setAttribute('loading','lazy');if(!im.getAttribute('alt'))im.setAttribute('alt','Diagram from '+BID);im.style.cursor='zoom-in';im.addEventListener('click',()=>{const lb=$('#lightbox');if(lb){lb.querySelector('img').src=im.src;lb.classList.add('open');}});im.addEventListener('error',()=>{im.dataset.broken='1';const f=document.createElement('div');f.className='imgfallback';f.style.display='block';f.textContent='Image unavailable: '+(im.getAttribute('alt')||im.src);im.after(f);});});
 const _lb=$('#lightbox');if(_lb)_lb.addEventListener('click',()=>_lb.classList.remove('open'));
 const MARKS='cicdlib:marks';
-const _mb=$('#markbtn');function syncMark(){const m=getP(MARKS,{});const on=!!m[BID];if(_mb){_mb.textContent=on?'★ Saved':'☆ Save';_mb.classList.toggle('on',on);}}
-if(_mb)_mb.onclick=()=>{const m=getP(MARKS,{});if(m[BID])delete m[BID];else m[BID]=Date.now();setP(MARKS,m);syncMark();};syncMark();
 const LABKEY='cicdlib:lab:'+BID;
 function labChecks(){const done=getP(LABKEY,{});$$('.readbody .step').forEach((st,i)=>{if(st.querySelector('input[type=checkbox]'))return;const lab=document.createElement('input');lab.type='checkbox';lab.checked=!!done[i];lab.setAttribute('aria-label','Mark step done');lab.onchange=()=>{const d=getP(LABKEY,{});if(lab.checked)d[i]=1;else delete d[i];setP(LABKEY,d);st.classList.toggle('done',lab.checked);};st.classList.toggle('done',!!done[i]);const lb=document.createElement('label');lb.className='stephit';lb.setAttribute('aria-label','Mark step done');lb.appendChild(lab);st.prepend(lb);});const rst=$('#labreset');if(rst)rst.onclick=()=>{setP(LABKEY,{});$$('.readbody .step').forEach(st=>{st.classList.remove('done');const c=st.querySelector('input[type=checkbox]');if(c)c.checked=false;});};}
 labChecks();
@@ -685,8 +683,6 @@ if(back)back.addEventListener('click',e=>{
 });
 const menuBtn=$('#mobilemenubtn');
 if(menuBtn)menuBtn.onclick=()=>{const d=$('#drawer'),open=!d.classList.contains('open');d.classList.toggle('open',open);menuBtn.setAttribute('aria-expanded',String(open));};
-const mobileMark=$('#mobilemarkbtn');
-if(mobileMark)mobileMark.onclick=()=>{if(_mb)_mb.click();mobileMark.textContent=_mb?.textContent||'☆ Save';};
 const mobileQ=$('#mobileq'),bookQ=$('#q');
 if(mobileQ&&bookQ){mobileQ.addEventListener('input',()=>{bookQ.value=mobileQ.value;});mobileQ.addEventListener('keydown',e=>{if(e.key==='Enter'){bookQ.value=mobileQ.value;bookQ.dispatchEvent(new KeyboardEvent('keydown',{key:'Enter'}));}});}
 const topBtn=$('#topbtn');let topTimer;
@@ -1011,7 +1007,7 @@ def build_map_page(books, output_dir, paths_html=""):
 <h1>The CI/CD library.</h1>
 <p class="hm-sub">{len(books)} handbooks, ordered paths. Pick a row, start reading.</p>
 <div class="hm-vols">{vols_html}</div>
-</div><div id="continue"></div><div class="chiprow" id="marksrow"></div>
+</div><div class="chiprow" id="marksrow"></div>
 <div class="hm-label" aria-hidden="true"><span>CONTENTS</span><span>{len(shown_cats)} BOOKS</span></div>
 <div class="hm-list" id="mapGrid" role="list" aria-label="Library contents">{blocks_html}</div>
 {paths_html}
@@ -1064,12 +1060,8 @@ try{{
 const hist=[];
 $$('.hm-row[data-id]').forEach(a=>{{const p=getP('cicdlib:prog:'+a.dataset.id,null);if(p&&p.pct)hist.push({{id:a.dataset.id,title:a.dataset.title,pct:p.pct,ts:p.ts||0}});}});
 hist.sort((a,b)=>b.ts-a.ts);
-const box=$('#continue');
-const open=hist.filter(h=>h.pct<98).sort((a,b)=>b.pct-a.pct);
-const show=open.length?open.slice(0,4):hist.slice(0,1);
-if(box&&show.length){{box.innerHTML='<div class="collectlabel">PICK UP WHERE YOU LEFT OFF</div><div class="rail">'+show.map(h=>`<div class="card"><h3>${{h.title}}</h3><div class="prog"><b style="width:${{h.pct}}%"></b></div><a class="read" href="read/${{h.id}}.html">Continue — ${{h.pct}}%</a></div>`).join('')+'</div>';}}
 try{{const marks=getP('cicdlib:marks',{{}}),ids=Object.keys(marks),mr=$('#marksrow');if(mr&&ids.length){{mr.innerHTML='<div class="collectlabel">SAVED</div>'+ids.map(id=>{{const c=document.querySelector('.hm-row[data-id="'+id+'"]');const t=c?c.dataset.title:id;return `<a href="read/${{id}}.html">★ ${{t}}</a>`;}}).join('');}}}}catch(e){{}}
-const top1=open[0]||hist[0],rs=$('#resume');
+const top1=hist.filter(h=>h.pct<98).sort((a,b)=>b.pct-a.pct)[0]||hist[0],rs=$('#resume');
 if(rs&&top1){{rs.href='read/'+top1.id+'.html';rs.textContent='Resume · '+top1.title+' — '+top1.pct+'%';rs.style.display='';}}
 }}catch(e){{}}
 }})();
@@ -1478,7 +1470,6 @@ body.fs .readbody{{max-width:880px}}
 <span class="here">{html.escape(b['title'])}</span></nav>
 <div class="search"><input id="q" type="search" placeholder="Find in this book…" aria-label="Find in this book"><kbd>⌘K</kbd></div>
 <span id="qcount" style="font-size:12px;color:var(--mut)"></span>
-<button class="markbtn" id="markbtn" aria-label="Bookmark this book">☆ Save</button>
 <a class="readback btn reader-nav" id="backbtn" href="../index.html">← Back</a>
 <nav class="reader-nav" aria-label="Reader navigation"><a class="btn" href="../index.html" style="text-decoration:none">Home</a>
 </nav>
@@ -1504,7 +1495,7 @@ body.fs .readbody{{max-width:880px}}
 <button class="topbtn" id="topbtn" aria-label="Back to top" title="Back to top">↑</button>
 <div class="drawer" id="drawer"><div class="scrim"></div><div class="panel" role="dialog" aria-modal="false" aria-label="Reader menu"><button class="drawerx" id="setx" aria-label="Close settings">×</button>
 <h3>Menu</h3>
-<div class="setrow mobile-controls"><a class="readback btn" href="../index.html">← Back</a> <button class="btn" id="mobilemarkbtn">☆ Save</button><button class="btn" id="fsbtnm" aria-label="Toggle fullscreen">⛶</button><a class="btn" href="../index.html">Home</a><button class="btn" id="mthemebtn" aria-label="Cycle theme">◐</button></div>
+<div class="setrow mobile-controls"><a class="readback btn" href="../index.html">← Back</a> <button class="btn" id="fsbtnm" aria-label="Toggle fullscreen">⛶</button><a class="btn" href="../index.html">Home</a><button class="btn" id="mthemebtn" aria-label="Cycle theme">◐</button></div>
 <div class="setrow mobile-search"><label for="mobileq">Find in this book</label><input id="mobileq" type="search" placeholder="Search this book…"></div>
 
 
