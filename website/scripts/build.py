@@ -527,6 +527,9 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
 .hm-kick{font-family:var(--mono);font-size:11px;font-weight:800;letter-spacing:.3em;text-transform:uppercase;color:var(--brand);text-align:center}
 .hm-hero h1{font-size:clamp(34px,5vw,54px);font-weight:800;letter-spacing:-1px;text-align:center;margin:10px 0 4px}
 .hm-sub{text-align:center;color:var(--mut);font-size:16px;margin:0 auto;max-width:560px}
+.hm-about{text-align:center;color:var(--mut);font-size:14px;line-height:1.65;margin:16px auto 4px;max-width:640px}
+.hm-about b{color:var(--ink)}
+.hm-about a{color:var(--brand);font-weight:700;text-decoration:none;border-bottom:1px dotted var(--brand)}
 .hm-vols{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:22px}
 .hm-vol{display:inline-flex;align-items:center;gap:9px;border:2px solid var(--line);border-radius:10px;background:var(--bg);padding:9px 16px;font-size:13px;font-weight:700;color:var(--ink);text-decoration:none;transition:border-color .15s,transform .15s,box-shadow .15s;box-shadow:var(--shadow-btn)}
 .hm-vol:hover{border-color:var(--cat);transform:translateY(-2px);box-shadow:var(--shadow-lift)}
@@ -994,11 +997,6 @@ def build_map_page(books, output_dir, paths_html=""):
         upd = b0.get("updated", "")
         _desc = b0.get("description", "")
         desc = (_desc[:92] + "…") if len(_desc) > 92 else _desc
-        vols_html += (
-            f'<a class="hm-vol" style="--cat:{color}" href="read/{b0["id"]}.html">'
-            f'<i aria-hidden="true"></i><span>{html.escape(cat)}</span>'
-            f'<span class="vc">{html.escape(b0.get("difficulty", ""))}</span></a>'
-        )
         dcls = DIF_CLS.get(b0.get("difficulty", ""), "int")
         blocks_html += (
             f'<a class="hm-row" style="--cat:{color}" href="read/{b0["id"]}.html" data-cat="{html.escape(cat)}" data-id="{b0["id"]}" data-title="{html.escape(b0["title"])}" id="block-{slug}" '
@@ -1061,7 +1059,7 @@ def build_map_page(books, output_dir, paths_html=""):
 <div class="hm-kick">CICD BY Nabawy · SIGNAL SERIES</div>
 <h1>The CI/CD library.</h1>
 <p class="hm-sub">{len(books)} handbooks, ordered paths. Pick a row, start reading.</p>
-<div class="hm-vols">{vols_html}</div>
+<p class="hm-about">CI/CD is how teams ship software safely and often: every commit is built, tested, and scanned by machines (<b>continuous integration</b>), every good change stays releasable behind approvals (<b>continuous delivery</b>), and production is watched so lessons flow back into the next commit. Here you get the full loop as {len(books)} handbooks — foundations to Jenkins to labs — plus <a href="threads/">concept threads</a> that stitch ideas across books, a <a href="tools/">tool picker</a> that ranks your stack in six questions, and a <a href="glossary.html">glossary</a> of every term.</p>
 </div>
 <div class="hm-label" aria-hidden="true"><span>CONTENTS</span><span>{len(shown_cats)} BOOKS</span></div>
 <div class="hm-list" id="mapGrid" role="list" aria-label="Library contents">{blocks_html}</div>
@@ -1131,6 +1129,7 @@ if(rs&&top1){{rs.href='read/'+top1.id+'.html';rs.textContent='Resume · '+top1.t
     pathlib.Path(output_dir, "index.html").write_text(page, encoding="utf-8")
     redir = ("<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\">"
         "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
+        "<link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">"
         "<title>Home — CICD BY Nabawy</title>"
         "<link rel=\"canonical\" href=\"https://eslamnabawy.github.io/cicd-by-nabawy/\">"
         "<meta http-equiv=\"refresh\" content=\"0; url=./\">"
@@ -1368,6 +1367,19 @@ def build():
     # print editions ship with the site so reader "Open print HTML" works live
     shutil.rmtree(os.path.join(DIST, "pdf"), ignore_errors=True)
     shutil.copytree(PDF, os.path.join(DIST, "pdf"))
+    for _pf in glob.glob(os.path.join(DIST, "pdf", "**", "*.html"), recursive=True):
+        try:
+            _ph = open(_pf, encoding="utf-8").read()
+            if 'rel="icon"' not in _ph:
+                _prefix = "../" * os.path.relpath(_pf, DIST).count(os.sep)
+                _tag = '<link rel="icon" type="image/svg+xml" href="' + _prefix + 'favicon.svg">'
+                if "<head>" in _ph:
+                    _ph = _ph.replace("<head>", "<head>" + _tag, 1)
+                else:
+                    _ph = _tag + _ph
+                open(_pf, "w", encoding="utf-8").write(_ph)
+        except Exception:
+            pass
     stats = []
 
     # (path context + related/path helpers are defined at the top of build())
