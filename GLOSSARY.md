@@ -71,3 +71,44 @@
 | Sealed Secret | Encrypted secret safe to store in git; decrypted in cluster | [ArgoCD & GitOps](15-platforms-and-tools/argocd-gitops.md) |
 | BuildKit | Fast, cached, hermetic Docker build engine | [CI/CD Pipelines](06-ci-cd-pipelines/pipelines.md) |
 | OIDC | OpenID Connect: short-lived identity tokens for keyless auth in CI | [CI/CD Pipelines](06-ci-cd-pipelines/pipelines.md) |
+| Rolling Deployment | Batch-by-batch rollout behind readiness probes; no downtime | [Deployment Strategies](10-deployment-strategies/deployment-strategies.md) |
+| Recreate Deployment | Stop old, start new — simplest, causes downtime | [Deployment Strategies](10-deployment-strategies/deployment-strategies.md) |
+| Dark Launch | Release behind flag to subset without user impact; measure silently | [Deployment Strategies](10-deployment-strategies/deployment-strategies.md) |
+| Parallelism | Jobs or steps running concurrently to cut lead time | [CI/CD Pipelines](06-ci-cd-pipelines/pipelines.md) |
+| Matrix Build | Fan-out of one job across versions/envs in a single pipeline | [CI/CD Pipelines](06-ci-cd-pipelines/pipelines.md) |
+| Cache | Reused layer keyed on inputs to avoid rebuilding unchanged work | [CI/CD Pipelines](06-ci-cd-pipelines/pipelines.md) |
+| Monorepo | Single repo holding many services; one pipeline fans out | [CI/CD Pipelines](06-ci-cd-pipelines/pipelines.md) |
+| Trunk | Main branch that must stay green and releasable | [Continuous Integration](02-continuous-integration/continuous-integration.md) |
+| Rebase | Replay commits onto latest main to keep linear history | [Git, Branching & Pull Requests](01-source-control/git-branching-pull-requests.md) |
+| Cherry-Pick | Copy single commit to another branch without full merge | [Git, Branching & Pull Requests](01-source-control/git-branching-pull-requests.md) |
+| Code Review | Human approval gate on a pull request before merge | [Git, Branching & Pull Requests](01-source-control/git-branching-pull-requests.md) |
+| Status Check | Automated CI gate reported on a PR; blocks merge if red | [Git, Branching & Pull Requests](01-source-control/git-branching-pull-requests.md) |
+| Webhook | HTTP callback that triggers a pipeline on git events | [Jenkins Webhooks](15-platforms-and-tools/jenkins/jenkins-webhooks.md) |
+| JCasC | Jenkins Configuration as Code: declarative controller setup in YAML | [Jenkins Advanced](15-platforms-and-tools/jenkins/jenkins-advanced.md) |
+| Declarative Pipeline | Opinionated Jenkinsfile syntax with stages/steps; validated upfront | [Jenkins Pipelines](15-platforms-and-tools/jenkins/jenkins-pipelines.md) |
+| Scripted Pipeline | Full Groovy Jenkinsfile with imperative control flow | [Jenkins Pipelines](15-platforms-and-tools/jenkins/jenkins-pipelines.md) |
+| Groovy | JVM language powering Jenkins pipelines and shared libraries | [Jenkins Advanced](15-platforms-and-tools/jenkins/jenkins-advanced.md) |
+| Pipeline as Code | Pipelines versioned in git alongside app code | [CI/CD Pipelines](06-ci-cd-pipelines/pipelines.md) |
+| Self-Hosted Runner | Runner you own and scale; controller schedules onto it | [CI/CD Pipelines](06-ci-cd-pipelines/pipelines.md) |
+| Ephemeral Runner | Short-lived runner pod or VM created per job then destroyed | [CI/CD Pipelines](06-ci-cd-pipelines/pipelines.md) |
+| GHCR | GitHub Container Registry: where images and attestations live | [Artifact Management](05-artifacts-and-packaging/artifact-management.md) |
+| Attestation | Provenance record attached to an artifact for verification | [Artifact Management](05-artifacts-and-packaging/artifact-management.md) |
+| Digest | Content hash pinning the exact artifact bytes | [Artifact Management](05-artifacts-and-packaging/artifact-management.md) |
+| Tag | Human name for an image version; mutable, unlike digest | [Artifact Management](05-artifacts-and-packaging/artifact-management.md) |
+| SemVer | Semantic versioning MAJOR.MINOR.PATCH with breaking-change rules | [Artifact Management](05-artifacts-and-packaging/artifact-management.md) |
+| Staging | Prod-like rehearsal environment with sanitized data | [Continuous Delivery](07-continuous-delivery/continuous-delivery.md) |
+| Production | Live environment serving real users with real data | [Continuous Delivery](07-continuous-delivery/continuous-delivery.md) |
+| Preview Environment | Ephemeral env per PR destroyed on merge; proves the change | [Environments & Release](09-environments-and-release/environments-release.md) |
+| Infrastructure as Code (IaC) | Env definitions in versioned code; plan is the review | [IaC for Environments](12-infrastructure-and-configuration/iac-environments.md) |
+| Drift Detection | Scheduled check that live state matches declared code | [IaC for Environments](12-infrastructure-and-configuration/iac-environments.md) |
+| ApplicationSet | ArgoCD template that fans one app definition into N envs | [ArgoCD & GitOps](15-platforms-and-tools/argocd-gitops.md) |
+| Sync Wave | Ordered phase for ArgoCD to apply resources | [ArgoCD & GitOps](15-platforms-and-tools/argocd-gitops.md) |
+| Golden Signals | Latency, traffic, errors, saturation — the four to watch | [Observability & Feedback](13-observability-and-feedback/observability-feedback.md) |
+| RED Method | Rate, Errors, Duration — microservice health triplet | [Observability & Feedback](13-observability-and-feedback/observability-feedback.md) |
+| USE Method | Utilization, Saturation, Errors for resource focus | [Observability & Feedback](13-observability-and-feedback/observability-feedback.md) |
+| LogQL | Query language for Loki log lines | [Observability & Feedback](13-observability-and-feedback/observability-feedback.md) |
+| PromQL | Query language for Prometheus metrics | [Observability & Feedback](13-observability-and-feedback/observability-feedback.md) |
+| Runbook | Step-by-step ops guide linked from an alert | [Observability & Feedback](13-observability-and-feedback/observability-feedback.md) |
+| MTTR | Mean Time To Recovery after failure | [Rollback & Recovery](14-reliability-and-recovery/rollback-recovery.md) |
+| Postmortem | Blameless review turning an incident into pipeline changes | [Rollback & Recovery](14-reliability-and-recovery/rollback-recovery.md) |
+| Supply Chain | Path from source through build to registry to cluster | [Artifact Management](05-artifacts-and-packaging/artifact-management.md) |
