@@ -1,77 +1,53 @@
 [
   {
-    "id": "foundations",
-    "title": "CI/CD Foundations",
-    "file": "pdf-01-foundations.html",
+    "id": "start-here",
+    "title": "Start Here: Foundations, Git & CI",
+    "file": "pdf-merged-01-start-here.html",
     "category": "CI/CD",
     "difficulty": "Beginner",
-    "description": "The automated path from commit to production: CI, delivery, deployment, and the full lifecycle.",
-    "time_minutes": 25,
+    "description": "The automated path from commit to production: lifecycle, branching, PR gates, merge queues, trunk discipline.",
+    "time_minutes": 75,
     "prereqs": [],
     "outcomes": [
       "Draw commit-to-production lifecycle",
-      "Distinguish CI vs delivery vs deployment",
-      "Name core pipeline stages"
+      "Choose branching model and enforce PR gates",
+      "Run merge queues with trunk discipline"
     ],
     "tags": [
       "lifecycle",
-      "ci",
-      "cd"
-    ],
-    "path": "start-here",
-    "updated": "2026-09-01",
-    "version": "2.0"
-  },
-  {
-    "id": "git-branching",
-    "title": "Git, Branching & Pull Requests",
-    "file": "pdf-02-git-branching-pull-requests.html",
-    "category": "CI/CD",
-    "difficulty": "Beginner",
-    "description": "The quality gate that feeds CI: branches, reviews, triggers, and branching models.",
-    "time_minutes": 25,
-    "prereqs": [
-      "foundations"
-    ],
-    "outcomes": [
-      "Choose branching model",
-      "Enforce PR gates",
-      "Trigger CI on push/PR"
-    ],
-    "tags": [
       "git",
-      "branching",
-      "pr"
+      "ci",
+      "trunk"
     ],
     "path": "start-here",
-    "updated": "2026-09-01",
-    "version": "2.0"
+    "updated": "2026-09-17",
+    "version": "3.0"
   },
   {
-    "id": "pipelines",
-    "title": "CI/CD Pipelines",
-    "file": "pdf-03-pipelines.html",
+    "id": "pipelines-build-test",
+    "title": "Pipelines, Build & Test",
+    "file": "pdf-merged-02-pipelines-build-test.html",
     "category": "CI/CD",
-    "difficulty": "Beginner",
-    "description": "Stages, jobs, steps, runners, hermetic builds, BuildKit and Kaniko.",
-    "time_minutes": 35,
+    "difficulty": "Intermediate",
+    "description": "Stages, jobs, runners, hermetic builds, caching, multi-stage images, test pyramid, flaky policy.",
+    "time_minutes": 95,
     "prereqs": [
-      "foundations",
-      "git-branching"
+      "start-here"
     ],
     "outcomes": [
-      "Model stages/jobs/steps",
-      "Design hermetic builds",
-      "Wire runners and triggers"
+      "Model stages/jobs/steps with runners",
+      "Isolate hermetic builds with correct caching",
+      "Place tests in pyramid and quarantine flakes"
     ],
     "tags": [
       "pipeline",
-      "runners",
+      "build",
+      "testing",
       "hermetic"
     ],
     "path": "ci-core",
-    "updated": "2026-09-01",
-    "version": "2.0"
+    "updated": "2026-09-17",
+    "version": "3.0"
   },
   {
     "id": "artifacts",
@@ -82,7 +58,7 @@
     "description": "Build once, promote the digest everywhere: registries, versioning, signing, SBOM.",
     "time_minutes": 35,
     "prereqs": [
-      "pipelines"
+      "pipelines-build-test"
     ],
     "outcomes": [
       "Version with semver/SHA",
@@ -99,30 +75,31 @@
     "version": "2.0"
   },
   {
-    "id": "delivery",
-    "title": "Continuous Delivery",
-    "file": "pdf-05-continuous-delivery.html",
-    "category": "CI/CD",
+    "id": "delivery-envs",
+    "title": "Delivery, Envs & IaC",
+    "file": "pdf-merged-03-delivery-envs.html",
+    "category": "Delivery",
     "difficulty": "Intermediate",
-    "description": "Releasable always, deployed by decision: staging, approvals, promotion.",
-    "time_minutes": 30,
+    "description": "Releasable always, deployed by decision: staging, approvals, auto-to-prod prereqs, env topology, Terraform state per env.",
+    "time_minutes": 120,
     "prereqs": [
-      "pipelines",
+      "pipelines-build-test",
       "artifacts"
     ],
     "outcomes": [
-      "Keep main releasable",
-      "Gate staging with approvals",
-      "Promote artifacts safely"
+      "Keep main releasable with approvals",
+      "Define auto-to-prod prereqs and kill criteria",
+      "Split Terraform state per env and detect drift"
     ],
     "tags": [
       "delivery",
-      "staging",
-      "approvals"
+      "environments",
+      "terraform",
+      "release"
     ],
     "path": "delivery",
-    "updated": "2026-09-01",
-    "version": "2.0"
+    "updated": "2026-09-17",
+    "version": "3.0"
   },
   {
     "id": "strategies",
@@ -133,7 +110,7 @@
     "description": "Same artifact, different traffic shape: Rolling, Blue/Green, Canary, Recreate, Feature Flags.",
     "time_minutes": 35,
     "prereqs": [
-      "delivery"
+      "delivery-envs"
     ],
     "outcomes": [
       "Compare rolling/blue-green/canary",
@@ -150,304 +127,215 @@
     "version": "2.0"
   },
   {
-    "id": "ci",
-    "title": "Continuous Integration",
-    "file": "pdf-21-continuous-integration.html",
-    "category": "CI/CD",
-    "difficulty": "Beginner",
-    "description": "Merge discipline: gates, queues, trunk.",
-    "time_minutes": 25,
-    "prereqs": [
-      "git-branching"
-    ],
-    "outcomes": [
-      "Enforce merge gates",
-      "Run merge queues",
-      "Practice trunk discipline"
-    ],
-    "tags": [
-      "ci",
-      "gates",
-      "trunk"
-    ],
-    "path": "ci-core",
-    "updated": "2026-09-01",
-    "version": "2.0"
-  },
-  {
-    "id": "build",
-    "title": "Build Systems",
-    "file": "pdf-22-build-systems.html",
-    "category": "Build",
-    "difficulty": "Intermediate",
-    "description": "Hermetic builds, caching, multi-stage images.",
-    "time_minutes": 30,
-    "prereqs": [
-      "ci"
-    ],
-    "outcomes": [
-      "Cache dependencies correctly",
-      "Isolate hermetic builds",
-      "Optimize multi-stage images"
-    ],
-    "tags": [
-      "build",
-      "caching",
-      "docker"
-    ],
-    "path": "ci-core",
-    "updated": "2026-09-01",
-    "version": "2.0"
-  },
-  {
-    "id": "testing",
-    "title": "Testing Strategy",
-    "file": "pdf-23-testing-strategy.html",
-    "category": "Testing",
-    "difficulty": "Intermediate",
-    "description": "Pyramid, placement, flaky policy.",
-    "time_minutes": 30,
-    "prereqs": [
-      "build"
-    ],
-    "outcomes": [
-      "Place tests in pyramid",
-      "Quarantine flaky tests",
-      "Gate on contract tests"
-    ],
-    "tags": [
-      "testing",
-      "pyramid",
-      "flaky"
-    ],
-    "path": "ci-core",
-    "updated": "2026-09-01",
-    "version": "2.0"
-  },
-  {
-    "id": "deployment-auto",
-    "title": "Continuous Deployment",
-    "file": "pdf-24-continuous-deployment.html",
-    "category": "CI/CD",
-    "difficulty": "Advanced",
-    "description": "Auto-to-prod prereqs and kill criteria.",
-    "time_minutes": 30,
-    "prereqs": [
-      "delivery",
-      "observability"
-    ],
-    "outcomes": [
-      "Define auto-to-prod prereqs",
-      "Set kill criteria",
-      "Wire progressive delivery"
-    ],
-    "tags": [
-      "deployment",
-      "progressive",
-      "automation"
-    ],
-    "path": "delivery",
-    "updated": "2026-09-01",
-    "version": "2.0"
-  },
-  {
-    "id": "envs",
-    "title": "Environments & Release",
-    "file": "pdf-25-environments-release.html",
-    "category": "Delivery",
-    "difficulty": "Intermediate",
-    "description": "Topology, config vs code, release trains.",
-    "time_minutes": 30,
-    "prereqs": [
-      "delivery"
-    ],
-    "outcomes": [
-      "Separate config from code",
-      "Design env topology",
-      "Run release trains"
-    ],
-    "tags": [
-      "environments",
-      "config",
-      "release"
-    ],
-    "path": "delivery",
-    "updated": "2026-09-01",
-    "version": "2.0"
-  },
-  {
-    "id": "security",
-    "title": "CI/CD Security",
-    "file": "pdf-26-cicd-security.html",
+    "id": "observe-recover-secure",
+    "title": "Observe, Recover & Secure",
+    "file": "pdf-merged-04-observe-recover-secure.html",
     "category": "Security",
     "difficulty": "Advanced",
-    "description": "Secrets, signing, SBOM, least privilege.",
-    "time_minutes": 40,
+    "description": "Golden signals, SLOs, DORA, per-strategy rollback, postmortems, secrets, signing, supply-chain gates.",
+    "time_minutes": 100,
     "prereqs": [
-      "artifacts",
-      "pipelines"
+      "delivery-envs"
     ],
     "outcomes": [
-      "Store secrets safely",
-      "Scan and sign supply chain",
-      "Apply least privilege"
+      "Track golden signals and SLOs",
+      "Roll back per strategy with drills",
+      "Scan and sign the supply chain"
     ],
     "tags": [
-      "secrets",
-      "sbom",
-      "supply-chain"
-    ],
-    "path": "delivery",
-    "updated": "2026-09-01",
-    "version": "2.0"
-  },
-  {
-    "id": "rollback",
-    "title": "Rollback & Recovery",
-    "file": "pdf-27-rollback-recovery.html",
-    "category": "Reliability",
-    "difficulty": "Intermediate",
-    "description": "Per-strategy moves, drills, postmortems.",
-    "time_minutes": 30,
-    "prereqs": [
-      "strategies",
-      "observability"
-    ],
-    "outcomes": [
-      "Roll back per strategy",
-      "Run recovery drills",
-      "Write blameless postmortems"
-    ],
-    "tags": [
+      "slo",
       "rollback",
-      "recovery",
-      "mttr"
+      "secrets",
+      "sbom"
     ],
     "path": "delivery",
+    "updated": "2026-09-17",
+    "version": "3.0"
+  },
+  {
+    "id": "jenkins-core",
+    "title": "Jenkins Core: Controller to Pipeline",
+    "file": "series/S06-jenkins-core.html",
+    "category": "Jenkins",
+    "difficulty": "Intermediate",
+    "description": "Concept map, controller/agents topology, one-container setup, Declarative Jenkinsfiles, labels and executors.",
+    "time_minutes": 140,
+    "prereqs": [
+      "start-here"
+    ],
+    "outcomes": [
+      "Map concepts to controller/agent/Jenkinsfile",
+      "Install to first green build",
+      "Write Declarative Jenkinsfile and size agents"
+    ],
+    "tags": [
+      "jenkins",
+      "architecture",
+      "pipelines",
+      "agents"
+    ],
+    "path": "jenkins-core",
+    "updated": "2026-09-17",
+    "version": "3.0"
+  },
+  {
+    "id": "jenkins-advanced-ops",
+    "title": "Jenkins Advanced & Operations",
+    "file": "pdf-merged-05-jenkins-advanced-ops.html",
+    "category": "Jenkins",
+    "difficulty": "Advanced",
+    "description": "Groovy idioms, credentials, plugins, webhooks, auth matrix, shared libraries, JCasC, backup, troubleshooting.",
+    "time_minutes": 205,
+    "prereqs": [
+      "jenkins-core"
+    ],
+    "outcomes": [
+      "Use Groovy safely in sandbox",
+      "Bind credentials without leaking",
+      "Harden, back up, and triage queue to log"
+    ],
+    "tags": [
+      "jenkins",
+      "groovy",
+      "security",
+      "troubleshooting"
+    ],
+    "path": "jenkins-advanced",
+    "updated": "2026-09-17",
+    "version": "3.0"
+  },
+  {
+    "id": "github-actions",
+    "title": "GitHub Actions",
+    "file": "pdf-19-github-actions.html",
+    "category": "GitHub",
+    "difficulty": "Beginner",
+    "description": "Zero infrastructure CI/CD: workflows, runners, environments as gates, cost.",
+    "time_minutes": 25,
+    "prereqs": [
+      "pipelines-build-test"
+    ],
+    "outcomes": [
+      "Write workflows/jobs/steps",
+      "Gate with environments",
+      "Control cost"
+    ],
+    "tags": [
+      "github",
+      "actions",
+      "runners"
+    ],
+    "path": "platforms",
     "updated": "2026-09-01",
     "version": "2.0"
   },
   {
-    "id": "lab-01",
-    "title": "Lab 01-02 · Core: Pipeline Labs",
-    "file": "pdf-28-pipeline-labs.html",
-    "category": "Labs",
-    "difficulty": "Beginner",
-    "description": "First pipeline to hermetic build and test: green checks, gates, DAG, caching.",
-    "time_minutes": 90,
+    "id": "gitlab-argocd",
+    "title": "GitLab & ArgoCD GitOps",
+    "file": "pdf-merged-06-gitlab-argocd.html",
+    "category": "Platforms",
+    "difficulty": "Intermediate",
+    "description": "GitLab stages with needs DAG and review apps, plus ArgoCD pull delivery, sync waves, ApplicationSets.",
+    "time_minutes": 70,
     "prereqs": [
-      "foundations"
+      "pipelines-build-test"
     ],
     "outcomes": [
-      "Push to green check",
-      "Enforce gates with branch protection",
-      "Build DAG jobs with caching",
-      "Prove hermetic build"
+      "Model GitLab stages with needs DAG",
+      "Declare ArgoCD Applications",
+      "Order sync waves and scale with sets"
+    ],
+    "tags": [
+      "gitlab",
+      "gitops",
+      "argocd"
+    ],
+    "path": "platforms",
+    "updated": "2026-09-17",
+    "version": "3.0"
+  },
+  {
+    "id": "core-labs",
+    "title": "Core Labs Handbook",
+    "file": "pdf-merged-07-core-labs.html",
+    "category": "Labs",
+    "difficulty": "Intermediate",
+    "description": "First pipeline to hermetic build, artifacts with SBOM, staging-to-prod promotion, rollback drill, Jenkins live, shared libs, backup restore.",
+    "time_minutes": 420,
+    "prereqs": [
+      "start-here"
+    ],
+    "outcomes": [
+      "Push to green check with gates",
+      "Tag by SHA and promote digest",
+      "Break and recover prod with postmortem"
     ],
     "tags": [
       "lab",
       "pipeline",
-      "build"
-    ],
-    "path": "labs",
-    "lab_env": "GitHub + Actions",
-    "updated": "2026-09-01",
-    "version": "2.0"
-  },
-  
-  {
-    "id": "lab-03",
-    "title": "Lab 03-04 · Core: Artifacts & Deployment",
-    "file": "pdf-30-artifacts-deployment.html",
-    "category": "Labs",
-    "difficulty": "Intermediate",
-    "description": "Immutable artifacts, SBOMs, and promotion from staging to a gated production release.",
-    "time_minutes": 105,
-    "prereqs": [
-      "lab-01",
       "artifacts",
-      "delivery"
-    ],
-    "outcomes": [
-      "Tag by SHA",
-      "Push to GHCR",
-      "Generate SBOM",
-      "Deploy staging auto",
-      "Gate prod approval",
-      "Promote digest"
-    ],
-    "tags": [
-      "lab",
-      "artifacts",
-      "deployment"
+      "rollback"
     ],
     "path": "labs",
-    "lab_env": "Docker + Staging",
-    "updated": "2026-09-01",
-    "version": "2.0"
+    "lab_env": "GitHub + Docker + Staging",
+    "updated": "2026-09-17",
+    "version": "3.0"
   },
-  
   {
-    "id": "lab-05",
-    "title": "Lab 05-06 · Core: Rollback & Jenkins",
-    "file": "pdf-32-rollback-jenkins.html",
-    "category": "Labs",
-    "difficulty": "Intermediate",
-    "description": "Break prod, recover via rollback and postmortem, then run it live on Jenkins via Compose.",
-    "time_minutes": 105,
-    "prereqs": [
-      "lab-03",
-      "jenkins-setup"
-    ],
-    "outcomes": [
-      "Break and recover prod",
-      "Redeploy known digest",
-      "Run postmortem",
-      "Run controller+agent compose",
-      "Run first Jenkinsfile"
-    ],
-    "tags": [
-      "lab",
-      "rollback",
-      "jenkins"
-    ],
-    "path": "labs",
-    "lab_env": "Staging + Docker Compose",
-    "updated": "2026-09-01",
-    "version": "2.0"
-  },
-  
-  {
-    "id": "lab-07",
-    "title": "Lab 07-08 · Core: Governance & Recovery",
-    "file": "pdf-34-governance-recovery.html",
+    "id": "jenkins-labs-handbook",
+    "title": "Jenkins Labs Handbook",
+    "file": "pdf-merged-08-jenkins-labs.html",
     "category": "Labs",
     "difficulty": "Advanced",
-    "description": "Reusable pipeline libraries plus backup, destroy-restore, and replay drills.",
-    "time_minutes": 120,
-      "prereqs": [
-      "lab-05",
-      "jenkins-pipelines"
+    "description": "Webhook triggers, Docker delivery to Docker Hub, multibranch, shared libraries, Terraform pipeline on FLOCI.",
+    "time_minutes": 255,
+    "prereqs": [
+      "jenkins-core",
+      "core-labs"
     ],
     "outcomes": [
-      "Extract shared library",
-      "Version pipeline reuse",
-      "Consume vars/ across repos",
-      "Back up JENKINS_HOME",
-      "Destroy and restore",
-      "Replay pipelines"
+      "Trigger Jenkins from GitHub webhooks",
+      "Push images and deploy from pipeline",
+      "Gate Terraform plan/apply with evidence"
     ],
     "tags": [
-      "lab",
-      "shared-library",
-      "backup"
+      "jenkins",
+      "docker",
+      "terraform",
+      "lab"
     ],
     "path": "labs",
-    "lab_env": "Jenkins + Docker",
-    "updated": "2026-09-01",
-    "version": "2.0"
+    "lab_env": "Jenkins + Docker + FLOCI",
+    "updated": "2026-09-17",
+    "version": "3.0"
   },
-  
+  {
+    "id": "roadmap-choice",
+    "title": "2026 Roadmaps & Platform Choice",
+    "file": "pdf-merged-09-roadmap-choice.html",
+    "category": "Roadmap",
+    "difficulty": "Intermediate",
+    "description": "Jenkins horizon, Actions supply-chain hardening, and the Jenkins vs Actions decision framework with hybrid topology.",
+    "time_minutes": 95,
+    "prereqs": [
+      "jenkins-core",
+      "github-actions"
+    ],
+    "outcomes": [
+      "Track Jenkins and Actions priorities",
+      "Compare platforms across 10 dimensions",
+      "Design hybrid trigger/executor topology"
+    ],
+    "tags": [
+      "roadmap",
+      "jenkins",
+      "github",
+      "decision"
+    ],
+    "path": "roadmap",
+    "updated": "2026-09-17",
+    "version": "3.0"
+  },
   {
     "id": "cheatsheet",
     "title": "Command Cheatsheet",
@@ -469,593 +357,5 @@
     "path": "reference",
     "updated": "2026-09-01",
     "version": "2.0"
-  },
-  {
-    "id": "gitlab",
-    "title": "GitLab CI",
-    "file": "pdf-37-gitlab-ci.html",
-    "category": "Platforms",
-    "difficulty": "Intermediate",
-    "description": "Stages, needs DAG, runners plus tags, review apps, merge trains.",
-    "time_minutes": 30,
-    "prereqs": [
-      "pipelines"
-    ],
-    "outcomes": [
-      "Model stages with needs DAG",
-      "Assign runners by tags",
-      "Ship review apps"
-    ],
-    "tags": [
-      "gitlab",
-      "runners"
-    ],
-    "path": "platforms",
-    "updated": "2026-09-01",
-    "version": "2.0"
-  },
-  {
-    "id": "argocd",
-    "title": "ArgoCD and GitOps",
-    "file": "pdf-38-argocd-gitops.html",
-    "category": "Platforms",
-    "difficulty": "Advanced",
-    "description": "Pull delivery, Application, sync waves, ApplicationSets.",
-    "time_minutes": 40,
-    "prereqs": [
-      "delivery",
-      "envs"
-    ],
-    "outcomes": [
-      "Declare GitOps Applications",
-      "Order sync waves",
-      "Scale with ApplicationSets"
-    ],
-    "tags": [
-      "gitops",
-      "argocd"
-    ],
-    "path": "platforms",
-    "updated": "2026-09-01",
-    "version": "2.0"
-  },
-  {
-    "id": "iac",
-    "title": "IaC for Environments",
-    "file": "pdf-39-iac-environments.html",
-    "category": "Platforms",
-    "difficulty": "Intermediate",
-    "description": "Terraform envs, state per env, plan review, drift.",
-    "time_minutes": 30,
-    "prereqs": [
-      "envs"
-    ],
-    "outcomes": [
-      "Split state per env",
-      "Review terraform plan",
-      "Detect drift"
-    ],
-    "tags": [
-      "terraform",
-      "iac"
-    ],
-    "path": "platforms",
-    "updated": "2026-09-01",
-    "version": "2.0"
-  },
-  {
-    "id": "observability",
-    "title": "Observability & Feedback",
-    "file": "pdf-06-observability-feedback.html",
-    "category": "CI/CD",
-    "difficulty": "Intermediate",
-    "description": "Deploy, observe, learn, fix: golden signals, SLOs, DORA, postmortems.",
-    "time_minutes": 30,
-    "prereqs": [
-      "delivery"
-    ],
-    "outcomes": [
-      "Track golden signals",
-      "Define SLOs",
-      "Report DORA metrics"
-    ],
-    "tags": [
-      "slo",
-      "dora",
-      "metrics"
-    ],
-    "path": "delivery",
-    "updated": "2026-09-01",
-    "version": "2.0"
-  },
-  {
-    "id": "jenkins-domain",
-    "title": "Jenkins Domain",
-    "file": "pdf-07-jenkins-domain.html",
-    "category": "Jenkins",
-    "difficulty": "Beginner",
-    "description": "The map: every generic concept becomes a controller, agent, or Jenkinsfile.",
-    "time_minutes": 20,
-    "prereqs": [
-      "foundations"
-    ],
-    "outcomes": [
-      "Map concepts to Jenkins",
-      "Name controller/agent/Jenkinsfile roles",
-      "Navigate Jenkins docs"
-    ],
-    "tags": [
-      "jenkins",
-      "map"
-    ],
-    "path": "jenkins-core",
-    "updated": "2026-09-01",
-    "version": "2.0"
-  },
-  {
-    "id": "jenkins-architecture",
-    "title": "Jenkins Architecture",
-    "file": "pdf-08-jenkins-architecture.html",
-    "category": "Jenkins",
-    "difficulty": "Beginner",
-    "description": "Controller schedules, agents execute: topology, state, remoting, Docker planes.",
-    "time_minutes": 25,
-    "prereqs": [
-      "jenkins-domain"
-    ],
-    "outcomes": [
-      "Explain controller scheduling",
-      "Choose agent topology",
-      "Secure remoting"
-    ],
-    "tags": [
-      "jenkins",
-      "architecture"
-    ],
-    "path": "jenkins-core",
-    "updated": "2026-09-01",
-    "version": "2.0"
-  },
-  {
-    "id": "jenkins-setup",
-    "title": "Jenkins Setup",
-    "file": "pdf-09-jenkins-setup.html",
-    "category": "Jenkins",
-    "difficulty": "Beginner",
-    "description": "One container, one volume, one socket: install to first green build in seven steps.",
-    "time_minutes": 30,
-    "prereqs": [
-      "jenkins-architecture"
-    ],
-    "outcomes": [
-      "Install via one container",
-      "Persist with volume",
-      "Reach first green build"
-    ],
-    "tags": [
-      "jenkins",
-      "setup",
-      "docker"
-    ],
-    "path": "jenkins-core",
-    "updated": "2026-09-01",
-    "version": "2.0"
-  },
-  {
-    "id": "jenkins-pipelines",
-    "title": "Jenkins Pipelines",
-    "file": "pdf-10-jenkins-pipelines.html",
-    "category": "Jenkins",
-    "difficulty": "Intermediate",
-    "description": "Jenkinsfiles: Declarative vs Scripted, multibranch, Docker CI/CD, approval gates.",
-    "time_minutes": 35,
-    "prereqs": [
-      "jenkins-setup",
-      "pipelines"
-    ],
-    "outcomes": [
-      "Write Declarative Jenkinsfile",
-      "Gate with approvals",
-      "Run multibranch"
-    ],
-    "tags": [
-      "jenkinsfile",
-      "declarative"
-    ],
-    "path": "jenkins-core",
-    "updated": "2026-09-01",
-    "version": "2.0"
-  },
-  {
-    "id": "groovy",
-    "title": "Groovy Cheatsheet",
-    "file": "pdf-11-groovy-cheatsheet.html",
-    "category": "Jenkins",
-    "difficulty": "Intermediate",
-    "description": "Only the Groovy Jenkinsfiles need: strings, closures, idioms, sandbox rules.",
-    "time_minutes": 20,
-    "prereqs": [
-      "jenkins-pipelines"
-    ],
-    "outcomes": [
-      "Use strings/closures safely",
-      "Follow sandbox rules",
-      "Reuse idioms"
-    ],
-    "tags": [
-      "groovy",
-      "jenkinsfile"
-    ],
-    "path": "jenkins-advanced",
-    "updated": "2026-09-01",
-    "version": "2.0"
-  },
-  {
-    "id": "jenkins-agents",
-    "title": "Jenkins Agents",
-    "file": "pdf-12-jenkins-agents.html",
-    "category": "Jenkins",
-    "difficulty": "Intermediate",
-    "description": "Labels select them, executors run on them: permanent, Docker, Kubernetes.",
-    "time_minutes": 30,
-    "prereqs": [
-      "jenkins-architecture"
-    ],
-    "outcomes": [
-      "Select via labels",
-      "Size executors",
-      "Run Docker/K8s agents"
-    ],
-    "tags": [
-      "jenkins",
-      "agents"
-    ],
-    "path": "jenkins-core",
-    "updated": "2026-09-01",
-    "version": "2.0"
-  },
-  {
-    "id": "jenkins-credentials",
-    "title": "Jenkins Credentials",
-    "file": "pdf-13-jenkins-credentials.html",
-    "category": "Jenkins",
-    "difficulty": "Intermediate",
-    "description": "Typed secrets, scoped storage, masked bindings. Never hardcoded.",
-    "time_minutes": 25,
-    "prereqs": [
-      "jenkins-pipelines"
-    ],
-    "outcomes": [
-      "Store typed secrets",
-      "Bind without leaking",
-      "Scope per folder"
-    ],
-    "tags": [
-      "jenkins",
-      "secrets"
-    ],
-    "path": "jenkins-advanced",
-    "updated": "2026-09-01",
-    "version": "2.0"
-  },
-  {
-    "id": "jenkins-plugins",
-    "title": "Jenkins Plugins",
-    "file": "pdf-14-jenkins-plugins.html",
-    "category": "Jenkins",
-    "difficulty": "Beginner",
-    "description": "How Jenkins grows: essential set, pinning, staging upgrades, pruning.",
-    "time_minutes": 20,
-    "prereqs": [
-      "jenkins-setup"
-    ],
-    "outcomes": [
-      "Pick essential set",
-      "Pin and stage upgrades",
-      "Prune safely"
-    ],
-    "tags": [
-      "jenkins",
-      "plugins"
-    ],
-    "path": "jenkins-advanced",
-    "updated": "2026-09-01",
-    "version": "2.0"
-  },
-  {
-    "id": "jenkins-webhooks",
-    "title": "Jenkins Webhooks",
-    "file": "pdf-15-jenkins-webhooks.html",
-    "category": "Jenkins",
-    "difficulty": "Intermediate",
-    "description": "Pushes become builds in seconds: webhooks, multibranch, PR gates.",
-    "time_minutes": 25,
-    "prereqs": [
-      "jenkins-pipelines"
-    ],
-    "outcomes": [
-      "Wire push webhooks",
-      "Trigger multibranch fast",
-      "Gate PRs"
-    ],
-    "tags": [
-      "jenkins",
-      "webhooks"
-    ],
-    "path": "jenkins-advanced",
-    "updated": "2026-09-01",
-    "version": "2.0"
-  },
-  {
-    "id": "jenkins-security",
-    "title": "Jenkins Security",
-    "file": "pdf-16-jenkins-security.html",
-    "category": "Jenkins",
-    "difficulty": "Advanced",
-    "description": "Auth matrix, agent distrust, secrets hygiene, patch cadence.",
-    "time_minutes": 40,
-    "prereqs": [
-      "jenkins-credentials",
-      "security"
-    ],
-    "outcomes": [
-      "Harden auth matrix",
-      "Distrust agents correctly",
-      "Patch on cadence"
-    ],
-    "tags": [
-      "jenkins",
-      "security"
-    ],
-    "path": "jenkins-advanced",
-    "updated": "2026-09-01",
-    "version": "2.0"
-  },
-  {
-    "id": "jenkins-advanced",
-    "title": "Jenkins Advanced",
-    "file": "pdf-17-jenkins-advanced.html",
-    "category": "Jenkins",
-    "difficulty": "Advanced",
-    "description": "Shared libraries, matrix builds, JCasC, backup, Script Console, tuning.",
-    "time_minutes": 45,
-    "prereqs": [
-      "jenkins-pipelines",
-      "jenkins-agents"
-    ],
-    "outcomes": [
-      "Ship shared libraries",
-      "Configure JCasC",
-      "Tune and back up"
-    ],
-    "tags": [
-      "jenkins",
-      "jcasc",
-      "matrix"
-    ],
-    "path": "jenkins-advanced",
-    "updated": "2026-09-01",
-    "version": "2.0"
-  },
-  {
-    "id": "jenkins-troubleshooting",
-    "title": "Jenkins Troubleshooting",
-    "file": "pdf-18-jenkins-troubleshooting.html",
-    "category": "Jenkins",
-    "difficulty": "Intermediate",
-    "description": "Queue to executor to workspace to log to config: triage table and recovery.",
-    "time_minutes": 30,
-    "prereqs": [
-      "jenkins-agents",
-      "jenkins-pipelines"
-    ],
-    "outcomes": [
-      "Triage queue to log",
-      "Fix executor/workspace stuck",
-      "Recover config"
-    ],
-    "tags": [
-      "jenkins",
-      "troubleshooting"
-    ],
-    "path": "jenkins-advanced",
-    "updated": "2026-09-01",
-    "version": "2.0"
-  },
-  {
-    "id": "github-actions",
-    "title": "GitHub Actions",
-    "file": "pdf-19-github-actions.html",
-    "category": "GitHub",
-    "difficulty": "Beginner",
-    "description": "Zero infrastructure CI/CD: workflows, runners, environments as gates, cost.",
-    "time_minutes": 25,
-    "prereqs": [
-      "pipelines"
-    ],
-    "outcomes": [
-      "Write workflows/jobs/steps",
-      "Gate with environments",
-      "Control cost"
-    ],
-    "tags": [
-      "github",
-      "actions",
-      "runners"
-    ],
-    "path": "platforms",
-    "updated": "2026-09-01",
-    "version": "2.0"
-  },
-  {
-    "id": "jenkins-roadmap-2026",
-    "title": "Jenkins Roadmap 2026",
-    "file": "pdf-40-jenkins-roadmap-2026.html",
-    "category": "Roadmap",
-    "difficulty": "Intermediate",
-    "description": "Where Jenkins is headed: weekly/LTS cadence, Pipeline as YAML, Plugin Manager revamp, Tekton/JCasC, Puppet->Ansible infra, JDK 25 + Win2025.",
-    "time_minutes": 30,
-    "prereqs": [
-      "jenkins-domain"
-    ],
-    "outcomes": [
-      "Track Jenkins horizon priorities",
-      "Plan for Java 21+/JDK25 & Win2025",
-      "Evaluate Plugin Manager & Pipeline-as-YAML"
-    ],
-    "tags": [
-      "jenkins",
-      "roadmap",
-      "2026",
-      "infrastructure"
-    ],
-    "path": "roadmap",
-    "updated": "2026-09-14",
-    "version": "1.0"
-  },
-  {
-    "id": "github-actions-roadmap-2026",
-    "title": "GitHub Actions Roadmap 2026",
-    "file": "pdf-41-github-actions-roadmap-2026.html",
-    "category": "Roadmap",
-    "difficulty": "Intermediate",
-    "description": "Securing the supply chain: dependency locking, scoped secrets, ruleset protections, S3/Event Hub data stream, L7 egress firewall, Arm64 & Immutable Releases.",
-    "time_minutes": 35,
-    "prereqs": [
-      "github-actions"
-    ],
-    "outcomes": [
-      "Lock transitive Action dependencies",
-      "Scope secrets & enforce policy-driven execution",
-      "Plan for data stream & egress firewall rollout"
-    ],
-    "tags": [
-      "github",
-      "actions",
-      "roadmap",
-      "supply-chain",
-      "2026"
-    ],
-    "path": "roadmap",
-    "updated": "2026-09-14",
-    "version": "1.0"
-  },
-  {
-    "id": "cicd-decision-guide",
-    "title": "CI/CD Decision Guide: Jenkins vs GitHub Actions",
-    "file": "pdf-42-cicd-decision-guide.html",
-    "category": "Roadmap",
-    "difficulty": "Intermediate",
-    "description": "Choose (or combine) platforms: governance, cadence, extensibility, hosting, AI — with decision framework, gut-check table, and hybrid topology.",
-    "time_minutes": 30,
-    "prereqs": [
-      "jenkins-roadmap-2026",
-      "github-actions-roadmap-2026"
-    ],
-    "outcomes": [
-      "Compare Jenkins vs Actions across 10 dimensions",
-      "Apply decision framework for your constraints",
-      "Design hybrid trigger/executor topology"
-    ],
-    "tags": [
-      "roadmap",
-      "decision",
-      "jenkins",
-      "github",
-      "platform-choice"
-    ],
-    "path": "roadmap",
-    "updated": "2026-09-14",
-    "version": "1.0"
-  },
-  {
-    "id": "jenkins-lab-webhook",
-    "title": "Lab J-01 · Jenkins: Automated Integration Foundations",
-    "file": "pdf-jenkins-lab-01-webhook.html",
-    "category": "Labs",
-    "difficulty": "Intermediate",
-    "description": "Build a reliable automated integration trigger from source change through Jenkins verification and feedback.",
-    "time_minutes": 45,
-    "prereqs": ["jenkins-setup", "jenkins-pipelines"],
-    "outcomes": ["Configure webhook delivery", "Trigger Jenkins from GitHub", "Diagnose webhook failures"],
-    "tags": ["jenkins", "github", "webhook", "lab"],
-    "path": "labs",
-    "updated": "2026-09-14",
-    "version": "1.0"
-  },
-  {
-    "id": "jenkins-lab-docker",
-    "title": "Lab J-02 · Jenkins: Container Delivery",
-    "file": "pdf-jenkins-lab-02-docker.html",
-    "category": "Labs",
-    "difficulty": "Intermediate",
-    "description": "Design, secure, and verify container delivery from build architecture through authenticated registry release.",
-    "time_minutes": 50,
-    "prereqs": ["jenkins-lab-webhook", "artifacts"],
-    "outcomes": ["Build Docker images", "Push to Docker Hub", "Deploy from a Jenkins pipeline"],
-    "tags": ["jenkins", "docker", "dockerhub", "lab"],
-    "path": "labs",
-    "updated": "2026-09-14",
-    "version": "1.0"
-  },
-  {
-    "id": "jenkins-lab-multibranch",
-    "title": "Lab J-03 · Jenkins: Multibranch Foundations",
-    "file": "pdf-jenkins-lab-03-multibranch.html",
-    "category": "Labs",
-    "difficulty": "Intermediate",
-    "description": "Create a branch-aware Jenkins flow that discovers branches, applies filters, and verifies isolated pipeline behavior.",
-    "time_minutes": 45,
-    "prereqs": ["jenkins-lab-docker", "git-branching"],
-    "outcomes": ["Create a multibranch job", "Filter branch discovery", "Validate branch-specific builds"],
-    "tags": ["jenkins", "git", "multibranch", "lab"],
-    "path": "labs",
-    "updated": "2026-09-14",
-    "version": "1.0"
-  },
-  {
-    "id": "jenkins-lab-shared-library",
-    "title": "Lab J-04 · Jenkins: Reusable Pipeline Logic",
-    "file": "pdf-jenkins-lab-04-shared-library.html",
-    "category": "Labs",
-    "difficulty": "Advanced",
-    "description": "Design, register, version, and consume reusable Jenkins pipeline logic as a shared library.",
-    "time_minutes": 55,
-    "prereqs": ["jenkins-lab-multibranch", "groovy"],
-    "outcomes": ["Create shared library structure", "Call reusable pipeline steps", "Version pipeline logic in GitHub"],
-    "tags": ["jenkins", "groovy", "shared-library", "lab"],
-    "path": "labs",
-    "updated": "2026-09-14",
-    "version": "1.0"
-  },
-  {
-    "id": "jenkins-lab-terraform-floci",
-    "title": "Lab J-05 · Jenkins: The Infrastructure Pipeline",
-    "file": "pdf-jenkins-lab-05-terraform-floci.html",
-    "category": "Labs",
-    "difficulty": "Advanced",
-    "description": "Turn infrastructure changes into a gated pipeline with planning, approval, apply, and recovery evidence.",
-    "time_minutes": 60,
-    "prereqs": ["jenkins-lab-shared-library", "iac"],
-    "outcomes": ["Run Terraform plan/apply", "Gate infrastructure changes", "Track FLOCI deployment evidence"],
-    "tags": ["jenkins", "terraform", "floci", "iac", "lab"],
-    "path": "labs",
-    "updated": "2026-09-14",
-    "version": "1.0"
-  },
-  {
-    "id": "jenkins-labs",
-    "title": "Jenkins Labs: Complete Sequence",
-    "file": "pdf-jenkins-labs.html",
-    "category": "Labs",
-    "difficulty": "Advanced",
-    "description": "Consolidated Jenkins lab sequence covering webhooks, Docker, multibranch, shared libraries, and Terraform on FLOCI.",
-    "time_minutes": 180,
-    "prereqs": ["jenkins-lab-terraform-floci"],
-    "outcomes": ["Practice the Jenkins lab sequence", "Connect trigger, build, deploy, and IaC workflows", "Use the labs as one field manual"],
-    "tags": ["jenkins", "labs", "docker", "terraform", "github"],
-    "path": "labs",
-    "updated": "2026-09-14",
-    "version": "1.0"
   }
 ]

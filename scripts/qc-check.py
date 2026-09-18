@@ -59,7 +59,35 @@ def parity():
             flag(f"reader missing for: {b['id']}")
     pdfs = {os.path.basename(f) for f in glob.glob(os.path.join(ROOT, "pdf/*.html"))}
     manifest_files = {b["file"] for b in books}
-    for orphan in pdfs - manifest_files:
+    # Retired single-edition sources: kept on disk as merge inputs for the
+    # pdf-merged-* omnibus files (and the pdf/series/ builder). Not orphans.
+    RETIRED_MEMBERS = {
+        "pdf-01-foundations.html", "pdf-02-git-branching-pull-requests.html",
+        "pdf-21-continuous-integration.html", "pdf-03-pipelines.html",
+        "pdf-22-build-systems.html", "pdf-23-testing-strategy.html",
+        "pdf-05-continuous-delivery.html", "pdf-24-continuous-deployment.html",
+        "pdf-25-environments-release.html", "pdf-39-iac-environments.html",
+        "pdf-06-observability-feedback.html", "pdf-27-rollback-recovery.html",
+        "pdf-26-cicd-security.html", "pdf-07-jenkins-domain.html",
+        "pdf-08-jenkins-architecture.html", "pdf-09-jenkins-setup.html",
+        "pdf-10-jenkins-pipelines.html", "pdf-12-jenkins-agents.html",
+        "pdf-11-groovy-cheatsheet.html", "pdf-13-jenkins-credentials.html",
+        "pdf-14-jenkins-plugins.html", "pdf-15-jenkins-webhooks.html",
+        "pdf-16-jenkins-security.html", "pdf-17-jenkins-advanced.html",
+        "pdf-18-jenkins-troubleshooting.html", "pdf-37-gitlab-ci.html",
+        "pdf-38-argocd-gitops.html", "pdf-28-pipeline-labs.html",
+        "pdf-30-artifacts-deployment.html", "pdf-32-rollback-jenkins.html",
+        "pdf-34-governance-recovery.html",
+        "pdf-jenkins-lab-01-webhook.html", "pdf-jenkins-lab-02-docker.html",
+        "pdf-jenkins-lab-03-multibranch.html",
+        "pdf-jenkins-lab-04-shared-library.html",
+        "pdf-jenkins-lab-05-terraform-floci.html",
+        "pdf-jenkins-labs.html",
+        "pdf-40-jenkins-roadmap-2026.html",
+        "pdf-41-github-actions-roadmap-2026.html",
+        "pdf-42-cicd-decision-guide.html",
+    }
+    for orphan in pdfs - manifest_files - RETIRED_MEMBERS:
         flag(f"pdf not in manifest: {orphan}")
 
 
@@ -84,6 +112,12 @@ def pdfs_qc():
                 flag(f"{n}: bad asset {s}")
         npages = h.count('class="page cover"') + h.count('class="page opener"') + h.count('class="page"')
         feet = re.findall(r'<div class="pfoot">.*?(\d+) / (\d+)</span></div>', h, re.S)
+        # Merged omnibus files concatenate member chapters that keep their own
+        # page footers by design (same convention as pdf/series/). Skip the
+        # single-edition footer sequence/total check for them; the website
+        # reader strips print footers and is separately verified.
+        if n.startswith("pdf-merged-"):
+            feet = []
         if feet:
             seq = [int(a) for a, _b in feet]
             totals = {int(b) for _a, b in feet}

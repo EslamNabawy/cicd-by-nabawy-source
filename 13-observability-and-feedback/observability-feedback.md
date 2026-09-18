@@ -20,7 +20,7 @@ related:
 Picking up from **[Continuous Delivery](../07-continuous-delivery/continuous-delivery.md)**, where the digest reached production — we now watch what it does there and feed the lessons back.
 
 - **Observability:** logs (events), metrics (numbers over time), traces (request paths) answering "what is production doing?"
-- **Feedback:** every signal returned to the author: PR check results, staging smoke verdicts, prod alerts, DORA trends (DORA = DevOps Research & Assessment; its four delivery signals are listed in §7).
+- **Feedback:** every signal returned to the author: PR check results, staging smoke verdicts, prod alerts, DORA trends (DORA = DevOps Research & Assessment; its four delivery signals are listed in Section 7).
 
 ## 2. Why Does It Exist?
 
@@ -87,7 +87,7 @@ v1.4.2 deploys to production (SHA-labeled)
 | Change-fail rate | < 15% | Better PR gates, [canary](../10-deployment-strategies/deployment-strategies.md), flags |
 | MTTR | < 1 hour | Version labels, practiced rollback, clear on-call |
 
-Measure monthly, review with leads, improve one signal at a time. DORA classifies; it doesn't fix — the pipeline changes in §4 do.
+Measure monthly, review with leads, improve one signal at a time. DORA classifies; it doesn't fix — the pipeline changes in Section 4 do.
 
 ## 8. Interview / Exam Notes
 

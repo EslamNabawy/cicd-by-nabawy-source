@@ -16,43 +16,30 @@ CI-CD/
 ├── WEBSITE_BUILD_SPEC.md   ← website spec (drives website/dist)
 ├── ICON_ASSET_SPEC.md      ← icon discovery + asset rules (live: governs every PDF/website build)
 ├── CONTENT_CONNECTIVITY_PROMPT.md ← handoff-rewrite prompt (applied across all 19 content files)
-├── 00-foundations/           [cicd-overview.md]
-├── 01-source-control/        [git-branching-pull-requests.md]
-├── 02-continuous-integration/ [continuous-integration.md]
-├── 03-build-systems/          [build-systems.md]
-├── 04-testing/                [testing-strategy.md]
-├── 05-artifacts-and-packaging/ [artifact-management.md]
-├── 06-ci-cd-pipelines/       [pipelines.md]
-├── 07-continuous-delivery/   [continuous-delivery.md]
-├── 08-continuous-deployment/ [continuous-deployment.md]
-├── 09-environments-and-release/ [environments-release.md]
-├── 10-deployment-strategies/ [deployment-strategies.md]
-├── 11-security/               [cicd-security.md]
-├── 13-observability-and-feedback/ [observability-feedback.md]
-├── 14-reliability-and-recovery/ [rollback-recovery.md]
-├── 16-labs/                   [01-first-pipeline → 08-jenkins-backup-restore]
-├── 17-reference/               [command-cheatsheet.md]
+├── 00-foundations/           [start-here-merged.md ← cicd-overview + git-branching + CI]
+├── 06-ci-cd-pipelines/       [pipelines-build-test.md ← pipelines + build-systems + testing]
+├── 05-artifacts-and-packaging/ [artifact-management.md — standalone]
+├── 07-continuous-delivery/   [delivery-envs-iac.md ← delivery + deployment + envs + iac]
+├── 10-deployment-strategies/ [deployment-strategies.md — standalone]
+├── 13-observability-and-feedback/ [observe-recover-secure.md ← observability + rollback + security]
+├── 16-labs/                   [core-labs-handbook.md ← 01-first-pipeline → 08-jenkins-backup-restore]
+├── jenkins labs/              [JENKINS_LABS_HANDBOOK.md ← 5 lab sources]
+├── 17-reference/               [command-cheatsheet.md — standalone]
 └── 15-platforms-and-tools/
-    ├── github-actions.md
-    └── jenkins/              [12 files, see below]
+    ├── github-actions.md     — standalone
+    ├── gitlab-argocd.md      ← gitlab-ci + argocd-gitops
+    └── jenkins/              [jenkins-core-merged.md (5) + jenkins-advanced-ops.md (7), see below]
+> Member sources (pre-merge files) remain on disk as merge inputs. Merged
+> files are canonical for website (`books.json`) and reader (`MD_MAP`).
 ```
 
-## Jenkins Domain (Exists)
+## Jenkins Domain (Merged 2026-09-17 — 12 files → 2 handbooks)
 
 ```text
 15-platforms-and-tools/jenkins/
-├── README.md                 domain index + concept→Jenkins map
-├── jenkins-architecture.md
-├── jenkins-setup.md
-├── jenkins-pipelines.md
-├── jenkins-groovy-cheatsheet.md
-├── jenkins-agents.md
-├── jenkins-credentials.md
-├── jenkins-plugins.md
-├── jenkins-webhooks.md
-├── jenkins-security.md
-├── jenkins-advanced.md
-└── jenkins-troubleshooting.md
+├── jenkins-core-merged.md    ← README + architecture + setup + pipelines + agents
+└── jenkins-advanced-ops.md   ← groovy + credentials + plugins + webhooks + security + advanced + troubleshooting
+(member sources retained on disk as merge inputs)
 ```
 
 ## Planned (Not Yet on Disk)
