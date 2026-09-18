@@ -1300,7 +1300,7 @@ def build():
                  f'<div class="pathgrid" data-testid="learning-paths">{cards}</div>')
         return f'<div id="{wrap_id}">{inner}</div>' if wrap_id else inner
 
-    build_map_page(books, DIST, paths_html=paths_section_html(wrap_id="mapPaths"))
+    build_map_page(books, DIST)
     build_roadmap_page(books, DIST)
     # shared icon library: single source (KB assets) copied into dist
     shutil.rmtree(os.path.join(DIST, "assets"), ignore_errors=True)
