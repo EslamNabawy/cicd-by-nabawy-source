@@ -137,7 +137,7 @@ def build_threads_page(books, output_dir, env, threads, tindex):
             '<a class="logo" href="../index.html" style="color:inherit">CICD<span> BY Nabawy</span></a>'
             '<nav class="crumbs"><span class="sep">/</span><span class="here">Threads</span></nav>'
             '<a class="btn" href="../index.html" style="text-decoration:none">Home</a>'
-            '<a class="btn" href="../glossary.html" style="text-decoration:none">Glossary</a>'
+            '<a class="btn" href="../glossary.html" style="text-decoration:none">Study Deck</a>'
             '<a class="btn" href="../tools/" style="text-decoration:none">Tools</a>'
             '<button class="btn" id="themebtn" aria-label="Toggle theme">X</button>'
             '</div></header><div class="wrap">'
@@ -150,7 +150,7 @@ def build_threads_page(books, output_dir, env, threads, tindex):
             '<div id="graphwrap">' + svg +
             '<p class="sub">Scroll to zoom - drag to pan - double-click to reset.</p></div>'
             + ''.join(secs) +
-            '</div><footer><div class="wrap"><span>CICD BY Nabawy</span><span><a href="../index.html">Home</a> · <a href="../glossary.html">Glossary</a> · <a href="../tools/">Tools</a></span></div></footer>'
+            '</div><footer><div class="wrap"><span>CICD BY Nabawy</span><span><a href="../index.html">Home</a> · <a href="../glossary.html">Study Deck</a> · <a href="../tools/">Tools</a></span></div></footer>'
             '<script>'
             + THEME_JS +
             "const _tq=document.querySelector('#tq');if(_tq)_tq.addEventListener('input',e=>{const q=e.target.value.toLowerCase();document.querySelectorAll('.thread-grid .thread-card').forEach(c=>{c.style.display=c.textContent.toLowerCase().includes(q)?'':'none';});document.querySelectorAll('section[id]').forEach(s=>{const t=s.textContent.toLowerCase().includes(q);s.style.display=t?'':'none';});});" +
@@ -300,14 +300,14 @@ try{const _m=location.hash.match(/^#r=([a-z,0-9:]+)$/);if(_m){_m[1].split(',').f
             '<a class="logo" href="../index.html" style="color:inherit">CICD<span> BY Nabawy</span></a>'
             '<nav class="crumbs"><span class="sep">/</span><span class="here">Tools</span></nav>'
             '<a class="btn" href="../index.html" style="text-decoration:none">Home</a>'
-            '<a class="btn" href="../glossary.html" style="text-decoration:none">Glossary</a>'
+            '<a class="btn" href="../glossary.html" style="text-decoration:none">Study Deck</a>'
             '<a class="btn" href="../threads/" style="text-decoration:none">Threads</a>'
             '<button class="btn" id="themebtn" aria-label="Toggle theme">X</button>'
             '</div></header><div class="wrap">'
             '<div class="hero" style="padding:36px 24px 16px"><span class="eyebrow">TOOLS</span>'
             '<h1>Which tool fits?</h1><p>' + str(len(QUESTIONS)) + ' questions. Ranked answers with reasons, study threads, and deep links.</p></div>'
             "<div id='quiz'>" + ''.join(qhtml) + "</div><div id='result'></div>" + catalog_html +
-            '</div><footer><div class="wrap"><span>CICD BY Nabawy</span><span><a href="../index.html">Home</a> · <a href="../glossary.html">Glossary</a> · <a href="../threads/">Threads</a></span></div></footer>'
+            '</div><footer><div class="wrap"><span>CICD BY Nabawy</span><span><a href="../index.html">Home</a> · <a href="../glossary.html">Study Deck</a> · <a href="../threads/">Threads</a></span></div></footer>'
             '<script>'
             + THEME_JS + js_vars + quiz_js +
             '</script></body></html>')

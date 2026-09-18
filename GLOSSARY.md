@@ -51,3 +51,23 @@
 | Shared Library | Versioned reusable pipeline code (`vars/`) consumed by N pipelines | [Lab 07](16-labs/07-jenkins-shared-library.md) |
 | Smoke Test | Minimal post-deploy probe proving the app answers | [Testing Strategy](04-testing/testing-strategy.md) |
 | Step | Individual operation inside a job | [CI/CD Pipelines](06-ci-cd-pipelines/pipelines.md) |
+| Trunk-Based Development | Small, frequent merges to main with feature flags; releasable always | [Continuous Integration](02-continuous-integration/continuous-integration.md) |
+| GitOps | Already listed above — git as source of truth for cluster state | [ArgoCD & GitOps](15-platforms-and-tools/argocd-gitops.md) |
+| Helm Chart | Versioned, templated Kubernetes manifests with per-env values | [ArgoCD & GitOps](15-platforms-and-tools/argocd-gitops.md) |
+| Docker Image | Frozen filesystem plus metadata; the artifact that moves through envs | [Artifact Management](05-artifacts-and-packaging/artifact-management.md) |
+| Kubernetes (K8s) | Container orchestrator: desired-state scheduler for pods and services | [ArgoCD & GitOps](15-platforms-and-tools/argocd-gitops.md) |
+| Terraform | IaC tool that declares envs; plan is the review, apply is gated | [IaC for Environments](12-infrastructure-and-configuration/iac-environments.md) |
+| Loki | Log aggregation indexed by labels; cheap exact-error forensics | [Observability & Feedback](13-observability-and-feedback/observability-feedback.md) |
+| Prometheus | Metrics engine that scrapes time series and alerts on burn rate | [Observability & Feedback](13-observability-and-feedback/observability-feedback.md) |
+| Grafana | Unified dashboards over Loki and Prometheus with deploy annotations | [Observability & Feedback](13-observability-and-feedback/observability-feedback.md) |
+| ArgoCD | GitOps operator that pulls manifests into clusters with sync waves | [ArgoCD & GitOps](15-platforms-and-tools/argocd-gitops.md) |
+| Immutable Artifact | Digest-pinned output that never changes after build | [Artifact Management](05-artifacts-and-packaging/artifact-management.md) |
+| Provenance | Signed attestation proving who built what, when, from which commit | [Artifact Management](05-artifacts-and-packaging/artifact-management.md) |
+| Cosign | Tool that signs and verifies artifact signatures | [Artifact Management](05-artifacts-and-packaging/artifact-management.md) |
+| SLSA | Framework for supply-chain levels of assurance | [Artifact Management](05-artifacts-and-packaging/artifact-management.md) |
+| Canary Analysis | Automated promotion decision based on golden signals | [Deployment Strategies](10-deployment-strategies/deployment-strategies.md) |
+| Rollback Window | Time after deploy when revert is safe without data migration | [Rollback & Recovery](14-reliability-and-recovery/rollback-recovery.md) |
+| Drift | Live state that no longer matches declared git or IaC | [IaC for Environments](12-infrastructure-and-configuration/iac-environments.md) |
+| Sealed Secret | Encrypted secret safe to store in git; decrypted in cluster | [ArgoCD & GitOps](15-platforms-and-tools/argocd-gitops.md) |
+| BuildKit | Fast, cached, hermetic Docker build engine | [CI/CD Pipelines](06-ci-cd-pipelines/pipelines.md) |
+| OIDC | OpenID Connect: short-lived identity tokens for keyless auth in CI | [CI/CD Pipelines](06-ci-cd-pipelines/pipelines.md) |

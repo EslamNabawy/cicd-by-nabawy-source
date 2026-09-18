@@ -1048,7 +1048,7 @@ def build_map_page(books, output_dir, paths_html=""):
 <a class="logo" href="index.html" style="color:inherit"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="5" cy="12" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="6" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="18" r="2.6" stroke="#18E299" stroke-width="2"/><path d="M7.6 12h5.2m0 0-2.6-2.6m2.6 2.6-2.6 2.6M13.4 7.4l2.8-1M13.4 16.6l2.8 1" stroke="#18E299" stroke-width="2" stroke-linecap="round"/></svg>CICD<span> BY Nabawy</span></a>
 <div class="search"><div class="searchwrap"><input id="q" type="search" placeholder="Search all {len(books)} books…" autocomplete="off"><div class="searchdrop" id="qdrop" role="listbox"></div></div><kbd>⌘K</kbd></div>
 <a class="btn" href="index.html" aria-current="page" style="text-decoration:none;border-color:var(--brand);color:var(--brand)">Home</a>
-<a class="btn" href="glossary.html" style="text-decoration:none">Glossary</a>
+<a class="btn" href="glossary.html" style="text-decoration:none">Study Deck</a>
 <a class="btn" href="threads/" style="text-decoration:none">Threads</a>
 <a class="btn" href="tools/" style="text-decoration:none">Tools</a>
 <button class="btn" id="themebtn" aria-label="Toggle theme">☀</button>
@@ -1059,7 +1059,7 @@ def build_map_page(books, output_dir, paths_html=""):
 <div class="hm-kick">CICD BY Nabawy · SIGNAL SERIES</div>
 <h1>The CI/CD Library</h1>
 <p class="hm-sub"><b>CI/CD</b> is the automated path from <b>commit → build → test → release → production</b>, creating a continuous feedback loop between development and operations.</p>
-<p class="hm-about">This library brings together <b>{len(books)} focused handbooks</b> covering Git &amp; CI, pipelines, Jenkins, deployment, observability, modern platforms, hands-on labs, and essential command references. Pick a row to start reading — or follow a <a href="threads/">thread</a>, <a href="tools/">rank your stack</a>, or <a href="glossary.html">look up a term</a>.</p>
+<p class="hm-about">This library brings together <b>{len(books)} focused handbooks</b> covering Git &amp; CI, pipelines, Jenkins, deployment, observability, modern platforms, hands-on labs, and essential command references. Pick a row to start reading — or follow a <a href="threads/">thread</a>, <a href="tools/">rank your stack</a>, or open the <a href="glossary.html">Study Deck</a>.</p>
 </div>
 <div class="hm-label" aria-hidden="true"><span>CONTENTS</span><span>{len(shown_cats)} BOOKS</span></div>
 <div class="hm-list" id="mapGrid" role="list" aria-label="Library contents">{blocks_html}</div>
@@ -1073,7 +1073,7 @@ def build_map_page(books, output_dir, paths_html=""):
 <div class="empty" id="mapEmpty" style="display:none"><p>That link doesn't match a category. Jump straight to one:</p><div class="empty-cats">{empty_chips}</div><a href="index.html">Back to overview</a></div>
 </div>
 <a id="resume" style="display:none"></a>
-<footer><div class="wrap"><span>CICD BY Nabawy</span><span><a href="index.html">Home</a> · <a href="glossary.html">Glossary</a> · v2.1 Sep 2026</span></div></footer>
+<footer><div class="wrap"><span>CICD BY Nabawy</span><span><a href="index.html">Home</a> · <a href="glossary.html">Study Deck</a> · v2.1 Sep 2026</span></div></footer>
 <script>
 (function(){{
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
@@ -1205,7 +1205,7 @@ def build_roadmap_page(books, output_dir):
 <nav class="crumbs"><span class="sep">/</span><span class="here">Roadmap</span></nav>
 <div class="search"></div>
 <a class="btn" href="../index.html" style="text-decoration:none">Home</a>
-<a class="btn" href="../glossary.html" style="text-decoration:none">Glossary</a>
+<a class="btn" href="../glossary.html" style="text-decoration:none">Study Deck</a>
 <a class="btn" href="../threads/" style="text-decoration:none">Threads</a>
 <a class="btn" href="../tools/" style="text-decoration:none">Tools</a>
 <button class="btn" id="themebtn" aria-label="Toggle theme">☀</button>
@@ -1739,7 +1739,8 @@ body.fs .readbody{{max-width:880px}}
     for k, v in MD_MAP.items():
         for _vv in (v if isinstance(v, list) else [v]):
             MD_INV.setdefault(_vv, k)
-    grows = ""
+    cards = ""
+    qterms = []
     first_by_letter = {}
     _curL = ""
     for t, d, r in rows:
@@ -1751,37 +1752,59 @@ body.fs .readbody{{max-width:880px}}
         _L = re.sub(r"^[^A-Za-z0-9]*", "", t).strip()[:1].upper() or "#"
         if _L not in first_by_letter:
             first_by_letter[_L] = slug
-        if _L != _curL:
-            _curL = _L
-            grows += f'<tr class="gletter" data-letter="{_L}"><td colspan="4"><b>{_L}</b></td></tr>'
         rm = re.match(r"\[([^]]+)\]\(([^)]+)\)", r.strip())
         if rm:
             rlabel, rpath = rm.group(1), rm.group(2)
             rid = MD_INV.get(rpath)
             topic = f'<a href="read/{rid}.html">{html.escape(rlabel)}</a>' if rid else html.escape(rlabel)
+            rl = rlabel
         else:
-            topic = md_inline(r.strip())
-        grows += f'<tr id="g-{slug}" data-letter="{_L}"><td><b>{html.escape(t)}</b></td><td>{html.escape(d.strip())}</td><td>{topic}</td><td><a href="#g-{slug}" title="Permalink">¶</a></td></tr>'
+            topic = md_inline(r.strip()); rl = r.strip()
+        esc_t = html.escape(t); esc_d = html.escape(d.strip())
+        # flip card: front = term, back = definition + topic + link
+        cards += f'<article class="fcard" id="g-{slug}" data-term="{esc_t.lower()}" data-letter="{_L}" aria-label="{esc_t}"><div class="fcard-inner"><div class="fcard-front"><b>{esc_t}</b><span class="fcat">{html.escape(rl[:28])}</span><span class="fcta">tap to flip →</span></div><div class="fcard-back"><p>{esc_d}</p><p class="fmeta">{topic} · <a href="#g-{slug}" title="Permalink">¶</a></p><p><button class="btn fbtn" data-ok="{slug}">Got it ✓</button> <button class="btn fbtn" data-hard="{slug}">Hard ✗</button></p></div></div></article>'
+        qterms.append((t, d.strip()))
     _az = "".join(f'<a href="#g-{first_by_letter[L]}">{L}</a>' if L in first_by_letter else f'<span class="dim">{L}</span>' for L in [chr(c) for c in range(65, 91)])
+    _qjson = json.dumps([[html.escape(t), html.escape(d)] for t, d in qterms], ensure_ascii=False)
     gloss = f"""<!DOCTYPE html>
 <html lang="en">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<title>Glossary — CICD BY Nabawy</title>{seo_tags("Glossary — CICD BY Nabawy", "CI/CD glossary: terms shared by all books, reader and search.", f"{SITE_URL}/glossary.html")}<style>{BASE_CSS}</style><script>try{{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}}catch(e){{document.documentElement.dataset.theme='sepia'}}</script></head>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>Study Deck — CICD BY Nabawy</title>{seo_tags("Study Deck — CICD BY Nabawy", "Flip cards and quizzes for every CI/CD term — study, test recall, jump to sheets.", f"{SITE_URL}/glossary.html")}<style>{BASE_CSS}
+.fgrid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin:14px 0}}
+.fcard{{perspective:900px;cursor:pointer;min-height:150px}}
+.fcard-inner{{position:relative;width:100%;height:150px;transition:transform .45s;transform-style:preserve-3d}}
+.fcard.flipped .fcard-inner{{transform:rotateY(180deg)}}
+.fcard-front,.fcard-back{{position:absolute;inset:0;display:flex;flex-direction:column;gap:6px;padding:16px;border:1px solid var(--line-soft);border-radius:14px;background:var(--card);backface-visibility:hidden}}
+.fcard-back{{transform:rotateY(180deg);overflow:auto}}
+.fcard-front b{{font-size:16px}}.fcard-front .fcat{{font-size:12px;color:var(--mut)}}.fcard-front .fcta{{margin-top:auto;font-size:11px;color:var(--brand)}}
+.fcard-back p{{font-size:13px;color:var(--mut);margin:0}}.fcard-back .fmeta{{font-size:11px}}
+.fcard.mastered{{opacity:.45}}.fcard.hard{{border-color:var(--red)}}
+.qbox{{max-width:640px;margin:18px auto;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;text-align:center}}
+.qbox .opts{{display:grid;gap:8px;margin-top:12px;text-align:left}}.qbox .opts .btn{{justify-content:flex-start;min-height:44px}}
+</style><script>try{{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}}catch(e){{document.documentElement.dataset.theme='sepia'}}</script></head>
 <body>
 <header class="top"><div class="wrap"><a class="logo" href="index.html" style="text-decoration:none;color:inherit"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="5" cy="12" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="6" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="18" r="2.6" stroke="#18E299" stroke-width="2"/><path d="M7.6 12h5.2m0 0-2.6-2.6m2.6 2.6-2.6 2.6M13.4 7.4l2.8-1M13.4 16.6l2.8 1" stroke="#18E299" stroke-width="2" stroke-linecap="round"/></svg>CICD<span> BY Nabawy</span></a>
-<div class="search"><input id="q" type="search" placeholder="Filter terms…"></div><a class="btn" href="index.html" style="text-decoration:none">Home</a><a class="btn" href="threads/" style="text-decoration:none">Threads</a><a class="btn" href="tools/" style="text-decoration:none">Tools</a><button class="btn" id="themebtn">☀</button></div></header>
-<div class="wrap"><h2 class="sec">Glossary</h2><p class="sub"><span id="gcount">{grows.count('<tr id="g-')}</span> terms · shared by books, reader and search</p>
-<div class="gtbar"><input id="q2" type="search" placeholder="Filter terms…" aria-label="Filter glossary terms"><nav class="az" aria-label="Jump to letter">{_az}</nav></div>
-<table class="gloss"><tr><th>Term</th><th>Definition</th><th>Topic</th><th>Link</th></tr>{grows}</table></div>
-<footer><div class="wrap"><span>CICD BY Nabawy</span><span><a href="index.html">Home</a> · <a href="threads/">Threads</a> · <a href="tools/">Tools</a></span></div></footer>
+<div class="search"><input id="q" type="search" placeholder="Filter cards…"></div><a class="btn" href="index.html" style="text-decoration:none">Home</a><a class="btn" href="threads/" style="text-decoration:none">Threads</a><a class="btn" href="tools/" style="text-decoration:none">Tools</a><button class="btn" id="themebtn">☀</button></div></header>
+<div class="wrap"><div class="hero" style="padding:28px 24px 14px"><span class="eyebrow">STUDY DECK</span><h1>Flip, recall, master.</h1><p><span id="gcount">{len(qterms)}</span> terms · flip to reveal · quiz to lock in · <span id="mcount">0 mastered</span> · <span id="hcount">0 hard</span></p></div>
+<div class="gtbar" style="position:sticky;top:57px;z-index:15;background:var(--bg);padding:10px 0 8px"><div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><input id="q2" type="search" placeholder="Filter cards…" aria-label="Filter cards" style="flex:1;min-width:180px;background:var(--card);border:1px solid var(--line);color:var(--ink);border-radius:9999px;padding:9px 14px"><button class="btn" id="shuffle">Shuffle</button><button class="btn" id="quizbtn">Quiz me</button><button class="btn" id="reset">Reset</button></div><nav class="az" aria-label="Jump to letter" style="margin-top:8px">{_az}</nav></div>
+<div id="qbox" hidden></div>
+<div class="fgrid" id="fgrid">{cards}</div></div>
+<footer><div class="wrap"><span>CICD BY Nabawy</span><span><a href="index.html">Home</a> · <a href="glossary.html">Study Deck</a> · <a href="threads/">Threads</a> · <a href="tools/">Tools</a></span></div></footer>
 <script>{BASE_JS}
-function gfilter(el){{const q=(el.value||'').toLowerCase();let n=0,tot=0;const vis={{}};
-$$('table.gloss tr').forEach((r,i)=>{{if(!i)return;if(r.classList.contains('gletter'))return;tot++;const ok=r.textContent.toLowerCase().includes(q);r.style.display=ok?'':'none';if(ok){{n++;vis[r.dataset.letter]=1}}}});
-$$('table.gloss tr.gletter').forEach(r=>{{r.style.display=(!q||vis[r.dataset.letter])?'':'none'}});
-const c=$('#gcount');if(c)c.textContent=(q?n+' / '+tot:tot);}};
+const TERMS={_qjson};
+function gfilter(el){{const q=(el.value||'').toLowerCase();
+$$('.fcard').forEach(c=>{{c.style.display=c.dataset.term.includes(q)||c.textContent.toLowerCase().includes(q)?'':'none'}});
+const cc=$$('.fcard').filter(c=>c.style.display!=='none').length;const tot={len(qterms)};const g=$('#gcount');if(g)g.textContent=q?cc+' / '+tot:tot;}};
 $('#q').addEventListener('input',e=>gfilter(e.target));const _q2=$('#q2');if(_q2)_q2.addEventListener('input',e=>gfilter(e.target));
+$$('.fcard').forEach(c=>{{c.addEventListener('click',e=>{{if(e.target.closest('button'))return;c.classList.toggle('flipped');}});}});
+const KEY='cicdlib:deck:';function load(k){{try{{return JSON.parse(localStorage.getItem(KEY+k))}}catch(e){{return null}}}};function save(k,v){{try{{localStorage.setItem(KEY+k,JSON.stringify(v))}}catch(e){{}}}};function sync(){{let m=0,h=0;$$('.fcard').forEach(c=>{{const s=c.id.slice(2);const v=load(s);c.classList.toggle('mastered',v==='ok');c.classList.toggle('hard',v==='hard');if(v==='ok')m++;if(v==='hard')h++;}});const mc=$('#mcount');if(mc)mc.textContent=m+' mastered';const hc=$('#hcount');if(hc)hc.textContent=h+' hard';}};sync();
+$$('.fbtn[data-ok]').forEach(b=>b.addEventListener('click',e=>{{e.stopPropagation();save(b.dataset.ok,'ok');sync();}}));$$('.fbtn[data-hard]').forEach(b=>b.addEventListener('click',e=>{{e.stopPropagation();save(b.dataset.hard,'hard');sync();}}));
+$('#shuffle').onclick=()=>{{const g=$('#fgrid');[...g.children].sort(()=>Math.random()-.5).forEach(c=>g.appendChild(c));}};
+$('#reset').onclick=()=>{{$$('.fcard').forEach(c=>{{localStorage.removeItem(KEY+c.id.slice(2));}});sync();$$('.fcard').forEach(c=>c.classList.remove('flipped'));}};
+let _qi=0,_score=0,_qorder=[];function quiz(){{_qorder=[...TERMS].sort(()=>Math.random()-.5).slice(0,8);_qi=0;_score=0;showQ();}};function showQ(){{const qb=$('#qbox');if(_qi>=_qorder.length){{qb.innerHTML='<div class="qbox"><h3>Done — '+_score+' / '+_qorder.length+'</h3><p><button class="btn" onclick="document.getElementById(\\'qbox\\').hidden=true">Back to cards</button> <button class="btn" onclick="quiz()">Again</button></p></div>';qb.hidden=false;window.scrollTo({{top:qb.offsetTop-80}});return;}};const cur=_qorder[_qi];const opts=[cur[1]];while(opts.length<4){{const r=TERMS[Math.floor(Math.random()*TERMS.length)][1];if(!opts.includes(r))opts.push(r);}};opts.sort(()=>Math.random()-.5);let html='<div class="qbox"><p class="sub">Question '+(_qi+1)+' / '+_qorder.length+' · score '+_score+'</p><h3>'+cur[0]+'</h3><div class="opts">'+opts.map(o=>'<button class="btn qo">'+o+'</button>').join('')+'</div><p><button class="btn" onclick="document.getElementById(\\'qbox\\').hidden=true">Exit quiz</button></p></div>';qb.innerHTML=html;qb.hidden=false;qb.querySelectorAll('.qo').forEach(b=>b.onclick=()=>{{const ok=b.textContent===cur[1];if(ok)_score++;b.style.borderColor=ok?'var(--brand)':'var(--red)';setTimeout(()=>{{_qi++;showQ();}},700);}});window.scrollTo({{top:qb.offsetTop-80}});}};$('#quizbtn').onclick=quiz;
 const THS=['sepia','dark','light'],THI={{dark:'☀',light:'☾',sepia:'◐'}};
 function syncTheme(){{const p=getP('cicdlib:pref',{{theme:'sepia'}});const th=THS.includes(p.theme)?p.theme:'sepia';document.documentElement.dataset.theme=th;const t=$('#themebtn');if(t)t.textContent=THI[th]||'☀'}}
 syncTheme();
@@ -1839,7 +1862,7 @@ $('#themebtn').onclick=()=>{{const p=getP('cicdlib:pref',{{theme:'sepia'}});p.th
     # --- P0: 404 + search index ---
     notfound = f"""<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><title>Not found — CICD BY Nabawy</title><link rel="icon" type="image/svg+xml" href="https://eslamnabawy.github.io/cicd-by-nabawy/favicon.svg"><meta name="theme-color" content="#0B0D10"><style>{BASE_CSS}</style><script>try{{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}}catch(e){{document.documentElement.dataset.theme='sepia'}}</script></head><body><div class="wrap" style="text-align:center;padding:80px 20px"><h1>Page not found</h1><p class="sub">Try search or start with Foundations.</p><p><a class="btn" href="index.html">Home</a> <a class="btn" href="read/start-here.html">Start here</a> <a class="btn" href="glossary.html">Glossary</a></p></div></body></html>"""
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><title>Not found — CICD BY Nabawy</title><link rel="icon" type="image/svg+xml" href="https://eslamnabawy.github.io/cicd-by-nabawy/favicon.svg"><meta name="theme-color" content="#0B0D10"><style>{BASE_CSS}</style><script>try{{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}}catch(e){{document.documentElement.dataset.theme='sepia'}}</script></head><body><div class="wrap" style="text-align:center;padding:80px 20px"><h1>Page not found</h1><p class="sub">Try search or start with Foundations.</p><p><a class="btn" href="index.html">Home</a> <a class="btn" href="read/start-here.html">Start here</a> <a class="btn" href="glossary.html">Study Deck</a></p></div></body></html>"""
     pathlib.Path(os.path.join(DIST, "404.html")).write_text(notfound, encoding="utf-8")
     pathlib.Path(os.path.join(DIST, "favicon.svg")).write_text(FAVICON_SVG, encoding="utf-8")
     search_idx = [{"id": b["id"], "title": b["title"], "desc": b.get("description", ""), "cat": b["category"], "dif": b["difficulty"], "tags": b.get("tags", []), "time": b.get("time_minutes", 30), "sections": all_sections.get(b["id"], []), "body": all_body.get(b["id"], "")[:2000]} for b in books]
