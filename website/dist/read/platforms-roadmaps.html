@@ -630,7 +630,7 @@ ul.tight li{margin-bottom:4px}
   --shadow:3px 3px 0 rgba(22,34,46,.10);
 }
 *{box-sizing:border-box; -webkit-print-color-adjust:exact; print-color-adjust:exact;}
-.readbody{margin:0;  font-family:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif; color:var(--ink);}
+.readbody{  font-family:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif; color:var(--ink);}
 @page{size:A4; margin:0;}
 .sheet{width:210mm; height:297mm; background:var(--bg); margin:9mm auto; padding:13mm 13mm 20mm; position:relative; border:1px solid var(--line2); page-break-after:always; overflow:hidden;}
 .sheet::before{content:''; position:absolute; top:0; left:0; right:0; height:7px; background:linear-gradient(90deg,var(--teal) 0 55%,var(--indigo) 55% 100%);}
@@ -1270,7 +1270,7 @@ Preview 6–9 mo  <span class="b">●</span> Native egress firewall (monitoring 
 
 
 </div></div>
-<div id="fsbar" hidden><button class="btn" id="fs-toc" aria-label="Open contents">☰</button><button class="btn" id="fs-theme" aria-label="Cycle theme">◐</button><span id="fs-prog">0%</span><button class="btn" id="fs-exit">⛶ Exit</button></div>
+<div id="fsbar" hidden><button class="btn" id="fs-toc" aria-label="Open contents">☰</button><button class="btn" id="fs-theme" aria-label="Cycle theme">◐</button><button class="btn" id="fs-dec" aria-label="Smaller text">A−</button><button class="btn" id="fs-inc" aria-label="Larger text">A+</button><span id="fs-prog">0%</span><button class="btn" id="fs-exit">⛶ Exit</button></div>
 <script>
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 function getP(k,d){try{const v=JSON.parse(localStorage.getItem(k));return v??d}catch(e){return d}}

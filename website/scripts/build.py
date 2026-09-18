@@ -855,11 +855,13 @@ def parse_book(path):
 
 def scope_css(css):
     """Keep print stylesheets inside the article: bare `body{}` becomes
-    `.readbody{}` (minus its page background), and `:root` variables move
-    onto `.readbody` so --ink/--line/--red never leak into site chrome."""
+    `.readbody{}` (minus page background and margin, so site centering wins),
+    and `:root` variables move onto `.readbody` so --ink/--line/--red never
+    leak into site chrome."""
     css = re.sub(
         r"(?<![.\w#-])body\s*\{([^}]*)\}",
-        lambda m: ".readbody{" + re.sub(r"background\s*:[^;]+;?", "", m.group(1)) + "}",
+        lambda m: ".readbody{" + re.sub(r"background\s*:[^;]+;?", "",
+                  re.sub(r"(?<![\w-])margin\s*:[^;]+;?", "", m.group(1))) + "}",
         css,
     )
     return css.replace(":root", ".readbody")
@@ -1503,7 +1505,7 @@ body.fs .readbody{{max-width:880px}}
 
 
 </div></div>
-<div id="fsbar" hidden><button class="btn" id="fs-toc" aria-label="Open contents">☰</button><button class="btn" id="fs-theme" aria-label="Cycle theme">◐</button><span id="fs-prog">0%</span><button class="btn" id="fs-exit">⛶ Exit</button></div>
+<div id="fsbar" hidden><button class="btn" id="fs-toc" aria-label="Open contents">☰</button><button class="btn" id="fs-theme" aria-label="Cycle theme">◐</button><button class="btn" id="fs-dec" aria-label="Smaller text">A−</button><button class="btn" id="fs-inc" aria-label="Larger text">A+</button><span id="fs-prog">0%</span><button class="btn" id="fs-exit">⛶ Exit</button></div>
 <script>{READER_JS}</script>
 </body>
 </html>"""
