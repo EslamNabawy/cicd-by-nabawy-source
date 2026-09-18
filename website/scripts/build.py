@@ -362,6 +362,8 @@ table.gloss .upd{color:var(--brand);font-weight:700;font-size:11px;white-space:n
 .az span.dim{opacity:.3}
 table.gloss tr{scroll-margin-top:150px}
 table.gloss tbody tr:hover td{background:color-mix(in srgb,var(--brand) 6%,transparent)}
+table.gloss tr.gletter td{background:var(--bg2);font-family:var(--mono);font-size:12px;letter-spacing:.15em;border-top:2px solid var(--line)}
+table.gloss tr.gletter{scroll-margin-top:150px}
 table.gloss tr:target td{background:color-mix(in srgb,var(--brand) 12%,transparent)}
 .gtbar .az a:hover{border-color:var(--brand);color:var(--brand)}
 @media(max-width:600px){table.gloss,table.gloss tbody{display:block;width:100%;overflow:visible}table.gloss tr:first-child{display:none}table.gloss tr{display:block;background:var(--card);border:1px solid var(--line-soft);border-radius:12px;margin:0 0 10px;padding:12px 14px}table.gloss td{display:block;border:none;padding:3px 0}table.gloss td:first-child{font-size:16px}table.gloss td:last-child a{display:inline-block;padding:10px 16px;border:1px solid var(--line);border-radius:9999px}.gtbar input{min-height:44px;font-size:16px}.az a,.az span.dim{min-width:44px;height:44px}}
@@ -1013,6 +1015,14 @@ def build_map_page(books, output_dir, paths_html=""):
             f'</a>'
         )
     empty_chips = "".join(f'<a class="chip" href="read/{bid}.html">{html.escape(c)}</a>' for s, c, bid in cat_chips)
+    thread_chips = ""
+    try:
+        _ths = json.load(open(os.path.join(ROOT, "content", "threads.json"), encoding="utf-8"))
+        for _th in _ths:
+            thread_chips += (f'<a class="hm-vol" style="--cat:#0e7490" href="threads/#{html.escape(_th["id"])}">'
+                             f'<i aria-hidden="true"></i><span>{html.escape(_th["label"])}</span></a>')
+    except Exception:
+        thread_chips = ""
     series_links = ""
     for _p in sorted(glob.glob(os.path.join(PDF, "series", "*.html"))):
         _bn = os.path.basename(_p)
@@ -1059,6 +1069,8 @@ def build_map_page(books, output_dir, paths_html=""):
 <a class="hm-row hm-series" style="--cat:#18E299" href="#series-shelf" data-cat="Series" data-id="series" data-title="Series edition S01–S09" id="block-series" aria-label="Series edition, omnibus print edition parts 1 to 9"><span class="hm-num">09</span><span class="hm-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h8a2 2 0 012 2v12a2 2 0 01-2 2H6z"/><path d="M6 8h6"/><path d="M6 12h6"/></svg></span><span class="hm-main"><span class="hm-kicker">Omnibus</span><span class="hm-cat">Series edition S01–S09</span><span class="hm-desc">Read it as one book: foundations to labs in a single omnibus print edition.</span><span class="hm-pills"><span class="map-pill"><b>9</b> parts</span><span class="map-pill">omnibus</span><span class="map-pill">✓ verified 2026-09-18</span></span></span><span class="hm-go" aria-hidden="true">↓</span></a>
 <div class="hm-label" aria-hidden="true"><span>SERIES SHELF</span><span>OMNIBUS PRINT</span></div>
 <div class="hm-series-shelf" id="series-shelf">{series_links}</div>
+<div class="hm-label" aria-hidden="true"><span>START FROM A THREAD</span><span>9 IDEAS</span></div>
+<div class="hm-vols" style="justify-content:flex-start">{thread_chips}<a class="hm-vol" style="--cat:var(--brand)" href="threads/"><i aria-hidden="true"></i><span>All threads →</span></a></div>
 {paths_html}
 <div class="empty" id="mapEmpty" style="display:none"><p>That link doesn't match a category. Jump straight to one:</p><div class="empty-cats">{empty_chips}</div><a href="index.html">Back to overview</a></div>
 </div>
@@ -1717,6 +1729,7 @@ body.fs .readbody{{max-width:880px}}
             MD_INV.setdefault(_vv, k)
     grows = ""
     first_by_letter = {}
+    _curL = ""
     for t, d, r in rows:
         t = t.strip()
         if "Term" in t or "---" in t or t.lower() in seen:
@@ -1726,6 +1739,9 @@ body.fs .readbody{{max-width:880px}}
         _L = re.sub(r"^[^A-Za-z0-9]*", "", t).strip()[:1].upper() or "#"
         if _L not in first_by_letter:
             first_by_letter[_L] = slug
+        if _L != _curL:
+            _curL = _L
+            grows += f'<tr class="gletter" data-letter="{_L}"><td colspan="4"><b>{_L}</b></td></tr>'
         rm = re.match(r"\[([^]]+)\]\(([^)]+)\)", r.strip())
         if rm:
             rlabel, rpath = rm.group(1), rm.group(2)
@@ -1733,7 +1749,7 @@ body.fs .readbody{{max-width:880px}}
             topic = f'<a href="read/{rid}.html">{html.escape(rlabel)}</a>' if rid else html.escape(rlabel)
         else:
             topic = md_inline(r.strip())
-        grows += f'<tr id="g-{slug}"><td><b>{html.escape(t)}</b></td><td>{html.escape(d.strip())}</td><td>{topic}</td><td><a href="#g-{slug}" title="Permalink">¶</a></td></tr>'
+        grows += f'<tr id="g-{slug}" data-letter="{_L}"><td><b>{html.escape(t)}</b></td><td>{html.escape(d.strip())}</td><td>{topic}</td><td><a href="#g-{slug}" title="Permalink">¶</a></td></tr>'
     _az = "".join(f'<a href="#g-{first_by_letter[L]}">{L}</a>' if L in first_by_letter else f'<span class="dim">{L}</span>' for L in [chr(c) for c in range(65, 91)])
     gloss = f"""<!DOCTYPE html>
 <html lang="en">
@@ -1749,8 +1765,9 @@ body.fs .readbody{{max-width:880px}}
 <table class="gloss"><tr><th>Term</th><th>Definition</th><th>Topic</th><th>Link</th></tr>{grows}</table></div>
 <footer><div class="wrap"><span>CICD BY Nabawy</span><span><a href="index.html">Home</a> · <a href="threads/">Threads</a> · <a href="tools/">Tools</a></span></div></footer>
 <script>{BASE_JS}
-function gfilter(el){{const q=(el.value||'').toLowerCase();let n=0,tot=0;
-$$('table.gloss tr').forEach((r,i)=>{{if(!i)return;tot++;const ok=r.textContent.toLowerCase().includes(q);r.style.display=ok?'':'none';if(ok)n++}});
+function gfilter(el){{const q=(el.value||'').toLowerCase();let n=0,tot=0;const vis={{}};
+$$('table.gloss tr').forEach((r,i)=>{{if(!i)return;if(r.classList.contains('gletter'))return;tot++;const ok=r.textContent.toLowerCase().includes(q);r.style.display=ok?'':'none';if(ok){{n++;vis[r.dataset.letter]=1}}}});
+$$('table.gloss tr.gletter').forEach(r=>{{r.style.display=(!q||vis[r.dataset.letter])?'':'none'}});
 const c=$('#gcount');if(c)c.textContent=(q?n+' / '+tot:tot);}};
 $('#q').addEventListener('input',e=>gfilter(e.target));const _q2=$('#q2');if(_q2)_q2.addEventListener('input',e=>gfilter(e.target));
 const THS=['sepia','dark','light'],THI={{dark:'☀',light:'☾',sepia:'◐'}};
