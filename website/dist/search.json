@@ -15,6 +15,7 @@
   "sections": [
    "Cover — STARTHERE",
    "Cover — Table of Contents",
+   "Cover — 🗺️ The Map — The Whole Route",
    "1 1 / The CI/CD Lifecycle",
    "2 2 / How to read this manual",
    "3 3 / What Is Continuous Integration",
@@ -27,8 +28,7 @@
    "10 10 / From Push to Pipeline",
    "11 11 / Command and Result",
    "11.1 COMMAND",
-   "11.2 RESULT",
-   "12 12 / The Artifact Identity"
+   "11.2 RESULT"
   ],
   "body": "--- title: Start Here Merged status: complete merged_from: - 00-foundations/cicd-overview.md - 01-source-control/git-branching-pull-requests.md - 02-continuous-integration/continuous-integration.md --- Start Here Merged Merged handbook. Sources: 00-foundations/cicd-overview.md, 01-source-control/git-branching-pull-requests.md, 02-continuous-integration/continuous-integration.md. --- Part 1: CI/CD Overview CI/CD is the automated path from a developer's commit to verified, deployable software — Continuous Integration proves every change works, Continuous Delivery/Deployment ships it. 1. What Is It? Building on the big-picture overview above, we now define the three disciplines that make up CI/CD. - Continuous Integration CI : developers merge small changes frequently; each merge triggers an automated build + test + scan. Broken code is caught in minutes, not weeks. CI answers: does this change work? - Continuous Delivery: every change that passes CI is releasable — a human or policy decides when to deploy. Delivery answers: could users have it right now? Yes — at any time. - Continuous Deployment: every change that passes CI reaches production automatically no human gate . Deployment doesn't ask — it ships. CI Continuous Delivery Continuous Deployment --- --- --- --- Question Does it work? Could we ship it? — ships itself Trigger Commit / merge Validated artifact Validated artifact Human gate No Yes approval No Output Verified code Releasable artifact Production deployment 2. Why Does It Exist? Small batches, fast feedback, reproducible artifacts. A 20-line bug found by CI in 4 minutes costs almost nothing; the same bug surfacing after a month-long branch merge costs days. What Happens Without CI/CD? - Long-lived branches → merge hell. Weeks of divergent work collide at merge time; untangling conflicts takes days and reintroduces bugs. - \"Works on my machine\" releases. No reproducible build means testing one thing and shipping another — every deploy is a gamble. - Man"
  },
