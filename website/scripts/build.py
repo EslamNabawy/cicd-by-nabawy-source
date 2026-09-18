@@ -281,7 +281,6 @@ body.lock{overflow:hidden}
 @media(min-width:901px){body.toc-hide aside.toc{display:none}}
 #fsbar{display:none;position:fixed;left:50%;transform:translateX(-50%);bottom:max(14px,env(safe-area-inset-bottom));z-index:80;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:8px 10px;gap:5px;box-shadow:var(--shadow-lift);align-items:center;max-width:96vw}
 body.fs #fsbar{display:flex}
-body.fs header.top,body.fs .readcontext{display:none !important}
 body.fs main.read{padding-top:24px}
 #fsbar .btn{min-height:44px;padding:7px 14px}
 #fs-prog{font-family:var(--mono);font-size:12px;color:var(--mut);padding:0 8px;white-space:nowrap}
@@ -311,13 +310,6 @@ header.top .mobilemenu{display:inline-flex;align-items:center;justify-content:ce
 header.top #tocbtn{display:inline-flex;order:2;width:78px;height:44px;padding:0;overflow:hidden;font-size:0;align-items:center;justify-content:center;color:transparent}
 header.top #tocbtn::before{content:'Contents';font-size:11px;font-family:var(--mono);color:var(--ink)}
 header.top #backbtn{display:inline-flex;order:3;font-size:12px;padding:5px 9px;min-height:44px;align-items:center}
-.readcontext{padding:6px 12px}
-.readcontext .wrap{gap:5px}
-.readcontext .readback{display:none}
-.readcontext .wrap>a:not(.readback),.readcontext .wrap>span:not(.here):not(.pathpos):not(.prereq){display:none}
-.readcontext .here{display:block;flex-basis:100%;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.readcontext .pathpos,.readcontext .prereq{font-size:11px;padding:2px 7px}
-.readcontext .prereq a{padding:1px 6px}
 .topbtn{right:12px;bottom:14px}
 .mobile-controls,.mobile-search{display:flex;gap:8px;flex-wrap:wrap}
 .mobile-controls .btn{min-height:38px}
@@ -483,18 +475,6 @@ table.gloss tr{scroll-margin-top:150px}
 [data-theme=light] .rec-cta:hover{color:#fff}
 @media(max-width:700px){.rec-steps{flex-direction:column}.rec-steps li{min-width:0}}
 /* P2.2: reader orientation — breadcrumb + prereq + path position (existing vars only) */
-.readcontext{background:var(--card);border-bottom:1px solid var(--line-soft);padding:10px 32px;font-size:13px;color:var(--mut)}
-.readcontext .wrap{max-width:1320px;margin:0 auto;padding:0;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.readcontext a{color:var(--mut)}
-.readcontext a:hover{color:var(--brand)}
-.readcontext .here{color:var(--ink);font-weight:600}
-.readcontext .pathpos{font-family:var(--mono);font-size:11px;background:var(--acc-soft);color:var(--brand);border-radius:9999px;padding:3px 12px;white-space:nowrap}
-.readcontext .prereq{font-size:12px}
-.readcontext .prereq a{border:1px solid var(--line);border-radius:9999px;padding:2px 10px;margin-left:6px;white-space:nowrap}
-@media(max-width:700px){.readcontext{padding:8px 14px;font-size:12px}.readcontext .wrap{gap:7px}.readback{order:-1}.readcontext .here{flex-basis:100%;overflow-wrap:anywhere}.readcontext .pathpos,.readcontext .prereq{max-width:100%;white-space:normal;overflow-wrap:anywhere}.readcontext .prereq a{white-space:normal;overflow-wrap:anywhere}.upnext{align-items:flex-start;flex-wrap:wrap;padding:12px 14px}.upnext a{overflow-wrap:anywhere}}
-.readcontext{background:var(--bg);border-bottom:1px solid var(--line-soft);padding:8px 32px}
-.readcontext .pathpos{background:transparent;border:0;border-left:2px solid var(--brand);border-radius:0;padding:2px 0 2px 10px}
-.readcontext .prereq a{border:0;border-bottom:1px solid var(--line);border-radius:0;padding:1px 0}
 .upnext{background:var(--card);border:0;border-left:3px solid var(--brand);border-radius:0;padding:14px 18px;margin-top:22px;box-shadow:0 1px 0 var(--line-soft)}
 .labbanner{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:var(--card);border:0;border-left:3px solid var(--brand);border-radius:0;padding:12px 16px;margin:0 auto 24px;max-width:820px;font-size:14px;box-shadow:0 1px 0 var(--line-soft)}
 .labbanner a{color:var(--brand);font-weight:600;text-decoration:underline;text-underline-offset:3px}
@@ -590,53 +570,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
 .map-preview-btn{display:none;position:absolute;top:10px;right:10px;z-index:3;width:32px;height:32px;border-radius:50%;background:var(--card);border:1px solid var(--line);color:var(--mut);font-size:16px;cursor:pointer;align-items:center;justify-content:center;box-shadow:var(--shadow)}
 .map-preview-btn:hover{border-color:var(--cat);color:var(--cat)}
 /* — MAP DETAIL: interior as distinct themed space — */
-.map-detail{display:none}
-.map-detail.active{display:block;animation:mapZoomIn .32s cubic-bezier(.2,.8,.2,1)}
-.map-detail.exiting{animation:mapZoomOut .24s ease forwards}
-@keyframes mapZoomIn{from{opacity:0;transform:scale(.96) translateY(12px)}to{opacity:1;transform:scale(1) translateY(0)}}
-@keyframes mapZoomOut{from{opacity:1;transform:scale(1) translateY(0)}to{opacity:0;transform:scale(.98) translateY(8px)}}
-.map-detail-hero{position:relative;background:linear-gradient(135deg,color-mix(in srgb,var(--cat) 7%,var(--card)) 0%,var(--card) 55%);border:1.5px solid color-mix(in srgb,var(--cat) 28%,var(--line-soft));border-radius:16px;padding:22px 22px 18px;margin:16px 0 20px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06),0 8px 24px -8px color-mix(in srgb,var(--cat) 18%,transparent),0 2px 10px rgba(0,0,0,.06)}
-.map-detail-hero::before{content:"";position:absolute;top:0;left:0;right:0;height:5px;background:var(--cat);z-index:2}
-.map-detail-hero::after{content:"";position:absolute;top:5px;left:0;right:0;height:1px;background:linear-gradient(90deg,rgba(255,255,255,.55),transparent 60%);pointer-events:none;z-index:2}
-[data-theme=dark] .map-detail-hero::after,[data-theme=dim] .map-detail-hero::after{background:linear-gradient(90deg,rgba(255,255,255,.12),transparent 60%)}
-.map-detail-hero-top{display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap}
-.map-detail-hero .map-icon{width:52px;height:52px;border-radius:14px;flex:none;background:color-mix(in srgb,var(--cat) 12%,var(--bg2));border:1px solid color-mix(in srgb,var(--cat) 18%,var(--line-soft));color:var(--cat);box-shadow:inset 0 1px 0 rgba(255,255,255,.6);display:flex;align-items:center;justify-content:center}
-[data-theme=dark] .map-detail-hero .map-icon,[data-theme=dim] .map-detail-hero .map-icon{box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
-.map-detail-hero .map-icon svg{width:28px;height:28px;display:block}
-.map-detail-hero h2{font-size:22px;font-weight:800;letter-spacing:-.3px;line-height:1.2;flex:1;min-width:160px}
-.map-detail-hero .count{font-family:var(--mono);font-size:12.5px;color:var(--mut);font-weight:600;display:flex;align-items:center;gap:6px}
-.map-detail-hero .count::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--cat);flex:none;opacity:.9}
-.map-detail-hero .desc{color:var(--mut);font-size:13.5px;line-height:1.55;max-width:680px;margin-top:10px}
-.map-detail-hero .map-pills{margin-top:10px}
-.map-detail-hero .map-difficulty{margin-top:8px}
-.map-back{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;background:var(--card);border:1.5px solid var(--line);border-radius:9999px;padding:10px 18px;margin:0 0 4px;cursor:pointer;color:var(--ink);transition:border-color .15s,background .15s,transform .15s;box-shadow:var(--shadow)}
-.map-back:hover{border-color:var(--cat);color:var(--cat);transform:translateX(-2px)}
-.map-back:active{transform:translateX(-1px) scale(.98)}
 /* interior cards — reuse map card chrome: slim top bar + chip, same tokens as .map-block */
-.map-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
-.map-cards .card{position:relative;background:linear-gradient(135deg,color-mix(in srgb,var(--cat) 7%,var(--card)) 0%,var(--card) 55%);border:1.5px solid color-mix(in srgb,var(--cat) 28%,var(--line-soft));border-radius:16px;padding:0;overflow:hidden;display:flex;flex-direction:column;gap:0;box-shadow:0 1px 3px rgba(0,0,0,.06),0 8px 24px -8px color-mix(in srgb,var(--cat) 18%,transparent),0 2px 10px rgba(0,0,0,.06);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
-.map-cards .card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--cat,var(--brand));z-index:2}
-.map-cards .card::after{content:"";position:absolute;top:3px;left:0;right:0;height:1px;background:linear-gradient(90deg,rgba(255,255,255,.55),transparent 60%);pointer-events:none;z-index:2}
-[data-theme=dark] .map-cards .card::after,[data-theme=dim] .map-cards .card::after{background:linear-gradient(90deg,rgba(255,255,255,.12),transparent 60%)}
-.map-cards .card:hover{transform:translateY(-3px);box-shadow:0 4px 12px rgba(0,0,0,.1),0 20px 40px -12px color-mix(in srgb,var(--cat) 22%,transparent),0 8px 20px rgba(0,0,0,.08);border-color:color-mix(in srgb,var(--cat) 42%,var(--line))}
-.map-card-top{padding:22px 22px 14px;display:flex;flex-direction:column;gap:10px;flex:1}
-.map-card-head{display:flex;align-items:flex-start;gap:12px}
-.map-cards .card .map-icon{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--cat) 12%,var(--bg2));border:1px solid color-mix(in srgb,var(--cat) 18%,var(--line-soft));color:var(--cat);flex:none;box-shadow:inset 0 1px 0 rgba(255,255,255,.6)}
-[data-theme=dark] .map-cards .card .map-icon,[data-theme=dim] .map-cards .card .map-icon{box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
-.map-cards .card .map-icon svg{width:22px;height:22px;display:block}
-.map-card-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.map-card-badge{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:4px 10px;border-radius:9999px;border:1px solid;color:var(--cat);background:color-mix(in srgb,var(--cat) 10%,var(--bg2));border-color:color-mix(in srgb,var(--cat) 22%,var(--line-soft))}
-.map-card-badge.beg{--cat:#2ECC71}
-.map-card-badge.int{--cat:#F5A524}
-.map-card-badge.adv{--cat:#E5484D}
-.map-card-time{font-family:var(--mono);font-size:11px;color:var(--mut);font-weight:500}
-.map-cards .card h3{font-size:17px;font-weight:700;letter-spacing:-.2px;line-height:1.3;margin:0}
-.map-cards .card h3 a{color:var(--ink)}
-.map-cards .card h3 a:hover{color:var(--cat,var(--brand))}
-.map-cards .card .desc{font-size:13.5px;color:var(--mut);line-height:1.55;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;flex:1}
-.map-card-footer{padding:14px 22px 18px;border-top:0;display:flex;align-items:center;gap:10px;background:transparent}
-.map-card-footer .meta-line{font-size:12px;color:var(--mut);flex:1}
-.map-card-footer a.read{margin:0;min-width:116px;justify-content:center}
 @media(max-width:600px){
   .map-grid{grid-template-columns:1fr;gap:16px;perspective:none}
   .map-block{transform:none !important}
@@ -645,15 +579,10 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
   .map-preview-btn{display:flex}
   .map-block:not(.preview-open) .map-preview{display:none}
   .map-block.preview-open .map-preview{display:block}
-  .map-cards{grid-template-columns:1fr}
   .map-hero{padding:28px 16px 8px}
-  .map-detail-hero{padding:20px 18px 18px;border-radius:16px}
-  .map-detail-hero h2{font-size:22px}
 }
 @media(prefers-reduced-motion:reduce){
-  .map-block,.map-detail,.map-grid{transition:none !important;animation:none !important;transform:none !important}
-  .map-detail.active{animation:none}
-  .map-detail.exiting{animation:none;display:none}
+  .map-block,.map-grid{transition:none !important;animation:none !important;transform:none !important}
   .map-preview{transition:none !important}
 }
 """
@@ -736,12 +665,16 @@ READER_JS = BASE_JS + """
 const BID=document.body.dataset.book,PREF='cicdlib:pref',PKEY='cicdlib:prog:'+BID;
 const pref=Object.assign({theme:'sepia',fs:18,width:'820px',font:'sans',lh:1.7},getP(PREF,{}));
 const RTHEMES=['sepia','dark','light'];
-function applyPref(){document.documentElement.dataset.theme=RTHEMES.includes(pref.theme)?pref.theme:'sepia';
+function applyPref(){document.documentElement.dataset.theme=RTHEMES.includes(pref.theme)?pref.theme:'sepia';syncThemeBtn();
   document.body.dataset.font=pref.font==='serif'?'serif':'sans';
   const rb=document.querySelector('.readbody');if(rb){rb.style.fontSize=pref.fs+'px';rb.style.setProperty('max-width',pref.width);rb.style.setProperty('--lh',pref.lh);}
   $$('.setrow .opts .btn').forEach(b=>b.classList.toggle('on',b.dataset.set===undefined?'':String(pref[b.dataset.k])===b.dataset.set));
   setP(PREF,pref);}
 function setOpt(k,v){pref[k]=v;applyPref()}
+const THI={dark:'☀',light:'☾',sepia:'◐'};
+function syncThemeBtn(){const ic=THI[pref.theme]||'◐';const a=$('#themebtn'),b=$('#mthemebtn');if(a)a.textContent=ic;if(b)b.textContent=ic;}
+function cycleTheme(){setOpt('theme',RTHEMES[(RTHEMES.indexOf(pref.theme)+1)%RTHEMES.length]);}
+const _thb=$('#themebtn');if(_thb)_thb.onclick=cycleTheme;const _mth=$('#mthemebtn');if(_mth)_mth.onclick=cycleTheme;
 $$('.terminal').forEach(t=>{const bar=document.createElement('div');bar.className='copybar';const b=document.createElement('button');b.className='copybtn';b.textContent='Copy';b.onclick=()=>{let txt=t.innerText.split('\\n').filter(l=>!l.match(/^\\s*(NAME|nginx-|CONTAINER|NAME\\s+READY)/)).join('\\n');navigator.clipboard.writeText(txt||t.innerText).then(()=>{b.textContent='Copied!';setTimeout(()=>b.textContent='Copy',1200)})};bar.appendChild(b);t.before(bar)});
 $$('.readbody pre').forEach(p=>{if(p.closest('.terminal')||p.previousElementSibling?.classList?.contains('codehead'))return;const h=document.createElement('div');h.className='codehead';h.innerHTML='<span class=dot></span><span>'+(p.dataset.lang||"code")+'</span>';const b=document.createElement('button');b.textContent='Copy';b.onclick=()=>{navigator.clipboard.writeText(p.innerText).then(()=>{b.textContent='Copied!';setTimeout(()=>b.textContent='Copy',1200)})};const w=document.createElement('button');w.textContent='Wrap';w.style.marginLeft='6px';w.onclick=()=>{p.style.whiteSpace=p.style.whiteSpace==='pre-wrap'?'pre':'pre-wrap'};h.appendChild(b);h.appendChild(w);p.before(h)});
 $$('.readbody img').forEach(im=>{im.setAttribute('loading','lazy');if(!im.getAttribute('alt'))im.setAttribute('alt','Diagram from '+BID);im.style.cursor='zoom-in';im.addEventListener('click',()=>{const lb=$('#lightbox');if(lb){lb.querySelector('img').src=im.src;lb.classList.add('open');}});im.addEventListener('error',()=>{im.dataset.broken='1';const f=document.createElement('div');f.className='imgfallback';f.style.display='block';f.textContent='Image unavailable: '+(im.getAttribute('alt')||im.src);im.after(f);});});
@@ -781,11 +714,10 @@ document.addEventListener('keydown',e=>{
   if(e.key==='ArrowRight'&&document.activeElement.tagName!=='INPUT'){const n=$('#nextbook');if(n)location.href=n.href}
   if(e.key==='ArrowLeft'&&document.activeElement.tagName!=='INPUT'){const p=$('#prevbook');if(p)location.href=p.href}
   if(e.key.toLowerCase()==='c'&&document.activeElement.tagName!=='INPUT'&&window._cur){try{navigator.clipboard.writeText(location.href.split('#')[0]+'#'+window._cur);const qc=$('#qcount');if(qc)qc.textContent='section link copied';}catch(err){}}});
-$('#setbtn').onclick=()=>$('#drawer').classList.add('open');
 const _pr=$('#prefreset');if(_pr)_pr.onclick=()=>{setP(PREF,{theme:'sepia',fs:18,width:'820px',font:'sans',lh:1.7});location.reload();};
 $('#drawer .scrim').onclick=()=>$('#drawer').classList.remove('open');
 $('#tocbtn').onclick=()=>tocToggle();
-$$('aside.toc a').forEach(a=>a.onclick=()=>{if(innerWidth<=900)$('aside.toc').classList.remove('open')});
+$$('aside.toc a').forEach(a=>a.onclick=(e)=>{const h=a.getAttribute('href');if(h&&h[0]==='#'){if(e)e.preventDefault();const el=document.getElementById(h.slice(1));if(el)el.scrollIntoView();try{history.replaceState(null,'',h);}catch(err){}tocUpdate();}if(innerWidth<=900)$('aside.toc').classList.remove('open')});
 const back=$('#backbtn');
 if(back)back.addEventListener('click',e=>{
   let sameOrigin=false;
@@ -1064,7 +996,7 @@ def build_map_page(books, output_dir, paths_html=""):
         bs = sorted(bycat[cat], key=lambda x: (DIFF_RANK.get(x["difficulty"],9), x["title"].lower()))
         cnt = len(bs)
         slug = _slug_cat(cat)
-        cat_chips.append((slug, cat))
+        cat_chips.append((slug, cat, bs[0]["id"]))
         color = CAT_COLORS_MAP.get(cat, "#18E299")
         icon = CATEGORY_ICONS.get(cat, CATEGORY_ICONS["Reference"])
         diff_cnt = Counter(b["difficulty"] for b in bs)
@@ -1098,7 +1030,7 @@ def build_map_page(books, output_dir, paths_html=""):
         aria = html.escape(f"{cat} — {cnt} {'book' if cnt==1 else 'books'}" + (", " + ", ".join(aria_parts) if aria_parts else ""))
         count_label = f"{cnt} {'book' if cnt==1 else 'books'}"
         blocks_html += (
-            f'<a href="#{slug}" class="map-block" data-cat="{html.escape(cat)}" id="block-{slug}" '
+            f'<a href="read/{bs[0]["id"]}.html" class="map-block" data-cat="{html.escape(cat)}" data-id="{bs[0]["id"]}" data-title="{html.escape(bs[0]["title"])}" id="block-{slug}" '
             f'style="--cat:{color}" data-slug="{slug}" aria-label="{aria}" tabindex="0">'
             f'<button class="map-preview-btn" aria-label="Preview {html.escape(cat)} contents" data-preview-btn="{slug}">…</button>'
             f'<div class="map-block-inner">'
@@ -1111,39 +1043,7 @@ def build_map_page(books, output_dir, paths_html=""):
             f'{preview_html}'
             f'</a>'
         )
-        # detail view — themed interior with improved card hierarchy
-        cat_desc = {"CI/CD":"Fundamentals: lifecycle, branching, pipelines & artifacts","Jenkins":"Controllers, agents, pipelines, Groovy & plugins","Labs":"Hands-on labs — build, deploy & recover","Platforms":"Jenkins, GitHub Actions, GitLab & ArgoCD","Roadmap":"Planned paths through the library","Build":"Hermetic builds, BuildKit & Kaniko","Testing":"Strategy, pyramids & flaky tests","Delivery":"Releasable always, deployed by decision","Security":"Signing, SBOM & supply chain","Reliability":"Rollback, recovery & resilience","Reference":"Cheatsheets & quick lookup","GitHub":"Actions, workflows & automation","Start Here":"Foundations, Git and CI — begin here","Build":"Pipelines, builds, tests and artifacts","Deliver":"Strategies, envs, operations and recovery"}.get(cat, f"{cnt} books in {cat}")
-        cards = ""
-        for b in bs:
-            idx = next((i for i, x in enumerate(books) if x["id"]==b["id"]), 0)
-            tmin = b.get("time_minutes", 30)
-            tags = " ".join(b.get("tags", []))
-            diff_cls = {"Beginner":"beg","Intermediate":"int","Advanced":"adv"}.get(b["difficulty"],"int")
-            desc_short = b.get("description","")[:140]
-            book_icon = CATEGORY_ICONS.get(b["category"], CATEGORY_ICONS["Reference"])
-            cards += (
-                f'<div class="card book" data-id="{__import__("html").escape(b["id"])}" data-cat="{__import__("html").escape(b["category"])}" data-dif="{__import__("html").escape(b["difficulty"])}" data-time="{tmin}" data-tags="{__import__("html").escape(tags)}" data-title="{__import__("html").escape(b["title"])}" data-desc="{__import__("html").escape(b.get("description",""))}" style="--cat:{color}">'
-                f'<div class="map-card-top">'
-                f'<div class="map-card-head"><span class="map-icon" aria-hidden="true">{book_icon}</span><div class="map-card-meta"><span class="map-card-badge {diff_cls}">{html.escape(b["difficulty"])}</span><span class="map-card-time">{tmin} min · {html.escape(b.get("path",""))}</span></div></div>'
-                f'<h3><a href="read/{__import__("html").escape(b["id"])}.html">{__import__("html").escape(b["title"])}</a></h3>'
-                f'<p class="desc">{html.escape(desc_short)}</p>'
-                f'</div>'
-                f'<div class="map-card-footer"><a class="read" href="read/{__import__("html").escape(b["id"])}.html">Read</a></div>'
-                f'</div>'
-            )
-        detail_html += (
-            f'<section class="map-detail" id="detail-{slug}" data-cat="{html.escape(cat)}" aria-label="{html.escape(cat)} books" style="--cat:{color}">'
-            f'<button class="map-back" data-back aria-label="Back to overview">← Back</button>'
-            f'<div class="map-detail-hero" style="--cat:{color}"><div class="map-detail-hero-top">'
-            f'<span class="map-icon" aria-hidden="true">{CATEGORY_ICONS.get(cat, CATEGORY_ICONS["Reference"])}</span>'
-            f'<h2>{html.escape(cat)}</h2><span class="count">{cnt} {"book" if cnt==1 else "books"}</span></div>'
-            f'<p class="desc">{html.escape(cat_desc)}</p>'
-            f'<div class="map-difficulty"><span class="map-diff-label">Level mix</span><span class="map-diff-bar">{bar_segs}</span><span class="map-diff-dots">{dots}</span><span class="map-diff-count">{cnt}</span></div>'
-            f'<span class="map-pills">{pills}</span></div>'
-            f'<div class="map-cards">{cards}</div>'
-            f'</section>'
-        )
-    empty_chips = "".join(f'<a class="chip" href="#{s}">{html.escape(c)}</a>' for s, c in cat_chips)
+    empty_chips = "".join(f'<a class="chip" href="read/{bid}.html">{html.escape(c)}</a>' for s, c, bid in cat_chips)
     # Site header chrome: reuse same header as index, with Home active
     page = f"""<!DOCTYPE html>
 <html lang="en">
@@ -1168,7 +1068,7 @@ def build_map_page(books, output_dir, paths_html=""):
 <div class="wrap">
 <div class="map-hero">
 <div class="map-hero-inner">
-<h1>The whole building, <span style="color:var(--mut)">one glance.</span></h1>
+<h1>The CI/CD library.</h1>
 </div>
 <div class="pipeline" aria-hidden="true"><svg width="1000" height="170" viewBox="0 0 1000 170" fill="none">
 <defs><g id="nd"><circle class="pnode" cx="0" cy="0" r="26"/><circle class="pcore" cx="0" cy="0" r="7"/></g>
@@ -1186,7 +1086,6 @@ def build_map_page(books, output_dir, paths_html=""):
 </div>
 <div class="map-grid" id="mapGrid" role="list" aria-label="Knowledge structure map">{blocks_html}</div>
 {paths_html}
-<div id="mapDetails">{detail_html}</div>
 <div class="empty" id="mapEmpty" style="display:none"><p>That link doesn't match a category. Jump straight to one:</p><div class="empty-cats">{empty_chips}</div><a href="index.html">Back to overview</a></div>
 </div>
 <footer><div class="wrap"><span>CICD BY Nabawy</span><span><a href="index.html">Home</a> · <a href="roadmap/">Roadmap</a> · <a href="glossary.html">Glossary</a> · v2.1 Sep 2026</span></div></footer>
@@ -1200,20 +1099,10 @@ const THS=['sepia','dark','light'],THI={{dark:'☀',light:'☾',sepia:'◐'}};
 function syncTheme(){{const th=THS.includes(pref.theme)?pref.theme:'sepia';document.documentElement.dataset.theme=th;const t=$('#themebtn');if(t)t.textContent=THI[th]||'☀'}}
 syncTheme();
 $('#themebtn').onclick=()=>{{pref.theme=THS[(THS.indexOf(pref.theme)+1)%THS.length];setP('cicdlib:pref',pref);syncTheme()}};
-const grid=$('#mapGrid'),details=$$('.map-detail'),empty=$('#mapEmpty'),paths=$('#mapPaths');
+const grid=$('#mapGrid'),empty=$('#mapEmpty'),paths=$('#mapPaths');
 function slugFromHash(){{return location.hash.replace(/^#/,'').trim().toLowerCase();}}
-function showDetail(slug, push){{
-  const target=document.getElementById('detail-'+slug);
-  if(!slug){{ grid.style.display='';if(paths)paths.style.display=''; grid.classList.remove('hidden'); details.forEach(d=>d.classList.remove('active')); empty.style.display='none'; document.title='Home — CICD BY Nabawy'; return; }}
-  if(!target){{ grid.style.display='none';if(paths)paths.style.display='none'; details.forEach(d=>d.classList.remove('active')); empty.style.display=''; return; }}
-  grid.style.display='none';if(paths)paths.style.display='none'; grid.classList.add('hidden');
-  details.forEach(d=>d.classList.toggle('active', d===target));
-  empty.style.display='none';
-  const cat=target.dataset.cat||slug;
-  document.title=cat+' — CICD BY Nabawy';
-  target.scrollIntoView({{block:'start'}});
-}}
-function navigate(slug){{ if(!slug){{ history.pushState(null,'',location.pathname); showDetail('',false); }} else {{ if(location.hash.slice(1)!==slug){{ location.hash='#'+slug; }} else {{ showDetail(slug,false); }} }} }}
+function showHome(){{ grid.style.display='';if(paths)paths.style.display='';grid.classList.remove('hidden');empty.style.display='none';document.title='CICD BY Nabawy'; }}
+function showEmpty(){{ grid.style.display='none';if(paths)paths.style.display='none';empty.style.display=''; }} }}
 $$('.map-block').forEach(a=>{{
   a.addEventListener('keydown',e=>{{
     if(e.key===' '||e.key==='Spacebar'){{ e.preventDefault(); a.click(); }}
@@ -1233,27 +1122,10 @@ $$('[data-preview-btn]').forEach(btn=>{{
 document.addEventListener('click', e=>{{
   if(!e.target.closest('.map-block')) $$('.map-block.preview-open').forEach(c=>c.classList.remove('preview-open'));
 }});
-$$('[data-back]').forEach(b=>b.addEventListener('click',()=>{{
-  const active = document.querySelector('.map-detail.active');
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function backHome(){{
-    if(location.hash){{ history.pushState(null,'',location.pathname+location.search); }}
-    if(active)active.classList.remove('exiting');
-    showDetail('',false);
-    window.scrollTo({{top:0,behavior: prefersReduced ? 'auto':'smooth'}});
-  }}
-  if(active && !prefersReduced){{
-    active.classList.add('exiting');
-    active.addEventListener('animationend', backHome, {{once:true}});
-    setTimeout(()=>{{ if(document.querySelector('.map-detail.exiting')) backHome(); }}, 500);
-  }} else {{
-    backHome();
-  }}
-}}));;
-window.addEventListener('hashchange',()=>showDetail(slugFromHash(),false));
-window.addEventListener('popstate',()=>showDetail(slugFromHash(),false));
-const initial=slugFromHash();
-if(initial) showDetail(initial,false);
+
+window.addEventListener('hashchange',()=>{{ if(slugFromHash()) showEmpty(); else showHome(); }});
+window.addEventListener('popstate',()=>{{ if(slugFromHash()) showEmpty(); else showHome(); }});
+if(slugFromHash()) showEmpty();
 }})();
 </script>
 </body>
@@ -1567,7 +1439,6 @@ def build():
         else:
             prereq_html = '<span class="prereq">Prereq: None — start here</span>'
         contextbar = (
-            f'<div class="readcontext" data-testid="reader-context"><div class="wrap">'
             f'<a href="../index.html">Home</a><span>›</span>'
             f'<a href="../index.html#path-{html.escape(b.get("path", ""))}">{html.escape(plabel)}</a><span>›</span>'
             f'<span class="here">{html.escape(b["title"])}</span>'
@@ -1648,12 +1519,11 @@ def build():
 <nav class="reader-nav" aria-label="Reader navigation"><a class="btn" href="../index.html" style="text-decoration:none">Home</a>
 </nav>
 <button class="btn" id="fsbtn" aria-label="Toggle fullscreen">⛶</button>
-<button class="btn" id="setbtn" aria-label="Reading settings">⚙</button>
+<button class="btn" id="themebtn" aria-label="Cycle theme">◐</button>
 <button class="btn mobilemenu" id="mobilemenubtn" aria-label="Open reader menu" aria-expanded="false">☰</button>
 </div>
 <div class="prog" style="height:3px;background:var(--line)"><b id="pbar" style="display:block;height:100%;width:0;background:var(--acc)"></b></div>
 </header>
-{contextbar}
 <div class="rlayout">
 <aside class="toc" role="dialog" aria-modal="false" aria-label="Table of contents"><div class="toc-head"><h4>CONTENTS · {len(pages)} PAGES · {len(toc)} SECTIONS</h4><button class="drawerx" id="tocx" aria-label="Close contents">×</button></div>{toc_html}
 </aside><div class="tocscrim" id="tocscrim" aria-hidden="true"></div>
@@ -1668,20 +1538,16 @@ def build():
 <div id="lightbox" role="dialog" aria-label="Diagram viewer"><img alt="Enlarged diagram"></div>
 </div>
 <button class="topbtn" id="topbtn" aria-label="Back to top" title="Back to top">↑</button>
-<div class="drawer" id="drawer"><div class="scrim"></div><div class="panel" role="dialog" aria-modal="false" aria-label="Reading settings"><button class="drawerx" id="setx" aria-label="Close settings">×</button>
-<h3>Reading settings</h3>
-<div class="setrow mobile-controls"><a class="readback btn" href="../index.html">← Back</a> <button class="btn" id="mobilemarkbtn">☆ Save</button><button class="btn" id="fsbtnm" aria-label="Toggle fullscreen">⛶</button><a class="btn" href="../index.html">Home</a></div>
+<div class="drawer" id="drawer"><div class="scrim"></div><div class="panel" role="dialog" aria-modal="false" aria-label="Reader menu"><button class="drawerx" id="setx" aria-label="Close settings">×</button>
+<h3>Menu</h3>
+<div class="setrow mobile-controls"><a class="readback btn" href="../index.html">← Back</a> <button class="btn" id="mobilemarkbtn">☆ Save</button><button class="btn" id="fsbtnm" aria-label="Toggle fullscreen">⛶</button><a class="btn" href="../index.html">Home</a><button class="btn" id="mthemebtn" aria-label="Cycle theme">◐</button></div>
 <div class="setrow mobile-search"><label for="mobileq">Find in this book</label><input id="mobileq" type="search" placeholder="Search this book…"></div>
-<div class="setrow"><h5>THEME</h5><div class="opts">
-<button class="btn" data-k="theme" data-set="dark" onclick="setOpt('theme','dark')">Dark</button>
-<button class="btn" data-k="theme" data-set="light" onclick="setOpt('theme','light')">Light</button>
-<button class="btn" data-k="theme" data-set="sepia" onclick="setOpt('theme','sepia')">Sepia</button>
-</div></div>
 
 
 
 
-<div class="setrow"><h5>SHORTCUTS</h5><p style="font-size:12px;color:var(--mut)">Ctrl+K search · T contents · ←/→ prev/next book · Esc close</p></div>
+
+
 
 </div></div>
 <div id="fsbar" hidden><button class="btn" id="fs-toc" aria-label="Open contents">☰</button><button class="btn" id="fs-theme" aria-label="Cycle theme">◐</button><span id="fs-prog">0%</span><button class="btn" id="fs-exit">⛶ Exit</button></div>
