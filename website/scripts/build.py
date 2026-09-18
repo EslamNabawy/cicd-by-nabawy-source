@@ -1091,10 +1091,16 @@ def build_map_page(books, output_dir, paths_html=""):
     for _p in sorted(glob.glob(os.path.join(PDF, "series", "*.html"))):
         _bn = os.path.basename(_p)
         _m = re.match(r'S(\d+)-([a-z-]+)\.html', _bn)
-        _lbl = ('S%02d · %s' % (int(_m.group(1)), _m.group(2).replace('-', ' ').title())) if _m else _bn
+        _code = ('S%02d' % int(_m.group(1))) if _m else _bn
+        _ph = open(_p, encoding="utf-8").read()
+        _tm = re.search(r"<title>(.*?)</title>", _ph, re.S)
+        _st = re.sub(r"<[^>]+>", "", _tm.group(1)).strip().split(":", 1)[-1].strip() if _tm else ""
+        if not _st and _m:
+            _st = _m.group(2).replace('-', ' ').title()
+        _np = _ph.count('class="page cover"') + _ph.count('class="page opener"') + _ph.count('class="page"')
         series_links += (f'<a class="series-card" href="pdf/series/{html.escape(_bn)}" style="--cat:#18E299">'
-                         f'<span class="series-num">{_lbl}</span>'
-                         f'<span class="series-t">Omnibus part · {html.escape(_bn)}</span>'
+                         f'<span class="series-num">{_code} · {html.escape(_st)}</span>'
+                         f'<span class="series-t">Omnibus print edition — {_np} pages, chapters keep their numbers.</span>'
                          f'<span class="series-open">Open →</span></a>')
     # Site header chrome: reuse same header as index, with Home active
     page = f"""<!DOCTYPE html>
@@ -1709,23 +1715,6 @@ body.fs .readbody{{max-width:880px}}
             f'<span><a class="read" href="{reader_url(b)}">Read</a></span></div>'
         )
     idx_of = {b["id"]: i for i, b in enumerate(books)}
-    series_files = sorted(glob.glob(os.path.join(PDF, "series", "*.html")))
-    def series_title(p):
-        m = re.search(r"<title>(.*?)</title>", open(p, encoding="utf-8").read(), re.S)
-        t = re.sub(r"<[^>]+>", "", m.group(1)).strip() if m else os.path.basename(p)
-        return t.split(":", 1)[-1].strip()
-    def series_card(p):
-        h = open(p, encoding="utf-8").read()
-        npages = h.count('class="page cover"') + h.count('class="page opener"') + h.count('class="page"')
-        code = os.path.basename(p)[1:3]
-        t = series_title(p)
-        return (
-            f'<div class="card book" data-title="{html.escape(t)}" data-cat="Series" data-desc="omnibus print edition series">'
-            f'<span class="num">S{code}</span><h3>{html.escape(t)}</h3><p>Omnibus print edition — {npages} pages, chapters keep their numbers.</p>'
-            f'<div class="dif"><i></i>Print</div>'
-            f'<div class="meta-line">{npages} pages</div>'
-            f'<a class="read" href="pdf/series/{os.path.basename(p)}">Open</a></div>'
-        )
     CAT_COLORS = {"CI/CD": "#5B8DEF", "Build": "#F5A524", "Testing": "#2ECC71",
                   "Security": "#E5484D", "Reliability": "#9B7BF0", "Jenkins": "#22B8CF",
                   "Delivery": "#F472B6", "GitHub": "#94A3B8", "Platforms": "#F97316",
@@ -1768,9 +1757,6 @@ body.fs .readbody{{max-width:880px}}
         _vis, _xtra = rail_inner([card(b, idx_of[b["id"]]) for b in bs])
         sections.append({"name": c, "n": len(bs), "grid": False, "color": CAT_COLORS.get(c, "#18E299"),
                          "inner": _vis, "extra": _xtra})
-    _svis, _sxtra = rail_inner([series_card(p) for p in series_files])
-    sections.append({"name": "Series edition", "n": len(series_files), "grid": False, "color": "#18E299",
-                     "inner": _svis, "extra": _sxtra})
     if core_books:
         _cvis, _cxtra = rail_inner([card(b, idx_of[b["id"]]) for b in core_books])
         sections.append({"name": "Core practices", "n": len(core_books), "grid": True, "color": "#18E299",
@@ -1780,8 +1766,6 @@ body.fs .readbody{{max-width:880px}}
         sections.append({"name": "Quick topics", "n": len(small_books), "grid": True, "color": "#18E299",
                          "inner": _qvis, "extra": _qxtra})
     sections.sort(key=lambda s: (-s["n"], 0 if not s["grid"] else 1))
-    series_sec = [s for s in sections if s["name"] == "Series edition"]
-    sections = [s for s in sections if s["name"] != "Series edition"] + series_sec
     ogdir = os.path.join(DIST, "og")
     shutil.rmtree(ogdir, ignore_errors=True)
     os.makedirs(ogdir, exist_ok=True)
