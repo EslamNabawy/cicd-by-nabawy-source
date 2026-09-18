@@ -454,14 +454,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
 .map-hero .eyebrow{display:inline-block;font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--brand);background:var(--acc-soft);border-radius:9999px;padding:5px 14px;margin-bottom:16px}
 .map-hero h1{font-size:clamp(28px,4.4vw,46px);font-weight:700;letter-spacing:-.9px;line-height:1.08}
 .map-hero p{color:var(--mut);font-size:16px;max-width:640px;margin:12px auto 0;line-height:1.55}
-/* — Home hero: pipeline motif, CTAs, stat pills — */
-.herocta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px}
-.btn.prim{background:var(--brand);color:#08251b;border-color:transparent;box-shadow:0 8px 24px -8px color-mix(in srgb,var(--brand) 50%,transparent)}
-.btn.prim:hover{background:color-mix(in srgb,var(--brand) 86%,#fff);border-color:transparent;transform:translateY(-1px)}
-.stat-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:20px}
-.stat-pill{display:inline-flex;align-items:baseline;gap:6px;font-family:var(--mono);font-size:12.5px;color:var(--mut);background:var(--card);border:1px solid var(--line-soft);border-radius:9999px;padding:6px 14px}
-.stat-pill b{font-size:14px;color:var(--ink)}
-.stat-level b{color:var(--brand)}
+/* — Home hero: pipeline motif — */
 .map-hero{overflow:hidden}
 .pipeline{max-width:1060px;margin:6px auto 0;height:150px;pointer-events:none;opacity:.32}
 .map-hero-inner{position:relative;z-index:2}
@@ -475,7 +468,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
 .plabel{font-family:var(--mono);font-size:11px;letter-spacing:.6px;text-transform:uppercase;fill:var(--mut)}
 @keyframes dashflow{to{stroke-dashoffset:-128}}
 @media(prefers-reduced-motion:reduce){.pedge{animation:none}}
-@media(max-width:600px){.pipeline{opacity:.14;height:110px}.herocta{flex-direction:column;align-items:stretch;max-width:320px;margin-left:auto;margin-right:auto}.herocta .btn{justify-content:center}}
+@media(max-width:600px){.pipeline{opacity:.14;height:110px}}
 /* — MAP GRID: exterior blocks as distinct objects — */
 .map-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;margin:32px 0 28px;perspective:1200px}
 .map-block{position:relative;background:linear-gradient(135deg,color-mix(in srgb,var(--cat) 7%,var(--card)) 0%,var(--card) 55%);border:1.5px solid color-mix(in srgb,var(--cat) 28%,var(--line-soft));border-radius:16px;padding:0;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06),0 8px 24px -8px color-mix(in srgb,var(--cat) 18%,transparent),0 2px 10px rgba(0,0,0,.06);transition:transform .24s cubic-bezier(.2,.8,.2,1),box-shadow .24s ease,border-color .24s ease;text-align:left;cursor:pointer;color:var(--ink);text-decoration:none;transform-style:preserve-3d}
@@ -774,7 +767,7 @@ ul.tight li{margin-bottom:4px;}
 </head>
 <body data-book="start-here">
 <header class="top"><div class="wrap">
-<button class="btn tocbtn" id="tocbtn" aria-label="Open table of contents">☰ Contents · 40</button>
+<button class="btn tocbtn" id="tocbtn" aria-label="Open table of contents">☰ Contents · 37</button>
 <nav class="crumbs"><a class="logo" href="../index.html" style="color:inherit"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="5" cy="12" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="6" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="18" r="2.6" stroke="#18E299" stroke-width="2"/><path d="M7.6 12h5.2m0 0-2.6-2.6m2.6 2.6-2.6 2.6M13.4 7.4l2.8-1M13.4 16.6l2.8 1" stroke="#18E299" stroke-width="2" stroke-linecap="round"/></svg>CICD<span> BY Nabawy</span></a>
 <span class="sep">/</span>
 <span class="here">Start Here: Foundations, Git &amp; CI</span></nav>
@@ -792,17 +785,17 @@ ul.tight li{margin-bottom:4px;}
 </header>
 <div class="readcontext" data-testid="reader-context"><div class="wrap"><a href="../index.html">Home</a><span>›</span><a href="../index.html#path-start-here">Start Here</a><span>›</span><span class="here">Start Here: Foundations, Git &amp; CI</span><span class="pathpos">1 of 1 in Start Here</span><span class="prereq">Prereq: None — start here</span></div></div>
 <div class="rlayout">
-<aside class="toc" role="dialog" aria-modal="false" aria-label="Table of contents"><div class="toc-head"><h4>CONTENTS · 20 PAGES · 40 SECTIONS</h4><button class="drawerx" id="tocx" aria-label="Close contents">×</button></div><a href="#p1" class="toc-l1" aria-label="Cover — STARTHERE">Cover — STARTHERE</a><a href="#p2-h1" class="toc-l1" aria-label="1 CI/CD ENGINEERING">1 CI/CD ENGINEERING</a><a href="#p3-h1" class="toc-l1" aria-label="2 GIT, BRANCHING &amp;amp; PULL REQUESTS">2 GIT, BRANCHING &amp;amp; PULL REQUESTS</a><a href="#p4-h1" class="toc-l1" aria-label="3 CONTINUOUS INTEGRATION">3 CONTINUOUS INTEGRATION</a><a href="#p5-h1" class="toc-l2" aria-label="3.1 1 / The CI/CD Lifecycle">3.1 1 / The CI/CD Lifecycle</a><a href="#p5-h2" class="toc-l2" aria-label="3.2 2 / How to read this manual">3.2 2 / How to read this manual</a><a href="#p6-h1" class="toc-l2" aria-label="3.3 3 / What Is Continuous Integration">3.3 3 / What Is Continuous Integration</a><a href="#p6-h2" class="toc-l3" aria-label="3.3.1 WHY THIS EXISTS">3.3.1 WHY THIS EXISTS</a><a href="#p6-h3" class="toc-l2" aria-label="3.4 4 / What happens without CI/CD">3.4 4 / What happens without CI/CD</a><a href="#p7-h1" class="toc-l2" aria-label="3.5 5 / CI vs Delivery vs Deployment">3.5 5 / CI vs Delivery vs Deployment</a><a href="#p7-h2" class="toc-l3" aria-label="3.5.1 GOTCHA">3.5.1 GOTCHA</a><a href="#p8-h1" class="toc-l2" aria-label="3.6 6 / Anatomy of a Pipeline">3.6 6 / Anatomy of a Pipeline</a><a href="#p8-h2" class="toc-l2" aria-label="3.7 7 / The Status System">3.7 7 / The Status System</a><a href="#p9-h1" class="toc-l2" aria-label="3.8 8 / Environment Lanes: One Artifact, Three Tracks">3.8 8 / Environment Lanes: One Artifact, Three Tracks</a><a href="#p9-h2" class="toc-l2" aria-label="3.9 9 / The Deployment Loop">3.9 9 / The Deployment Loop</a><a href="#p10-h1" class="toc-l2" aria-label="3.10 10 / From Push to Pipeline">3.10 10 / From Push to Pipeline</a><a href="#p10-h2" class="toc-l2" aria-label="3.11 11 / Command and Result">3.11 11 / Command and Result</a><a href="#p10-h3" class="toc-l3" aria-label="3.11.1 COMMAND">3.11.1 COMMAND</a><a href="#p10-h4" class="toc-l3" aria-label="3.11.2 RESULT">3.11.2 RESULT</a><a href="#p11-h1" class="toc-l2" aria-label="3.12 12 / The Artifact Identity">3.12 12 / The Artifact Identity</a><a href="#p11-h2" class="toc-l2" aria-label="3.13 13 / The Approval Gate">3.13 13 / The Approval Gate</a><a href="#p11-h3" class="toc-l3" aria-label="3.13.1 CONTEXT — PRODUCER &amp;amp; CONSUMER">3.13.1 CONTEXT — PRODUCER &amp;amp; CONSUMER</a><a href="#p12-h1" class="toc-l2" aria-label="3.14 14 / Failure as a State Transition">3.14 14 / Failure as a State Transition</a><a href="#p12-h2" class="toc-l3" aria-label="3.14.1 RECOVERY LOOP">3.14.1 RECOVERY LOOP</a><a href="#p12-h3" class="toc-l3" aria-label="3.14.2 GOTCHA">3.14.2 GOTCHA</a><a href="#p13-h1" class="toc-l2" aria-label="3.15 15 / Interview Check">3.15 15 / Interview Check</a><a href="#p13-h2" class="toc-l2" aria-label="3.16 16 / The CI/CD System Map">3.16 16 / The CI/CD System Map</a><a href="#p14-h1" class="toc-l2" aria-label="3.17 01 / What Each Piece Is">3.17 01 / What Each Piece Is</a><a href="#p14-h2" class="toc-l2" aria-label="3.18 02 / Why the Gate Exists">3.18 02 / Why the Gate Exists</a><a href="#p15-h1" class="toc-l2" aria-label="3.19 03 / How the Flow Executes">3.19 03 / How the Flow Executes</a><a href="#p15-h2" class="toc-l2" aria-label="3.20 04 / Commands">3.20 04 / Commands</a><a href="#p16-h1" class="toc-l2" aria-label="3.21 05 / Branching Models">3.21 05 / Branching Models</a><a href="#p16-h2" class="toc-l2" aria-label="3.22 06 / Failure Modes &amp;amp; Best Practices">3.22 06 / Failure Modes &amp;amp; Best Practices</a><a href="#p16-h3" class="toc-l3" aria-label="3.22.1 GOTCHA">3.22.1 GOTCHA</a><a href="#p17-h1" class="toc-l2" aria-label="3.23 07 / Interview Check">3.23 07 / Interview Check</a><a href="#p17-h2" class="toc-l2" aria-label="3.24 08 / Handoff">3.24 08 / Handoff</a><a href="#p18-h1" class="toc-l2" aria-label="3.25 01 / The Three Habits">3.25 01 / The Three Habits</a><a href="#p19-h1" class="toc-l2" aria-label="3.26 02 / PR Gates &amp;amp; Merge Queues">3.26 02 / PR Gates &amp;amp; Merge Queues</a><a href="#p19-h2" class="toc-l2" aria-label="3.27 03 / Trunk Discipline">3.27 03 / Trunk Discipline</a><a href="#p20-h1" class="toc-l2" aria-label="3.28 04 / Handoff">3.28 04 / Handoff</a>
+<aside class="toc" role="dialog" aria-modal="false" aria-label="Table of contents"><div class="toc-head"><h4>CONTENTS · 17 PAGES · 37 SECTIONS</h4><button class="drawerx" id="tocx" aria-label="Close contents">×</button></div><a href="#p1" class="toc-l1" aria-label="Cover — STARTHERE">Cover — STARTHERE</a><a href="#p2-h1" class="toc-l2" aria-label="1 1 / The CI/CD Lifecycle">1 1 / The CI/CD Lifecycle</a><a href="#p2-h2" class="toc-l2" aria-label="2 2 / How to read this manual">2 2 / How to read this manual</a><a href="#p3-h1" class="toc-l2" aria-label="3 3 / What Is Continuous Integration">3 3 / What Is Continuous Integration</a><a href="#p3-h2" class="toc-l3" aria-label="3.1 WHY THIS EXISTS">3.1 WHY THIS EXISTS</a><a href="#p3-h3" class="toc-l2" aria-label="4 4 / What happens without CI/CD">4 4 / What happens without CI/CD</a><a href="#p4-h1" class="toc-l2" aria-label="5 5 / CI vs Delivery vs Deployment">5 5 / CI vs Delivery vs Deployment</a><a href="#p4-h2" class="toc-l3" aria-label="5.1 GOTCHA">5.1 GOTCHA</a><a href="#p5-h1" class="toc-l2" aria-label="6 6 / Anatomy of a Pipeline">6 6 / Anatomy of a Pipeline</a><a href="#p5-h2" class="toc-l2" aria-label="7 7 / The Status System">7 7 / The Status System</a><a href="#p6-h1" class="toc-l2" aria-label="8 8 / Environment Lanes: One Artifact, Three Tracks">8 8 / Environment Lanes: One Artifact, Three Tracks</a><a href="#p6-h2" class="toc-l2" aria-label="9 9 / The Deployment Loop">9 9 / The Deployment Loop</a><a href="#p7-h1" class="toc-l2" aria-label="10 10 / From Push to Pipeline">10 10 / From Push to Pipeline</a><a href="#p7-h2" class="toc-l2" aria-label="11 11 / Command and Result">11 11 / Command and Result</a><a href="#p7-h3" class="toc-l3" aria-label="11.1 COMMAND">11.1 COMMAND</a><a href="#p7-h4" class="toc-l3" aria-label="11.2 RESULT">11.2 RESULT</a><a href="#p8-h1" class="toc-l2" aria-label="12 12 / The Artifact Identity">12 12 / The Artifact Identity</a><a href="#p8-h2" class="toc-l2" aria-label="13 13 / The Approval Gate">13 13 / The Approval Gate</a><a href="#p8-h3" class="toc-l3" aria-label="13.1 CONTEXT — PRODUCER &amp;amp; CONSUMER">13.1 CONTEXT — PRODUCER &amp;amp; CONSUMER</a><a href="#p9-h1" class="toc-l2" aria-label="14 14 / Failure as a State Transition">14 14 / Failure as a State Transition</a><a href="#p9-h2" class="toc-l3" aria-label="14.1 RECOVERY LOOP">14.1 RECOVERY LOOP</a><a href="#p9-h3" class="toc-l3" aria-label="14.2 GOTCHA">14.2 GOTCHA</a><a href="#p10-h1" class="toc-l2" aria-label="15 15 / Interview Check">15 15 / Interview Check</a><a href="#p10-h2" class="toc-l2" aria-label="16 16 / The CI/CD System Map">16 16 / The CI/CD System Map</a><a href="#p11-h1" class="toc-l2" aria-label="17 01 / What Each Piece Is">17 01 / What Each Piece Is</a><a href="#p11-h2" class="toc-l2" aria-label="18 02 / Why the Gate Exists">18 02 / Why the Gate Exists</a><a href="#p12-h1" class="toc-l2" aria-label="19 03 / How the Flow Executes">19 03 / How the Flow Executes</a><a href="#p12-h2" class="toc-l2" aria-label="20 04 / Commands">20 04 / Commands</a><a href="#p13-h1" class="toc-l2" aria-label="21 05 / Branching Models">21 05 / Branching Models</a><a href="#p13-h2" class="toc-l2" aria-label="22 06 / Failure Modes &amp;amp; Best Practices">22 06 / Failure Modes &amp;amp; Best Practices</a><a href="#p13-h3" class="toc-l3" aria-label="22.1 GOTCHA">22.1 GOTCHA</a><a href="#p14-h1" class="toc-l2" aria-label="23 07 / Interview Check">23 07 / Interview Check</a><a href="#p14-h2" class="toc-l2" aria-label="24 08 / Handoff">24 08 / Handoff</a><a href="#p15-h1" class="toc-l2" aria-label="25 01 / The Three Habits">25 01 / The Three Habits</a><a href="#p16-h1" class="toc-l2" aria-label="26 02 / PR Gates &amp;amp; Merge Queues">26 02 / PR Gates &amp;amp; Merge Queues</a><a href="#p16-h2" class="toc-l2" aria-label="27 03 / Trunk Discipline">27 03 / Trunk Discipline</a><a href="#p17-h1" class="toc-l2" aria-label="28 04 / Handoff">28 04 / Handoff</a>
 </aside><div class="tocscrim" id="tocscrim" aria-hidden="true"></div>
 <main class="read"><div class="readbody">
 
 
-<div id="p1" class="page cover"><div class="brand">CICD BY Nabawy · START HERE</div><h1>START<br>HERE</h1><div class="sub">Foundations, Git and CI — the ground everything stands on.</div><div class="foot"><span>Reader edition</span><span class="sig">Nabawy</span></div></div><div id="p2" class="page opener"><div class="bignum">Part I</div><h2 id="p2-h1">CI/CD ENGINEERING</h2><p class="body">From Commit to Production</p></div><div id="p3" class="page opener"><div class="bignum">Part II</div><h2 id="p3-h1">GIT, BRANCHING &amp; PULL REQUESTS</h2><p class="body">The quality gate that feeds CI</p></div><div id="p4" class="page opener"><div class="bignum">Part III</div><h2 id="p4-h1">CONTINUOUS INTEGRATION</h2><p class="body">The discipline behind the pipeline</p></div><div id="p5" class="page opener">
+<div id="p1" class="page cover"><div class="brand">CICD BY Nabawy · START HERE</div><h1>START<br>HERE</h1><div class="sub">Foundations, Git and CI — the ground everything stands on.</div><div class="foot"><span>Reader edition</span><span class="sig">Nabawy</span></div></div><div id="p2" class="page opener">
     
     
     <div class="ctitle">FOUNDATIONS</div>
     <p class="lede">A pipeline is not magic.<br>It is a <em>deterministic sequence of machines making decisions about your code</em> — from the moment you push to the moment users feel the change.</p>
-    <h3 id="p5-h1" class="sec"><span class="n">1 /</span> The CI/CD Lifecycle</h3>
+    <h3 id="p2-h1" class="sec"><span class="n">1 /</span> The CI/CD Lifecycle</h3>
     <div class="life">
         <div class="lnode"><img src="../assets/icons/git/git.svg" alt="Code"><b>CODE</b><small>commit</small></div><div class="lconn">→</div>
         <div class="lnode"><img src="../assets/icons/ci-cd/hammer.svg" alt="Build"><b>BUILD</b><small>compile</small></div><div class="lconn">→</div>
@@ -812,16 +805,16 @@ ul.tight li{margin-bottom:4px;}
         <div class="lnode"><img src="../assets/icons/deployment/rocket.svg" alt="Deploy"><b>DEPLOY</b><small>run</small></div>
     </div>
     <div class="cap">Every chapter of this manual lives somewhere on this line. Feedback flows backward: deploy → observe → next commit.</div>
-    <h3 id="p5-h2" class="sec"><span class="n">2 /</span> How to read this manual</h3>
+    <h3 id="p2-h2" class="sec"><span class="n">2 /</span> How to read this manual</h3>
     <p class="body">Each concept answers <b>WHAT · WHY · WHEN · HOW · WHAT CAN FAIL</b>. Green means passed, red means failed, amber means a human must decide, purple means artifact. Color always pairs with a symbol and a label — the book survives grayscale printing.</p>
     
-</div><div id="p6" class="page">
+</div><div id="p3" class="page">
     
-    <h3 id="p6-h1" class="sec"><span class="n">3 /</span> What Is Continuous Integration</h3>
+    <h3 id="p3-h1" class="sec"><span class="n">3 /</span> What Is Continuous Integration</h3>
     <div class="iconrow"><img src="../assets/icons/git/git.svg" alt="Git"><p class="body"><b>Developers merge small changes into shared <span class="mono">main</span> frequently; every merge triggers an automated build + test + scan.</b> CI answers one question: <i>does this change work?</i></p></div>
     <p class="body"><b>WHEN</b> — on every push and every pull request. <b>HOW</b> — a pipeline job checks out the exact commit, builds it in a clean environment, and reports green or red back to the branch in minutes.</p>
-    <div class="callout"><h4 id="p6-h2">WHY THIS EXISTS</h4><p>Without automated integration, a broken change travels for days before anyone discovers it. CI moves that discovery to within minutes of the commit — when the author still remembers what they did.</p></div>
-    <h3 id="p6-h3" class="sec"><span class="n">4 /</span> What happens without CI/CD</h3>
+    <div class="callout"><h4 id="p3-h2">WHY THIS EXISTS</h4><p>Without automated integration, a broken change travels for days before anyone discovers it. CI moves that discovery to within minutes of the commit — when the author still remembers what they did.</p></div>
+    <h3 id="p3-h3" class="sec"><span class="n">4 /</span> What happens without CI/CD</h3>
     <ul class="tight">
         <li><b>Long-lived branches → merge hell.</b> Weeks of divergent work collide; untangling takes days.</li>
         <li><b>"Works on my machine" releases.</b> Testing one thing, shipping another — every deploy a gamble.</li>
@@ -831,9 +824,9 @@ ul.tight li{margin-bottom:4px;}
     </ul>
     <p class="body">Integration pain is paid <b>minutes per commit</b> with CI/CD, or <b>weeks per release</b> without it.</p>
     
-</div><div id="p7" class="page">
+</div><div id="p4" class="page">
     
-    <h3 id="p7-h1" class="sec"><span class="n">5 /</span> CI vs Delivery vs Deployment</h3>
+    <h3 id="p4-h1" class="sec"><span class="n">5 /</span> CI vs Delivery vs Deployment</h3>
     <table class="cmp">
         <tr><th></th><th>CI</th><th>Continuous Delivery</th><th>Continuous Deployment</th></tr>
         <tr><td>Question</td><td>Does it work?</td><td>Could we ship it?</td><td>— (ships itself)</td></tr>
@@ -848,11 +841,11 @@ ul.tight li{margin-bottom:4px;}
             <div class="opt n"><b>NO → CONTINUOUS DELIVERY</b>Every passing change is releasable. A human or policy decides when.</div>
         </div>
     </div>
-    <div class="callout warn"><h4 id="p7-h2">GOTCHA</h4><p>A green build does not mean the application works in production. It means only the checks inside that pipeline passed.</p></div>
+    <div class="callout warn"><h4 id="p4-h2">GOTCHA</h4><p>A green build does not mean the application works in production. It means only the checks inside that pipeline passed.</p></div>
     
-</div><div id="p8" class="page">
+</div><div id="p5" class="page">
     
-    <h3 id="p8-h1" class="sec"><span class="n">6 /</span> Anatomy of a Pipeline</h3>
+    <h3 id="p5-h1" class="sec"><span class="n">6 /</span> Anatomy of a Pipeline</h3>
     <div class="pipeline">
         <div class="stage"><span class="no">01</span> <img src="../assets/icons/git/git.svg" alt="Source"><small class="st">● PASSED</small><strong>SOURCE</strong><span class="desc">Git push to main</span> </div><div class="connector">→</div>
         <div class="stage"><span class="no">02</span> <img src="../assets/icons/ci-cd/hammer.svg" alt="Build"><small class="st">● PASSED</small><strong>BUILD</strong><span class="desc">npm ci + build</span> </div><div class="connector">→</div>
@@ -868,7 +861,7 @@ ul.tight li{margin-bottom:4px;}
         <tr><td>Step</td><td>Single operation inside a job</td></tr>
         <tr><td>Runner / Agent</td><td>Execution environment running the work</td></tr>
     </table>
-    <h3 id="p8-h2" class="sec"><span class="n">7 /</span> The Status System</h3>
+    <h3 id="p5-h2" class="sec"><span class="n">7 /</span> The Status System</h3>
     <div class="status">
         <span class="pill"><i class="i-b"></i>● RUNNING</span>
         <span class="pill"><i class="i-g"></i>● PASSED</span>
@@ -878,13 +871,13 @@ ul.tight li{margin-bottom:4px;}
         <span class="pill"><i class="i-gr"></i>● SKIPPED</span>
     </div>
     
-</div><div id="p9" class="page">
+</div><div id="p6" class="page">
     
-    <h3 id="p9-h1" class="sec"><span class="n">8 /</span> Environment Lanes: One Artifact, Three Tracks</h3>
+    <h3 id="p6-h1" class="sec"><span class="n">8 /</span> Environment Lanes: One Artifact, Three Tracks</h3>
     <div class="lane dev"><div class="lt"><span>DEVELOPMENT</span> <span>BUILD → TEST</span> </div><div class="lb">push <span class="ok">→ build ✓ → unit tests ✓</span> <span class="wt">→ image staged</span> </div></div>
     <div class="lane stg"><div class="lt"><span>STAGING</span> <span>DEPLOY → VERIFY</span> </div><div class="lb">deploy sha-9f3a <span class="ok">→ smoke ✓ → scan ✓</span> <span class="wt">→ awaiting approval</span> </div></div>
     <div class="lane prd"><div class="lt"><span>PRODUCTION</span> <span>APPROVE → DEPLOY</span> </div><div class="lb"><span class="wt">◌ approval gate → deploy same digest → observe</span> </div></div>
-    <h3 id="p9-h2" class="sec"><span class="n">9 /</span> The Deployment Loop</h3>
+    <h3 id="p6-h2" class="sec"><span class="n">9 /</span> The Deployment Loop</h3>
     <div class="vflow">
         <div class="fnode good"><img src="../assets/icons/git/git.svg" alt="Git"><b>COMMIT</b><small>developer pushes</small></div><div class="farrow">↓</div>
         <div class="fnode good"><img src="../assets/icons/ci-cd/workflow.svg" alt="Pipeline"><b>PIPELINE</b><small>build → test → scan</small></div><div class="farrow">↓</div>
@@ -894,23 +887,23 @@ ul.tight li{margin-bottom:4px;}
         <div class="fnode"><img src="../assets/icons/monitoring/activity.svg" alt="Observe"><b>OBSERVE → FEEDBACK</b><small>metrics → developer → next commit</small></div>
     </div>
     
-</div><div id="p10" class="page">
+</div><div id="p7" class="page">
     
-    <h3 id="p10-h1" class="sec"><span class="n">10 /</span> From Push to Pipeline</h3>
+    <h3 id="p7-h1" class="sec"><span class="n">10 /</span> From Push to Pipeline</h3>
     <div class="terminal"><span class="p">$</span> git push origin main<br><br><span class="c">→ pipeline triggered · commit 9f3a2c1</span> <br><br>[01] BUILD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="g">PASSED</span> &nbsp; 1m 12s<br>[02] TEST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="b">RUNNING</span> · 214/300<br>[03] SCAN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="w">WAITING</span> <br>[04] ARTIFACT&nbsp;&nbsp;&nbsp;<span class="w">WAITING</span> </div>
-    <h3 id="p10-h2" class="sec"><span class="n">11 /</span> Command and Result</h3>
+    <h3 id="p7-h2" class="sec"><span class="n">11 /</span> Command and Result</h3>
     <div class="cmdres">
-        <div class="col"><h4 id="p10-h3">COMMAND</h4><pre>$ docker build -t registry/app:sha-9f3a .
+        <div class="col"><h4 id="p7-h3">COMMAND</h4><pre>$ docker build -t registry/app:sha-9f3a .
 $ docker push registry/app:sha-9f3a</pre></div>
-        <div class="col"><h4 id="p10-h4">RESULT</h4><pre>Successfully built 7f91c2
+        <div class="col"><h4 id="p7-h4">RESULT</h4><pre>Successfully built 7f91c2
 Successfully tagged sha-9f3a
 Pushed digest sha256:4d…e9</pre></div>
     </div>
     <div class="kv"><b>WHY IT MATTERS —</b> the pushed digest is the frozen, promotable unit. Staging and production deploy this exact hash; nothing is ever rebuilt between environments.</div>
     
-</div><div id="p11" class="page">
+</div><div id="p8" class="page">
     
-    <h3 id="p11-h1" class="sec"><span class="n">12 /</span> The Artifact Identity</h3>
+    <h3 id="p8-h1" class="sec"><span class="n">12 /</span> The Artifact Identity</h3>
     <div class="vflow">
         <div class="fnode"><img src="../assets/icons/git/git.svg" alt="Source code"><b>SOURCE CODE</b><small>repo @ 9f3a2c1</small></div><div class="farrow">↓</div>
         <div class="fnode"><img src="../assets/icons/ci-cd/hammer.svg" alt="Build"><b>BUILD</b><small>npm ci → bundle</small></div><div class="farrow">↓</div>
@@ -918,13 +911,13 @@ Pushed digest sha256:4d…e9</pre></div>
         <div class="fnode"><img src="../assets/icons/general/database.svg" alt="Registry"><b>REGISTRY</b><small>stored, versioned, distributable</small></div><div class="farrow">↓</div>
         <div class="fnode"><img src="../assets/icons/deployment/rocket.svg" alt="Deploy"><b>DEPLOY</b><small>same digest everywhere</small></div>
     </div>
-    <h3 id="p11-h2" class="sec"><span class="n">13 /</span> The Approval Gate</h3>
+    <h3 id="p8-h2" class="sec"><span class="n">13 /</span> The Approval Gate</h3>
     <div class="kv"><b>AUTOMATED:</b> build ✓ · test ✓ · scan ✓ · artifact ✓ &nbsp;→&nbsp; <b style="color:#a5761a;">◌ APPROVAL — a human decision is required</b> &nbsp;→&nbsp; <b>PRODUCTION</b></div>
-    <div class="callout"><h4 id="p11-h3">CONTEXT — PRODUCER &amp; CONSUMER</h4><p>The build pipeline <b>produces</b> the artifact; the deployment pipeline <b>consumes</b> it; the registry <b>stores</b> it. Lifecycle: build → store → promote → deploy. Anything that breaks this chain — a rebuild, a mutable tag, a skipped gate — voids every check upstream.</p></div>
+    <div class="callout"><h4 id="p8-h3">CONTEXT — PRODUCER &amp; CONSUMER</h4><p>The build pipeline <b>produces</b> the artifact; the deployment pipeline <b>consumes</b> it; the registry <b>stores</b> it. Lifecycle: build → store → promote → deploy. Anything that breaks this chain — a rebuild, a mutable tag, a skipped gate — voids every check upstream.</p></div>
     
-</div><div id="p12" class="page">
+</div><div id="p9" class="page">
     
-    <h3 id="p12-h1" class="sec"><span class="n">14 /</span> Failure as a State Transition</h3>
+    <h3 id="p9-h1" class="sec"><span class="n">14 /</span> Failure as a State Transition</h3>
     <div class="vflow">
         <div class="fnode good"><img src="../assets/icons/ci-cd/hammer.svg" alt="Build passed"><b>BUILD ✓</b><small>compiles</small></div><div class="farrow">↓</div>
         <div class="fnode good"><img src="../assets/icons/testing/flask-conical.svg" alt="Tests passed"><b>TEST ✓</b><small>300/300 pass</small></div><div class="farrow">↓</div>
@@ -932,16 +925,16 @@ Pushed digest sha256:4d…e9</pre></div>
         <div class="fnode bad"><img src="../assets/icons/deployment/rocket.svg" alt="Deployment blocked"><b>DEPLOYMENT BLOCKED</b><small>promotion refused — artifact quarantined</small></div>
     </div>
     <div class="two">
-        <div class="callout bad"><h4 id="p12-h2">RECOVERY LOOP</h4><p>FAILURE → LOGS → ROOT CAUSE → FIX → NEW COMMIT → PIPELINE. Every incident must land a new check, or it will recur.</p></div>
-        <div class="callout warn"><h4 id="p12-h3">GOTCHA</h4><p>Never bypass a red gate with an admin override "just this once". The override becomes the process.</p></div>
+        <div class="callout bad"><h4 id="p9-h2">RECOVERY LOOP</h4><p>FAILURE → LOGS → ROOT CAUSE → FIX → NEW COMMIT → PIPELINE. Every incident must land a new check, or it will recur.</p></div>
+        <div class="callout warn"><h4 id="p9-h3">GOTCHA</h4><p>Never bypass a red gate with an admin override "just this once". The override becomes the process.</p></div>
     </div>
     
-</div><div id="p13" class="page">
+</div><div id="p10" class="page">
     
-    <h3 id="p13-h1" class="sec"><span class="n">15 /</span> Interview Check</h3>
+    <h3 id="p10-h1" class="sec"><span class="n">15 /</span> Interview Check</h3>
     <div class="qa"><span class="qq">Q:</span> Delivery vs Deployment?<br><span class="aa">A:</span> Delivery keeps software production-ready behind an approval; Deployment releases validated changes automatically.</div>
     <div class="qa"><span class="qq">Q:</span> Why must staging and production share one artifact digest?<br><span class="aa">A:</span> Otherwise you tested one binary and shipped another — verification is void.</div>
-    <h3 id="p13-h2" class="sec"><span class="n">16 /</span> The CI/CD System Map</h3>
+    <h3 id="p10-h2" class="sec"><span class="n">16 /</span> The CI/CD System Map</h3>
     <div class="life">
         <div class="lnode"><img src="../assets/icons/git/git.svg" alt="Source"><b>SOURCE</b><small>commit</small></div><div class="lconn">→</div>
         <div class="lnode"><img src="../assets/icons/ci-cd/workflow.svg" alt="CI"><b>CI</b><small>build / test</small></div><div class="lconn">→</div>
@@ -954,59 +947,59 @@ Pushed digest sha256:4d…e9</pre></div>
     </div>
     
     
-</div><div id="p14" class="page opener">
+</div><div id="p11" class="page opener">
 
 
 <div class="ctitle">SOURCE CONTROL</div>
 <p class="lede">Picking up from <em>Foundations</em>, where a Git push triggered the lifecycle — we now examine the machinery of that trigger: <em>branches isolate work, pull requests gate it, triggers fire pipelines</em>.</p>
-<h3 id="p14-h1" class="sec"><span class="n">01 /</span> What Each Piece Is</h3>
+<h3 id="p11-h1" class="sec"><span class="n">01 /</span> What Each Piece Is</h3>
 <div class="iconrow"><img src="../assets/icons/git/git.svg" alt="Git"><p class="body"><b>Git</b> — distributed version control; every commit is a snapshot with author, message, parent.</p></div>
 <div class="iconrow"><img src="../assets/icons/ci-cd/workflow.svg" alt="Branch"><p class="body"><b>Branching</b> — an independent line of work (<span class="mono">feature/login</span>) forked from <span class="mono">main</span>.</p></div>
 <div class="iconrow"><img src="../assets/icons/git/github.svg" alt="PR"><p class="body"><b>Pull Request</b> — a merge proposal combining human review with automated status checks.</p></div>
 <div class="iconrow"><img src="../assets/icons/jenkins/webhook.svg" alt="Trigger"><p class="body"><b>CI Trigger</b> — the event that starts a pipeline: PR opened/updated, push to <span class="mono">main</span>, schedule, manual.</p></div>
-<h3 id="p14-h2" class="sec"><span class="n">02 /</span> Why the Gate Exists</h3>
+<h3 id="p11-h2" class="sec"><span class="n">02 /</span> Why the Gate Exists</h3>
 <p class="body">Direct pushes to <span class="mono">main</span> bypass review and verification. The branch → PR → CI → merge flow makes every change <b>Reviewed, Tested, and Traceable</b> before it can break the pipeline.</p>
 
-</div><div id="p15" class="page">
+</div><div id="p12" class="page">
 
-<h3 id="p15-h1" class="sec"><span class="n">03 /</span> How the Flow Executes</h3>
+<h3 id="p12-h1" class="sec"><span class="n">03 /</span> How the Flow Executes</h3>
 <div class="vflow">
 <div class="fnode good"><img src="../assets/icons/ci-cd/workflow.svg" alt="Branch"><b>BRANCH</b><small>small logical commits</small></div><div class="farrow">↓</div>
 <div class="fnode good"><img src="../assets/icons/git/github.svg" alt="PR"><b>PULL REQUEST</b><small>trigger fires</small></div><div class="farrow">↓</div>
 <div class="fnode good"><img src="../assets/icons/testing/flask-conical.svg" alt="Checks"><b>CHECKS</b><small>build · test · scan post back</small></div><div class="farrow">↓</div>
 <div class="fnode good"><img src="../assets/icons/git/git.svg" alt="Merge"><b>MERGE</b><small>green + approved only</small></div>
 </div>
-<h3 id="p15-h2" class="sec"><span class="n">04 /</span> Commands</h3>
+<h3 id="p12-h2" class="sec"><span class="n">04 /</span> Commands</h3>
 <div class="terminal"><span class="p">$</span> git checkout -b feature/login<br><span class="p">$</span> git add -A &amp;&amp; git commit -m "feat(auth): add login validation"<br><span class="p">$</span> git push -u origin feature/login<br><br><span class="c"># then open the PR — CI trigger fires automatically</span></div>
 <div class="terminal"><span class="c"># .github/workflows trigger: CI on every PR + push to main</span><br><span class="g">on:</span><br>&nbsp;&nbsp;pull_request:<br>&nbsp;&nbsp;push:<br>&nbsp;&nbsp;&nbsp;&nbsp;branches: [main]</div>
 
-</div><div id="p16" class="page">
+</div><div id="p13" class="page">
 
-<h3 id="p16-h1" class="sec"><span class="n">05 /</span> Branching Models</h3>
+<h3 id="p13-h1" class="sec"><span class="n">05 /</span> Branching Models</h3>
 <table class="cmp"><tr><th>Model</th><th>Rule</th><th>Best for</th></tr>
 <tr><td>GitHub Flow</td><td>Branch → PR → main → deploy</td><td>CD teams (this series' default)</td></tr>
 <tr><td>Git Flow</td><td><span class="mono">develop</span> + <span class="mono">release/*</span> + <span class="mono">hotfix/*</span></td><td>Versioned releases</td></tr>
 <tr><td>Trunk-Based</td><td>Tiny branches, merge daily</td><td>High-velocity CI</td></tr></table>
-<h3 id="p16-h2" class="sec"><span class="n">06 /</span> Failure Modes &amp; Best Practices</h3>
+<h3 id="p13-h2" class="sec"><span class="n">06 /</span> Failure Modes &amp; Best Practices</h3>
 <ul class="tight"><li>Long-lived branches → merge hell; fix with trunk-based discipline.</li><li>Red checks ignored; fix with required status checks.</li><li>Merge-queue races; fix with merge queues, linear history.</li></ul>
 <div class="kv"><b>RULES —</b> one logical change per PR (&lt; ~400 lines) · green CI + 1 approval before merge · conventional commits (<span class="mono">feat:</span>, <span class="mono">fix:</span>) so changelogs automate.</div>
-<div class="callout warn"><h4 id="p16-h3">GOTCHA</h4><p>"Merging equals deploying" is false. Merging makes a change a <i>candidate</i>; Continuous Delivery decides deployment.</p></div>
+<div class="callout warn"><h4 id="p13-h3">GOTCHA</h4><p>"Merging equals deploying" is false. Merging makes a change a <i>candidate</i>; Continuous Delivery decides deployment.</p></div>
 
-</div><div id="p17" class="page">
+</div><div id="p14" class="page">
 
-<h3 id="p17-h1" class="sec"><span class="n">07 /</span> Interview Check</h3>
+<h3 id="p14-h1" class="sec"><span class="n">07 /</span> Interview Check</h3>
 <div class="qa"><span class="qq">Q:</span> Explain the PR as a quality gate.<br><span class="aa">A:</span> Human review (design) + automated checks (correctness) + merge policy (green + approved = mergeable).</div>
 <div class="qa"><span class="qq">Q:</span> Map the trigger types.<br><span class="aa">A:</span> Push, pull request, schedule, manual dispatch, tag/release.</div>
-<h3 id="p17-h2" class="sec"><span class="n">08 /</span> Handoff</h3>
+<h3 id="p14-h2" class="sec"><span class="n">08 /</span> Handoff</h3>
 <p class="body">The trigger fires — now something must execute. This workflow continues in <b>Pipelines, Build, Test &amp; Artifacts</b>, where the triggered pipeline runs build, test, and scan.</p>
 
 
-</div><div id="p18" class="page opener">
+</div><div id="p15" class="page opener">
 
 
 <div class="ctitle">INTEGRATION</div>
 <p class="lede">Picking up from <em>Source Control</em>, where the PR gate was built — CI is <em>the discipline that makes the gate meaningful</em>: integrate daily, verify automatically, fix immediately.</p>
-<h3 id="p18-h1" class="sec"><span class="n">01 /</span> The Three Habits</h3>
+<h3 id="p15-h1" class="sec"><span class="n">01 /</span> The Three Habits</h3>
 <div class="vflow">
 <div class="fnode"><img src="../assets/icons/git/git.svg" alt="Integrate"><b>INTEGRATE</b><small>branches live hours, never weeks</small></div><div class="farrow">↓</div>
 <div class="fnode"><img src="../assets/icons/testing/flask-conical.svg" alt="Verify"><b>VERIFY</b><small>every merge runs the full gate</small></div><div class="farrow">↓</div>
@@ -1014,19 +1007,19 @@ Pushed digest sha256:4d…e9</pre></div>
 </div>
 <p class="body">Integration pain grows with branch age: two-day branches merge in minutes, two-month branches in weeks.</p>
 
-</div><div id="p19" class="page">
+</div><div id="p16" class="page">
 
-<h3 id="p19-h1" class="sec"><span class="n">02 /</span> PR Gates &amp; Merge Queues</h3>
+<h3 id="p16-h1" class="sec"><span class="n">02 /</span> PR Gates &amp; Merge Queues</h3>
 <ul class="tight"><li><b>PR gate</b> — required checks + approvals in branch protection. No green, no merge. No admin overrides.</li><li><b>Merge queue</b> — serializes merges on busy <span class="mono">main</span>: rebase onto latest green, re-verify, land. Kills the green-on-branch-red-on-main race.</li><li><b>Linear history</b> — rebase/squash keeps <span class="mono">main</span> bisectable: any commit builds and reverts cleanly.</li></ul>
-<h3 id="p19-h2" class="sec"><span class="n">03 /</span> Trunk Discipline</h3>
+<h3 id="p16-h2" class="sec"><span class="n">03 /</span> Trunk Discipline</h3>
 <div class="kv"><b>RULES —</b> tiny branches, daily merges · flags hide unfinished work, not long branches · <span class="mono">main</span> always releasable · whoever breaks it fixes it first · measure merges per dev per week.</div>
 <ul class="tight"><li>Long branches → merge hell (WIP limits + flags).</li><li>Red main normalized → quality collapse (stop-the-line culture).</li><li>Flaky gates → bypassed checks (quarantine flakes, never disable gates).</li></ul>
 <div class="qa"><span class="qq">Q:</span> CI practice vs CI pipeline?<br><span class="aa">A:</span> Discipline (merge small, verify, fix first) vs machinery (the pipeline that enforces it).</div>
 <div class="kv"><b>DISCIPLINE DETAILS —</b> preflight builds validate diffs before landing on <span class="mono">main</span> · rotating build master reverts lingering breakage on large teams · ratcheting gates fail only when warnings or duplication increase.</div>
 
-</div><div id="p20" class="page">
+</div><div id="p17" class="page">
 
-<h3 id="p20-h1" class="sec"><span class="n">04 /</span> Handoff</h3>
+<h3 id="p17-h1" class="sec"><span class="n">04 /</span> Handoff</h3>
 <p class="body">Small merges, verified automatically, fixed immediately — that discipline feeds every pipeline downstream. Continue in <b>Pipelines, Build, Test &amp; Artifacts</b>.</p>
 
 

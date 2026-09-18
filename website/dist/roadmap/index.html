@@ -452,14 +452,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
 .map-hero .eyebrow{display:inline-block;font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--brand);background:var(--acc-soft);border-radius:9999px;padding:5px 14px;margin-bottom:16px}
 .map-hero h1{font-size:clamp(28px,4.4vw,46px);font-weight:700;letter-spacing:-.9px;line-height:1.08}
 .map-hero p{color:var(--mut);font-size:16px;max-width:640px;margin:12px auto 0;line-height:1.55}
-/* — Home hero: pipeline motif, CTAs, stat pills — */
-.herocta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px}
-.btn.prim{background:var(--brand);color:#08251b;border-color:transparent;box-shadow:0 8px 24px -8px color-mix(in srgb,var(--brand) 50%,transparent)}
-.btn.prim:hover{background:color-mix(in srgb,var(--brand) 86%,#fff);border-color:transparent;transform:translateY(-1px)}
-.stat-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:20px}
-.stat-pill{display:inline-flex;align-items:baseline;gap:6px;font-family:var(--mono);font-size:12.5px;color:var(--mut);background:var(--card);border:1px solid var(--line-soft);border-radius:9999px;padding:6px 14px}
-.stat-pill b{font-size:14px;color:var(--ink)}
-.stat-level b{color:var(--brand)}
+/* — Home hero: pipeline motif — */
 .map-hero{overflow:hidden}
 .pipeline{max-width:1060px;margin:6px auto 0;height:150px;pointer-events:none;opacity:.32}
 .map-hero-inner{position:relative;z-index:2}
@@ -473,7 +466,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
 .plabel{font-family:var(--mono);font-size:11px;letter-spacing:.6px;text-transform:uppercase;fill:var(--mut)}
 @keyframes dashflow{to{stroke-dashoffset:-128}}
 @media(prefers-reduced-motion:reduce){.pedge{animation:none}}
-@media(max-width:600px){.pipeline{opacity:.14;height:110px}.herocta{flex-direction:column;align-items:stretch;max-width:320px;margin-left:auto;margin-right:auto}.herocta .btn{justify-content:center}}
+@media(max-width:600px){.pipeline{opacity:.14;height:110px}}
 /* — MAP GRID: exterior blocks as distinct objects — */
 .map-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;margin:32px 0 28px;perspective:1200px}
 .map-block{position:relative;background:linear-gradient(135deg,color-mix(in srgb,var(--cat) 7%,var(--card)) 0%,var(--card) 55%);border:1.5px solid color-mix(in srgb,var(--cat) 28%,var(--line-soft));border-radius:16px;padding:0;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06),0 8px 24px -8px color-mix(in srgb,var(--cat) 18%,transparent),0 2px 10px rgba(0,0,0,.06);transition:transform .24s cubic-bezier(.2,.8,.2,1),box-shadow .24s ease,border-color .24s ease;text-align:left;cursor:pointer;color:var(--ink);text-decoration:none;transform-style:preserve-3d}

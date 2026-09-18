@@ -529,14 +529,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
 .map-hero .eyebrow{display:inline-block;font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--brand);background:var(--acc-soft);border-radius:9999px;padding:5px 14px;margin-bottom:16px}
 .map-hero h1{font-size:clamp(28px,4.4vw,46px);font-weight:700;letter-spacing:-.9px;line-height:1.08}
 .map-hero p{color:var(--mut);font-size:16px;max-width:640px;margin:12px auto 0;line-height:1.55}
-/* — Home hero: pipeline motif, CTAs, stat pills — */
-.herocta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px}
-.btn.prim{background:var(--brand);color:#08251b;border-color:transparent;box-shadow:0 8px 24px -8px color-mix(in srgb,var(--brand) 50%,transparent)}
-.btn.prim:hover{background:color-mix(in srgb,var(--brand) 86%,#fff);border-color:transparent;transform:translateY(-1px)}
-.stat-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:20px}
-.stat-pill{display:inline-flex;align-items:baseline;gap:6px;font-family:var(--mono);font-size:12.5px;color:var(--mut);background:var(--card);border:1px solid var(--line-soft);border-radius:9999px;padding:6px 14px}
-.stat-pill b{font-size:14px;color:var(--ink)}
-.stat-level b{color:var(--brand)}
+/* — Home hero: pipeline motif — */
 .map-hero{overflow:hidden}
 .pipeline{max-width:1060px;margin:6px auto 0;height:150px;pointer-events:none;opacity:.32}
 .map-hero-inner{position:relative;z-index:2}
@@ -550,7 +543,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
 .plabel{font-family:var(--mono);font-size:11px;letter-spacing:.6px;text-transform:uppercase;fill:var(--mut)}
 @keyframes dashflow{to{stroke-dashoffset:-128}}
 @media(prefers-reduced-motion:reduce){.pedge{animation:none}}
-@media(max-width:600px){.pipeline{opacity:.14;height:110px}.herocta{flex-direction:column;align-items:stretch;max-width:320px;margin-left:auto;margin-right:auto}.herocta .btn{justify-content:center}}
+@media(max-width:600px){.pipeline{opacity:.14;height:110px}}
 /* — MAP GRID: exterior blocks as distinct objects — */
 .map-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;margin:32px 0 28px;perspective:1200px}
 .map-block{position:relative;background:linear-gradient(135deg,color-mix(in srgb,var(--cat) 7%,var(--card)) 0%,var(--card) 55%);border:1.5px solid color-mix(in srgb,var(--cat) 28%,var(--line-soft));border-radius:16px;padding:0;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06),0 8px 24px -8px color-mix(in srgb,var(--cat) 18%,transparent),0 2px 10px rgba(0,0,0,.06);transition:transform .24s cubic-bezier(.2,.8,.2,1),box-shadow .24s ease,border-color .24s ease;text-align:left;cursor:pointer;color:var(--ink);text-decoration:none;transform-style:preserve-3d}
@@ -1061,12 +1054,13 @@ def build_map_page(books, output_dir, paths_html=""):
     # deterministic order: CAT_ORDER first, then rest alpha; no hardcoded count
     CAT_ORDER = ["Start Here","Build","Deliver","Jenkins","Platforms","Labs","Reference"]
     cats_sorted = [c for c in CAT_ORDER if c in bycat] + sorted([c for c in bycat if c not in CAT_ORDER])
+    shown_cats = [c for c in cats_sorted if c != "Start Here"]
     CAT_COLORS_MAP = CAT_HEX
     # Build blocks html
     blocks_html = ""
     detail_html = ""
     cat_chips = []
-    for cat in cats_sorted:
+    for cat in shown_cats:
         bs = sorted(bycat[cat], key=lambda x: (DIFF_RANK.get(x["difficulty"],9), x["title"].lower()))
         cnt = len(bs)
         slug = _slug_cat(cat)
@@ -1150,19 +1144,6 @@ def build_map_page(books, output_dir, paths_html=""):
             f'</section>'
         )
     empty_chips = "".join(f'<a class="chip" href="#{s}">{html.escape(c)}</a>' for s, c in cat_chips)
-    n_paths = len({b.get("path", "") for b in books if b.get("path")})
-    n_hours = sum(b.get("time_minutes", 30) for b in books) // 60
-    ranked = [b for b in books if b.get("difficulty") in DIFF_RANK]
-    inv = {v: k for k, v in DIFF_RANK.items()}
-    lo_s = DIF_SHORT.get(inv[min((DIFF_RANK[b["difficulty"]] for b in ranked), default=1)], "") if ranked else ""
-    hi_s = DIF_SHORT.get(inv[max((DIFF_RANK[b["difficulty"]] for b in ranked), default=1)], "") if ranked else ""
-    lvl = lo_s if lo_s == hi_s else f"{lo_s}→{hi_s}"
-    stats_pills = (
-        f'<span class="stat-pill"><b>{len(books)}</b> books</span>'
-        f'<span class="stat-pill"><b>{n_paths}</b> learning paths</span>'
-        f'<span class="stat-pill"><b>~{n_hours}h</b> end to end</span>'
-        f'<span class="stat-pill stat-level"><b>{lvl}</b> levels</span>'
-    )
     # Site header chrome: reuse same header as index, with Home active
     page = f"""<!DOCTYPE html>
 <html lang="en">
@@ -1172,7 +1153,7 @@ def build_map_page(books, output_dir, paths_html=""):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <title>CICD BY Nabawy</title>
-{seo_tags("CICD BY Nabawy", "Home of the CI/CD library — 14 merged handbooks plus ordered learning paths.", f"{SITE_URL}/")}
+{seo_tags("CICD BY Nabawy", "Home of the CI/CD library — merged handbooks plus ordered learning paths.", f"{SITE_URL}/")}
 <style>{BASE_CSS}</style><script>try{{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}}catch(e){{document.documentElement.dataset.theme='sepia'}}</script>
 </head>
 <body>
@@ -1186,10 +1167,9 @@ def build_map_page(books, output_dir, paths_html=""):
 </div></header>
 <div class="wrap">
 <div class="map-hero">
-<div class="map-hero-inner"><span class="eyebrow">HOME</span>
+<div class="map-hero-inner">
 <h1>The whole building, <span style="color:var(--mut)">one glance.</span></h1>
-<div class="herocta"><a class="btn prim" href="read/start-here.html">Start here <span aria-hidden="true">→</span></a><a class="btn" href="roadmap/">Follow the roadmap</a></div>
-<div class="stat-row">{stats_pills}</div></div>
+</div>
 <div class="pipeline" aria-hidden="true"><svg width="1000" height="170" viewBox="0 0 1000 170" fill="none">
 <defs><g id="nd"><circle class="pnode" cx="0" cy="0" r="26"/><circle class="pcore" cx="0" cy="0" r="7"/></g>
 <g id="ndm"><circle class="pnode mut" cx="0" cy="0" r="26"/><circle class="pcore mut" cx="0" cy="0" r="7"/></g></defs>
@@ -1287,7 +1267,7 @@ if(initial) showDetail(initial,false);
         "<script>location.replace('./'+location.hash)</script>"
         "</head><body><p>Map moved home — <a href=\"./\">continue home</a>.</p></body></html>")
     pathlib.Path(output_dir, "map.html").write_text(redir, encoding="utf-8")
-    print(f"BUILT home: {len(books)} books in {len(cats_sorted)} categories -> {output_dir}/index.html (+ map.html redirect)")
+    print(f"BUILT home: {len(books)} books in {len(shown_cats)} categories -> {output_dir}/index.html (+ map.html redirect)")
 
 def build_roadmap_page(books, output_dir):
     """Ordered learning roadmap: every manifest book as a milestone stop,
