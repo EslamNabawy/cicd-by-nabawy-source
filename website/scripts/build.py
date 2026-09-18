@@ -515,7 +515,7 @@ body[data-font=serif] .readbody code,body[data-font=serif] .readbody pre,body[da
 @media(prefers-reduced-motion:reduce){.topbtn{transition:none}}
 .popsearch{font-size:12px;color:var(--mut);margin-top:6px}
 .popsearch a{color:var(--mut);text-decoration:underline;cursor:pointer}
-/* Structure Map — pseudo-3D isometric (B1.2/B2/B3) */
+/* Home blocks — pseudo-3D isometric (B1.2/B2/B3) */
 .map-hero{padding:52px 24px 16px;text-align:center;position:relative}
 .map-hero .eyebrow{display:inline-block;font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--brand);background:var(--acc-soft);border-radius:9999px;padding:5px 14px;margin-bottom:16px}
 .map-hero h1{font-size:clamp(28px,4.4vw,46px);font-weight:700;letter-spacing:-.9px;line-height:1.08}
@@ -1018,7 +1018,7 @@ def _slug_cat(name):
     return re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-").replace("--","-")
 
 def build_map_page(books, output_dir, paths_html=""):
-    """Structure Map — 12 pseudo-3D blocks derived from books.json categories at build time.
+    """Home — 12 pseudo-3D blocks derived from books.json categories at build time.
     No second manifest: grouping, counts, difficulty spread computed here.
     Reuses card() markup for detail views, BASE_CSS vars for theming.
     """
@@ -1116,7 +1116,7 @@ def build_map_page(books, output_dir, paths_html=""):
             f'</section>'
         )
     stats_line = f"{len(books)} books across {len(cats_sorted)} topics — derived from books.json, no second manifest."
-    # Site header chrome: reuse same header as index, with Map active
+    # Site header chrome: reuse same header as index, with Home active
     page = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1125,27 +1125,26 @@ def build_map_page(books, output_dir, paths_html=""):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <title>CICD BY Nabawy</title>
-{seo_tags("CICD BY Nabawy", "Zoomed-out structure map of the CI/CD library — 12 categories derived from books.json — plus ordered learning paths.", f"{SITE_URL}/")}
+{seo_tags("CICD BY Nabawy", "Home of the CI/CD library — 14 merged handbooks plus ordered learning paths.", f"{SITE_URL}/")}
 <style>{BASE_CSS}</style><script>try{{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}}catch(e){{document.documentElement.dataset.theme='sepia'}}</script>
 </head>
 <body>
 <header class="top"><div class="wrap">
 <a class="logo" href="index.html" style="color:inherit"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="5" cy="12" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="6" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="18" r="2.6" stroke="#18E299" stroke-width="2"/><path d="M7.6 12h5.2m0 0-2.6-2.6m2.6 2.6-2.6 2.6M13.4 7.4l2.8-1M13.4 16.6l2.8 1" stroke="#18E299" stroke-width="2" stroke-linecap="round"/></svg>CICD<span> BY Nabawy</span></a>
 <div class="search"><div class="searchwrap"><input id="q" type="search" placeholder="Search all {len(books)} books…" autocomplete="off"><div class="searchdrop" id="qdrop" role="listbox"></div></div><kbd>⌘K</kbd></div>
-<a class="btn" href="index.html" aria-current="page" style="text-decoration:none;border-color:var(--brand);color:var(--brand)">Map</a>
-<a class="btn" href="shelf.html" style="text-decoration:none">Browse</a>
+<a class="btn" href="index.html" aria-current="page" style="text-decoration:none;border-color:var(--brand);color:var(--brand)">Home</a>
 <a class="btn" href="roadmap/" style="text-decoration:none">Roadmap</a>
 <a class="btn" href="glossary.html" style="text-decoration:none">Glossary</a>
 <button class="btn" id="themebtn" aria-label="Toggle theme">☀</button>
 </div></header>
 <div class="wrap">
-<div class="map-hero"><span class="eyebrow">STRUCTURE MAP</span><h1>The whole building, <span style="color:var(--mut)">one glance.</span></h1><p>{stats_line}</p></div>
+<div class="map-hero"><span class="eyebrow">HOME</span><h1>The whole building, <span style="color:var(--mut)">one glance.</span></h1><p>{stats_line}</p></div>
 <div class="map-grid" id="mapGrid" role="list" aria-label="Knowledge structure map">{blocks_html}</div>
 {paths_html}
 <div id="mapDetails">{detail_html}</div>
-<div class="empty" id="mapEmpty" style="display:none">No category matches this link. <a href="index.html">Back to map</a></div>
+<div class="empty" id="mapEmpty" style="display:none">No category matches this link. <a href="index.html">Back home</a></div>
 </div>
-<footer><div class="wrap"><span>CICD BY Nabawy</span><span><a href="index.html">Map</a> · <a href="shelf.html">Browse</a> · <a href="roadmap/">Roadmap</a> · <a href="glossary.html">Glossary</a> · v2.1 Sep 2026</span></div></footer>
+<footer><div class="wrap"><span>CICD BY Nabawy</span><span><a href="index.html">Home</a> · <a href="roadmap/">Roadmap</a> · <a href="glossary.html">Glossary</a> · v2.1 Sep 2026</span></div></footer>
 <script>
 (function(){{
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
@@ -1160,13 +1159,13 @@ const grid=$('#mapGrid'),details=$$('.map-detail'),empty=$('#mapEmpty'),paths=$(
 function slugFromHash(){{return location.hash.replace(/^#/,'').trim().toLowerCase();}}
 function showDetail(slug, push){{
   const target=document.getElementById('detail-'+slug);
-  if(!slug){{ grid.style.display='';if(paths)paths.style.display=''; grid.classList.remove('hidden'); details.forEach(d=>d.classList.remove('active')); empty.style.display='none'; document.title='Structure Map — CICD BY Nabawy'; return; }}
+  if(!slug){{ grid.style.display='';if(paths)paths.style.display=''; grid.classList.remove('hidden'); details.forEach(d=>d.classList.remove('active')); empty.style.display='none'; document.title='Home — CICD BY Nabawy'; return; }}
   if(!target){{ grid.style.display='none';if(paths)paths.style.display='none'; details.forEach(d=>d.classList.remove('active')); empty.style.display=''; return; }}
   grid.style.display='none';if(paths)paths.style.display='none'; grid.classList.add('hidden');
   details.forEach(d=>d.classList.toggle('active', d===target));
   empty.style.display='none';
   const cat=target.dataset.cat||slug;
-  document.title=cat+' — Structure Map — CICD BY Nabawy';
+  document.title=cat+' — CICD BY Nabawy';
   target.scrollIntoView({{block:'start'}});
 }}
 function navigate(slug){{ if(!slug){{ history.pushState(null,'',location.pathname); showDetail('',false); }} else {{ if(location.hash.slice(1)!==slug){{ location.hash='#'+slug; }} else {{ showDetail(slug,false); }} }} }}
@@ -1217,19 +1216,19 @@ if(initial) showDetail(initial,false);
     pathlib.Path(output_dir, "index.html").write_text(page, encoding="utf-8")
     redir = ("<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\">"
         "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
-        "<title>Structure Map — CICD BY Nabawy</title>"
+        "<title>Home — CICD BY Nabawy</title>"
         "<link rel=\"canonical\" href=\"https://eslamnabawy.github.io/cicd-by-nabawy/\">"
         "<meta http-equiv=\"refresh\" content=\"0; url=./\">"
         "<script>location.replace('./'+location.hash)</script>"
-        "</head><body><p>Structure Map moved home — <a href=\"./\">continue to the map</a>.</p></body></html>")
+        "</head><body><p>Map moved home — <a href=\"./\">continue home</a>.</p></body></html>")
     pathlib.Path(output_dir, "map.html").write_text(redir, encoding="utf-8")
-    print(f"BUILT map landing: {len(books)} books in {len(cats_sorted)} categories -> {output_dir}/index.html (+ map.html redirect)")
+    print(f"BUILT home: {len(books)} books in {len(cats_sorted)} categories -> {output_dir}/index.html (+ map.html redirect)")
 
 def build_roadmap_page(books, output_dir):
     """Ordered learning roadmap: every manifest book as a milestone stop,
 
     grouped by the ordered paths in content/paths.json (single taxonomy,
-    shared with map/shelf/reader). Same tokens, same card language.
+    shared with home/reader). Same tokens, same card language.
     """
     try:
         _pd = json.load(open(os.path.join(ROOT, "content", "paths.json"), encoding="utf-8"))
@@ -1291,8 +1290,7 @@ def build_roadmap_page(books, output_dir):
 <a class="logo" href="../index.html" style="color:inherit"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="5" cy="12" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="6" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="18" r="2.6" stroke="#18E299" stroke-width="2"/><path d="M7.6 12h5.2m0 0-2.6-2.6m2.6 2.6-2.6 2.6M13.4 7.4l2.8-1M13.4 16.6l2.8 1" stroke="#18E299" stroke-width="2" stroke-linecap="round"/></svg>CICD<span> BY Nabawy</span></a>
 <nav class="crumbs"><span class="sep">/</span><span class="here">Roadmap</span></nav>
 <div class="search"></div>
-<a class="btn" href="../index.html" style="text-decoration:none">Map</a>
-<a class="btn" href="../shelf.html" style="text-decoration:none">Browse</a>
+<a class="btn" href="../index.html" style="text-decoration:none">Home</a>
 <a class="btn" href="../glossary.html" style="text-decoration:none">Glossary</a>
 <button class="btn" id="themebtn" aria-label="Toggle theme">☀</button>
 </div></header>
@@ -1509,8 +1507,8 @@ def build():
             prereq_html = '<span class="prereq">Prereq: None — start here</span>'
         contextbar = (
             f'<div class="readcontext" data-testid="reader-context"><div class="wrap">'
-            f'<a href="../shelf.html">Browse</a><span>›</span>'
-            f'<a href="../shelf.html#path-{html.escape(b.get("path", ""))}">{html.escape(plabel)}</a><span>›</span>'
+            f'<a href="../index.html">Home</a><span>›</span>'
+            f'<a href="../index.html#path-{html.escape(b.get("path", ""))}">{html.escape(plabel)}</a><span>›</span>'
             f'<span class="here">{html.escape(b["title"])}</span>'
             f'<span class="pathpos">{ppos} of {ptotal} in {html.escape(plabel)}</span>'
             f'{prereq_html}</div></div>')
@@ -1586,8 +1584,7 @@ def build():
 <span id="qcount" style="font-size:12px;color:var(--mut)"></span>
 <button class="markbtn" id="markbtn" aria-label="Bookmark this book">☆ Save</button>
 <a class="readback btn reader-nav" id="backbtn" href="../book/{b["id"]}.html">← Back</a>
-<nav class="reader-nav" aria-label="Reader navigation"><a class="btn" href="../index.html" style="text-decoration:none">Map</a>
-<a class="btn" href="../shelf.html" style="text-decoration:none">Browse</a>
+<nav class="reader-nav" aria-label="Reader navigation"><a class="btn" href="../index.html" style="text-decoration:none">Home</a>
 <a class="btn" href="../book/{b['id']}.html" style="text-decoration:none">Overview</a></nav>
 <button class="btn" id="fsbtn" aria-label="Toggle fullscreen">⛶</button>
 <button class="btn" id="setbtn" aria-label="Reading settings">⚙ A⁺</button>
@@ -1612,7 +1609,7 @@ def build():
 <button class="topbtn" id="topbtn" aria-label="Back to top" title="Back to top">↑</button>
 <div class="drawer" id="drawer"><div class="scrim"></div><div class="panel" role="dialog" aria-modal="false" aria-label="Reading settings"><button class="drawerx" id="setx" aria-label="Close settings">×</button>
 <h3>Reading settings</h3>
-<div class="setrow mobile-controls"><a class="readback btn" href="../book/{b["id"]}.html">← Back</a> <button class="btn" id="mobilemarkbtn">☆ Save</button><button class="btn" id="fsbtnm" aria-label="Toggle fullscreen">⛶</button><a class="btn" href="../index.html">Map</a><a class="btn" href="../shelf.html">Browse</a><a class="btn" href="../book/{b['id']}.html">Overview</a></div>
+<div class="setrow mobile-controls"><a class="readback btn" href="../book/{b["id"]}.html">← Back</a> <button class="btn" id="mobilemarkbtn">☆ Save</button><button class="btn" id="fsbtnm" aria-label="Toggle fullscreen">⛶</button><a class="btn" href="../index.html">Home</a><a class="btn" href="../book/{b['id']}.html">Overview</a></div>
 <div class="setrow mobile-search"><label for="mobileq">Find in this book</label><input id="mobileq" type="search" placeholder="Search this book…"></div>
 <div class="setrow"><h5>THEME</h5><div class="opts">
 <button class="btn" data-k="theme" data-set="dark" onclick="setOpt('theme','dark')">Dark</button>
@@ -1646,7 +1643,7 @@ def build():
         stats.append((b, len(pages), len(toc)))
 
     # Dedicated lab manuals: same reader theme, direct lab-to-lab navigation,
-    # checklists, and downloadable PDFs without mixing labs into the shelf UI.
+    # checklists, and downloadable PDFs without mixing labs into the library UI.
     lab_dir = os.path.join(DIST, "labs")
     os.makedirs(lab_dir, exist_ok=True)
     lab_books = [b for b in books if b.get("category") == "Labs"]
@@ -1661,7 +1658,7 @@ def build():
     )
     lab_index = f'''<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><title>Hands-on Labs — CICD BY Nabawy</title>{seo_tags("Hands-on Labs — CICD BY Nabawy", "Direct HTML manuals for every CI/CD lab.", f"{SITE_URL}/labs/")}<style>{BASE_CSS}.lab-index{{max-width:920px;margin:0 auto;padding:54px 24px 90px}}.lab-index h1{{font-size:42px;margin:12px 0}}.lab-index p{{color:var(--mut);font-size:17px;max-width:680px;line-height:1.6}}.lab-index ul{{list-style:none;padding:0;margin:34px 0;display:grid;gap:10px}}.lab-index li{{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:18px 20px;background:var(--card);border:1px solid var(--line-soft);border-radius:12px}}.lab-index li span{{color:var(--mut);font-size:13px}}@media(max-width:600px){{.lab-index{{padding:34px 14px}}.lab-index h1{{font-size:32px}}.lab-index li{{display:block}}.lab-index li span{{display:block;margin-top:6px}}}}</style></head><body><header class="top"><div class="wrap"><a class="logo" href="../index.html" style="color:inherit">CICD<span> BY Nabawy</span></a><a class="btn" href="../index.html">Map</a><a class="btn" href="../shelf.html">Browse</a></div></header><main class="lab-index"><span class="eyebrow">HANDS-ON LABS</span><h1>Practice the pipeline.</h1><p>Eight guided exercises from the first green check through Jenkins recovery. Each manual includes setup, execution, verification, failure scenarios, cleanup, and a downloadable PDF edition.</p><ul>{lab_links}</ul></main></body></html>'''
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><title>Hands-on Labs — CICD BY Nabawy</title>{seo_tags("Hands-on Labs — CICD BY Nabawy", "Direct HTML manuals for every CI/CD lab.", f"{SITE_URL}/labs/")}<style>{BASE_CSS}.lab-index{{max-width:920px;margin:0 auto;padding:54px 24px 90px}}.lab-index h1{{font-size:42px;margin:12px 0}}.lab-index p{{color:var(--mut);font-size:17px;max-width:680px;line-height:1.6}}.lab-index ul{{list-style:none;padding:0;margin:34px 0;display:grid;gap:10px}}.lab-index li{{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:18px 20px;background:var(--card);border:1px solid var(--line-soft);border-radius:12px}}.lab-index li span{{color:var(--mut);font-size:13px}}@media(max-width:600px){{.lab-index{{padding:34px 14px}}.lab-index h1{{font-size:32px}}.lab-index li{{display:block}}.lab-index li span{{display:block;margin-top:6px}}}}</style></head><body><header class="top"><div class="wrap"><a class="logo" href="../index.html" style="color:inherit">CICD<span> BY Nabawy</span></a><a class="btn" href="../index.html">Home</a></div></header><main class="lab-index"><span class="eyebrow">HANDS-ON LABS</span><h1>Practice the pipeline.</h1><p>Eight guided exercises from the first green check through Jenkins recovery. Each manual includes setup, execution, verification, failure scenarios, cleanup, and a downloadable PDF edition.</p><ul>{lab_links}</ul></main></body></html>'''
     open(os.path.join(lab_dir, "index.html"), "w", encoding="utf-8").write(lab_index)
 
     cats = sorted(set(b["category"] for b in books))
@@ -1765,92 +1762,9 @@ def build():
     _libpng = og_png("Technical Library", "CI/CD", "#18E299")
     if _libpng:
         open(os.path.join(ogdir, "library.png"), "wb").write(_libpng)
-    jump = ("<div class=\"jumpnav\">" + "".join(
-        f"<a href=\"#{slug(s['name'])}\">{s['name']}</a>" for s in sections) + "</div>")
-    rendered = "".join(
-        shelf(s["name"], f"{s['n']} book" + ("s" if s["n"] != 1 else ""), s["color"], s["inner"],
-              grid=s["grid"], sid=slug(s["name"]), extra=s.get("extra", "")) for s in sections)
-    SHOW_FIRST = 5
-    if len(sections) > SHOW_FIRST:
-        parts = rendered.split("</section>", SHOW_FIRST)
-        shelves_html = ("</section>".join(parts[:SHOW_FIRST]) + "</section>"
-                        f'<div class="morewrap"><button class="btn" id="morebtn">Browse all topics ↓</button></div>'
-                        f'<div id="morecats" style="display:none">' + parts[SHOW_FIRST] + "</div>")
-    else:
-        shelves_html = rendered
+    # (Browse shelf page removed 2026-09-18: Home index is the single library surface.
+    # Search/OG data below is still built for search.json and social cards.)
 
-    search_idx = [{"id": b["id"], "title": b["title"], "desc": b.get("description", ""), "cat": b["category"], "dif": b["difficulty"], "tags": b.get("tags", []), "time": b.get("time_minutes", 30), "sections": all_sections.get(b["id"], [])} for b in books]
-    # (inline index is intentionally body-free for payload; search.json carries full body,
-    #  fetched over HTTP to upgrade window.SEARCH_IDX — file:// keeps this light index)
-    # P2.1: single recommended cold-start path (Beginner, prereq-chain verified)
-    RECOMMENDED = ["foundations", "git-branching", "pipelines", "ci", "lab-01"]
-    rec_seq = [byid[i] for i in RECOMMENDED if i in byid]
-    rec_total = sum(b.get("time_minutes", 30) for b in rec_seq)
-    rec_steps = "".join(
-        f'<li><span class="n">STEP {n}</span><b><a href="read/{b["id"]}.html">{html.escape(b["title"])}</a></b>'
-        f'<span>{b.get("time_minutes", 30)} min · {b["difficulty"]}</span></li>'
-        for n, b in enumerate(rec_seq, 1))
-    first = rec_seq[0] if rec_seq else None
-    rec_html = (
-        f'<section class="recstrip" data-testid="recommended-path" aria-label="Recommended reading path for beginners">'
-        f'<div class="rec-head"><span class="eyebrow">★ First week — new to CI/CD</span>'
-        f'<span class="rec-meta">{len(rec_seq)} books · ~{rec_total} min · Beginner</span></div>'
-        f'<ol class="rec-steps">{rec_steps}</ol>'
-        + (f'<a class="rec-cta" href="read/{first["id"]}.html">★ Start with {html.escape(first["title"])} — {first.get("time_minutes", 30)} min →</a>' if first else '')
-        + f'</section>') if rec_seq else ""
-
-    index = f"""<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<title>CICD BY Nabawy — Browse all books</title>
-{seo_tags("CICD BY Nabawy — Browse", SITE_DESC, f"{SITE_URL}/shelf.html", image=f"{SITE_URL}/og/library.{OG_EXT}")}
-<style>{BASE_CSS}</style><script>try{{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}}catch(e){{document.documentElement.dataset.theme='sepia'}}</script>
-<script type="application/ld+json">{json.dumps({"@context":"https://schema.org","@type":"CollectionPage","name":"CICD BY Nabawy","description":SITE_DESC,"url":SITE_URL,"hasPart":[{"@type":"TechArticle","name":b["title"],"url":SITE_URL + "/read/" + b["id"] + ".html"} for b in books]})}</script>
-</head>
-<body>
-<header class="top"><div class="wrap">
-<span class="logo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="5" cy="12" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="6" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="18" r="2.6" stroke="#18E299" stroke-width="2"/><path d="M7.6 12h5.2m0 0-2.6-2.6m2.6 2.6-2.6 2.6M13.4 7.4l2.8-1M13.4 16.6l2.8 1" stroke="#18E299" stroke-width="2" stroke-linecap="round"/></svg>CICD<span> BY Nabawy</span></span>
-<div class="search"><div class="searchwrap"><input id="q" type="search" placeholder="Search all {len(books)} books…" autocomplete="off"><div class="searchdrop" id="qdrop" role="listbox"></div></div><kbd>⌘K</kbd></div>
-<a class="btn" href="index.html" style="text-decoration:none">Map</a>
-<a class="btn" href="shelf.html" aria-current="page" style="text-decoration:none;border-color:var(--brand);color:var(--brand)">Browse</a>
-<a class="btn" href="roadmap/">Roadmap</a>
-<a class="btn" href="glossary.html" style="text-decoration:none">Glossary</a>
-<button class="btn" id="themebtn" aria-label="Toggle theme">☀</button>
-</div></header>
-<div class="wrap">
-<div class="hero"><span class="eyebrow">CI/CD ENGINEERING MANUAL</span><h1>From commit to production, <span>explained end to end.</span></h1>
-<p>{len(books)} concise technical books: fundamentals, pipelines, artifacts, delivery, Jenkins, GitHub Actions, security, reliability — plus hands-on labs.</p>
-<div class="stats"><span><b>{len(books)}</b> books</span><span><b>{len(cats)}</b> topics</span><span><b>{sum(1 for b in books if b["category"]=="Labs")}</b> hands-on labs</span><span>BY Nabawy</span></div></div>
-<div id="continue"></div>
-<div id="marksrow"></div>
-{rec_html}
-{paths_section_html()}
-<div class="collectlabel">LEVELS</div>
-<div class="rubric"><div><b>Beginner</b>No prior CI/CD. Start with Foundations → Git → Pipelines.</div><div><b>Intermediate</b>Built a pipeline. Tackle artifacts, delivery, Jenkins core, labs.</div><div><b>Advanced</b>Runs prod. Security, Jenkins advanced, GitOps, recovery drills.</div></div>
-<div class="collectlabel">BROWSE EVERYTHING</div>
-<div class="filterbar"><select id="fcat" aria-label="Filter by category"><option value="">All categories</option></select><select id="fdif" aria-label="Filter by level"><option value="">All levels</option><option>Beginner</option><option>Intermediate</option><option>Advanced</option></select><select id="fsort" aria-label="Sort books"><option value="">Path order</option><option value="az">A–Z</option><option value="time">Shortest</option><option value="level">Level</option></select><span class="count" id="fcount"></span></div>
-<div class="filterbar"><a class="btn" href="read/foundations.html">★ Start here: Foundations</a><a class="btn" href="read/lab-01.html">Hands-on: Lab 01</a><a class="btn" href="read/cheatsheet.html">Cheatsheet</a></div>
-<div class="popsearch" id="popsearch"></div>
-{jump}
-{shelves_html}
-<div class="empty" id="empty" style="display:none">No books found. Try another search — or start with <a href="read/foundations.html">Foundations</a>.</div>
-</div>
-<a id="resume" href="#" style="display:none">Resume</a>
-<footer><div class="wrap"><span>CICD BY Nabawy</span><span><a href="index.html">Map</a> · <a href="updates.html">Updates</a> · <a href="glossary.html">Glossary</a> · <a href="roadmap/">Roadmap</a> · v2.1 Sep 2026</span></div></footer>
-<script>window.SEARCH_IDX={json.dumps(search_idx, ensure_ascii=False, separators=(",", ":"))};</script>
-<script>{INDEX_JS}</script>
-<script>
-$$('.book').forEach(c=>{{const p=getP(PROG+c.dataset.id,null);if(p&&p.pct>0)c.querySelector('.prog b').style.width=p.pct+'%'}});
-try{{const cats=[...new Set($$('.book[data-id]').map(c=>c.dataset.cat))].sort();const fc=$('#fcat');cats.forEach(c=>{{const o=document.createElement('option');o.textContent=c;fc.appendChild(o);}});const h=new URLSearchParams(location.hash.slice(1));if(h.get('cat'))fc.value=h.get('cat');filter();}}catch(e){{}}
-</script>
-</body>
-</html>"""
-    open(os.path.join(DIST, "shelf.html"), "w", encoding="utf-8").write(index)
-    print(f"BUILT shelf: {len(books)} books + paths + shelves -> {DIST}/shelf.html")
 
     # glossary (dedupe by term, anchor links)
     rows = re.findall(r"^\| ([^|]+) \| ([^|]+) \| ([^|]+) \|", open(os.path.join(KB, "GLOSSARY.md"), encoding="utf-8").read(), re.M)
@@ -1884,7 +1798,7 @@ try{{const cats=[...new Set($$('.book[data-id]').map(c=>c.dataset.cat))].sort();
 <title>Glossary — CICD BY Nabawy</title>{seo_tags("Glossary — CICD BY Nabawy", "CI/CD glossary: terms shared by all books, reader and search.", f"{SITE_URL}/glossary.html")}<style>{BASE_CSS}</style><script>try{{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}}catch(e){{document.documentElement.dataset.theme='sepia'}}</script></head>
 <body>
 <header class="top"><div class="wrap"><a class="logo" href="index.html" style="text-decoration:none;color:inherit"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="5" cy="12" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="6" r="2.6" stroke="#18E299" stroke-width="2"/><circle cx="19" cy="18" r="2.6" stroke="#18E299" stroke-width="2"/><path d="M7.6 12h5.2m0 0-2.6-2.6m2.6 2.6-2.6 2.6M13.4 7.4l2.8-1M13.4 16.6l2.8 1" stroke="#18E299" stroke-width="2" stroke-linecap="round"/></svg>CICD<span> BY Nabawy</span></a>
-<div class="search"><input id="q" type="search" placeholder="Filter terms…"></div><a class="btn" href="index.html" style="text-decoration:none">Map</a><a class="btn" href="shelf.html" style="text-decoration:none">Browse</a><a class="btn" href="roadmap/" style="text-decoration:none">Roadmap</a><button class="btn" id="themebtn">☀</button></div></header>
+<div class="search"><input id="q" type="search" placeholder="Filter terms…"></div><a class="btn" href="index.html" style="text-decoration:none">Home</a><a class="btn" href="roadmap/" style="text-decoration:none">Roadmap</a><button class="btn" id="themebtn">☀</button></div></header>
 <div class="wrap"><h2 class="sec">Glossary</h2><p class="sub">{len(re.findall('<tr ', grows))} terms · shared by books, reader and search</p>
 <div class="gtbar"><input id="q2" type="search" placeholder="Filter terms…" aria-label="Filter glossary terms"><nav class="az" aria-label="Jump to letter">{_az}</nav></div>
 <table class="gloss"><tr><th>Term</th><th>Definition</th><th>Topic</th><th>Link</th></tr>{grows}</table></div>
@@ -1914,7 +1828,7 @@ $('#themebtn').onclick=()=>{{const p=getP('cicdlib:pref',{{theme:'sepia'}});p.th
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><title>{html.escape(b['title'])} — Overview — CICD BY Nabawy</title>{seo_tags(b['title'] + " — Overview — CICD BY Nabawy", b.get("description", ""), f"{SITE_URL}/book/{b['id']}.html", image=f"{SITE_URL}/og/{b['id']}.{OG_EXT}")}<link rel="prefetch" href="../read/{b['id']}.html"><style>{BASE_CSS}</style><script>try{{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}}catch(e){{document.documentElement.dataset.theme='sepia'}}</script>
 {f'<script type="application/ld+json">{json.dumps({"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":SITE_URL + "/"},{"@type":"ListItem","position":2,"name":b["title"],"item":SITE_URL + "/book/" + b["id"] + ".html"}]})}</script>'}></head>
-<body><header class="top"><div class="wrap"><a class="logo" href="../index.html" style="color:inherit">CICD<span> BY Nabawy</span></a><nav class="crumbs"><span class="sep">/</span><span class="here">{html.escape(b['title'])}</span></nav><div class="search"></div><a class="btn" href="../shelf.html">Browse</a><a class="btn" href="../index.html">Map</a><button class="btn" id="themebtn">☀</button></div></header>
+<body><header class="top"><div class="wrap"><a class="logo" href="../index.html" style="color:inherit">CICD<span> BY Nabawy</span></a><nav class="crumbs"><span class="sep">/</span><span class="here">{html.escape(b['title'])}</span></nav><div class="search"></div><a class="btn" href="../index.html">Home</a><button class="btn" id="themebtn">☀</button></div></header>
 <div class="wrap"><div class="bookhero"><div class="coverart" data-cat="{html.escape(b['category'])}"><b>{initials}</b></div><div style="flex:1;min-width:260px"><span class="num">{html.escape(b['category'])} · {b['difficulty']} · {b.get('time_minutes', 30)} min · v{b.get('version', '2.0')} · Updated {html.escape(b.get('updated', ''))}</span><h1 style="font-size:34px;margin:6px 0">{html.escape(b['title'])}</h1><p class="sub">{html.escape(b.get('description', ''))}</p>
 <div class="chiprow"><a id="startbtn" href="../read/{b['id']}.html">Start reading →</a><a href="../read/{b['id']}.html">Reader</a></div>
 <div class="chiprow"><span>Prereqs:</span>{preq}</div></div></div>
@@ -1965,7 +1879,7 @@ try{{const p=getP('cicdlib:prog:{b['id']}',null);if(p&&p.pct>0&&p.pct<100)$('#st
     # --- SEO: sitemap + robots ---
     from datetime import date as _d
     today = _d.today().isoformat()
-    urls = [SITE_URL + "/", SITE_URL + "/shelf.html", SITE_URL + "/glossary.html", SITE_URL + "/roadmap/", SITE_URL + "/map.html", SITE_URL + "/updates.html"]
+    urls = [SITE_URL + "/", SITE_URL + "/glossary.html", SITE_URL + "/roadmap/", SITE_URL + "/map.html", SITE_URL + "/updates.html"]
     for b in books:
         urls.append(f"{SITE_URL}/read/{b['id']}.html")
         urls.append(f"{SITE_URL}/book/{b['id']}.html")
@@ -1979,7 +1893,7 @@ try{{const p=getP('cicdlib:prog:{b['id']}',null);if(p&&p.pct>0&&p.pct<100)$('#st
     # --- P0: 404 + search index ---
     notfound = f"""<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><title>Not found — CICD BY Nabawy</title><link rel="icon" type="image/svg+xml" href="https://eslamnabawy.github.io/cicd-by-nabawy/favicon.svg"><meta name="theme-color" content="#0B0D10"><style>{BASE_CSS}</style><script>try{{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}}catch(e){{document.documentElement.dataset.theme='sepia'}}</script></head><body><div class="wrap" style="text-align:center;padding:80px 20px"><h1>Page not found</h1><p class="sub">Try search or start with Foundations.</p><p><a class="btn" href="index.html">Map</a> <a class="btn" href="shelf.html">Browse</a> <a class="btn" href="read/foundations.html">Foundations</a> <a class="btn" href="glossary.html">Glossary</a></p></div></body></html>"""
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><title>Not found — CICD BY Nabawy</title><link rel="icon" type="image/svg+xml" href="https://eslamnabawy.github.io/cicd-by-nabawy/favicon.svg"><meta name="theme-color" content="#0B0D10"><style>{BASE_CSS}</style><script>try{{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}}catch(e){{document.documentElement.dataset.theme='sepia'}}</script></head><body><div class="wrap" style="text-align:center;padding:80px 20px"><h1>Page not found</h1><p class="sub">Try search or start with Foundations.</p><p><a class="btn" href="index.html">Home</a> <a class="btn" href="read/start-here.html">Start here</a> <a class="btn" href="glossary.html">Glossary</a></p></div></body></html>"""
     pathlib.Path(os.path.join(DIST, "404.html")).write_text(notfound, encoding="utf-8")
     pathlib.Path(os.path.join(DIST, "favicon.svg")).write_text(FAVICON_SVG, encoding="utf-8")
     search_idx = [{"id": b["id"], "title": b["title"], "desc": b.get("description", ""), "cat": b["category"], "dif": b["difficulty"], "tags": b.get("tags", []), "time": b.get("time_minutes", 30), "sections": all_sections.get(b["id"], []), "body": all_body.get(b["id"], "")[:2000]} for b in books]
@@ -1990,3 +1904,5 @@ try{{const p=getP('cicdlib:prog:{b['id']}',null);if(p&&p.pct>0&&p.pct<100)$('#st
 
 if __name__ == "__main__":
     build()
+
+

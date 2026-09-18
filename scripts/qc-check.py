@@ -160,7 +160,7 @@ def dist():
         for s in set(re.findall(r'href="(pdf/series/[^"]+)"', h)):
             if not os.path.exists(os.path.normpath(os.path.join(dist, s))):
                 flag(f"dist series link {f} -> {s}")
-    for landing in ("index.html", "shelf.html"):
+    for landing in ("index.html",):
         p = os.path.join(dist, landing)
         if not os.path.exists(p):
             flag(f"dist landing missing: {landing}")
