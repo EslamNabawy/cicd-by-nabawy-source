@@ -1015,7 +1015,7 @@ def build_map_page(books, output_dir, paths_html=""):
 <h1>The CI/CD library.</h1>
 <p class="hm-sub">{len(books)} handbooks, ordered paths. Pick a row, start reading.</p>
 <div class="hm-vols">{vols_html}</div>
-</div><div class="chiprow" id="marksrow"></div>
+</div>
 <div class="hm-label" aria-hidden="true"><span>CONTENTS</span><span>{len(shown_cats)} BOOKS</span></div>
 <div class="hm-list" id="mapGrid" role="list" aria-label="Library contents">{blocks_html}</div>
 {paths_html}
@@ -1068,7 +1068,6 @@ try{{
 const hist=[];
 $$('.hm-row[data-id]').forEach(a=>{{const p=getP('cicdlib:prog:'+a.dataset.id,null);if(p&&p.pct)hist.push({{id:a.dataset.id,title:a.dataset.title,pct:p.pct,ts:p.ts||0}});}});
 hist.sort((a,b)=>b.ts-a.ts);
-try{{const marks=getP('cicdlib:marks',{{}}),ids=Object.keys(marks),mr=$('#marksrow');if(mr&&ids.length){{mr.innerHTML='<div class="collectlabel">SAVED</div>'+ids.map(id=>{{const c=document.querySelector('.hm-row[data-id="'+id+'"]');const t=c?c.dataset.title:id;return `<a href="read/${{id}}.html">★ ${{t}}</a>`;}}).join('');}}}}catch(e){{}}
 const top1=hist.filter(h=>h.pct<98).sort((a,b)=>b.pct-a.pct)[0]||hist[0],rs=$('#resume');
 if(rs&&top1){{rs.href='read/'+top1.id+'.html';rs.textContent='Resume · '+top1.title+' — '+top1.pct+'%';rs.style.display='';}}
 }}catch(e){{}}
