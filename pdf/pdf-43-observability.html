@@ -231,7 +231,7 @@ code{font-family:'Consolas',monospace; background:var(--panel2); border:1px soli
 #ch-13b .tb th{padding:7px 10px; font-size:11px;}
 #ch-13b .mark{font-size:12.8px; padding:10px 13px;}
 </style>
-<style>@media(max-width:700px){.sheet{padding:10px}.grid2,.grid3,.grid4{grid-template-columns:1fr}}</style></head>
+<style>@media(max-width:700px){.sheet{padding:10px}.grid2,.grid3,.grid4{grid-template-columns:1fr}}</style><style>/* trav-pills */.trav{font:700 10px Consolas,monospace;color:var(--dim);margin-top:10px}.trav a{color:var(--teal-d);text-decoration:none;border-bottom:1px dotted var(--teal)}</style></head>
 <body>
 <!-- ═══ 01 · COVER ═══ -->
 <div class="sheet cover">
@@ -294,7 +294,7 @@ code{font-family:'Consolas',monospace; background:var(--panel2); border:1px soli
 </div>
 <div class="mark m-tip" style="margin-top:11px;"><span class="tag">NOTE</span><b>How to use this book:</b> 14 connected parts merging the study guide and the deployment guide into one journey — defining Observability, the three signal types, Loki/Promtail architecture, Prometheus/exporters, Grafana, the full Minikube + Helm deployment, LogQL/PromQL querying, app integration, a troubleshooting playbook, a terms glossary, and interview prep. Every term stays in English exactly as used in the industry.</div>
 <div class="mark m-key"><span class="tag">KEY IDEA</span><b>The lab this book documents:</b> one Minikube cluster · one dedicated <code>observability</code> namespace · two Helm charts (<code>kube-prometheus-stack</code> + <code>loki-stack</code>) · one shared label model gluing it all together.</div>
-<div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 2 —</span><span><a class="tlink" href="#summary">Start ▶</a></span></div>
+<div class="trav"><span>Threads: </span><a href="../threads/#signals-slos">Signals &amp; SLOs</a></div><div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 2 —</span><span><a class="tlink" href="#summary">Start ▶</a></span></div>
 </div>
 <!-- ═══ 03 · SUMMARY ═══ -->
 <div class="sheet" id="summary">
@@ -316,7 +316,7 @@ code{font-family:'Consolas',monospace; background:var(--panel2); border:1px soli
 <p class="dnote"><b>Grafana</b> is the pane of glass where all of this comes together — because Loki uses <b>the exact same label model as Prometheus and Kubernetes</b>, you can pivot from a metric on a pod straight to that pod's logs.</p>
 </div>
 <div class="mark m-key"><span class="tag">KEY IDEA</span><b>The unifying idea:</b> each component does exactly one job — Promtail <b>pushes</b> logs, Prometheus <b>pulls</b> metrics, Grafana <b>queries both and displays them</b>. Two transport models, one shared label model (namespace/pod/container/node). No shared databases, no unnecessary complexity.</div>
-<div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 3 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ▶ <a class="tlink" href="#ch-01">Next</a></span></div>
+<div class="trav"><span>Threads: </span><a href="../threads/#signals-slos">Signals &amp; SLOs</a> · <a href="../threads/#controller-agent">Controllers &amp; Agents</a></div><div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 3 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ▶ <a class="tlink" href="#ch-01">Next</a></span></div>
 </div>
 <!-- ═══ 04 · CH1 WHAT IS OBSERVABILITY ═══ -->
 <div class="sheet" id="ch-01">
@@ -354,7 +354,7 @@ code{font-family:'Consolas',monospace; background:var(--panel2); border:1px soli
 <div class="mark m-tip"><span class="tag">NOTE · Why the definition matters</span>Notice the key phrase: "without shipping new code to ask a new question." You instrument the system <b>once</b>; after that, any new question ("why was latency high at 2 AM?", "which pod threw the error?") is answered by querying data that <b>already exists</b> — not by redeploying with extra print statements. A good observability system answers questions you didn't anticipate when you built it — unlike traditional monitoring, which only answers pre-written questions.</div>
 <div class="m-exam"><span class="tag">🎓 EXAM</span>The classic interview opener: "What is Observability, and what are its pillars?" → <b>Understanding system state from its data without deploying new code</b> · Pillars: <b>Logs · Metrics · Traces · Visualization</b> — with the question each one answers.</div>
 <p class="lead" style="margin-top:8px;">⏭️ How do the pillars become actual components? → <a class="tlink" href="#ch-02">Part 2: Logs vs Metrics vs Traces</a></p>
-<div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 4 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#summary">Prev</a> · <a class="tlink" href="#ch-02">Next</a></span></div>
+<div class="trav"><span>Threads: </span><a href="../threads/#signals-slos">Signals &amp; SLOs</a></div><div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 4 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#summary">Prev</a> · <a class="tlink" href="#ch-02">Next</a></span></div>
 </div>
 <!-- ═══ 05 · CH2 LOGS VS METRICS VS TRACES ═══ -->
 <div class="sheet" id="ch-02">
@@ -383,7 +383,7 @@ code{font-family:'Consolas',monospace; background:var(--panel2); border:1px soli
 <div class="mark m-key"><span class="tag">KEY IDEA</span>Because Loki uses <b>the exact same label model as Prometheus and Kubernetes</b>, you can pivot from a metric on a pod straight to that pod's logs. See a CPU spike on <code>pod X, namespace Y</code> in a Prometheus panel → query <code>{namespace="Y", pod="X"}</code> in Loki → read the logs from exactly that window. <b>Zero extra configuration produces this.</b></div>
 <div class="m-exam"><span class="tag">🎓 EXAM</span>Logs = <b>what happened</b> (Loki/LogQL) · Metrics = <b>how much/how fast</b> (Prometheus/PromQL) · Traces = <b>where the time went</b> (not in this lab) · Debug flow: <b>alert → trace → log</b>, all visible in Grafana.</div>
 <p class="lead" style="margin-top:8px;">⏭️ Now meet the components that store these signals → <a class="tlink" href="#ch-02b">Part 2·b: The Core Stack</a></p>
-<div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 5 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#ch-01">Prev</a> · <a class="tlink" href="#ch-02b">Next</a></span></div>
+<div class="trav"><span>Threads: </span><a href="../threads/#signals-slos">Signals &amp; SLOs</a></div><div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 5 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#ch-01">Prev</a> · <a class="tlink" href="#ch-02b">Next</a></span></div>
 </div>
 <!-- ═══ 06 · CH2b CORE STACK ═══ -->
 <div class="sheet" id="ch-02b">
@@ -417,7 +417,7 @@ code{font-family:'Consolas',monospace; background:var(--panel2); border:1px soli
 <div class="mark m-warn"><span class="tag">WATCH OUT</span>Grafana <b>stores nothing</b> — it's display only. Any dashboard without live Data Sources = an empty page. The data always lives in Loki or Prometheus. And note that Grafana itself is installed <b>by <code>kube-prometheus-stack</code></b>, not standalone — this exact fact causes the datasource conflict in <a class="tlink" href="#ch-08b">Part 8·b</a>.</div>
 <div class="m-exam"><span class="tag">🎓 EXAM</span>Stack: <b>Loki + Promtail (Logs) · Prometheus + exporters (Metrics) · Grafana (Visualization)</b> · Push = logs, Pull = metrics · Promtail &amp; node-exporter run as <b>DaemonSets</b> · Alertmanager disabled in the lab · Components are swappable — they meet only at Grafana.</div>
 <p class="lead" style="margin-top:8px;">⏭️ Starting with the first pillar: why Loki specifically? → <a class="tlink" href="#ch-03">Part 3</a></p>
-<div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 6 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#ch-02">Prev</a> · <a class="tlink" href="#ch-03">Next</a></span></div>
+<div class="trav"><span>Threads: </span><a href="../threads/#signals-slos">Signals &amp; SLOs</a></div><div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 6 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#ch-02">Prev</a> · <a class="tlink" href="#ch-03">Next</a></span></div>
 </div>
 <!-- ═══ 07 · CH3 WHY LOKI ═══ -->
 <div class="sheet" id="ch-03">
@@ -453,7 +453,7 @@ code{font-family:'Consolas',monospace; background:var(--panel2); border:1px soli
 <div class="mark m-warn"><span class="tag">WATCH OUT</span>The trade-off is real: because Loki doesn't index the log text itself, free-form full-text search is weaker than ELK. You query <b>by labels first</b>, then narrow with LogQL. In Kubernetes environments with good labels — exactly our case — the trade-off pays off enormously.</div>
 <div class="m-exam"><span class="tag">🎓 EXAM</span>The four reasons: <b>Cost (10–20× cheaper — labels-only indexing) · Storage (chunks in cheap object storage) · LogQL (similar to PromQL) · native Grafana integration + same label model</b>. Mental model: <b>"Prometheus for logs"</b> · Philosophy: <b>"don't index what you won't query."</b></div>
 <p class="lead" style="margin-top:8px;">⏭️ How does Loki work internally? The write and read paths: → <a class="tlink" href="#ch-03b">Part 3·b</a></p>
-<div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 7 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#ch-02b">Prev</a> · <a class="tlink" href="#ch-03b">Next</a></span></div>
+<div class="trav"><span>Threads: </span><a href="../threads/#signals-slos">Signals &amp; SLOs</a></div><div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 7 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#ch-02b">Prev</a> · <a class="tlink" href="#ch-03b">Next</a></span></div>
 </div>
 <!-- ═══ 08 · CH3b LOKI ARCHITECTURE ═══ -->
 <div class="sheet" id="ch-03b">
@@ -488,7 +488,7 @@ code{font-family:'Consolas',monospace; background:var(--panel2); border:1px soli
 <div class="mark m-tip"><span class="tag">NOTE · Reads vs writes</span>Writes flow left→right down the pipeline (1→4). Reads never touch the write path's front: the <b>Querier</b> (5) pulls already-stored chunks + index from the Store (and Ingester for recent, not-yet-flushed data).</div>
 <div class="m-exam"><span class="tag">🎓 EXAM</span>The pipeline: <b>Promtail → Distributor (validates &amp; hashes) → Ingester (chunks) → Store (chunks + index) ← Querier (LogQL)</b>. A log stream = <b>a unique label combination</b>.</div>
 <p class="lead" style="margin-top:8px;">⏭️ The component that feeds stage 1 — why it's a DaemonSet: → <a class="tlink" href="#ch-03c">Part 3·c: Promtail</a></p>
-<div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 8 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#ch-03">Prev</a> · <a class="tlink" href="#ch-03c">Next</a></span></div>
+<div class="trav"><span>Threads: </span><a href="../threads/#signals-slos">Signals &amp; SLOs</a> · <a href="../threads/#controller-agent">Controllers &amp; Agents</a></div><div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 8 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#ch-03">Prev</a> · <a class="tlink" href="#ch-03c">Next</a></span></div>
 </div>
 <!-- ═══ 09 · CH3c PROMTAIL WORKFLOW ═══ -->
 <div class="sheet" id="ch-03c">
@@ -506,7 +506,7 @@ code{font-family:'Consolas',monospace; background:var(--panel2); border:1px soli
 <div class="mark m-tip"><span class="tag">NOTE</span>Step 4 completes the push model: Promtail <b>pushes</b> batches over HTTP — the opposite of Prometheus, which <b>pulls</b> from targets. Same labels, opposite transport direction.</div>
 <div class="m-exam"><span class="tag">🎓 EXAM</span>Promtail = <b>DaemonSet</b> (one pod per node — logs are node-local files in <code>/var/log/pods</code>) · Steps: <b>Discover → Tail → Label (same K8s labels as Prometheus) → Ship (HTTP push)</b> · Shared labels = free log↔metric correlation.</div>
 <p class="lead" style="margin-top:8px;">⏭️ From logs to metrics: → <a class="tlink" href="#ch-04">Part 4: Prometheus</a></p>
-<div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 9 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#ch-03b">Prev</a> · <a class="tlink" href="#ch-04">Next</a></span></div>
+<div class="trav"><span>Threads: </span><a href="../threads/#signals-slos">Signals &amp; SLOs</a></div><div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 9 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#ch-03b">Prev</a> · <a class="tlink" href="#ch-04">Next</a></span></div>
 </div>
 <!-- ═══ 10 · CH4 PROMETHEUS ═══ -->
 <div class="sheet" id="ch-04">
@@ -544,7 +544,7 @@ code{font-family:'Consolas',monospace; background:var(--panel2); border:1px soli
 <div class="mark m-warn"><span class="tag">WATCH OUT</span>Every unique combination of labels creates a <b>new series</b> — the same label-explosion issue as Loki: too many varying labels = an explosion in series count.</div>
 <div class="m-exam"><span class="tag">🎓 EXAM</span>Prometheus: <b>Pull Model</b> · Time series = <b>name + labels + timestamped values</b> · Querying: <b>PromQL</b> · Alerting: <b>Alertmanager</b> (disabled here) · Target discovery: <b>automatic via service discovery + CRDs</b> · Dead target = <code>up == 0</code>.</div>
 <p class="lead" style="margin-top:8px;">⏭️ Where do the metrics actually come from? → <a class="tlink" href="#ch-04b">Part 4·b: The Metric Sources</a></p>
-<div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 10 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#ch-03c">Prev</a> · <a class="tlink" href="#ch-04b">Next</a></span></div>
+<div class="trav"><span>Threads: </span><a href="../threads/#signals-slos">Signals &amp; SLOs</a></div><div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 10 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#ch-03c">Prev</a> · <a class="tlink" href="#ch-04b">Next</a></span></div>
 </div>
 <!-- ═══ 11 · CH4b SOURCES ═══ -->
 <div class="sheet" id="ch-04b">
@@ -571,7 +571,7 @@ code{font-family:'Consolas',monospace; background:var(--panel2); border:1px soli
 <div class="mark m-tip"><span class="tag">NOTE · Why CRDs matter</span>Instead of asking "which IPs do I scrape?" — you create a ServiceMonitor naming the Service by label, and the Helm chart that deploys the app ships its ServiceMonitor along. The result: <b>deploying an app = monitoring it automatically</b>. Deploying the CRD <i>is</i> the configuration. (Full example in <a class="tlink" href="#ch-10">Part 10</a>.)</div>
 <div class="m-exam"><span class="tag">🎓 EXAM</span><b>node-exporter</b> (DaemonSet — host metrics) · <b>kube-state-metrics</b> (API server — object state) · <b>cAdvisor</b> (in the kubelet — per-container) · <b>ServiceMonitor/PodMonitor CRDs</b> (declarative scrape targeting, auto-wired by Helm).</div>
 <p class="lead" style="margin-top:8px;">⏭️ The third pillar: the journey of a single request → <a class="tlink" href="#ch-05">Part 5: Traces</a></p>
-<div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 11 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#ch-04">Prev</a> · <a class="tlink" href="#ch-05">Next</a></span></div>
+<div class="trav"><span>Threads: </span><a href="../threads/#signals-slos">Signals &amp; SLOs</a></div><div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 11 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#ch-04">Prev</a> · <a class="tlink" href="#ch-05">Next</a></span></div>
 </div>
 <!-- ═══ 12 · CH5 TRACES ═══ -->
 <div class="sheet" id="ch-05">
@@ -598,7 +598,7 @@ code{font-family:'Consolas',monospace; background:var(--panel2); border:1px soli
 <div class="mark m-key"><span class="tag">KEY IDEA</span>When someone tells you "the API is slow" — Logs tell you <i>what happened</i>, Metrics tell you <i>how slow</i>, but only the <b>Trace</b> tells you <b>exactly where</b> inside the request journey the time went.</div>
 <div class="m-exam"><span class="tag">🎓 EXAM</span>A Trace = <b>the journey of one request across multiple services</b> · Purpose: <b>where the time was spent</b> · Tools: <b>Grafana Tempo / Jaeger / Zipkin</b> via <b>OpenTelemetry</b> · <b>not deployed in this lab</b> — the next step.</div>
 <p class="lead" style="margin-top:8px;">⏭️ The fourth pillar: the window into everything → <a class="tlink" href="#ch-06">Part 6: Grafana</a></p>
-<div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 12 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#ch-04b">Prev</a> · <a class="tlink" href="#ch-06">Next</a></span></div>
+<div class="trav"><span>Threads: </span><a href="../threads/#signals-slos">Signals &amp; SLOs</a></div><div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 12 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#ch-04b">Prev</a> · <a class="tlink" href="#ch-06">Next</a></span></div>
 </div>
 <!-- ═══ 13 · CH6 GRAFANA ═══ -->
 <div class="sheet" id="ch-06">
@@ -640,7 +640,7 @@ code{font-family:'Consolas',monospace; background:var(--panel2); border:1px soli
 <div class="mark m-warn"><span class="tag">WATCH OUT · Deployment detail</span>In this stack, Grafana is <b>installed by <code>kube-prometheus-stack</code></b>, not deployed standalone. That fact is <b>exactly what causes the datasource conflict</b> in <a class="tlink" href="#ch-08b">Part 8·b</a> — the single best "bug I debugged" story in this guide.</div>
 <div class="m-exam"><span class="tag">🎓 EXAM</span>Grafana: <b>stores nothing — live Data Sources</b> · Data Source = <b>URL + Auth + Query Language</b> · Dashboard = set of Panels (graph/table/logs/gauge) · Dashboards = <b>JSON → Git: restore + PR review</b> · Explore = <b>ad-hoc debugging</b>.</div>
 <p class="lead" style="margin-top:8px;">⏭️ All the pieces are ready — how do they fit together in Kubernetes? → <a class="tlink" href="#ch-07">Part 7</a></p>
-<div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 13 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#ch-05">Prev</a> · <a class="tlink" href="#ch-07">Next</a></span></div>
+<div class="trav"><span>Threads: </span><a href="../threads/#signals-slos">Signals &amp; SLOs</a></div><div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 13 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#ch-05">Prev</a> · <a class="tlink" href="#ch-07">Next</a></span></div>
 </div>
 <!-- ═══ 14 · CH7 HOW IT ALL FITS ═══ -->
 <div class="sheet" id="ch-07">
@@ -674,7 +674,7 @@ code{font-family:'Consolas',monospace; background:var(--panel2); border:1px soli
 <div class="mark m-tip"><span class="tag">NOTE · Access pattern</span>Grafana is a <code>ClusterIP</code> Service — reachable only from <i>inside</i> the cluster. From your laptop you reach it via <code>kubectl port-forward</code> (full command + decode in <a class="tlink" href="#ch-08b">Part 8·b</a>).</div>
 <div class="m-exam"><span class="tag">🎓 EXAM</span>Flow: <b>apps/nodes produce → Promtail pushes logs → Loki · Prometheus pulls metrics → TSDB · Grafana queries both live → browser via port-forward</b>. Push ≠ Pull, but labels are shared.</div>
 <p class="lead" style="margin-top:8px;">⏭️ Time to actually deploy this — with two Helm commands: → <a class="tlink" href="#ch-08">Part 8: Deployment</a></p>
-<div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 14 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#ch-06">Prev</a> · <a class="tlink" href="#ch-08">Next</a></span></div>
+<div class="trav"><span>Threads: </span><a href="../threads/#signals-slos">Signals &amp; SLOs</a></div><div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 14 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#ch-06">Prev</a> · <a class="tlink" href="#ch-08">Next</a></span></div>
 </div>
 <!-- ═══ 15 · CH8 DEPLOY 1 ═══ -->
 <div class="sheet" id="ch-08">
@@ -710,7 +710,7 @@ kubectl create namespace <span class="p">observability</span> <span class="g"># 
 <div class="mark m-key"><span class="tag">🔑 IDEMPOTENCY RULE</span><b>Always use <code>helm upgrade --install</code>, never plain <code>helm install</code>.</b> <code>helm upgrade --install</code> is <b>safe to re-run</b>: if the release exists it upgrades in-place; if not, it installs. Plain <code>helm install</code> <b>fails</b> on a second run.</div>
 <div class="m-exam"><span class="tag">🎓 EXAM</span>Helm = <b>K8s package manager</b> (charts → releases, from repos) · <b>two commands = the whole platform</b> · Minikube needs <b>trimmed resource requests</b> or pods go <code>Pending</code> · <b>retention 6h</b> saves disk · <b>helm upgrade --install</b> = idempotent.</div>
 <p class="lead" style="margin-top:6px;">⏭️ Chart 2 — and the one non-obvious gotcha: → <a class="tlink" href="#ch-08b">Part 8·b</a></p>
-<div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 15 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#ch-07">Prev</a> · <a class="tlink" href="#ch-08b">Next</a></span></div>
+<div class="trav"><span>Threads: </span><a href="../threads/#signals-slos">Signals &amp; SLOs</a></div><div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 15 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#ch-07">Prev</a> · <a class="tlink" href="#ch-08b">Next</a></span></div>
 </div>
 <!-- ═══ 16 · CH8b DEPLOY 2 + GOTCHA ═══ -->
 <div class="sheet" id="ch-08b">
@@ -745,7 +745,7 @@ kubectl create namespace <span class="p">observability</span> <span class="g"># 
 <div class="mark m-tip"><span class="tag">DASHBOARDS</span><b>Pre-installed</b> (by kube-prometheus-stack): cluster compute resources, namespaces, nodes, Kubelet — all Prometheus-backed. <b>Not included:</b> Loki dashboards — import via UI (<b>Dashboards → Import → ID → Load</b>): <b>13639</b> (Kubernetes Logs) · <b>12611</b> (Log volume) — or skip dashboards and use <b>Explore</b>.</div>
 <div class="m-exam"><span class="tag">🎓 EXAM</span>Two charts both provisioning a <b>default</b> datasource → Grafana crash-loops (it allows exactly one) → fix: <code>defaultDatasourceEnabled=false</code> · Grafana is <b>ClusterIP</b> → <code>port-forward</code> with <code>--address 0.0.0.0</code> on WSL → <code>admin/admin123</code> · Import dashboards <b>13639 / 12611</b>.</div>
 <p class="lead" style="margin-top:6px;">⏭️ The stack is up — now query it: → <a class="tlink" href="#ch-09">Part 9: LogQL</a></p>
-<div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 16 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#ch-08">Prev</a> · <a class="tlink" href="#ch-09">Next</a></span></div>
+<div class="trav"><span>Threads: </span><a href="../threads/#signals-slos">Signals &amp; SLOs</a></div><div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 16 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#ch-08">Prev</a> · <a class="tlink" href="#ch-09">Next</a></span></div>
 </div>
 <!-- ═══ 17 · CH9 LOGQL ═══ -->
 <div class="sheet" id="ch-09">
@@ -780,7 +780,7 @@ kubectl create namespace <span class="p">observability</span> <span class="g"># 
 <div class="mark m-tip"><span class="tag">NOTE · The bridge</span>Stage 3 converts <b>logs into a metric</b> (<code>count_over_time</code> over a <code>[5m]</code> range) — structurally a sibling of PromQL's <code>rate()</code>, and the bridge between the two signal types.</div>
 <div class="m-exam"><span class="tag">🎓 EXAM</span>LogQL = <b>stream selector (indexed) → line filters (query-time) → optional metric wrapper</b> · <code>|=</code> keep, <code>!=</code> drop · <code>count_over_time(...[5m])</code> turns error lines into a per-pod rate.</div>
 <p class="lead" style="margin-top:6px;">⏭️ The other half of the pair: → <a class="tlink" href="#ch-09b">Part 9·b: PromQL</a></p>
-<div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 17 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#ch-08b">Prev</a> · <a class="tlink" href="#ch-09b">Next</a></span></div>
+<div class="trav"><span>Threads: </span><a href="../threads/#signals-slos">Signals &amp; SLOs</a></div><div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 17 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#ch-08b">Prev</a> · <a class="tlink" href="#ch-09b">Next</a></span></div>
 </div>
 <!-- ═══ 18 · CH9b PROMQL ═══ -->
 <div class="sheet" id="ch-09b">
@@ -819,7 +819,7 @@ kubectl create namespace <span class="p">observability</span> <span class="g"># 
 <div class="mark m-key"><span class="tag">KEY IDEA</span>Because both query languages select by the <b>same labels</b>, the same <code>sum by (pod)</code> grouping works on both sides — a per-pod error <i>rate</i> from Loki lines up exactly with a per-pod CPU <i>rate</i> from Prometheus in adjacent Grafana panels.</div>
 <div class="m-exam"><span class="tag">🎓 EXAM</span><code>up</code> = scrape health · <code>rate(counter[5m])</code> needs a <b>range vector</b> · <code>sum by (pod)</code> keeps the grouping label · cAdvisor → container metrics · node-exporter → <code>node_*</code> metrics.</div>
 <p class="lead" style="margin-top:6px;">⏭️ Getting <i>your own app</i> into the picture: → <a class="tlink" href="#ch-10">Part 10: App Integration</a></p>
-<div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 18 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#ch-09">Prev</a> · <a class="tlink" href="#ch-10">Next</a></span></div>
+<div class="trav"><span>Threads: </span><a href="../threads/#signals-slos">Signals &amp; SLOs</a></div><div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 18 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#ch-09">Prev</a> · <a class="tlink" href="#ch-10">Next</a></span></div>
 </div>
 <!-- ═══ 19 · CH10 APP INTEGRATION ═══ -->
 <div class="sheet" id="ch-10">
@@ -859,7 +859,7 @@ kubectl create namespace <span class="p">observability</span> <span class="g"># 
 <div class="mark m-ok"><span class="tag">✅ VERIFY IT WORKED</span>Query <code>up{namespace="default"}</code> in Explore — your app should appear with value <code>1</code> within a scrape interval or two.</div>
 <div class="m-exam"><span class="tag">🎓 EXAM</span>Logs = <b>zero config</b> (Promtail auto-collects) · Metrics = <b>/metrics endpoint + ServiceMonitor CRD</b> · <code>release:</code> label connects the CRD to the operator · Verify with <code>up{namespace="default"}</code> == 1.</div>
 <p class="lead" style="margin-top:6px;">⏭️ When things go wrong — the playbook: → <a class="tlink" href="#ch-11">Part 11: Troubleshooting</a></p>
-<div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 19 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#ch-09b">Prev</a> · <a class="tlink" href="#ch-11">Next</a></span></div>
+<div class="trav"><span>Threads: </span><a href="../threads/#signals-slos">Signals &amp; SLOs</a></div><div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 19 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#ch-09b">Prev</a> · <a class="tlink" href="#ch-11">Next</a></span></div>
 </div>
 <!-- ═══ 20 · CH11 TROUBLESHOOTING 1 ═══ -->
 <div class="sheet" id="ch-11">
@@ -895,7 +895,7 @@ kubectl create namespace <span class="p">observability</span> <span class="g"># 
 <tr><td>Lesson</td><td><b>Read the crash logs</b> — the error names the subsystem (provisioning), which points straight at ConfigMaps. <b>This is the star interview story.</b></td></tr>
 </table>
 </div>
-<div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 20 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#ch-10">Prev</a> · <a class="tlink" href="#ch-11b">Next</a></span></div>
+<div class="trav"><span>Threads: </span><a href="../threads/#signals-slos">Signals &amp; SLOs</a></div><div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 20 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#ch-10">Prev</a> · <a class="tlink" href="#ch-11b">Next</a></span></div>
 </div>
 <!-- ═══ 21 · CH11b TROUBLESHOOTING 2 + CLEANUP ═══ -->
 <div class="sheet" id="ch-11b">
@@ -926,7 +926,7 @@ kubectl delete namespace observability</div>
 <div class="mark m-warn"><span class="tag">⚠ PRACTICAL NOTE</span>Deleting the namespace removes anything the charts left behind <i>inside it</i> — but the <b>CRDs that <code>kube-prometheus-stack</code> installed are cluster-scoped</b> and may remain after uninstall. Delete them explicitly if you want a spotless cluster.</div>
 <div class="m-exam"><span class="tag">🎓 EXAM</span>WSL port-forward needs <code>--address 0.0.0.0</code> · "No data" chain: <b>backend pod → datasource (Explore) → app target → namespace/time-range</b> · Cleanup: <b>two helm uninstalls + delete namespace</b> (+ cluster-scoped CRDs by hand).</div>
 <p class="lead" style="margin-top:6px;">⏭️ Now zoom out — the whole system on one page: → <a class="tlink" href="#ch-13">Part 13: The Mental Model</a></p>
-<div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 21 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#ch-11">Prev</a> · <a class="tlink" href="#ch-13">Next</a></span></div>
+<div class="trav"><span>Threads: </span><a href="../threads/#signals-slos">Signals &amp; SLOs</a></div><div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 21 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#ch-11">Prev</a> · <a class="tlink" href="#ch-13">Next</a></span></div>
 </div>
 <!-- ═══ 22 · CH13 MENTAL MODEL ═══ -->
 <div class="sheet" id="ch-13">
@@ -972,7 +972,7 @@ kubectl delete namespace observability</div>
   • <i>cAdvisor</i> (inside kubelet) ────────► per-container cpu/mem usage
   • <i>your apps</i> ── /metrics ─(ServiceMonitor CRD)─► auto-discovered</div>
 <div class="m-exam" style="margin-top:9px;"><span class="tag">🧠 THE ONE-PARAGRAPH MENTAL MODEL</span>Nodes produce raw signals. <b>Promtail pushes logs</b> into Loki, which indexes <i>only labels</i> and compresses chunks into storage. <b>Prometheus pulls metrics</b> from node-exporter, cAdvisor, kube-state-metrics, and any app with a <code>/metrics</code> endpoint + ServiceMonitor. Both systems speak the <b>same label language</b> (namespace/pod/container/node). <b>Grafana stores nothing</b> — it queries both backends live (PromQL/LogQL) and renders them for humans. You reach Grafana from your laptop through a <b>port-forward</b> because its ClusterIP isn't externally reachable.</div>
-<div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 22 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#ch-11b">Prev</a> · <a class="tlink" href="#ch-13b">Next</a></span></div>
+<div class="trav"><span>Threads: </span><a href="../threads/#signals-slos">Signals &amp; SLOs</a></div><div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 22 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#ch-11b">Prev</a> · <a class="tlink" href="#ch-13b">Next</a></span></div>
 </div>
 <!-- ═══ 23 · CH13b TERMS GLOSSARY (merged from old Ch8 "Quick Revision") ═══ -->
 <div class="sheet" id="ch-13b">
@@ -1023,7 +1023,7 @@ kubectl delete namespace observability</div>
 </div>
 </div>
 <div class="mark m-key"><span class="tag">REVISION METHOD</span>Cover the right column with your hand, read each term, and say the definition out loud. Anything you stumble on → jump back to its chapter: terms map 1:1 to the <a class="tlink" href="#toc">Table of Contents</a>.</div>
-<div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 23 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#ch-13">Prev</a> · <a class="tlink" href="#ch-14">Next</a></span></div>
+<div class="trav"><span>Threads: </span><a href="../threads/#signals-slos">Signals &amp; SLOs</a></div><div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 23 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#ch-13">Prev</a> · <a class="tlink" href="#ch-14">Next</a></span></div>
 </div>
 <!-- ═══ 24 · CH14 INTERVIEW PREP ═══ -->
 <div class="sheet" id="ch-14">
@@ -1045,7 +1045,7 @@ kubectl delete namespace observability</div>
 <div class="qa star"><span class="qn">Q9 ⭐</span> <b>Tell me about a bug you debugged in this stack.</b><br/><span class="ans">Grafana <code>CrashLoopBackOff</code> with a datasource provisioning error: <b>both charts</b> provisioned a datasource marked <b>default</b>; Grafana allows exactly one. Diagnosed via pod logs + <code>kubectl get configmap</code>; fixed by <code>grafana.sidecar.datasources.defaultDatasourceEnabled=false</code> (or removing <code>isDefault: true</code>).</span></div>
 </div>
 <div class="m-exam"><span class="tag">🎓 INTERVIEW TIP</span>Q9 is <b>the star story</b> — it shows real debugging: read the crash log, form a hypothesis from the error's named subsystem (provisioning), verify with ConfigMaps, apply the targeted fix, and state the lesson (a config validation failure can crash-loop a perfectly sized pod).</div>
-<div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 24 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#ch-13b">Prev</a> · <a class="tlink" href="#ch-14b">Next</a></span></div>
+<div class="trav"><span>Threads: </span><a href="../threads/#signals-slos">Signals &amp; SLOs</a> · <a href="../threads/#gitops-pull">GitOps Pull Model</a></div><div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 24 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#ch-13b">Prev</a> · <a class="tlink" href="#ch-14b">Next</a></span></div>
 </div>
 <!-- ═══ 25 · CH14b CHEAT SHEET ═══ -->
 <div class="sheet" id="ch-14b">
@@ -1073,7 +1073,7 @@ kubectl delete namespace observability</div>
 <span class="c">sum by (pod)</span> (<span class="c">rate</span>(<span class="p">container_cpu_usage_seconds_total</span>[<span class="y">5m</span>]))            <span class="g"># CPU per pod (cAdvisor)</span>
 <span class="c">sum by (pod)</span> (<span class="c">count_over_time</span>(<span class="p">{namespace="default"}</span> |= <span class="s">"error"</span> [<span class="y">5m</span>])) <span class="g"># errors per pod (LogQL)</span></div>
 <div class="mark m-tip"><span class="tag">REMEMBER</span>Diagnostic order that never fails: <code>get pods</code> → <code>describe pod</code> → <code>logs</code> → <code>get configmap</code> → <code>top nodes/pods</code>. Every scenario in Part 11 uses some subset of exactly these five.</div>
-<div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 25 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#ch-14">Prev</a> · <a class="tlink" href="#ch-14c">Next</a></span></div>
+<div class="trav"><span>Threads: </span><a href="../threads/#signals-slos">Signals &amp; SLOs</a></div><div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 25 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#ch-14">Prev</a> · <a class="tlink" href="#ch-14c">Next</a></span></div>
 </div>
 <!-- ═══ 26 · CH14c QUIZ ═══ -->
 <div class="sheet" id="ch-14c">
@@ -1106,7 +1106,7 @@ kubectl delete namespace observability</div>
 </ol>
 </div>
 <div class="mark m-key" style="margin-top:10px;"><span class="tag">FINAL CHECK</span>If you can redraw the Part 13 architecture diagram from memory, define every term in Part 13·b without looking, answer all 14 interview questions out loud, and run the deployment from the cheat sheet — <b>you own this stack.</b> The route ends here. ▶</div>
-<div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 26 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#ch-14b">Prev</a> · <a class="tlink" href="#toc">▲ Top</a></span></div>
+<div class="trav"><span>Threads: </span><a href="../threads/#signals-slos">Signals &amp; SLOs</a></div><div class="folio"><span>📘 Observability Study Guide · <span class="by">By Nabawy</span></span><span class="fnum">— 26 —</span><span><a class="backtoc" href="#toc">▤ TOC</a> ◀ <a class="tlink" href="#ch-14b">Prev</a> · <a class="tlink" href="#toc">▲ Top</a></span></div>
 </div>
 </body>
 </html>

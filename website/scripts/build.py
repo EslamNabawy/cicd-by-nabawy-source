@@ -8,6 +8,12 @@ Adding a book = one manifest entry + re-run. No other files change.
 import glob
 import pathlib
 import json, os, re, html, shutil
+try:
+    from pages_extra import build_extra_pages as _build_extra
+except ImportError:
+    import sys as _sys
+    _sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__))))
+    from pages_extra import build_extra_pages as _build_extra
 from html.parser import HTMLParser
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -998,6 +1004,8 @@ def build_map_page(books, output_dir, paths_html=""):
 <a class="btn" href="index.html" aria-current="page" style="text-decoration:none;border-color:var(--brand);color:var(--brand)">Home</a>
 <a class="btn" href="roadmap/" style="text-decoration:none">Roadmap</a>
 <a class="btn" href="glossary.html" style="text-decoration:none">Glossary</a>
+<a class="btn" href="threads/" style="text-decoration:none">Threads</a>
+<a class="btn" href="tools/" style="text-decoration:none">Tools</a>
 <button class="btn" id="themebtn" aria-label="Toggle theme">☀</button>
 </div></header>
 <div class="wrap">
@@ -1147,6 +1155,8 @@ def build_roadmap_page(books, output_dir):
 <div class="search"></div>
 <a class="btn" href="../index.html" style="text-decoration:none">Home</a>
 <a class="btn" href="../glossary.html" style="text-decoration:none">Glossary</a>
+<a class="btn" href="../threads/" style="text-decoration:none">Threads</a>
+<a class="btn" href="../tools/" style="text-decoration:none">Tools</a>
 <button class="btn" id="themebtn" aria-label="Toggle theme">☀</button>
 </div></header>
 <div class="wrap">
@@ -1173,6 +1183,7 @@ try{{document.querySelectorAll('.stop[data-book]').forEach(s=>{{const p=getP('ci
     os.makedirs(out, exist_ok=True)
     open(os.path.join(out, "index.html"), "w", encoding="utf-8").write(page)
     print(f"BUILT roadmap: {len(books)} books in {len(sections)} sections -> {out}")
+
 
 
 def build():
@@ -1296,6 +1307,7 @@ def build():
 
     build_map_page(books, DIST)
     build_roadmap_page(books, DIST)
+    _build_extra(books, DIST, {"ROOT": ROOT, "PDF": PDF, "BASE_CSS": BASE_CSS, "CAT_HEX": CAT_HEX, "parse_book": parse_book})
     # shared icon library: single source (KB assets) copied into dist
     shutil.rmtree(os.path.join(DIST, "assets"), ignore_errors=True)
     shutil.rmtree(os.path.join(DIST, "book"), ignore_errors=True)  # overviews removed
@@ -1472,6 +1484,8 @@ body.fs .readbody{{max-width:880px}}
 <span id="qcount" style="font-size:12px;color:var(--mut)"></span>
 <a class="readback btn reader-nav" id="backbtn" href="../index.html">← Back</a>
 <nav class="reader-nav" aria-label="Reader navigation"><a class="btn" href="../index.html" style="text-decoration:none">Home</a>
+<a class="btn" href="../threads/" style="text-decoration:none">Threads</a>
+<a class="btn" href="../tools/" style="text-decoration:none">Tools</a>
 </nav>
 <button class="btn" id="fsbtn" aria-label="Toggle fullscreen">⛶</button>
 <button class="btn" id="themebtn" aria-label="Cycle theme">◐</button>
@@ -1725,7 +1739,7 @@ $('#themebtn').onclick=()=>{{const p=getP('cicdlib:pref',{{theme:'sepia'}});p.th
     # --- SEO: sitemap + robots ---
     from datetime import date as _d
     today = _d.today().isoformat()
-    urls = [SITE_URL + "/", SITE_URL + "/glossary.html", SITE_URL + "/roadmap/", SITE_URL + "/map.html", SITE_URL + "/updates.html"]
+    urls = [SITE_URL + "/", SITE_URL + "/glossary.html", SITE_URL + "/roadmap/", SITE_URL + "/map.html", SITE_URL + "/updates.html", SITE_URL + "/threads/", SITE_URL + "/tools/"]
     for b in books:
         urls.append(f"{SITE_URL}/read/{b['id']}.html")
         urls.append(f"{SITE_URL}/read/{b['id']}.html")
