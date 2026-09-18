@@ -744,7 +744,7 @@ const _tocx=$('#tocx');if(_tocx)_tocx.onclick=()=>{document.querySelector('aside
 const _setx=$('#setx');if(_setx)_setx.onclick=()=>{$('#drawer').classList.remove('open');lockScroll();};
 document.addEventListener('keydown',e=>{if(e.key!=='Tab')return;const open=document.querySelector('aside.toc.open')||document.querySelector('#drawer.open');if(!open)return;const f=[...open.querySelectorAll('button,a[href],input,[tabindex]')].filter(el=>el.offsetParent);if(!f.length)return;if(e.shiftKey&&document.activeElement===f[0]){e.preventDefault();f[f.length-1].focus();}else if(!e.shiftKey&&document.activeElement===f[f.length-1]){e.preventDefault();f[0].focus();}});
 // Fullscreen: Fullscreen API where available, CSS-immersive fallback otherwise. Per-session toggle (never auto-restored).
-function syncFS(){const on=document.body.classList.contains('fs');const bar=$('#fsbar');if(bar)bar.hidden=!on;const fb=$('#fsbtn');if(fb)fb.setAttribute('aria-pressed',on?'true':'false');}
+function syncFS(){const on=document.body.classList.contains('fs');const bar=$('#fsbar');if(bar)bar.hidden=!on;const fb=$('#fsbtn');if(fb)fb.setAttribute('aria-pressed',on?'true':'false');const rb=document.querySelector('.readbody');if(rb)rb.style.setProperty('max-width',on?'880px':pref.width);}
 function setFS(on){if(on){document.body.classList.add('fs');try{const el=document.documentElement;const pr=el.requestFullscreen&&el.requestFullscreen();if(pr&&pr.catch)pr.catch(()=>{});}catch(err){}}else{document.body.classList.remove('fs');try{if(document.fullscreenElement&&document.exitFullscreen)document.exitFullscreen().catch(()=>{});}catch(err){}}syncFS();}
 document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement)document.body.classList.remove('fs');syncFS();});
 const _fsb=$('#fsbtn'),_fsm=$('#fsbtnm');if(_fsb)_fsb.onclick=()=>setFS(!document.body.classList.contains('fs'));if(_fsm)_fsm.onclick=()=>{$('#drawer').classList.remove('open');setFS(!document.body.classList.contains('fs'));};
@@ -1085,10 +1085,12 @@ def build_map_page(books, output_dir, paths_html=""):
 <g><use href="#nd" x="880" y="68"/><text class="plabel" x="880" y="114" text-anchor="middle">Deploy</text></g>
 </svg></div>
 </div>
+<div id="continue"></div><div class="chiprow" id="marksrow"></div>
 <div class="map-grid" id="mapGrid" role="list" aria-label="Knowledge structure map">{blocks_html}</div>
 {paths_html}
 <div class="empty" id="mapEmpty" style="display:none"><p>That link doesn't match a category. Jump straight to one:</p><div class="empty-cats">{empty_chips}</div><a href="index.html">Back to overview</a></div>
 </div>
+<a id="resume" style="display:none"></a>
 <footer><div class="wrap"><span>CICD BY Nabawy</span><span><a href="index.html">Home</a> · <a href="roadmap/">Roadmap</a> · <a href="glossary.html">Glossary</a> · v2.1 Sep 2026</span></div></footer>
 <script>
 (function(){{
@@ -1103,7 +1105,7 @@ $('#themebtn').onclick=()=>{{pref.theme=THS[(THS.indexOf(pref.theme)+1)%THS.leng
 const grid=$('#mapGrid'),empty=$('#mapEmpty'),paths=$('#mapPaths');
 function slugFromHash(){{return location.hash.replace(/^#/,'').trim().toLowerCase();}}
 function showHome(){{ grid.style.display='';if(paths)paths.style.display='';grid.classList.remove('hidden');empty.style.display='none';document.title='CICD BY Nabawy'; }}
-function showEmpty(){{ grid.style.display='none';if(paths)paths.style.display='none';empty.style.display=''; }} }}
+function showEmpty(){{ grid.style.display='none';if(paths)paths.style.display='none';empty.style.display=''; }}
 $$('.map-block').forEach(a=>{{
   a.addEventListener('keydown',e=>{{
     if(e.key===' '||e.key==='Spacebar'){{ e.preventDefault(); a.click(); }}
@@ -1127,6 +1129,22 @@ document.addEventListener('click', e=>{{
 window.addEventListener('hashchange',()=>{{ if(slugFromHash()) showEmpty(); else showHome(); }});
 window.addEventListener('popstate',()=>{{ if(slugFromHash()) showEmpty(); else showHome(); }});
 if(slugFromHash()) showEmpty();
+function homeFilter(){{const q=($('#q').value||'').toLowerCase();let n=0;
+$$('.map-block').forEach(a=>{{const t=((a.dataset.cat||'')+' '+(a.dataset.title||'')+' '+a.textContent).toLowerCase();const ok=!q||t.includes(q);a.style.display=ok?'':'none';if(ok)n++;}});
+empty.style.display=n?'none':'';if(paths)paths.style.display=n?'':'none';}}
+const _hq=$('#q');if(_hq)_hq.addEventListener('input',homeFilter);
+try{{
+const hist=[];
+$$('.map-block[data-id]').forEach(a=>{{const p=getP('cicdlib:prog:'+a.dataset.id,null);if(p&&p.pct)hist.push({{id:a.dataset.id,title:a.dataset.title,pct:p.pct,ts:p.ts||0}});}});
+hist.sort((a,b)=>b.ts-a.ts);
+const box=$('#continue');
+const open=hist.filter(h=>h.pct<98).sort((a,b)=>b.pct-a.pct);
+const show=open.length?open.slice(0,4):hist.slice(0,1);
+if(box&&show.length){{box.innerHTML='<div class="collectlabel">PICK UP WHERE YOU LEFT OFF</div><div class="rail">'+show.map(h=>`<div class="card"><h3>${{h.title}}</h3><div class="prog"><b style="width:${{h.pct}}%"></b></div><a class="read" href="read/${{h.id}}.html">Continue — ${{h.pct}}%</a></div>`).join('')+'</div>';}}
+try{{const marks=getP('cicdlib:marks',{{}}),ids=Object.keys(marks),mr=$('#marksrow');if(mr&&ids.length){{mr.innerHTML='<div class="collectlabel">SAVED</div>'+ids.map(id=>{{const c=document.querySelector('.map-block[data-id="'+id+'"]');const t=c?c.dataset.title:id;return `<a href="read/${{id}}.html">★ ${{t}}</a>`;}}).join('');}}}}catch(e){{}}
+const top1=open[0]||hist[0],rs=$('#resume');
+if(rs&&top1){{rs.href='read/'+top1.id+'.html';rs.textContent='Resume · '+top1.title+' — '+top1.pct+'%';rs.style.display='';}}
+}}catch(e){{}}
 }})();
 </script>
 </body>
@@ -1506,6 +1524,13 @@ def build():
 .readbody .sheet.cover{{min-height:0 !important}}
 .readbody .sheet.cover .cver{{position:static !important;margin-top:26px}}
 .readbody .folio{{position:static !important;margin:14px 0 0}}
+.readbody .sheet,.readbody h2,.readbody h3,.readbody h4{{scroll-margin-top:78px}}
+body.fs header.top,body.fs aside.toc,body.fs .tocscrim,body.fs #resume,body.fs .chapnav{{display:none !important}}
+body.fs .rlayout{{max-width:none}}
+body.fs main.read{{padding:26px 22px 120px}}
+body.fs .readbody{{max-width:880px}}
+.map-block:hover{{transform:translateY(-3px);border-color:var(--cat);box-shadow:0 2px 6px rgba(0,0,0,.08),0 16px 32px -12px color-mix(in srgb,var(--cat) 35%,transparent)}}
+.map-block:hover .map-cat::after{{content:' →';color:var(--cat)}}
 .readbody .page.opener .bignum{{margin-top:30px}}
 [data-theme=dark] .readbody{{--paper:#10161d;--white:#151c25;--ink:#e6edf3;--muted:#8b949e;--line:#26303d;--panel:#0a0e14;--text-light:#e6edf3}}
 [data-theme=dark] .readbody table.cmp td:first-child{{background:var(--white)}}

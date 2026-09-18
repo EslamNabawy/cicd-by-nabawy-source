@@ -657,6 +657,13 @@ code{font-family:'Consolas',monospace; background:var(--panel2); border:1px soli
 .readbody .sheet.cover{min-height:0 !important}
 .readbody .sheet.cover .cver{position:static !important;margin-top:26px}
 .readbody .folio{position:static !important;margin:14px 0 0}
+.readbody .sheet,.readbody h2,.readbody h3,.readbody h4{scroll-margin-top:78px}
+body.fs header.top,body.fs aside.toc,body.fs .tocscrim,body.fs #resume,body.fs .chapnav{display:none !important}
+body.fs .rlayout{max-width:none}
+body.fs main.read{padding:26px 22px 120px}
+body.fs .readbody{max-width:880px}
+.map-block:hover{transform:translateY(-3px);border-color:var(--cat);box-shadow:0 2px 6px rgba(0,0,0,.08),0 16px 32px -12px color-mix(in srgb,var(--cat) 35%,transparent)}
+.map-block:hover .map-cat::after{content:' →';color:var(--cat)}
 .readbody .page.opener .bignum{margin-top:30px}
 [data-theme=dark] .readbody{--paper:#10161d;--white:#151c25;--ink:#e6edf3;--muted:#8b949e;--line:#26303d;--panel:#0a0e14;--text-light:#e6edf3}
 [data-theme=dark] .readbody table.cmp td:first-child{background:var(--white)}
@@ -809,7 +816,7 @@ const _tocx=$('#tocx');if(_tocx)_tocx.onclick=()=>{document.querySelector('aside
 const _setx=$('#setx');if(_setx)_setx.onclick=()=>{$('#drawer').classList.remove('open');lockScroll();};
 document.addEventListener('keydown',e=>{if(e.key!=='Tab')return;const open=document.querySelector('aside.toc.open')||document.querySelector('#drawer.open');if(!open)return;const f=[...open.querySelectorAll('button,a[href],input,[tabindex]')].filter(el=>el.offsetParent);if(!f.length)return;if(e.shiftKey&&document.activeElement===f[0]){e.preventDefault();f[f.length-1].focus();}else if(!e.shiftKey&&document.activeElement===f[f.length-1]){e.preventDefault();f[0].focus();}});
 // Fullscreen: Fullscreen API where available, CSS-immersive fallback otherwise. Per-session toggle (never auto-restored).
-function syncFS(){const on=document.body.classList.contains('fs');const bar=$('#fsbar');if(bar)bar.hidden=!on;const fb=$('#fsbtn');if(fb)fb.setAttribute('aria-pressed',on?'true':'false');}
+function syncFS(){const on=document.body.classList.contains('fs');const bar=$('#fsbar');if(bar)bar.hidden=!on;const fb=$('#fsbtn');if(fb)fb.setAttribute('aria-pressed',on?'true':'false');const rb=document.querySelector('.readbody');if(rb)rb.style.setProperty('max-width',on?'880px':pref.width);}
 function setFS(on){if(on){document.body.classList.add('fs');try{const el=document.documentElement;const pr=el.requestFullscreen&&el.requestFullscreen();if(pr&&pr.catch)pr.catch(()=>{});}catch(err){}}else{document.body.classList.remove('fs');try{if(document.fullscreenElement&&document.exitFullscreen)document.exitFullscreen().catch(()=>{});}catch(err){}}syncFS();}
 document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement)document.body.classList.remove('fs');syncFS();});
 const _fsb=$('#fsbtn'),_fsm=$('#fsbtnm');if(_fsb)_fsb.onclick=()=>setFS(!document.body.classList.contains('fs'));if(_fsm)_fsm.onclick=()=>{$('#drawer').classList.remove('open');setFS(!document.body.classList.contains('fs'));};
