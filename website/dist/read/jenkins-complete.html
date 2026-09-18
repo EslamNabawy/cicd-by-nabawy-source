@@ -208,6 +208,8 @@ body.lock{overflow:hidden}
 body.fs #fsbar{display:flex}
 body.fs main.read{padding-top:24px}
 #fsbar .btn{min-height:44px;padding:7px 14px}
+#fsexit-m{display:none;position:fixed;top:12px;right:12px;z-index:90;min-height:44px;min-width:44px;border-radius:12px}
+@media(max-width:900px){body.fs #fsbar{display:none !important}body.fs #fsexit-m{display:inline-flex;align-items:center;justify-content:center}}
 #fs-prog{font-family:var(--mono);font-size:12px;color:var(--mut);padding:0 8px;white-space:nowrap}
 body.fs .topbtn,body.lock .topbtn{display:none !important}
 .toc-head{display:flex;align-items:center;gap:8px;margin-bottom:12px}.toc-head h4{flex:1;min-width:0;margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.drawerx{position:static;flex:0 0 auto;width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;background:transparent;border:1px solid var(--line);border-radius:10px;color:var(--mut);font-size:20px;cursor:pointer}
@@ -1259,7 +1261,7 @@ credentials: { system: { … registry-token: <span class="p">"${REGISTRY_TOKEN}"
 
 
 </div></div>
-<div id="fsbar" hidden><button class="btn" id="fs-toc" aria-label="Open contents">☰</button><button class="btn" id="fs-theme" aria-label="Cycle theme">◐</button><button class="btn" id="fs-dec" aria-label="Smaller text">A−</button><button class="btn" id="fs-inc" aria-label="Larger text">A+</button><span id="fs-prog">0%</span><button class="btn" id="fs-exit">⛶ Exit</button></div>
+<div id="fsbar" hidden><button class="btn" id="fs-theme" aria-label="Cycle theme">◐</button><span id="fs-prog">0%</span><button class="btn" id="fs-exit">⛶ Exit</button></div><button class="btn" id="fsexit-m" aria-label="Exit fullscreen">⛶</button>
 <script>
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 function getP(k,d){try{const v=JSON.parse(localStorage.getItem(k));return v??d}catch(e){return d}}
@@ -1352,7 +1354,7 @@ function setFS(on){if(on){document.body.classList.add('fs');try{const el=documen
 document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement)document.body.classList.remove('fs');syncFS();});
 const _fsb=$('#fsbtn'),_fsm=$('#fsbtnm');if(_fsb)_fsb.onclick=()=>setFS(!document.body.classList.contains('fs'));if(_fsm)_fsm.onclick=()=>{$('#drawer').classList.remove('open');setFS(!document.body.classList.contains('fs'));};
 const _ft=$('#fs-toc');if(_ft)_ft.onclick=()=>tocToggle();
-const _fx=$('#fs-exit');if(_fx)_fx.onclick=()=>setFS(false);
+const _fx=$('#fs-exit');if(_fx)_fx.onclick=()=>setFS(false);const _fxm=$('#fsexit-m');if(_fxm)_fxm.onclick=()=>setFS(false);
 const _fth=$('#fs-theme');if(_fth)_fth.onclick=()=>{setOpt('theme',RTHEMES[(RTHEMES.indexOf(pref.theme)+1)%RTHEMES.length]);};
 function _fsStep(dd){const S=[16,18,20,22];let i=S.indexOf(pref.fs);if(i<0)i=1;setOpt('fs',S[Math.min(S.length-1,Math.max(0,i+dd))]);}
 const _fd=$('#fs-dec'),_fi=$('#fs-inc');if(_fd)_fd.onclick=()=>_fsStep(-1);if(_fi)_fi.onclick=()=>_fsStep(1);

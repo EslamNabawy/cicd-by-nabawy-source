@@ -188,6 +188,8 @@ body.lock{overflow:hidden}
 body.fs #fsbar{display:flex}
 body.fs main.read{padding-top:24px}
 #fsbar .btn{min-height:44px;padding:7px 14px}
+#fsexit-m{display:none;position:fixed;top:12px;right:12px;z-index:90;min-height:44px;min-width:44px;border-radius:12px}
+@media(max-width:900px){body.fs #fsbar{display:none !important}body.fs #fsexit-m{display:inline-flex;align-items:center;justify-content:center}}
 #fs-prog{font-family:var(--mono);font-size:12px;color:var(--mut);padding:0 8px;white-space:nowrap}
 body.fs .topbtn,body.lock .topbtn{display:none !important}
 .toc-head{display:flex;align-items:center;gap:8px;margin-bottom:12px}.toc-head h4{flex:1;min-width:0;margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.drawerx{position:static;flex:0 0 auto;width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;background:transparent;border:1px solid var(--line);border-radius:10px;color:var(--mut);font-size:20px;cursor:pointer}
