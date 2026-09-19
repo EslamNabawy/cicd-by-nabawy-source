@@ -1668,7 +1668,9 @@ body.fs .readbody{{max-width:880px}}
     for b in lab_books:
         source = os.path.join(READ, b["id"] + ".html")
         target = os.path.join(lab_dir, b["id"] + ".html")
-        shutil.copyfile(source, target)
+        _lh = open(source, encoding="utf-8").read()
+        _lh = re.sub(r'href="([a-z0-9][a-z0-9\-]*\.html)"', r'href="../read/\1"', _lh)
+        open(target, "w", encoding="utf-8").write(_lh)
     lab_links = "".join(
         f'<li><a href="{b["id"]}.html">{html.escape(b["title"])}</a>'
         f'<span>{b.get("time_minutes", 45)} min · {html.escape(b.get("lab_env", "Hands-on environment"))}</span></li>'
@@ -1873,13 +1875,13 @@ $('#themebtn').onclick=()=>{{const p=getP('cicdlib:pref',{{theme:'sepia'}});p.th
     rows_u = "".join(_urow(b) for b in books)
     upd = f"""<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><title>Updates — CICD BY Nabawy</title>{seo_tags("Updates — CICD BY Nabawy", "What changed across the library.", f"{SITE_URL}/updates.html")}<style>{BASE_CSS}</style><script>try{{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}}catch(e){{document.documentElement.dataset.theme='sepia'}}</script></head><body><header class="top"><div class="wrap"><a class="logo" href="index.html" style="color:inherit">CICD<span> BY Nabawy</span></a><nav class="crumbs"><span class="sep">/</span><span class="here">Updates</span></nav></div></header><div class="wrap"><h2 class="sec">Updates</h2><p class="sub">{len(books)} books · P0+P1 shipped Sep 2026: metadata, filters, paths, bookmarks, related, lab checks</p><table class="gloss"><tr><th>Book</th><th>Category</th><th>Level</th><th>Ver</th><th>Updated</th><th>Time</th></tr>{rows_u}</table></div></body></html>"""
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><title>Updates — CICD BY Nabawy</title>{seo_tags("Updates — CICD BY Nabawy", "What changed across the library.", f"{SITE_URL}/updates.html")}<style>{BASE_CSS}</style><script>try{{var _p=JSON.parse(localStorage.getItem('cicdlib:pref')||'null');var _t=_p&&_p.theme;var _ok=['sepia','dark','light','dim','contrast'].indexOf(_t)>=0;document.documentElement.dataset.theme=_ok?_t:'sepia'}}catch(e){{document.documentElement.dataset.theme='sepia'}}</script></head><body><header class="top"><div class="wrap"><a class="logo" href="index.html" style="color:inherit">CICD<span> BY Nabawy</span></a><nav class="crumbs"><span class="sep">/</span><span class="here">Updates</span></nav></div></header><div class="wrap"><h2 class="sec">Updates</h2><p class="sub">{len(books)} books · Sep 2026: Study Deck, tool catalog, threads mastery, mobile pass, series retired</p><table class="gloss"><tr><th>Book</th><th>Category</th><th>Level</th><th>Ver</th><th>Updated</th><th>Time</th></tr>{rows_u}</table></div></body></html>"""
     open(os.path.join(DIST, "updates.html"), "w", encoding="utf-8").write(upd)
 
     # --- SEO: sitemap + robots ---
     from datetime import date as _d
     today = _d.today().isoformat()
-    urls = [SITE_URL + "/", SITE_URL + "/glossary.html", SITE_URL + "/roadmap/", SITE_URL + "/map.html", SITE_URL + "/updates.html", SITE_URL + "/threads/", SITE_URL + "/tools/"]
+    urls = [SITE_URL + "/", SITE_URL + "/glossary.html", SITE_URL + "/roadmap/", SITE_URL + "/map.html", SITE_URL + "/updates.html", SITE_URL + "/threads/", SITE_URL + "/tools/", SITE_URL + "/labs/", SITE_URL + "/labs/labs-handbook.html"]
     for b in books:
         urls.append(f"{SITE_URL}/read/{b['id']}.html")
         urls.append(f"{SITE_URL}/read/{b['id']}.html")
