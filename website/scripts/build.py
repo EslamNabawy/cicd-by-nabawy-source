@@ -1353,6 +1353,16 @@ def build():
             return byid[ids[ids.index(b["id"]) + 1]]
         return None
 
+    PDF_MAP = {
+        "pdf-merged-01-start-here.html": "01-Start-Here-Foundations-Git-CI.pdf",
+        "pdf-merged-10-build-artifacts.html": "02-Pipelines-Build-Test-Artifacts.pdf",
+        "pdf-merged-11-deliver-operate.html": "03-Delivery-Deployment-Operations.pdf",
+        "pdf-43-observability.html": "04-Observability-Loki-Prometheus-Grafana.pdf",
+        "pdf-merged-12-jenkins-complete.html": "05-Jenkins-Complete.pdf",
+        "pdf-merged-13-platforms-roadmaps.html": "06-Platforms-Roadmaps-2026.pdf",
+        "pdf-merged-14-labs-handbook.html": "07-Labs-Handbook.pdf",
+        "pdf-36-command-cheatsheet.html": "08-Command-Cheatsheet.pdf",
+    }
     def related_box_html(rels):
         items = ""
         for o, why in rels:
@@ -1623,7 +1633,7 @@ body.fs .readbody{{max-width:880px}}
 <nav class="reader-nav" aria-label="Reader navigation"><a class="btn" href="../index.html" style="text-decoration:none">Home</a>
 <a class="btn" href="../threads/" style="text-decoration:none">Threads</a>
 <a class="btn" href="../tools/" style="text-decoration:none">Tools</a>
-<a class="btn" href="../pdf/{b["file"].replace(".html", ".pdf")}" style="text-decoration:none" download>PDF ↓</a>
+<a class="btn" href="../pdf/{PDF_MAP.get(b["file"], b["file"].replace(".html", ".pdf"))}" style="text-decoration:none" download>PDF ↓</a>
 </nav>
 <button class="btn" id="fsbtn" aria-label="Toggle fullscreen">⛶</button>
 <button class="btn" id="themebtn" aria-label="Cycle theme">◐</button>
